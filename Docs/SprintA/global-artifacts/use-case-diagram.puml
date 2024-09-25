@@ -1,0 +1,86 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+'skinparam shadowing false
+
+skinparam rectangle{
+    BorderColor black
+}
+
+left to right direction
+
+actor "Admin" as A
+actor "BackofficeUser" as BU
+actor "Patient" as P
+actor "Doctor" as D
+
+title "Use Case Diagram"
+
+rectangle "System" as backoffice {
+
+    usecase "register new backoffice user"
+    usecase "reset password"
+    usecase "register for the health care application"
+    usecase "create a user profile"
+    usecase "book appointments online"
+    usecase "update preferences"
+    usecase "update personal details"
+    usecase "delete account and all associated data"
+    usecase "log in to the system using my credentials"
+    usecase "log in to the healthcare system using the IAM credentials"
+    usecase "create new patient profile"
+    usecase "register patient personal details"
+    usecase "register patient medical history"
+    usecase "edit an existing patient profile"
+    usecase "delete a patient profile"
+    usecase "list/search patient profiles"
+    usecase "create new staff profile"
+    usecase "add staff profiles to the hospital's roster"
+    usecase "edit a staff's profile"
+    usecase "deactivate a staff profile"
+    usecase "list/search staff profiles"
+    usecase "request an operation"
+    usecase "update an operation requisition"
+    usecase "remove an operation requisition"
+    usecase "list/search operation requisition"
+    usecase "add new types of operations"
+    usecase "edit existing operation types"
+    usecase "remove obsolete or no longer performed operation types"
+    usecase "list/search operation types"
+
+    A --> "register new backoffice user"
+    A --> "create new patient profile"
+    A --> "register patient personal details"
+    A --> "register patient medical history"
+    A --> "list/search operation types"
+    A --> "remove obsolete or no longer performed operation types"
+    A --> "edit existing operation types"
+    A --> "add new types of operations"
+    A --> "list/search staff profiles"
+    A --> "deactivate a staff profile"
+    A --> "edit a staff's profile"
+    A --> "add staff profiles to the hospital's roster"
+    A --> "create new staff profile"
+    A --> "list/search patient profiles"
+    A --> "delete a patient profile"
+    A --> "edit an existing patient profile"
+
+    BU --> "reset password"
+    BU --> "log in to the system using my credentials"
+
+    P --> "register for the health care application"
+    P --> "create a user profile"
+    P --> "book appointments online"
+    P --> "update preferences"
+    P --> "update personal details"
+    P --> "delete my account and all associated data"
+    P --> "log in to the healthcare system using the IAM credentials"
+
+    D --> "list/search operation requisition"
+    D --> "remove an operation requisition"
+    D --> "update an operation requisition"
+    D --> "request an operation"
+
+}
+
+@enduml
