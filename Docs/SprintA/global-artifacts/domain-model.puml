@@ -1,11 +1,28 @@
 @startuml
-'https://plantuml.com/sequence-diagram
+hide methods
+left to right direction
+'skinparam linetype ortho
 
-autonumber
+Title "Domain Model"
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+skinparam class {
+    LifeLineBorderColor DarkBlue
+    LifeLineBackgroundColor APPLICATION
+    BackgroundColor #F0FFFF
+    ArrowColor grey
+    BorderColor black
+}
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+skinparam packageStyle rectangle
+
+skinparam card {
+    LifeLineBorderColor Green
+    LifeLineBackgroundColor APPLICATION
+    BackgroundColor #F0FFDD
+    ArrowColor DarkGrey
+    BorderColor Black
+}
+
+
+
 @enduml
