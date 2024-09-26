@@ -23,6 +23,232 @@ skinparam card {
     BorderColor Black
 }
 
+package "User Aggregate"{
+    entity User <<entity>><<root>>
+    
+        card Username <<Value Object>>{
+        }
+        card Role <<Value Object>>{
+        }
+        card Email <<Value Object>>{
+        }
+        
+        User --> Username
+        User --> Role
+        User --> Email
+        
+        note right of Role
+            Can be one of the following:
+            - Admin
+            - Doctor
+            - Nurse
+            - Technician
+            - Patient
+        end note
+}
 
+package "Patient Aggregate"{
+    entity Patient <<entity>><<root>>
+        
+        card FirstName <<Value Object>>{
+        }
+        card LastName <<Value Object>>{
+        }
+        card FullName <<Value Object>>{
+        }
+        card DateOfBirth <<Value Object>>{
+        }
+        card Gender <<Value Object>>{
+        }
+        card MedicalRecordNumber <<Value Object>>{
+        }
+        card PhoneNumber <<Value Object>>{
+        }
+        card MedicalConditions <<Value Object>>{
+        }
+        card EmergencyContact <<Value Object>>{
+        }
+        card AppointmentHistory <<Value Object>>{
+        }
+        
+        Patient --> FirstName
+        Patient --> LastName
+        Patient --> FullName
+        Patient --> DateOfBirth
+        Patient --> Gender
+        Patient --> MedicalConditions
+        Patient --> MedicalRecordNumber
+        Patient --> PhoneNumber
+        Patient --> EmergencyContact
+        Patient --> AppointmentHistory
+        
+        note right of MedicalConditions
+            Optional attribute
+        end note
+}
+
+package "Staff Aggregate"{
+    entity Staff <<entity>><<root>>
+    
+        card FirstName <<Value Object>>{
+        }
+        card LastName <<Value Object>>{
+        }
+        card FullName <<Value Object>>{
+        }
+        card LicenseNumber <<Value Object>>{
+        }
+        card Specialization <<Value Object>>{
+        }
+        card PhoneNumber <<Value Object>>{
+        }
+        card AvailabilitySlots <<Value Object>>{
+        }
+        
+        Staff --> FirstName
+        Staff --> LastName
+        Staff --> FullName
+        Staff --> LicenseNumber
+        Staff --> Specialization
+        Staff --> PhoneNumber
+        Staff --> AvailabilitySlots
+        
+        note right of Specialization
+            Can be one of the following:
+                - cardiology
+                - orthopedics
+                - neurology
+                - emergency medicine
+                - obstetrics and gynaecology
+                - internal medicine
+                - anesthesiology
+                - oncology
+                - psychiatry
+                - nuclear medicine
+                - dermatology
+                - family medicine
+                - geriatrics
+                - radiology
+                - critical care medicine
+                - nephrology
+                - hematology
+                - ophthalmology
+                - gastroenterology
+                - immunology
+                - general surgery 
+                - endocrinology
+                - pediatrics
+                - medical genetics
+                - pathology
+                - urology
+        end note
+        
+}
+
+package "Operation Request Aggregate"{
+    entity OperationRequest <<entity>><<root>>
+    
+        card OperationRequestID <<Value Object>>{
+        }
+        card DeadlineDate <<Value Object>>{
+        }
+        card Priority <<Value Object>>{
+        }
+    
+        OperationRequest --> OperationRequestID
+        OperationRequest --> DeadlineDate
+        OperationRequest --> Priority
+}
+
+package "Operation Type Aggregate"{
+    entity OperationType <<entity>><<root>>
+    
+    card OperationTypeID <<Value Object>>{
+    }
+    card Name <<Value Object>>{
+    }
+    card RequiredStaff <<Value Object>>{
+    }
+    card EstimatedDuration <<Value Object>>{
+    }
+    
+    OperationType --> OperationTypeID
+    OperationType --> Name
+    OperationType --> RequiredStaff
+    OperationType --> EstimatedDuration
+}
+
+package "Appointment Aggregate"{
+    entity Appointment <<entity>><<root>>
+    
+    card AppointmentID <<Value Object>>{
+    }
+    card Date <<Value Object>>{
+    }
+    card Time <<Value Object>>{
+    }
+    card Status <<Value Object>>{
+    }
+    
+    Appointment --> AppointmentID
+    Appointment --> Date
+    Appointment --> Time
+    Appointment --> Status
+    
+    note right of Status
+        Can be one of the following:
+            - scheduled
+            - completed
+            - canceled
+    end note
+}
+
+package "Surgery Room Aggregate"{
+    entity SurgeryRoom <<entity>><<root>>
+    
+    card RoomNumber <<Value Object>>{
+    }
+    card Type <<Value Object>>{
+    }
+    card Capacity <<Value Object>>{
+    }
+    card AssignedEquipment <<Value Object>>{
+    }
+    card CurrentStatus <<Value Object>>{
+    }
+    card MaintenanceSlots <<Value Objects>>{
+    }
+    
+    SurgeryRoom --> RoomNumber
+    SurgeryRoom --> Type
+    SurgeryRoom --> Capacity
+    SurgeryRoom --> AssignedEquipment
+    SurgeryRoom --> CurrentStatus
+    SurgeryRoom --> MaintenanceSlots
+    
+    note right of Type
+        Can be one of the following:
+            - operating room
+            - consultation room
+            - ICU
+    end note
+    
+    note right of CurrentStatus
+        Can be one of the following:
+            - available
+            - occupied
+            - under maintenance
+    end note
+}
+
+    Patient "N" --> "1" User : is an >
+    Staff "N" --> "1" User : is an >
+    
+    OperationRequest "N" --> "1" Patient : is linked to >
+    OperationRequest "N" --> "1" Staff : requested by >
+    OperationRequest "N" --> "1" OperationType
+    
+    Appointment "N" --> "1" OperationRequest : risen by > 
+    Appointment "N" --> "1" SurgeryRoom : to be performed on >
 
 @enduml
