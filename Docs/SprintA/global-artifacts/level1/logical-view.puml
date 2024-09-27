@@ -1,0 +1,16 @@
+﻿@startuml
+
+skinparam component {
+    FontSize 30
+    FontName Courier
+    BorderColor Black
+    BackgroundColor LightGreen
+    ArrowFontName Impact
+}
+
+component [<<System>>\nHospital] as COMPONENT
+
+COMPONENT -up- "   API"
+COMPONENT -up- "UI   "
+
+@enduml
