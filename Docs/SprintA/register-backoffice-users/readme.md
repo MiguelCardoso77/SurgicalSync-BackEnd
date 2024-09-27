@@ -33,12 +33,12 @@ A confirmation email is sent to verify the user’s registration
 
 ### Level 1
 
--   [Logical View](../general-purpose/level1/logical-view.svg)
+-   [Logical View](../global-artifacts/level1/logical-view.svg)
 -   [Process View](./level1/process-view.svg)
 
 ### Level 2
 
--   [Logical View](../general-purpose/level2/logical-view.svg)
+-   [Logical View](../global-artifacts/level2/logical-view.svg)
 -   [Process View ](./level2/process-view.svg)
 
 ### Level 3
