@@ -1,0 +1,25 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+participant "<<System>>\n Jobs4U" as SYSTEM
+
+activate USER
+
+    USER -> SYSTEM: wants to create a patient profile
+    activate SYSTEM
+
+        SYSTEM --> USER : requests data (first name, last name, date of birth,\n email, phone number, medical history )
+    deactivate SYSTEM
+        
+    USER -> SYSTEM : provides data
+    activate SYSTEM
+        alt Email and Phone number are unique
+            USER <-- SYSTEM : success: patient profile created
+        else Email and Phone number already exists
+            USER <-- SYSTEM : error: email and phone number exists
+        end
+    deactivate SYSTEM
+    
+deactivate USER
+@enduml
