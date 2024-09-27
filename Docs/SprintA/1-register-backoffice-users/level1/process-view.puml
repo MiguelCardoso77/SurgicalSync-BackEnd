@@ -2,7 +2,7 @@
 autonumber
 
 actor "Admin" as USER
-participant "<<System>>\n Jobs4U" as SYSTEM
+participant "<<System>>\n Hospital" as SYSTEM
 
 activate USER
 
@@ -15,9 +15,9 @@ activate USER
     USER -> SYSTEM : provides data
     activate SYSTEM
         alt User Already Exists
-           USER <-- SYSTEM : error: already exists
+           USER <-- SYSTEM : informs error with suggestion
         else User Created Successfully
-           USER <-- SYSTEM : success: created user
+           USER <-- SYSTEM : shows created user
         end
     deactivate SYSTEM
     
