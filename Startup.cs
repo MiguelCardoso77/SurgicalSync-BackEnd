@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using DDDNetCore.Domain.Patients;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
+using DDDSample1.Infrastructure.Patients;
 
 namespace DDDSample1
 {
@@ -76,6 +78,9 @@ namespace DDDSample1
 
             services.AddTransient<IFamilyRepository,FamilyRepository>();
             services.AddTransient<FamilyService>();
+            
+            services.AddTransient<IPatientRepository,PatientRepository>();
+            services.AddTransient<PatientService>();
         }
     }
 }

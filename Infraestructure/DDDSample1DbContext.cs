@@ -1,3 +1,4 @@
+using DDDNetCore.Domain.Patients;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
@@ -14,6 +15,8 @@ namespace DDDSample1.Infrastructure
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Family> Families { get; set; }
+        
+        public DbSet<Patient> Patients { get; set; }
 
         public DDDSample1DbContext(DbContextOptions options) : base(options)
         {
