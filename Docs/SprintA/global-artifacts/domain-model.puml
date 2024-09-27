@@ -60,7 +60,7 @@ package "Patient Aggregate"{
         }
         card Gender <<Value Object>>{
         }
-        card MedicalRecordNumber <<Value Object>>{
+        card MedicalRecordNumber <<Identity>>{
         }
         card PhoneNumber <<Value Object>>{
         }
@@ -96,7 +96,7 @@ package "Staff Aggregate"{
         }
         card FullName <<Value Object>>{
         }
-        card LicenseNumber <<Value Object>>{
+        card LicenseNumber <<Identity>>{
         }
         card Specialization <<Value Object>>{
         }
@@ -148,7 +148,7 @@ package "Staff Aggregate"{
 package "Operation Request Aggregate"{
     entity OperationRequest <<entity>><<root>>
     
-        card OperationRequestID <<Value Object>>{
+        card OperationRequestID <<Identity>>{
         }
         card DeadlineDate <<Value Object>>{
         }
@@ -163,7 +163,7 @@ package "Operation Request Aggregate"{
 package "Operation Type Aggregate"{
     entity OperationType <<entity>><<root>>
     
-    card OperationTypeID <<Value Object>>{
+    card OperationTypeID <<Identity>>{
     }
     card Name <<Value Object>>{
     }
@@ -181,7 +181,7 @@ package "Operation Type Aggregate"{
 package "Appointment Aggregate"{
     entity Appointment <<entity>><<root>>
     
-    card AppointmentID <<Value Object>>{
+    card AppointmentID <<Identity>>{
     }
     card Date <<Value Object>>{
     }
@@ -206,7 +206,7 @@ package "Appointment Aggregate"{
 package "Surgery Room Aggregate"{
     entity SurgeryRoom <<entity>><<root>>
     
-    card RoomNumber <<Value Object>>{
+    card RoomNumber <<Identity>>{
     }
     card Type <<Value Object>>{
     }
@@ -241,8 +241,8 @@ package "Surgery Room Aggregate"{
     end note
 }
 
-    Patient "N" --> "1" User : is an >
-    Staff "N" --> "1" User : is an >
+    Patient "N" --> "1" User : as an >
+    Staff "N" --> "1" User : as an >
     
     OperationRequest "N" --> "1" Patient : is linked to >
     OperationRequest "N" --> "1" Staff : requested by >
