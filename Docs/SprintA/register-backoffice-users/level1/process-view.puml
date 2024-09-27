@@ -1,0 +1,25 @@
+﻿@startuml
+autonumber
+
+actor "Admin" as USER
+participant "<<System>>\n Jobs4U" as SYSTEM
+
+activate USER
+
+    USER -> SYSTEM: wants to create a backoffice user
+    activate SYSTEM
+
+        SYSTEM --> USER : requests data (username, email, role)
+    deactivate SYSTEM
+        
+    USER -> SYSTEM : provides data
+    activate SYSTEM
+        alt User Already Exists
+           USER <-- SYSTEM : error: already exists
+        else User Created Successfully
+           USER <-- SYSTEM : success: created user
+        end
+    deactivate SYSTEM
+    
+deactivate USER
+@enduml
