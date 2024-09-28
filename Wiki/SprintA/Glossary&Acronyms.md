@@ -1,6 +1,8 @@
-# Glossary
+# Glossary & Acronyms
 
-|       **_TEA_**(EN)        |                                                       **_DESCRIPTION_**                                                        |
+-----------------------------------------------------
+
+|       **_TEA_** (EN)       |                                                       **_DESCRIPTION_**                                                        |
 |:--------------------------:|:------------------------------------------------------------------------------------------------------------------------------:|
 |     **Anesthesiology**     |                       Medical specialization focused on pain relief and patient sedation during surgery.                       |
 |         **Audit**          |                 A systematic review or assessment of records, often for compliance or performance monitoring.                  |

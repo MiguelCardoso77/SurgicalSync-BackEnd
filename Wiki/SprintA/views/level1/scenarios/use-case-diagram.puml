@@ -1,0 +1,124 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+'skinparam shadowing false
+
+skinparam rectangle{
+    BorderColor black
+}
+
+left to right direction
+
+skinparam actor {
+    BackgroundColor LightBlue
+    BorderColor Blue
+    FontColor Black
+}
+
+actor "Admin" as A #LightBlue
+actor "BackofficeUser" as BU #LightGreen
+actor "Patient" as P #Yellow
+actor "Doctor" as D #Red
+actor "Non-authenticated Backoffice User" as NA #Violet
+
+title "Use Case Diagram"
+
+rectangle "System" as backoffice {
+
+    usecase "uc01 - register new backoffice user via an out-of-band process"
+    usecase "uc13 - create new patient profile"
+    usecase "uc14 - register patient's personal details and medical history"
+    usecase "uc15 - edit a new existing profile"
+    usecase "uc16 - delete a patient profile"
+    usecase "uc17 - list patient profiles"
+    usecase "uc18 - search patient profiles"
+    usecase "uc19 - see patient details"
+    usecase "uc20 - edit patient profile"
+    usecase "uc21 - create a new staff profile"
+    usecase "uc22 - add the staff profile to the hospital's roster"
+    usecase "uc23 - edit staff's profile"
+    usecase "uc24 - deactivate a staff profile"
+    usecase "uc25 - restore a staff profile"
+    usecase "uc26 - list staff profiles"
+    usecase "uc27 - search staff profiles"
+    usecase "uc28 - see staff details"
+    usecase "uc29 - remove staff profile"
+    usecase "uc37 - add new types of operations"
+    usecase "uc38 - edit existing operation types"
+    usecase "uc39 - remove operation types"
+    usecase "uc40 - list operation types"
+    usecase "uc41 - search operation types"
+    usecase "uc42 - see operation type details"
+    
+    A --> "uc01 - register new backoffice user via an out-of-band process"
+    A --> "uc13 - create new patient profile"
+    A --> "uc14 - register patient's personal details and medical history"
+    A --> "uc15 - edit a new existing profile"
+    A --> "uc16 - delete a patient profile"
+    A --> "uc17 - list patient profiles"
+    A --> "uc18 - search patient profiles"
+    A --> "uc19 - see patient details"
+    A --> "uc20 - edit patient profile"
+    A --> "uc21 - create a new staff profile"
+    A --> "uc22 - add the staff profile to the hospital's roster"
+    A --> "uc23 - edit staff's profile"
+    A --> "uc24 - deactivate a staff profile"
+    A --> "uc25 - restore a staff profile"
+    A --> "uc26 - list staff profiles"
+    A --> "uc27 - search staff profiles"
+    A --> "uc28 - see staff details"
+    A --> "uc29 - remove staff profile"
+    A --> "uc37 - add new types of operations"
+    A --> "uc38 - edit existing operation types"
+    A --> "uc39 - remove operation types"
+    A --> "uc40 - list operation types"
+    A --> "uc41 - search operation types"
+    A --> "uc42 - see operation type details"
+    
+    usecase "uc02 - reset my password if I forget it"
+    
+    BU --> "uc02 - reset my password if I forget it"
+    
+    usecase "uc03 - register for the health care application"
+    usecase "uc04 - create a user profile"
+    usecase "uc05 - book appointments online"
+    usecase "uc06 - change my personal details"
+    usecase "uc07 - change my preferences"
+    usecase "uc08 - delete my account and all associated data"
+    usecase "uc11 - log in to the system using the IAM credentials"
+    usecase "uc12 - access my features"
+    
+    P --> "uc03 - register for the health care application"
+    P --> "uc04 - create a user profile"
+    P --> "uc05 - book appointments online"
+    P --> "uc06 - change my personal details"
+    P --> "uc07 - change my preferences"
+    P --> "uc08 - delete my account and all associated data"
+    P --> "uc11 - log in to the system using the IAM credentials"
+    P --> "uc12 - access my features"
+   
+    usecase "uc09 - log in to the System using my credentials"
+    usecase "uc10 - role-based access control"
+    
+    NA --> "uc09 - log in to the System using my credentials"
+    NA --> "uc10 - role-based access control"
+    
+    usecase "uc30 - request an operation"
+    usecase "uc31 - schedule an operation"
+    usecase "uc32 - update an operation requisition"
+    usecase "uc33 - remove an operation requisition"
+    usecase "uc34 - list operation requisitions"
+    usecase "uc35 - search operation requisitions"
+    usecase "uc36 - see operation requisitions"
+    
+    D --> "uc30 - request an operation"
+    D --> "uc31 - schedule an operation"
+    D --> "uc32 - update an operation requisition"
+    D --> "uc33 - remove an operation requisition"
+    D --> "uc34 - list operation requisitions"
+    D --> "uc35 - search operation requisitions"
+    D --> "uc36 - see operation requisitions"
+
+}
+
+@enduml
