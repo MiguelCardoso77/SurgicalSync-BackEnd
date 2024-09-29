@@ -15,8 +15,7 @@
   </ItemGroup>
  
   <ItemGroup>
-    <Folder Include="docs\SprintA\acronyms\" />
-    <Folder Include="docs\SprintA\architecture\" />
+    <Folder Include="Wiki\SprintA\diagrams\level1\logical-view\" />
     <Folder Include="Wiki\SprintB\" />
     <Folder Include="Wiki\SprintC\" />
   </ItemGroup>
