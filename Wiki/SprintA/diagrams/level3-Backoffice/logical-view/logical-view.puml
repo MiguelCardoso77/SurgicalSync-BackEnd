@@ -8,7 +8,7 @@ skinparam component {
     ArrowFontName Impact
 }
 
-component [<<System>>\nBackEnd\nDataManagement] as COMPONENT {
+component [<<System>>\nBackoffice\nWebApplication] as COMPONENT {
     component "Controllers" as CONTROLLERS
     component "Services" as SERVICES
     component "Domain" as DOMAIN
@@ -17,7 +17,7 @@ component [<<System>>\nBackEnd\nDataManagement] as COMPONENT {
     
 }
 
-CONTROLLERS -up- "BackEnd API"
+CONTROLLERS -up- "Backoffice API"
 CONTROLLERS -down- SERVICES
 SERVICES -down- DOMAIN
 SERVICES -down- DTO

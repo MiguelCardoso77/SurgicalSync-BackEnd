@@ -1,4 +1,4 @@
-﻿    @startuml
+@startuml
 
 skinparam component {
     FontSize 30
@@ -8,14 +8,14 @@ skinparam component {
     ArrowFontName Impact
 }
 
-component [<<System>>\nHospital] as COMPONENT {
+component [<<System>>\nSurgicalSync] as COMPONENT {
     component "Back End\n Data Management" as BE
     component "Front End" as FE
     component "Planning" as PLANNING
 }
 
 FE -up- "     UI"
-BE -up- "   API"
+BE -up- "       API"
 BE -right- FE
 BE -down- PLANNING
 

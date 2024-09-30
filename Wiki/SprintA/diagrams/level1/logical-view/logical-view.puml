@@ -1,0 +1,15 @@
+@startuml
+
+skinparam component {
+    FontSize 30
+    FontName Courier
+    BorderColor Black
+    BackgroundColor LightGreen
+}
+
+component [<<System>>\nSurgicalSync] as COMPONENT
+
+COMPONENT -up- "  API" 
+COMPONENT -up- "UI  "
+
+@enduml

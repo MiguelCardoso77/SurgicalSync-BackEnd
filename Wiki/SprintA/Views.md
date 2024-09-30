@@ -67,6 +67,7 @@ To visually model/represent both what was implemented and the ideas and alternat
 --------------------------------------------------------------------
 
 ### Logical View
+![logical-view.svg](diagrams/level1/logical-view/logical-view.svg)
 
 --------------------------------------------------------------------
 
@@ -79,6 +80,7 @@ To visually model/represent both what was implemented and the ideas and alternat
 ---------------------------------------------------------------------
 
 ### Logical View
+![logical-view.svg](diagrams/level2/logical-view/logical-view.svg)
 
 ----------------------------------------------------------------------
 
@@ -99,6 +101,7 @@ To visually model/represent both what was implemented and the ideas and alternat
 ------------------------------------------------------------------------
 
 ### Logical View
+![logical-view.svg](diagrams/level3-Backoffice/logical-view/logical-view.svg)
 
 -----------------------------------------------------------------------
 
