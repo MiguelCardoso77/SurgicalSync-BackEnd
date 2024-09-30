@@ -4,6 +4,7 @@ namespace DDDNetCore.Domain.Users
 {
     public class User : Entity<UserId>, IAggregateRoot
     {
+        public UserId Id { get; private set; }
         public string UserEmail { get; private set; }
         public string UserName { get; private set; }
         public string Password { get; private set; }
@@ -16,9 +17,9 @@ namespace DDDNetCore.Domain.Users
             this.Password = "";
         }
         
-        public User(string userEmail, string userName, string password)
+        public User(UserId id, string userEmail, string userName, string password)
         {
-            this.Id = new UserId(userEmail);
+            this.Id = id;
             this.UserEmail = userEmail;
             this.UserName = userName;
             this.Password = password;

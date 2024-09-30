@@ -9,16 +9,14 @@ namespace DDDNetCore.Domain.Users
         {
         }
 
-        override 
-            protected Object createFromString(String text)
+        protected override object createFromString(string text)
         {
             return text;
         }
-
-        override
-            public string AsString()
+        
+        public override string AsString()
         {
-            return Value;
+            return (string)Value;
         }
         
     }
