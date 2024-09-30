@@ -1,4 +1,6 @@
 ﻿using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.Users;
+using DDDNetCore.Infraestructure.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -81,6 +83,9 @@ namespace DDDSample1
             
             services.AddTransient<IPatientRepository,PatientRepository>();
             services.AddTransient<PatientService>();
+            
+            services.AddTransient<IUserRepository,UserRepository>();
+            services.AddTransient<UserService>();
         }
     }
 }
