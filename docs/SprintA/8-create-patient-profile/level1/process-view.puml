@@ -2,7 +2,7 @@
 autonumber
 
 actor "Admin" as USER
-participant "<<System>>\n Jobs4U" as SYSTEM
+participant "<<System>>\n Hospital" as SYSTEM
 
 activate USER
 
