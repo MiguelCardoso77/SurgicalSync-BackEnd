@@ -34,12 +34,12 @@ A confirmation email is sent to verify the user’s registration
 ### Level 1
 
 -   [Logical View](../global-artifacts/level1/logical-view.svg)
--   [Process View](./level1/process-view.svg)
+![process-view.svg](./level1/process-view.svg)
 
 ### Level 2
 
 -   [Logical View](../global-artifacts/level2/logical-view.svg)
--   [Process View ](./level2/process-view.svg)
+![process-view.svg](./level2/process-view.svg)
 
 ### Level 3
 
@@ -50,12 +50,12 @@ A confirmation email is sent to verify the user’s registration
 
 #### Implementation Views
 
--   [MDR Implementation View](../general-purpose/level3/mdr-implementation-view.svg)
+-   [MDR Implementation View](./level3/mdr-implementation-view.svg)
 -   [UI Implementation View](../general-purpose/level3/ui-implementation-view.svg)
 
 #### Process Views
 
--   [MDR Process View](./level3/mdr-process-view.svg)
+![backend-process-view.svg](level3/backend-process-view.svg)
 -   [SPA Process View](./level3/spa-process-view.svg)
 -   [Class Diagram View](./level3/class-diagram.svg)
 
