@@ -1,0 +1,69 @@
+﻿@startuml
+
+class User {
+    - UserEmail
+    - UserPassword
+    - UserName
+    - IsActive
+    + User(string userEmail, string userName, string password)
+    + ChangeUserName(string userName)
+    + ChangePassword(string password)
+    + ActivateUser()
+    + DeactivateUser()
+}
+
+class UserDTO {
+    - UserEmail
+    - UserPassword
+    - UserName
+    - IsActive
+    + UserDTO(string userEmail, string userName, string password)
+    + ChangeUserName(string userName)
+    + ChangePassword(string password)
+    + ActivateUser()
+    + DeactivateUser()
+}
+
+class UsersController {
+    + GetAll()
+    + GetGetById(String id)
+    + Create(UserDto dto)
+    + Update(String id, UserDto dto)
+    + SoftDelete(String id)
+    + HardDelete(String id)
+}
+
+class UserId {
+    + UserId(string value)
+}
+
+class UserService {
+    + GetAllAsync()
+    + GetByIdAsync(UserId id)
+    + AddAsync(UserDto dto)
+    + UpdateAsync(UserDto dto)
+    + InactivateAsync(UserId id)
+    + DeleteAsync(UserId id)
+}
+
+interface IUserRepository {
+}
+
+interface UserRepository {
+}
+
+class BaseRepository {
+    ====
+    Classe do projeto base
+    ====
+}
+
+UsersController --> UserDTO : creates
+UserDTO --> UserService
+UserService -> User : creates
+User -> UserId : has a
+UserService --> UserRepository
+UserRepository --|> BaseRepository
+UserRepository -|> IUserRepository
+
+@enduml
