@@ -158,7 +158,7 @@ This section lists the functional requirements, quality attributes and design co
 
 </div>
 
-![use-case-diagram](Diagrams%2Flevel1%2Fscenarios-view%2Fuse-case-diagram.svg)
+![use-case-diagram.svg](diagrams%2Fviews%2Flevel1%2Fscenarios-view%2Fuse-case-diagram.svg)
 
 #### Quality Attributes
 
