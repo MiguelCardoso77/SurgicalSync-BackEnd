@@ -8,7 +8,7 @@ backoffice system with appropriate permissions.
 
 ## 2. Customer Specifications and Clarifications
 
-The client has outlined that the Admin Role should possess the functionality to create backoffice users through IAM.
+The client has outlined that the Admin Role should possess the functionality to create backoffice users through an out-of-band process.
 
 The admin decides the role of the user, which can be one of the following:
 
@@ -33,12 +33,18 @@ A confirmation email is sent to verify the user’s registration
 
 ### Level 1
 
--   [Logical View](../global-artifacts/level1/logical-view.svg)
+- Logical View
+![logical-view.svg](../global-artifacts/level1/logical-view.svg)
+###
+- Process View
 ![process-view.svg](./level1/process-view.svg)
 
 ### Level 2
 
--   [Logical View](../global-artifacts/level2/logical-view.svg)
+- Logical View
+![logical-view.svg](../global-artifacts/level2/logical-view.svg)
+###
+- Process View
 ![process-view.svg](./level2/process-view.svg)
 
 ### Level 3
@@ -55,9 +61,14 @@ A confirmation email is sent to verify the user’s registration
 
 #### Process Views
 
-![backend-process-view.svg](level3/backend-process-view.svg)
--   [SPA Process View](./level3/spa-process-view.svg)
--   [Class Diagram View](./level3/class-diagram.svg)
+- BackEnd Process View
+![backend-process-view.svg](./level3/backend-process-view.svg)
+###
+- FrontEnd Process View
+![frontend-process-view.svg](./level3/frontend-process-view.svg)
+###
+- Class Diagram View
+![class-diagram-view.svg](./class-diagram.svg)
 
 ## 4. Acceptance Criteria and Tests
 
@@ -123,4 +134,3 @@ validated against the acceptance criteria outlined in section 4.
 The user story is considered finalized when the documentation is updated to reflect the changes
 introduced by the implementation. This includes updating the relevant diagrams, README files, and any
 other documentation to ensure it accurately represents the current state of the system.
-

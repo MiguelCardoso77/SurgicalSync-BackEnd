@@ -3,47 +3,40 @@ autonumber
 
 actor "Admin" as USER
 
-participant "UI" as UI
 participant "FrontEnd" as FE
 participant "BackEnd" as BE
 
 activate USER
 
-    USER -> UI : wants to create a backoffice user
-    activate UI
+    USER -> FE : wants to create a backoffice user
+    activate FE
     
-        UI --> USER : requests data (username, email, role)
-    deactivate UI
+        FE --> USER : requests data (username, email, role)
+    deactivate FE
 
-    USER -> UI : provides data
-    activate UI
-    
-        UI -> FE  : POST /users-backoffice (with user data)
+    USER -> FE : provides data
+   
         activate FE
         
             alt User Already Exists
                
-                FE -> BE : POST /users-backoffice (with user data)
-                activate BE
-                
-                    BE --> FE : error: user already exists
-                deactivate BE
-                
-                FE --> UI  : error: user already exists
-                UI --> USER : informs error with suggestion
+            FE -> BE : POST /users-backoffice (with user data)
+            activate BE
+            
+                BE --> FE : error: user already exists
+            deactivate BE 
+            FE --> USER : informs error with suggestion
+            
             else User Created Successfully
             
-                FE -> BE : POST /users-backoffice (with user data)
-                activate BE
-                
-                    BE --> FE : success: created user (returns user ID)
-                deactivate BE
-                FE --> UI : success: created user (returns user ID)
-                
+            FE -> BE : POST /users-backoffice (with user data)
+            activate BE
+            
+                BE --> FE : success: created user (returns user ID)
+            deactivate BE
+               
+            FE --> USER : shows created user
         deactivate FE
-        
-        UI --> USER : shows created user
-    deactivate UI
     end
             
 deactivate USER
