@@ -8,27 +8,15 @@
   - [Introduction](#introduction)
   - [Level 1](#level-1)
     - [Logical View](#logical-view)
-    - [Process View](#process-view)
   - [Level 2](#level-2)
     - [Logical View](#logical-view-1)
-    - [Process View](#process-view-1)
     - [Implementation View](#implementation-view)
-    - [Physical View](#physical-view)
-  - [Level 3 (Backoffice)](#level-3-backoffice)
+  - [Level 3 (Backend)](#level-3-backend)
     - [Logical View](#logical-view-2)
-    - [Process View](#process-view-2)
-    - [Implementation View](#implementation-view-1)
-    - [Physical View](#physical-view-1)
-  - [Level 3 (3D)](#level-3-3d)
+  - [Level 3 (Frontend)](#level-3-frontend)
     - [Logical View](#logical-view-3)
-    - [Process View](#process-view-3)
-    - [Implementation View](#implementation-view-2)
-    - [Physical View](#physical-view-2)
   - [Level 3 (Planning)](#level-3-planning)
     - [Logical View](#logical-view-4)
-    - [Process View](#process-view-4)
-    - [Implementation View](#implementation-view-3)
-    - [Physical View](#physical-view-3)
 
 </div>
 
@@ -67,11 +55,8 @@ To visually model/represent both what was implemented and the ideas and alternat
 --------------------------------------------------------------------
 
 ### Logical View
-![logical-view.svg](diagrams/level1/logical-view/logical-view.svg)
 
---------------------------------------------------------------------
-
-### Process View
+![logical-view.svg](diagrams%2Fviews%2Flevel1%2Flogical-view%2Flogical-view.svg)
 
 ---------------------------------------------------------------------
 
@@ -80,62 +65,32 @@ To visually model/represent both what was implemented and the ideas and alternat
 ---------------------------------------------------------------------
 
 ### Logical View
-![logical-view.svg](diagrams/level2/logical-view/logical-view.svg)
+
+![logical-view.png](diagrams%2Fviews%2Flevel2%2Flogical-view%2Flogical-view.png)
 
 ----------------------------------------------------------------------
 
-### Process View
-
------------------------------------------------------------------------
-
 ### Implementation View
 
------------------------------------------------------------------------
-
-### Physical View
+![implementation-diagram.svg](diagrams%2Fviews%2Flevel2%2Fimplementation-view%2Fimplementation-diagram.svg)
 
 -----------------------------------------------------------------------
 
-## Level 3 (Backoffice)
+## Level 3 (Backend)
 
 ------------------------------------------------------------------------
 
 ### Logical View
-![logical-view.svg](diagrams/level3-Backoffice/logical-view/logical-view.svg)
-
------------------------------------------------------------------------
-
-### Process View
 
 ------------------------------------------------------------------------
 
-### Implementation View
-
-------------------------------------------------------------------------
-
-### Physical View
-
--------------------------------------------------------------------------
-
-## Level 3 (3D)
+## Level 3 (Frontend)
 
 ------------------------------------------------------------------------
 
 ### Logical View
 
 -----------------------------------------------------------------------
-
-### Process View
-
-------------------------------------------------------------------------
-
-### Implementation View
-
-------------------------------------------------------------------------
-
-### Physical View
-
--------------------------------------------------------------------------
 
 ## Level 3 (Planning)
 
@@ -143,16 +98,3 @@ To visually model/represent both what was implemented and the ideas and alternat
 
 ### Logical View
 
------------------------------------------------------------------------
-
-### Process View
-
-------------------------------------------------------------------------
-
-### Implementation View
-
-------------------------------------------------------------------------
-
-### Physical View
-
--------------------------------------------------------------------------

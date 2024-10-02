@@ -50,11 +50,7 @@ package "User Aggregate"{
 package "Patient Aggregate"{
     entity Patient <<entity>><<root>>
         
-        card FirstName <<Value Object>>{
-        }
-        card LastName <<Value Object>>{
-        }
-        card FullName <<Value Object>>{
+        card Name <<Value Object>>{
         }
         card DateOfBirth <<Value Object>>{
         }
@@ -71,9 +67,7 @@ package "Patient Aggregate"{
         card AppointmentHistory <<Value Object>>{
         }
         
-        Patient --> FirstName
-        Patient --> LastName
-        Patient --> FullName
+        Patient --> Name
         Patient --> DateOfBirth
         Patient --> Gender
         Patient --> MedicalConditions
@@ -89,12 +83,8 @@ package "Patient Aggregate"{
 
 package "Staff Aggregate"{
     entity Staff <<entity>><<root>>
-    
-        card FirstName <<Value Object>>{
-        }
-        card LastName <<Value Object>>{
-        }
-        card FullName <<Value Object>>{
+
+        card Name <<Value Object>>{
         }
         card LicenseNumber <<Identity>>{
         }
@@ -105,9 +95,7 @@ package "Staff Aggregate"{
         card AvailabilitySlots <<Value Object>>{
         }
         
-        Staff --> FirstName
-        Staff --> LastName
-        Staff --> FullName
+        Staff --> Name
         Staff --> LicenseNumber
         Staff --> Specialization
         Staff --> PhoneNumber

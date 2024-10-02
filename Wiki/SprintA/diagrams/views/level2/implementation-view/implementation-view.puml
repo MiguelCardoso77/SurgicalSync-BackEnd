@@ -1,0 +1,30 @@
+﻿@startuml
+'https://plantuml.com/component-diagram
+
+Title "Implementation Diagram"
+
+skinparam package{
+    FontSize 20
+    FontName Courier
+    BorderColor Black
+    BackgroundColor LightBlue
+}
+
+package "SurgicalSync"{
+
+    package "Planning"{
+    }
+    package "Backend"{
+    }
+    package "Frontend"{
+    }
+    
+    "Backend" -.-> "Frontend"    
+    "Backend" -.-> "Planning"
+    "Planning" -.-> "Frontend"
+    
+    
+}
+
+
+@enduml

@@ -1,0 +1,36 @@
+﻿@startuml
+top to bottom direction
+
+Title "Level 1 - logical view"
+
+skinparam component{
+    FontSize 30
+    FontName Courier
+    BorderColor Black
+    BackgroundColor LightBlue
+}
+
+skinparam interface{
+     FontSize 20
+     FontColor Black
+     BackgroundColor LightBlue
+     BorderColor Black
+}
+
+skinparam component{
+    
+}
+
+interface "API" as API
+interface "UI" as UI
+
+component "SurgicalSync" <<component>><<system(C4)>>{
+    portin " " as PI1 #lightBlue 
+    portin " " as PI2 #LightBlue
+}
+
+API--PI1
+UI--PI2
+
+
+@enduml
