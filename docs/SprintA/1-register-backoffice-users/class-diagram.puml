@@ -1,15 +1,19 @@
 ﻿@startuml
 
+title Class Diagram
+
 class User {
     - UserEmail
     - UserPassword
-    - UserName
+    - Username
+    - UserRole
     - IsActive
-    + User(string userEmail, string userName, string password)
-    + ChangeUserName(string userName)
-    + ChangePassword(string password)
+    + User(UserEmail userEmail, Username username, UserRole userRole, Password password)
+    + ChangeUsername(Username username)
+    + ChangeUserRole(UserRole userRole)
+    + ChangePassword(Password password)
     + ActivateUser()
-    + DeactivateUser()
+    + DeactivateUser()  
 }
 
 class UserDTO {
@@ -37,6 +41,22 @@ class UserId {
     + UserId(string value)
 }
 
+class Username {
+    + Username(string username)
+}
+
+class UserEmail {
+    + UserEmail(string email)
+}
+
+class UserRole {
+    + UserRole(string role)
+}
+
+class Password {
+    + Password(string password)
+}
+
 class UserService {
     + GetAllAsync()
     + GetByIdAsync(UserId id)
@@ -58,10 +78,24 @@ class BaseRepository {
     ====
 }
 
-UsersController --> UserDTO : creates
-UserDTO --> UserService
-UserService -> User : creates
-User -> UserId : has a
+class UserMapper {
+    + ToDomain(UserDto dto, UserId userId)
+    + ToDto(User user)
+}
+
+UsersController -> UserService
+UserService --> UserMapper : uses
+UserService -> UserDTO : creates
+
+UserMapper <-- UserDTO : receives
+UserMapper --> User : creates
+
+User --> UserId : has a
+User --> Username : has a
+User --> UserEmail : has a
+User --> UserRole : has a
+User --> Password : has a
+
 UserService --> UserRepository
 UserRepository --|> BaseRepository
 UserRepository -|> IUserRepository
