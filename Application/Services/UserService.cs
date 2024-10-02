@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DDDSample1.Domain.Families;
+using DDDNetCore.Application.DTO;
+using DDDNetCore.Domain.Users;
+using DDDSample1.Application.Mappers;
 using DDDSample1.Domain.Shared;
-using Domain.Users;
 
-namespace DDDNetCore.Domain.Users
+namespace DDDNetCore.Application.Services
 {
     public class UserService
     {
@@ -22,7 +23,8 @@ namespace DDDNetCore.Domain.Users
         {
             var list = await this._repo.GetAllAsync();
             
-            List<UserDto> listDto = list.ConvertAll<UserDto>(user => new UserDto{Id = user.Id.AsString(), UserName = user.UserName});
+            List<UserDto> listDto = list.ConvertAll<UserDto>(user => new UserDto{Id = user.Id.AsString(), UserName = user.Username.ToString(), 
+            UserEmail = user.UserEmail.ToString(), userRole = user.UserRole.ToString()});
             
             return listDto;
         }
@@ -34,20 +36,20 @@ namespace DDDNetCore.Domain.Users
             if(user == null)
                 return null;
             
-            return new UserDto{Id = user.Id.AsString(), UserName = user.UserName};
+            return new UserDto{Id = user.Id.AsString(), UserName = user.Username.ToString(), 
+            UserEmail = user.UserEmail.ToString(), userRole = user.UserRole.ToString()};
         }
         
         public async Task<UserDto> AddAsync(UserDto dto)
         {
             var userId = string.IsNullOrEmpty(dto.Id) ? new UserId(Guid.NewGuid().ToString()) : new UserId(dto.Id);
             
-            var user = new User(new UserId(dto.Id), dto.UserName, dto.UserEmail, dto.Password);
+            var user = UserMapper.ToDomain(dto, userId);
             
             await this._repo.AddAsync(user);
-            
             await this._unitOfWork.CommitAsync();
             
-            return new UserDto { Id = user.Id.AsString(), UserName = user.UserName, UserEmail = user.UserEmail, Password = user.Password };
+            return UserMapper.ToDto(user);
         }
         
         public async Task<UserDto> UpdateAsync(UserDto dto)
@@ -58,11 +60,12 @@ namespace DDDNetCore.Domain.Users
                 return null;   
             
             // change all field
-            user.ChangeUserName(dto.UserName);
+            // user.ChangeUserName(dto.UserName.ToString());
             
             await this._unitOfWork.CommitAsync();
             
-            return new UserDto { Id = user.Id.AsString(), UserName = user.UserName };
+            return new UserDto{Id = user.Id.AsString(), UserName = user.Username.ToString(), 
+            UserEmail = user.UserEmail.ToString(), userRole = user.UserRole.ToString()};
         }
         
         public async Task<UserDto> DeleteAsync(UserId id)
@@ -75,7 +78,8 @@ namespace DDDNetCore.Domain.Users
             this._repo.Remove(user);
             await this._unitOfWork.CommitAsync();
             
-            return new UserDto { Id = user.Id.AsString(), UserName = user.UserName };
+            return new UserDto{Id = user.Id.AsString(), UserName = user.Username.ToString(), 
+            UserEmail = user.UserEmail.ToString(), userRole = user.UserRole.ToString()};
         }
     }
     

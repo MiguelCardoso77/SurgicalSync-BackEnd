@@ -1,4 +1,5 @@
-﻿using DDDNetCore.Domain.Patients;
+﻿using DDDNetCore.Application.Services;
+using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure.Users;
 using Microsoft.AspNetCore.Builder;
