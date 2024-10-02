@@ -24,7 +24,7 @@ namespace DDDNetCore.Application.Services
             var list = await this._repo.GetAllAsync();
             
             List<UserDto> listDto = list.ConvertAll<UserDto>(user => new UserDto{Id = user.Id.AsString(), UserName = user.Username.ToString(), 
-            UserEmail = user.UserEmail.ToString(), userRole = user.UserRole.ToString()});
+            UserEmail = user.UserEmail.ToString(), UserRole = user.UserRole.ToString()});
             
             return listDto;
         }
@@ -37,7 +37,7 @@ namespace DDDNetCore.Application.Services
                 return null;
             
             return new UserDto{Id = user.Id.AsString(), UserName = user.Username.ToString(), 
-            UserEmail = user.UserEmail.ToString(), userRole = user.UserRole.ToString()};
+            UserEmail = user.UserEmail.ToString(), UserRole = user.UserRole.ToString()};
         }
         
         public async Task<UserDto> AddAsync(UserDto dto)
@@ -65,7 +65,7 @@ namespace DDDNetCore.Application.Services
             await this._unitOfWork.CommitAsync();
             
             return new UserDto{Id = user.Id.AsString(), UserName = user.Username.ToString(), 
-            UserEmail = user.UserEmail.ToString(), userRole = user.UserRole.ToString()};
+            UserEmail = user.UserEmail.ToString(), UserRole = user.UserRole.ToString()};
         }
         
         public async Task<UserDto> DeleteAsync(UserId id)
@@ -79,7 +79,7 @@ namespace DDDNetCore.Application.Services
             await this._unitOfWork.CommitAsync();
             
             return new UserDto{Id = user.Id.AsString(), UserName = user.Username.ToString(), 
-            UserEmail = user.UserEmail.ToString(), userRole = user.UserRole.ToString()};
+            UserEmail = user.UserEmail.ToString(), UserRole = user.UserRole.ToString()};
         }
     }
     
