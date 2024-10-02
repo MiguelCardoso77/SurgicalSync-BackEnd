@@ -158,7 +158,7 @@ This section lists the functional requirements, quality attributes and design co
 
 </div>
 
-![Use Case Diagram](Diagrams%2Flevel1%2Fscenarios%2Fuse-case-diagram.svg)
+![use-case-diagram](Diagrams%2Flevel1%2Fscenarios-view%2Fuse-case-diagram.svg)
 
 #### Quality Attributes
 
@@ -244,7 +244,7 @@ Quality attributes are categorized and systematized according to the FURPS+ mode
 
 </div>
 
-TBD : general view of the system
+![system-general-view.png](Diagrams%2Fsystem-general-view.png)
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 

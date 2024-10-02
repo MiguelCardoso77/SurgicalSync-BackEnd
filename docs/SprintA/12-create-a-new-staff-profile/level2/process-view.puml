@@ -1,0 +1,43 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate USER
+
+    USER -> FE : wants to create a staff profile
+    activate FE
+    
+        FE --> USER : requests data (first name, last name, email , phone number and specialization)
+    deactivate FE
+
+    USER -> FE : provides data
+    activate FE
+    
+            alt Staff Profile Already Exists
+               
+                FE -> BE : POST /staff-backoffice (with staff data)
+                activate BE
+                
+                    BE --> FE : error: staff profile already exists
+                deactivate BE
+                
+                FE --> USER : informs error with suggestion
+            else Staff Profile Created Successfully
+            
+                FE -> BE : POST /staff-backoffice (with staff data)
+                activate BE
+                
+                    BE --> FE : success: created staff profile (returns staff ID)
+                deactivate BE
+                        
+        FE --> USER : shows created staff profile
+    deactivate FE
+    end
+            
+deactivate USER
+
+@enduml
