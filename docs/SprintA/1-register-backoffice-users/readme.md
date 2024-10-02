@@ -34,17 +34,21 @@ A confirmation email is sent to verify the user’s registration
 ### Level 1
 
 - Logical View
+
 ![logical-view.svg](../global-artifacts/level1/logical-view.svg)
 ###
 - Process View
+
 ![process-view.svg](./level1/process-view.svg)
 
 ### Level 2
 
 - Logical View
+
 ![logical-view.svg](../global-artifacts/level2/logical-view.svg)
 ###
 - Process View
+
 ![process-view.svg](./level2/process-view.svg)
 
 ### Level 3
@@ -62,12 +66,15 @@ A confirmation email is sent to verify the user’s registration
 #### Process Views
 
 - BackEnd Process View
+
 ![backend-process-view.svg](./level3/backend-process-view.svg)
 ###
 - FrontEnd Process View
+
 ![frontend-process-view.svg](./level3/frontend-process-view.svg)
 ###
 - Class Diagram View
+
 ![class-diagram-view.svg](./class-diagram.svg)
 
 ## 4. Acceptance Criteria and Tests
