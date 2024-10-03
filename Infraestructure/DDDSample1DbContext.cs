@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
+using DDDSample1.Domain.OperationTypes;
 using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Products;
 
@@ -21,6 +22,8 @@ namespace DDDSample1.Infrastructure
         public DbSet<Patient> Patients { get; set; }
         
         public DbSet<User> Users { get; set; }
+        
+        public DbSet<OperationType> OperationTypes { get; set; }
 
         public DDDSample1DbContext(DbContextOptions options) : base(options)
         {
