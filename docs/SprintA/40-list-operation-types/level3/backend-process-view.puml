@@ -1,0 +1,55 @@
+﻿@startuml
+autonumber
+
+title BackEnd Process View
+
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "Repositories" as REPO
+participant "Mappers" as MP
+participant "DTOs" as DTO
+database "SQL Database" as SQL
+
+activate FE
+    FE -> CN : GET /operation-types
+    activate CN
+        
+        CN -> SV : GetAllAsync()
+        activate SV
+        
+            SV -> REPO : GetAllAsync()
+            activate REPO
+            
+                REPO -> SQL : SELECT * FROM OperationTypes
+                activate SQL
+                
+                    SQL --> REPO : returns List<OperationType>
+                deactivate SQL
+            
+                REPO --> SV : returns List<OperationType>
+            deactivate REPO
+            
+            SV -> MP : ToDTO(List<OperationType>)
+            activate MP
+            
+loop for all operation types
+                MP -> DTO : Create(OperationType)
+                activate DTO
+                
+                    DTO --> MP : returns OperationTypeDTO
+                deactivate DTO
+end loop
+            
+                MP --> SV : returns List<OperationTypeDTO>
+            deactivate MP
+        
+            SV --> CN : returns List<OperationTypeDTO>
+        deactivate SV
+        
+        CN --> FE : returns List<OperationTypeDTO>
+    deactivate CN
+
+deactivate FE
+
+@enduml
