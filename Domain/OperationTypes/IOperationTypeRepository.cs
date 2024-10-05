@@ -1,5 +1,4 @@
-﻿using DDDSample1.Domain.OperationTypes;
-using DDDSample1.Domain.Shared;
+﻿using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Domain.OperationTypes
 {

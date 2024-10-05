@@ -1,4 +1,4 @@
-﻿using DDDSample1.Domain.OperationTypes;
+﻿using DDDNetCore.Domain.OperationTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -16,9 +16,9 @@ namespace DDDNetCore.Infraestructure.OperationTypes
                     .HasColumnName("Name");
             });
             
-            builder.OwnsOne(b => b.RequiredStaff, staffBuilder =>
+            builder.OwnsMany(b => b.RequiredStaff, staffBuilder =>
             {
-                staffBuilder.Property(p => p.RequiredStaffList)
+                staffBuilder.Property(p => p.RequiredStaffValue)
                     .HasColumnName("RequiredStaff");
             });
             

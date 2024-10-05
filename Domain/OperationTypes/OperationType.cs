@@ -1,13 +1,13 @@
-﻿using DDDNetCore.Domain.OperationTypes;
+﻿using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
 
-namespace DDDSample1.Domain.OperationTypes
+namespace DDDNetCore.Domain.OperationTypes
 {
     public class OperationType : Entity<OperationTypeId>, IAggregateRoot
     {
         public OperationTypeId Id { get; private set; }
         public OperationName Name { get; private set; }
-        public RequiredStaff RequiredStaff { get; private set; }
+        public List<RequiredStaff> RequiredStaff { get; private set; }
         public EstimatedDuration EstimatedDuration { get; private set; }
         
         private OperationType()
@@ -17,7 +17,7 @@ namespace DDDSample1.Domain.OperationTypes
             this.EstimatedDuration = null;
         }
         
-        public OperationType(OperationTypeId id, OperationName name, RequiredStaff requiredStaff, EstimatedDuration estimatedDuration)
+        public OperationType(OperationTypeId id, OperationName name, List<RequiredStaff> requiredStaff, EstimatedDuration estimatedDuration)
         {
             this.Id = id;
             this.Name = name;

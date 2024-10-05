@@ -7,35 +7,32 @@ namespace DDDNetCore.Domain.OperationTypes
 {
     public class RequiredStaff : IValueObject
     {
-        public List<string> RequiredStaffList { get; private set; }
+        public string RequiredStaffValue { get; private set; }
 
-        private RequiredStaff()
-        {
-            RequiredStaffList = new List<string>();
-        }
+        private RequiredStaff() { }
         
-        public RequiredStaff(List<string> requiredStaff)
+        public RequiredStaff(string requiredStaff)
         {
-            this.RequiredStaffList = requiredStaff;
+            this.RequiredStaffValue = requiredStaff;
         }
-        
+
         public override string ToString()
         {
-            return string.Join(", ", RequiredStaffList);
+            return RequiredStaffValue;
         }
-        
+
         public override bool Equals(object obj)
         {
             if (obj is RequiredStaff other)
             {
-                return RequiredStaffList.SequenceEqual(other.RequiredStaffList);
+                return RequiredStaffValue == other.RequiredStaffValue;
             }
             return false;
         }
-        
+
         public override int GetHashCode()
         {
-            return RequiredStaffList != null ? string.Join(",", RequiredStaffList).GetHashCode() : 0;
+            return RequiredStaffValue != null ? RequiredStaffValue.GetHashCode() : 0;
         }
         
     }

@@ -44,10 +44,9 @@ namespace DDDNetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<OperationTypeDto>> Create(OperationTypeDto dto)
         {
-            var ot = await _service.AddAsync(dto);
+            var task = await _service.AddAsync(dto);
             
-            //return CreatedAtAction(nameof(GetById), new { id = ot.Id }, ot);
-            return null;
+            return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
         }
         
         // PUT: api/OperationTypes/OT5

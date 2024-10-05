@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using DDDNetCore.Domain.OperationTypes;
 
 namespace DDDNetCore.Application.DTO
 {
     public class OperationTypeDto
     {
-        public String Id { get; set; }
-        public String OperationName { get; set; }
-        public String RequiredStaff { get; set; }
-        public String EstimatedDuration { get; set; }
+        public string Id { get; set; }
+        public string OperationName { get; set; }
+        public List<string> RequiredStaff { get; set; }
+        public string EstimatedDuration { get; set; }
     }
 }
