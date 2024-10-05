@@ -1,0 +1,25 @@
+﻿@startuml
+autonumber
+
+actor "Admin" as USER
+participant "<<System>>\n SurgicalSync" as SYSTEM
+
+activate USER
+
+    USER -> SYSTEM: wants to remove existing operation type
+    activate SYSTEM
+
+        SYSTEM --> USER : lists existing operation types and \n asks user to select one
+    deactivate SYSTEM
+        
+    USER -> SYSTEM : selects the operation type to remove
+    activate SYSTEM
+        alt Couldn't Remove Operation Type
+           USER <-- SYSTEM : informs error with suggestion
+        else Operation Type Removed Successfully
+           USER <-- SYSTEM : shows success message
+        end
+    deactivate SYSTEM
+    
+deactivate USER
+@enduml
