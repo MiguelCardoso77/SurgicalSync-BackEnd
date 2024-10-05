@@ -1,4 +1,4 @@
-﻿# List existing operation types
+﻿# List Existing Operation Types
 
 ## 1. User Story Description
 
@@ -15,6 +15,18 @@ Attributes of operation types include:
 - Operation type name
 - Required staff roles
 - Estimated duration
+
+The following operation types are already available in the system:
+- ACL Reconstruction Surgery
+- Knee Replacement Surgery
+- Shoulder Replacement Surgery
+- Hip Replacement Surgery
+- Meniscal Injury Treatment
+- Rotator Cuff Repair
+- Ankle Ligaments Reconstruction or Repair
+- Lumbar Discectomy
+- Trigger Finger
+- Carpal Tunnel Syndrome
 
 ## 3. Diagrams
 

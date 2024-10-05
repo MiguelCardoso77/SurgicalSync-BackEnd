@@ -1,6 +1,8 @@
 ﻿using DDDNetCore.Application.Services;
+using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
+using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -87,6 +89,9 @@ namespace DDDSample1
             
             services.AddTransient<IUserRepository,UserRepository>();
             services.AddTransient<UserService>();
+
+            services.AddTransient<IOperationTypeRepository, OperationTypeRepository>();
+            services.AddTransient<OperationTypeService>();
         }
     }
 }

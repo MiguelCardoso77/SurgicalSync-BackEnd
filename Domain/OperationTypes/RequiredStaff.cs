@@ -1,35 +1,41 @@
-﻿using DDDSample1.Domain.Shared;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Domain.OperationTypes
 {
     public class RequiredStaff : IValueObject
     {
-        public string RequiredStaffValue { get; private set; }
-        
-        private RequiredStaff() { }
-        
-        public RequiredStaff(string requiredStaff)
+        public List<string> RequiredStaffList { get; private set; }
+
+        private RequiredStaff()
         {
-            this.RequiredStaffValue = requiredStaff;
+            RequiredStaffList = new List<string>();
+        }
+        
+        public RequiredStaff(List<string> requiredStaff)
+        {
+            this.RequiredStaffList = requiredStaff;
         }
         
         public override string ToString()
         {
-            return RequiredStaffValue;
+            return string.Join(", ", RequiredStaffList);
         }
         
         public override bool Equals(object obj)
         {
             if (obj is RequiredStaff other)
             {
-                return RequiredStaffValue == other.RequiredStaffValue;
+                return RequiredStaffList.SequenceEqual(other.RequiredStaffList);
             }
             return false;
         }
         
         public override int GetHashCode()
         {
-            return RequiredStaffValue.GetHashCode();
+            return RequiredStaffList != null ? string.Join(",", RequiredStaffList).GetHashCode() : 0;
         }
         
     }
