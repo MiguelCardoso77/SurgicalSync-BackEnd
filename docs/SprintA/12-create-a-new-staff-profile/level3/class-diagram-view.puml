@@ -1,0 +1,79 @@
+﻿@startuml
+'https://plantuml.com/class-diagram
+
+@startuml
+
+
+class Staff {
+    - FirstName
+    - LastName
+    - Email
+    - PhoneNumber
+    - Specialization
+    - IsActive
+    + Staff(string firstName, string lastName, string email , string phoneNumber , string specialization)
+    + ChangePhoneNumber(string phoneNumber)
+    + ChangeEmail(string email)
+    + ChangeSpecialization(string specialization)
+    + ActivateStaff()
+    + DeactivateStaff()
+}
+
+class StaffDTO {
+    - FirstName
+    - LastName
+    - Email
+    - PhoneNumber
+    - Specialization
+    + StaffDTO(string firstName, string lastName, string email , string phoneNumber , string specialization)
+    + ChangePhoneNumber(string phoneNumber)
+    + ChangeEmail(string email)
+    + ChangeSpecialization(string specialization)
+    + ActivateStaff()
+    + DeactivateStaff()    
+}
+
+class StaffsController {
+    + GetAll()
+    + GetGetById(String id)
+    + Create(StaffDto dto)
+    + Update(String id, StaffDto dto)
+    + SoftDelete(String id)
+    + HardDelete(String id)
+}
+
+class StaffId {
+    + StaffId(string value)
+}
+
+class StaffService {
+    + GetAllAsync()
+    + GetByIdAsync(StaffId id)
+    + AddAsync(StaffDto dto)
+    + UpdateAsync(StaffDto dto)
+    + InactivateAsync(StaffId id)
+    + DeleteAsync(StaffId id)
+}
+
+interface IStaffRepository {
+}
+
+interface StaffRepository {
+}
+
+class BaseRepository {
+    ====
+    Classe do projeto base
+    ====
+}
+
+StaffsController --> StaffDTO : creates
+StaffDTO --> StaffService
+StaffService -> Staff : creates
+Staff -> StaffId : has a
+StaffService --> StaffRepository
+StaffRepository --|> BaseRepository
+StaffRepository -|> IStaffRepository
+
+
+@enduml
