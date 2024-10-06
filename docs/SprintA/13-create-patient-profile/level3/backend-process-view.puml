@@ -1,0 +1,61 @@
+﻿@startuml
+autonumber
+
+title BackEnd Process View
+
+participant "Controllers" as CN
+participant "DTOs" as DTO
+participant "Services" as SV
+participant "Domain" as DM
+participant "Repositories" as REPO
+database "SQL Database" as SQL
+
+    -> CN: POST /users-backoffice (with user data)
+    activate CN
+    
+        CN -> DTO : Create(UserDTO)
+        activate DTO
+        
+            DTO -> SV : AddAsync(UserDTO)
+            activate SV
+            
+alt User data is valid
+            
+                SV -> DM : Create(User)
+                activate DM
+                
+                    DM --> SV : returns User
+                deactivate DM
+                
+                SV -> REPO : AddAsync(User)
+                activate REPO
+                
+                    REPO -> SQL : POST /users-backoffice (User)
+                    activate SQL
+                    
+                        SQL --> REPO : success: created user (returns user ID)
+                    deactivate SQL
+                    
+                    REPO --> SV : success: created user (returns user ID)
+                deactivate REPO
+                
+                SV --> DTO : success: created user (returns user ID)
+            
+            DTO -> CN : success: created user (returns user ID)
+
+        <-- CN: success: created user (returns user ID) 
+
+else User data is invalid
+            
+                SV --> DTO : error: user already exists
+            deactivate SV
+            
+            DTO --> CN : error: user already exists
+        deactivate DTO
+        
+        <-- CN: error: user already exists
+    deactivate CN                
+    
+end
+
+@enduml
