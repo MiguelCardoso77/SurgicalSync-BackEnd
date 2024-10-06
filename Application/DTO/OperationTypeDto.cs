@@ -9,6 +9,6 @@ namespace DDDNetCore.Application.DTO
         public string Id { get; set; }
         public string OperationName { get; set; }
         public List<string> RequiredStaff { get; set; }
-        public string EstimatedDuration { get; set; }
+        public List<string> EstimatedDuration { get; set; }
     }
 }

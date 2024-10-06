@@ -29,7 +29,7 @@ namespace DDDNetCore.Domain.OperationTypes
         
         public override int GetHashCode()
         {
-            return EstimatedDurationValue.GetHashCode();
+            return EstimatedDurationValue != null ? EstimatedDurationValue.GetHashCode() : 0;
         }
         
     }

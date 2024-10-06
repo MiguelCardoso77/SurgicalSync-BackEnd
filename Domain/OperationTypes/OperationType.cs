@@ -8,7 +8,7 @@ namespace DDDNetCore.Domain.OperationTypes
         public OperationTypeId Id { get; private set; }
         public OperationName Name { get; private set; }
         public List<RequiredStaff> RequiredStaff { get; private set; }
-        public EstimatedDuration EstimatedDuration { get; private set; }
+        public List<EstimatedDuration> EstimatedDuration { get; private set; }
         
         private OperationType()
         {
@@ -17,7 +17,7 @@ namespace DDDNetCore.Domain.OperationTypes
             this.EstimatedDuration = null;
         }
         
-        public OperationType(OperationTypeId id, OperationName name, List<RequiredStaff> requiredStaff, EstimatedDuration estimatedDuration)
+        public OperationType(OperationTypeId id, OperationName name, List<RequiredStaff> requiredStaff, List<EstimatedDuration> estimatedDuration)
         {
             this.Id = id;
             this.Name = name;

@@ -22,7 +22,7 @@ namespace DDDNetCore.Infraestructure.OperationTypes
                     .HasColumnName("RequiredStaff");
             });
             
-            builder.OwnsOne(b => b.EstimatedDuration, durationBuilder =>
+            builder.OwnsMany(b => b.EstimatedDuration, durationBuilder =>
             {
                 durationBuilder.Property(p => p.EstimatedDurationValue)
                     .HasColumnName("EstimatedDuration");
