@@ -1,4 +1,4 @@
-﻿# Register New Backoffice Users
+﻿# Adding New Operation Types
 
 ## 1. User Story Description
 
@@ -14,6 +14,15 @@ The operation name must be unique.
 
 The system logs the creation of new operation types and makes them available for scheduling
 immediately.
+
+Surgeries involve 3 phases: Preparation; Surgery; Cleaning.
+
+All Surgeries require the following staff:
+- 1 Anaesthetist
+- 1 Instrumenting Nurse
+- 1 Circulating Nurse
+- 1 Nurse Anaesthetist
+- 1 Medical Action Assistant
 
 Attributes are :
 
@@ -87,7 +96,7 @@ This user story relies on the following API functionalities:
 
 -   To create backoffice user
     ```
-    POST /operation-types
+    POST /operationTypes
     ```
 
 ## 6. Definition of Ready (DoR)
@@ -111,7 +120,7 @@ are identified. This includes the API functionalities necessary for the creation
 
 ### 6.4 Estimation and Sizing
 
-This user story is estimated to necessitate an allocation of approximately 3 to 5 hours for completion.
+This user story is estimated to necessitate an allocation of approximately 4 to 7 hours for completion.
 This estimate is based on the complexity of the user story and the anticipated effort required for its
 implementation.
 

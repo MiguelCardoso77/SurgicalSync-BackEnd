@@ -1,0 +1,87 @@
+﻿@startuml
+
+title Class Diagram
+
+class OperationType {
+    - OperationTypeId
+    - OperationName
+    - List<RequiredStaff>
+    - List<EstimatedDuration>
+    + OperationType(OperationTypeId id, OperationName name, List<RequiredStaff> requiredStaff, List<EstimatedDuration> estimatedDuration)
+}
+
+class OperationTypeDTO {
+    - Id
+    - OperationName
+    - List<RequiredStaff>
+    - List<EstimatedDuration>
+}
+
+class OperationTypesController {
+    + GetAll()
+    + GetGetById(String id)
+    + Create(OperationTypeDto dto)
+    + Update(String id, OperationTypeDto dto)
+    + SoftDelete(String id)
+    + HardDelete(String id)
+}
+
+class OperationTypeId {
+    + OperationTypeId(string value)
+}
+
+class OperationName {
+    + OperationName(string operationName)
+}
+
+class RequiredStaff {
+    + RequiredStaff(string requiredStaff)
+}
+
+class EstimatedDuration {
+    + EstimatedDuration(string estimatedDuration)
+}
+
+class OperationTypeService {
+    + GetAllAsync()
+    + GetByIdAsync(OperationTypeId id)
+    + AddAsync(OperationTypeDto dto)
+    + UpdateAsync(OperationTypeDto dto)
+    + InactivateAsync(OperationTypeId id)
+    + DeleteAsync(OperationTypeId id)
+}
+
+interface IOperationTypeRepository {
+}
+
+interface OperationTypeRepository {
+}
+
+class BaseRepository {
+    ====
+    Classe do projeto base
+    ====
+}
+
+class OperationTypeMapper {
+    + ToDomain(OperationTypeDto dto, OperationTypeId OperationTypeId)
+    + ToDto(OperationType OperationType)
+}
+
+OperationTypesController -> OperationTypeService
+OperationTypeService --> OperationTypeMapper : uses
+OperationTypeService -> OperationTypeDTO : creates
+
+OperationTypeMapper <-- OperationTypeDTO : enters
+OperationTypeMapper --> OperationType : creates
+
+OperationType --> OperationTypeId : has a
+OperationType --> OperationName : has a
+OperationType --> RequiredStaff : has multiple
+OperationType --> EstimatedDuration : has three
+
+OperationTypeService --> OperationTypeRepository
+OperationTypeRepository --|> BaseRepository
+OperationTypeRepository -|> IOperationTypeRepository
+
+@enduml

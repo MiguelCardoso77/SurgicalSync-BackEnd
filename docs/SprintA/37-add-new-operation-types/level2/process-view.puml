@@ -18,7 +18,7 @@ activate USER
    
         activate FE
         
-            alt User Already Exists
+            alt Operation Type Already Exists
                
             FE -> BE : POST /operationTypes (with given data)
             activate BE
@@ -27,7 +27,7 @@ activate USER
             deactivate BE 
             FE --> USER : informs error with suggestion
             
-            else User Created Successfully
+            else Operation Type Created Successfully
             
             FE -> BE : POST /operationTypes (with given data)
             activate BE

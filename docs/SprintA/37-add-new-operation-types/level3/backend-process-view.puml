@@ -13,7 +13,7 @@ participant "Repositories" as REPO
 database "SQL Database" as SQL
 
 activate FE
-    FE -> CN: POST /operation-types (with given data)
+    FE -> CN: POST /operationTypes (with given data)
     activate CN
     
         CN -> SV : Create(OperationTypeDTO)
@@ -22,7 +22,7 @@ activate FE
             SV -> DTO : Create(OperationTypeDTO)
             activate DTO
             
-alt User data is valid
+alt Operation Type data is valid
             
                 DTO --> SV : returns OperationTypeDTO
             deactivate DTO
@@ -42,7 +42,7 @@ alt User data is valid
             SV -> REPO : AddAsync(OperationType)
             activate REPO
             
-                REPO -> SQL : POST /operation-types (OperationType)
+                REPO -> SQL : POST /operationTypes (OperationType)
                 activate SQL
                 
                     SQL --> REPO : success: added operation type (returns ID)
@@ -54,9 +54,9 @@ alt User data is valid
             SV --> CN : success: added operation type (returns ID)
         FE <-- CN: success: added operation type (returns ID) 
 
-else User data is invalid
+else Operation Type already exists
 
-                REPO -> SQL : POST /operation-types (OperationType)
+                REPO -> SQL : POST /operationTypes (OperationType)
                 activate SQL
                 
                     SQL --> REPO : error: operation type already exists
