@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore;
+﻿using DDDSample1;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace DDDSample1
+namespace DDDNetCore
 {
     public class Program
     {

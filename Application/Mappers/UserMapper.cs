@@ -1,7 +1,7 @@
 ﻿using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.Users;
 
-namespace DDDSample1.Application.Mappers
+namespace DDDNetCore.Application.Mappers
 {
     public class UserMapper
     {
