@@ -11,7 +11,7 @@ activate USER
     USER -> FE : wants to create a staff profile
     activate FE
     
-        FE --> USER : requests data (first name, last name, email , phone number and specialization)
+        FE --> USER : requests data ( name, email , phone number and specialization)
     deactivate FE
 
     USER -> FE : provides data

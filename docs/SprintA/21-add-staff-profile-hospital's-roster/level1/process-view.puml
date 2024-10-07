@@ -1,0 +1,26 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+participant "<<System>>\n Jobs4U" as SYSTEM
+
+activate USER
+
+    USER -> SYSTEM: wants to add a staff profile to the hospital's roster 
+    activate SYSTEM
+
+        SYSTEM --> USER : show the list of staff profiles
+    deactivate SYSTEM
+        
+    USER -> SYSTEM : selects the staff profile
+    activate SYSTEM
+    
+           alt staff profile not in hospital roster
+            USER <-- SYSTEM : success: staff profile added to the hospital roster 
+        else hospital's roasters is  added yet
+            USER <-- SYSTEM : error: staff profile already exists in the hospital roster 
+       deactivate SYSTEM
+        end
+    
+deactivate USER
+@enduml
