@@ -1,6 +1,6 @@
-﻿# Remove existing operation types
+﻿# Remove Existing Operation Type
 
-## 1. User Story Description
+## 1. Use Case Description
 
 As an Admin, I want to remove obsolete or no longer performed operation types, so that the system stays current with hospital practices.
 

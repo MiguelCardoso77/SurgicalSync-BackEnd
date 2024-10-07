@@ -6,6 +6,7 @@ title BackEnd Process View
 participant "FrontEnd" as FE
 participant "Controllers" as CN
 participant "Services" as SV
+participant "Domain" as DM
 participant "Repositories" as REPO
 database "SQL Database" as SQL
 
@@ -25,18 +26,24 @@ activate FE
         CN --> FE : returns List<OperationTypeDTO>
     deactivate CN
 
-    FE -> CN: DELETE /operation-types/id
+    FE -> CN: DELETE /operationTypes/id
     activate CN
     
-        CN -> SV : DELETE /operation-types/id
+        CN -> SV : DELETE /operationTypes/id
         activate SV
         
 alt Operation Type Removed Successfully
+
+            SV -> DM : Deactivate(OperationType)
+            activate DM
+            
+                DM --> SV : returns updated OperationType
+            deactivate DM
                  
             SV -> REPO : DeleteAsync(OperationType)
             activate REPO
             
-                REPO -> SQL : DELETE /operation-types/id
+                REPO -> SQL : DELETE /operationTypes/id
                 activate SQL
                 
                     SQL --> REPO : success: removed operation type successfully

@@ -28,11 +28,17 @@ activate USER
         FE -> BE : DELETE /operationTypes/id
         activate BE
         
-            BE --> FE : error: operation type id can't be changed
+            BE --> FE : error: couldn't find operation type
         deactivate BE 
         FE --> USER : informs error with suggestion
         
         else Operation Type Removed Successfully
+        
+    FE --> USER : asks user for confirmation
+    deactivate FE
+    
+        USER -> FE : confirms deletion
+    activate FE
         
         FE -> BE : DELETE /operationTypes/id
         activate BE

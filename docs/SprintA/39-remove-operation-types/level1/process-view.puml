@@ -14,11 +14,22 @@ activate USER
         
     USER -> SYSTEM : selects the operation type to remove
     activate SYSTEM
-        alt Couldn't Remove Operation Type
+    
+alt Couldn't Find Operation Type
+
            USER <-- SYSTEM : informs error with suggestion
-        else Operation Type Removed Successfully
+           
+else Operation Type Removed Successfully
+
+           USER <-- SYSTEM : requests confirmation
+    deactivate SYSTEM
+    
+    USER -> SYSTEM : confirms deletion
+    activate SYSTEM
+            
            USER <-- SYSTEM : shows success message
-        end
+end
+
     deactivate SYSTEM
     
 deactivate USER
