@@ -1,6 +1,6 @@
 ﻿# Adding New Operation Types
 
-## 1. User Story Description
+## 1. Use Case Description
 
 As an Admin, I want to add new types of operations, so that I can reflect the
 available medical procedures in the system.
