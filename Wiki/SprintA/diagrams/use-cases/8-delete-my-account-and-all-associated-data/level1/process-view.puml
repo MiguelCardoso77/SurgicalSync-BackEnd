@@ -8,7 +8,7 @@ participant "<<System>> \n SurgicalSync" as SYSTEM
 
 activate P
 
-P -> SYSTEM: Want to delete my account \nand all associated data
+P -> SYSTEM: Wants to delete my account \nand all associated data
     
     activate SYSTEM
     
