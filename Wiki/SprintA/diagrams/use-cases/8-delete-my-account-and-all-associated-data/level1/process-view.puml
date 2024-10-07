@@ -1,0 +1,51 @@
+﻿@startuml
+autonumber
+
+Title "UC08 - Logical View"
+
+actor "Patient" as P
+participant "<<System>> \n SurgicalSync" as SYSTEM
+
+activate P
+
+P -> SYSTEM: Want to delete my account \nand all associated data
+    
+    activate SYSTEM
+    
+    SYSTEM --> P: requests the patient´s password
+    
+    deactivate SYSTEM
+  
+P -> SYSTEM: provides his password
+
+    alt the provided password is right
+    
+    activate SYSTEM
+    
+    SYSTEM --> P: asks for confirmation
+    
+    deactivate SYSTEM
+    
+    P -> SYSTEM: gives confirmation
+    
+    activate SYSTEM
+    
+    else
+    
+    SYSTEM --> P: asks for the patient´s password
+    
+    deactivate System
+    
+    P -> SYSTEM: provides his password
+        
+    end 
+    
+    activate System
+    
+    SYSTEM --> P : displays operation success
+    
+    deactivate System  
+
+deactivate P
+
+@enduml
