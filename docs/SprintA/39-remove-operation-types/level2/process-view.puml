@@ -25,7 +25,7 @@ activate USER
     
         alt Couldn't Remove Operation Type
            
-        FE -> BE : DELETE /operationTypes/id
+        FE -> BE : INACTIVATE /operationTypes/id
         activate BE
         
             BE --> FE : error: couldn't find operation type
@@ -40,7 +40,7 @@ activate USER
         USER -> FE : confirms deletion
     activate FE
         
-        FE -> BE : DELETE /operationTypes/id
+        FE -> BE : INACTIVATE /operationTypes/id
         activate BE
         
             BE --> FE : success: returns success message

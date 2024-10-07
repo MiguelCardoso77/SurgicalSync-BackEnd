@@ -26,10 +26,10 @@ activate FE
         CN --> FE : returns List<OperationTypeDTO>
     deactivate CN
 
-    FE -> CN: DELETE /operationTypes/id
+    FE -> CN: INACTIVATE /operationTypes/id
     activate CN
     
-        CN -> SV : DELETE /operationTypes/id
+        CN -> SV : INACTIVATE /operationTypes/id
         activate SV
         
 alt Operation Type Removed Successfully
@@ -40,10 +40,10 @@ alt Operation Type Removed Successfully
                 DM --> SV : returns updated OperationType
             deactivate DM
                  
-            SV -> REPO : DeleteAsync(OperationType)
+            SV -> REPO : InactivateAsync(OperationType)
             activate REPO
             
-                REPO -> SQL : DELETE /operationTypes/id
+                REPO -> SQL : INACTIVATE /operationTypes/id
                 activate SQL
                 
                     SQL --> REPO : success: removed operation type successfully
