@@ -1,0 +1,48 @@
+﻿@startuml
+autonumber
+
+Title "UC11 - Patient Login Using External IAM Credentials"
+
+actor "Patient" as P
+participant "<<System>> \n SurgicalSync" as SYSTEM
+participant "<<External System>> \n IAM Provider" as IAM
+
+activate P 
+
+P -> SYSTEM: requests login via external IAM provider
+
+    activate SYSTEM
+    
+    SYSTEM -> IAM: redirects to IAM provider for authentication
+
+    deactivate SYSTEM
+
+    activate IAM
+
+    IAM --> P: displays login form for external credentials
+
+    deactivate IAM
+    
+P -> IAM: submits credentials (Google, Facebook, or hospital SSO)
+
+    activate IAM
+
+    alt correct credentials
+        IAM --> SYSTEM: returns authentication token (success)
+        deactivate IAM
+
+        activate SYSTEM
+        
+        SYSTEM --> P: login successful, session created
+
+    else wrong credentials
+        IAM --> P: displays error message for incorrect credentials
+        deactivate IAM
+
+    end
+
+    deactivate SYSTEM
+
+deactivate P
+
+@enduml
