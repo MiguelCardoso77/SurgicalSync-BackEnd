@@ -9,6 +9,7 @@ namespace DDDNetCore.Domain.OperationTypes
         public OperationName Name { get; private set; }
         public List<RequiredStaff> RequiredStaff { get; private set; }
         public List<EstimatedDuration> EstimatedDuration { get; private set; }
+        public bool IsActive { get; private set; }
         
         private OperationType()
         {
@@ -23,6 +24,17 @@ namespace DDDNetCore.Domain.OperationTypes
             this.Name = name;
             this.RequiredStaff = requiredStaff;
             this.EstimatedDuration = estimatedDuration;
+            this.IsActive = true;
+        }
+        
+        public void ActivateOperationType()
+        {
+            this.IsActive = true;
+        }
+        
+        public void DeactivateOperationType()
+        {
+            this.IsActive = false;
         }
         
     }

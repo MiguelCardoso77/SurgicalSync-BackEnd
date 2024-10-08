@@ -23,5 +23,35 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.OperationTypes
             Assert.AreEqual(0, operationType.EstimatedDuration.Count);
         }
         
+        [Test]
+        public void TestActivateOperationType()
+        {
+            var operationType = new OperationType(
+                new OperationTypeId("1"),
+                new OperationName("Surgery"),
+                new List<RequiredStaff>(),
+                new List<EstimatedDuration>()
+            );
+            
+            operationType.ActivateOperationType();
+            
+            Assert.IsTrue(operationType.IsActive);
+        }
+        
+        [Test]
+        public void TestDeactivateOperationType()
+        {
+            var operationType = new OperationType(
+                new OperationTypeId("1"),
+                new OperationName("Surgery"),
+                new List<RequiredStaff>(),
+                new List<EstimatedDuration>()
+            );
+            
+            operationType.DeactivateOperationType();
+            
+            Assert.IsFalse(operationType.IsActive);
+        }
+        
     }
 }

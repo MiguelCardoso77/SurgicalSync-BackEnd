@@ -107,14 +107,16 @@ namespace DDDNetCore.Application.Services
             return null;
         }
         
-        public async Task<OperationTypeDto> RemoveAsync(OperationTypeId id)
+        public async Task<OperationTypeDto> InactivateAsync(OperationTypeId id)
         {
-            var ot = await this._repo.GetByIdAsync(id);
+            var oT = await this._repo.GetByIdAsync(id);
             
-            if (ot == null)
+            if (oT == null)
                 return null;
             
-            this._repo.Remove(ot);
+            // Deactivate the operation type instead of deleting it from the system
+            oT.DeactivateOperationType();
+            
             await this._unitOfWork.CommitAsync();
 
             return null;
