@@ -1,0 +1,61 @@
+﻿@startuml
+autonumber
+
+Title "UC30 - Request an operation"
+
+actor "Doctor" as D
+participant "<<System>> \n SurgicalSync" as SYSTEM
+
+activate D
+
+D -> SYSTEM: asks to request an operation
+
+    activate SYSTEM
+    
+    SYSTEM --> D: shows the list of the available \n operation types and asks to select one
+    
+    deactivate SYSTEM
+    
+D -> SYSTEM: selects one of the \n operation types displayed
+
+alt the selected operation type matches \n the doctor's specialization
+    
+    activate SYSTEM 
+    
+    SYSTEM --> D: asks for the ID of the patient \non whom the operation will be performed
+    
+    deactivate SYSTEM  
+
+    D -> SYSTEM: inserts the patient ID
+
+    activate SYSTEM
+    
+    SYSTEM --> D: asks for the operation's priority
+    
+    deactivate SYSTEM
+    
+    D -> SYSTEM: inserts the given priority
+    
+    activate SYSTEM
+    
+    SYSTEM --> D: asks for the operation's deadline
+    
+    deactivate SYSTEM
+    
+    D -> SYSTEM: inserts the deadline
+    
+    activate SYSTEM
+    
+    SYSTEM --> D: shows operation success and logs the \n request in the patient’s medical history
+    
+    else operation type doesn't match the doctor's specialization
+        
+        SYSTEM --> D: shows an error message
+        
+        deactivate SYSTEM
+
+    end
+
+deactivate D
+
+@enduml
