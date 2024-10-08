@@ -10,9 +10,15 @@ activate USER
     activate SYSTEM
 
         alt Couldn't Find Operation Types
-           USER <-- SYSTEM : informs error with suggestion
+            USER <-- SYSTEM : informs error with suggestion
         else Operation Type Listed Successfully
-           USER <-- SYSTEM : lists all operation types
+            SYSTEM --> USER : offers filtering options
+    deactivate SYSTEM
+    
+    USER -> SYSTEM: selects filter or no filter
+    activate SYSTEM
+        
+            USER <-- SYSTEM : lists all operation types
         end
         
     deactivate SYSTEM

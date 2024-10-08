@@ -1,13 +1,12 @@
 ﻿# List Existing Operation Types
 
-## 1. User Story Description
+## 1. Use Case Description
 
-As an Admin, I want to list/search operation types, so that I can see the details,
-edit, and remove operation types.
+As an Admin, I want to list all operation types.
 
 ## 2. Customer Specifications and Clarifications
 
-The client has outlined that the Admin Role should possess the functionality to list existing operation types.
+The client has outlined that the Admin Role should possess the functionality to list all existing operation types.
 
 Admins can search and filter operation types by name, specialization, or status (active/inactive).
 
@@ -116,7 +115,7 @@ are identified. This includes the API functionalities necessary for the creation
 
 ### 6.4 Estimation and Sizing
 
-This user story is estimated to necessitate an allocation of approximately 3 to 5 hours for completion.
+This user story is estimated to necessitate an allocation of approximately 7 to 8 hours for completion.
 This estimate is based on the complexity of the user story and the anticipated effort required for its
 implementation.
 

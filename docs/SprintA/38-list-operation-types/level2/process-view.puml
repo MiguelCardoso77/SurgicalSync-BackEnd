@@ -8,7 +8,7 @@ participant "BackEnd" as BE
 
 activate USER
 
-    USER -> FE : wants to list all operation types
+    USER -> FE : wants to list operation types
     activate FE
     
         FE -> BE : GET /operationTypes
@@ -20,7 +20,19 @@ activate USER
         alt Couldn't Find Operation Types
         FE --> USER : informs error with suggestion
         else Operation Types Listed Successfully
-        FE --> USER : lists all operation types
+        FE --> USER : offers filtering options
+    deactivate FE
+    
+    USER -> FE : selects filter or no filter
+    activate FE
+    
+        FE -> BE : filters operation types
+        activate BE
+        
+            BE --> FE : returns filtered operation types
+        deactivate BE
+        
+        FE --> USER : lists operation types
         end
         
     deactivate FE
