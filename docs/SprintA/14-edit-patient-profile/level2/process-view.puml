@@ -35,3 +35,5 @@ activate USER
     USER <-- FE : shows edited patient profile
     deactivate FE
 deactivate USER
+
+@enduml
