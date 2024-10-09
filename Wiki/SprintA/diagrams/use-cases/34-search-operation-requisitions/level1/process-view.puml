@@ -8,13 +8,22 @@ participant "<<System>> \n SurgicalSync" as SYSTEM
 
 activate D
 
-D -> SYSTEM: requests to search operation requisitions \n (filters: patient name, operation type, priority, status)
+D -> SYSTEM: requests to search for operation requisitions
 
+    alt the requested operation requisition exists 
+    
     activate SYSTEM
     
-    SYSTEM --> D: shows list of matching operation requisitions \n (with details: patient name, operation type, status)
+    SYSTEM --> D: shows the operation requisition's details \n (eg., patient name, operation type, status)
 
+    
+    else
+    
+    SYSTEM --> D : shows error message
+    
     deactivate SYSTEM
+    
+    end
     
 deactivate D
 
