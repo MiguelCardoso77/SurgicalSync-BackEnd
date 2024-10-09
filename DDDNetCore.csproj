@@ -19,6 +19,22 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\11-log-in-to-the-system-using-the-IAM-credentials\level2\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\11-log-in-to-the-system-using-the-IAM-credentials\level3\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\12-access-my-features\level2\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\12-access-my-features\level3\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\30-request-an-operation\level2\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\30-request-an-operation\level3\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\31-update-an-operation-requisition\level2\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\31-update-an-operation-requisition\level3\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\32-remove-an-operation-requisition\level2\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\32-remove-an-operation-requisition\level3\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\33-list-operation-requisitions\level2\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\33-list-operation-requisitions\level3\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\34-search-operation-requisitions\level2\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\34-search-operation-requisitions\level3\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\8-delete-my-account-and-all-associated-data\level2\" />
+    <Folder Include="Wiki\SprintA\diagrams\use-cases\8-delete-my-account-and-all-associated-data\level3\" />
     <Folder Include="Wiki\SprintA\diagrams\views\level3\backend\logical-view\" />
   </ItemGroup>
 

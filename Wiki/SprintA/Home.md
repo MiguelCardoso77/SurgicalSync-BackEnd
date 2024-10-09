@@ -11,7 +11,6 @@ This SAD consists of:
 - [Documentation Roadmap and Overview](RoadmapOverview.md)
 - [Architecture Background](Background.md)
 - [Views](Views.md)
-- [Mapping Between Views](Mapping.md)
 - [Referenced Materials](References.md)
 - [Glossary and Acronyms](Glossary%26Acronyms.md)
 

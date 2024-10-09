@@ -1,0 +1,21 @@
+﻿@startuml
+autonumber
+
+Title "UC33 - List operation requisitions"
+
+actor "Doctor" as D
+participant "<<System>> \n SurgicalSync" as SYSTEM
+
+activate D
+
+D -> SYSTEM: requests to list the operation requisitions
+
+activate SYSTEM
+
+SYSTEM --> D : shows the list of the operation \n requisitions (with the details: \npatient name, operation type, status)
+
+deactivate SYSTEM
+
+deactivate D
+
+@enduml

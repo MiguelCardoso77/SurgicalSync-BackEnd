@@ -1,0 +1,21 @@
+﻿@startuml
+autonumber
+
+Title "UC34 - Search operation requisitions"
+
+actor "Doctor" as D
+participant "<<System>> \n SurgicalSync" as SYSTEM
+
+activate D
+
+D -> SYSTEM: requests to search operation requisitions \n (filters: patient name, operation type, priority, status)
+
+    activate SYSTEM
+    
+    SYSTEM --> D: shows list of matching operation requisitions \n (with details: patient name, operation type, status)
+
+    deactivate SYSTEM
+    
+deactivate D
+
+@enduml
