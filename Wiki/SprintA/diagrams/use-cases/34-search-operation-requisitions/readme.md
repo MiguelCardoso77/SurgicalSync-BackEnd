@@ -49,7 +49,19 @@ As a Doctor, I want to search operation requisitions.
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
+**Q:** How does a Doctor suggests a deadline date for an appointment? Does it have any criteria? Or do they just wing it?
 
+**A:** the doctor will decide the "best" due date based on their experience. they will enter it in the system as an indication so that the planning module eventually takes that into account alongside priority and other criteria.
+
+**Q:** In the project document it mentions that each operation has a priority. How is a operation's priority defined? Do they have priority levels defined? Is it a scale? Or any other system?
+
+**A:** Elective Surgery: A planned procedure that is not life-threatening and can be scheduled at a convenient time (e.g., joint replacement, cataract surgery).
+Urgent Surgery: Needs to be done sooner but is not an immediate emergency. Typically within days (e.g., certain types of cancer surgeries).
+Emergency Surgery: Needs immediate intervention to save life, limb, or function. Typically performed within hours (e.g., ruptured aneurysm, trauma).
+
+**Q:** When does an operation request become an appointment?
+
+**A:** when it is scheduled by the planning/scheduling module.
 
 </div>
 
@@ -75,7 +87,11 @@ As a Doctor, I want to search operation requisitions.
 
 ##### Backend Process View
 
+![backend-process-view.svg](level3%2Fbackend-process-view.svg)
+
 ##### Class Diagram
+
+![class-diagram.svg](class-diagram.svg)
 
 ## 4. Acceptance Criteria and Tests
 
@@ -100,8 +116,17 @@ To successfully implement this use case, the following criteria must be met:
 
 This use case relies on:
 
+[1-register-backoffice-users](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F1-register-backoffice-users)
 
+[12-create-a-new-staff-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F12-create-a-new-staff-profile)
 
+[13-create-patient-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F13-create-patient-profile)
+
+[21-add-staff-profile-hospital's-roster](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F21-add-staff-profile-hospital%27s-roster)
+
+[30-request-an-operation](..%2F30-request-an-operation)
+
+[37-add-new-operation-types](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F37-add-new-operation-types)
 
 </div>
 

@@ -27,7 +27,6 @@
     <Folder Include="Wiki\SprintA\diagrams\use-cases\31-update-an-operation-requisition\level3\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\32-remove-an-operation-requisition\level3\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\33-list-operation-requisitions\level3\" />
-    <Folder Include="Wiki\SprintA\diagrams\use-cases\34-search-operation-requisitions\level3\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\8-delete-my-account-and-all-associated-data\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\8-delete-my-account-and-all-associated-data\level3\" />
     <Folder Include="Wiki\SprintA\diagrams\views\level3\backend\logical-view\" />

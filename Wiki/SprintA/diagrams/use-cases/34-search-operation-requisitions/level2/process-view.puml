@@ -13,7 +13,7 @@ D -> FE: requests to search for operation requisitions
 
     activate FE
     
-    FE -> BE : GET /operationRequisitions/id
+    FE -> BE : GET /operationRequisitions{id}
     
     alt the requested operation requisition exists
     
