@@ -24,9 +24,6 @@
     <Folder Include="Wiki\SprintA\diagrams\use-cases\11-log-in-to-the-system-using-the-IAM-credentials\level3\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\12-access-my-features\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\12-access-my-features\level3\" />
-    <Folder Include="Wiki\SprintA\diagrams\use-cases\30-request-an-operation\level2\" />
-    <Folder Include="Wiki\SprintA\diagrams\use-cases\30-request-an-operation\level3\" />
-    <Folder Include="Wiki\SprintA\diagrams\use-cases\31-update-an-operation-requisition\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\31-update-an-operation-requisition\level3\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\32-remove-an-operation-requisition\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\32-remove-an-operation-requisition\level3\" />

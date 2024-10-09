@@ -13,31 +13,30 @@ P -> SYSTEM: requests login via external IAM provider
 
     activate SYSTEM
     
-    SYSTEM -> IAM: redirects to IAM provider for authentication
-
-    deactivate SYSTEM
-
-    activate IAM
-
-    IAM --> P: displays login form for external credentials
-
-    deactivate IAM
+    SYSTEM --> P: asks for the user´s \ncredentials (username/password)
     
-P -> IAM: submits credentials (Google, Facebook, or hospital SSO)
+    deactivate SYSTEM
+    
+P -> SYSTEM: submits credentials
 
+    activate SYSTEM
+
+    SYSTEM -> IAM: sends credentials for authentication (username/password)
+    
     activate IAM
 
     alt correct credentials
         IAM --> SYSTEM: returns authentication token (success)
-        deactivate IAM
-
-        activate SYSTEM
+                
+        SYSTEM -> SYSTEM: creates session for the patient
         
-        SYSTEM --> P: login successful, session created
+        SYSTEM --> P: shows operation success
 
     else wrong credentials
-        IAM --> P: displays error message for incorrect credentials
+        IAM --> SYSTEM: returns error message (invalid credentials)
         deactivate IAM
+
+        SYSTEM --> P: shows error message (invalid credentials)
 
     end
 
