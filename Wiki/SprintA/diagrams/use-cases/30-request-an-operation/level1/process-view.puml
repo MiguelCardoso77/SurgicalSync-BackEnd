@@ -30,11 +30,11 @@ alt the selected operation type matches \n the doctor's specialization
 
     activate SYSTEM
     
-    SYSTEM --> D: asks for the operation's priority
+    SYSTEM --> D: shows the different priority levels and \n asks for the operation's priority
     
     deactivate SYSTEM
     
-    D -> SYSTEM: inserts the given priority
+    D -> SYSTEM: chooses the priority
     
     activate SYSTEM
     
