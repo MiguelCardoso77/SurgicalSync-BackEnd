@@ -1,0 +1,51 @@
+﻿@startuml
+autonumber
+
+Title "UC33 - List operation requisitions"
+
+actor "Doctor" as D
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate D
+
+D -> FE: requests to list the operation requisitions
+
+activate FE
+
+FE -> BE: GET /operationRequisitions
+
+activate BE
+
+BE --> FE: operation requisitions
+
+deactivate BE
+
+FE --> D: shows the list of the operation requisitions \n (with details: patient name, operation type, status) \n and filtering options
+
+deactivate FE
+
+alt The doctor applies a filter
+
+    D -> FE: selects filter options
+
+    activate FE
+    
+    FE -> BE: GET /operationRequisitions with filters
+
+    activate BE
+
+    BE --> FE: filtered requisitions
+
+    deactivate BE
+
+    FE --> D: displays the filtered list
+
+    deactivate FE
+
+end
+
+deactivate D
+
+@enduml

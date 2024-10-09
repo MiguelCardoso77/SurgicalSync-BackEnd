@@ -12,9 +12,20 @@ D -> SYSTEM: requests to list the operation requisitions
 
 activate SYSTEM
 
-SYSTEM --> D : shows the list of the operation \n requisitions (with the details: \npatient name, operation type, status)
+SYSTEM --> D : shows the list of the operation \n requisitions (with the details: \npatient name, operation type, status) \n and filtering options
 
 deactivate SYSTEM
+
+alt the doctor applies a filter
+
+D -> SYSTEM: selects filter options
+
+activate SYSTEM 
+
+SYSTEM --> D: displays the filtered list
+
+deactivate SYSTEM
+end
 
 deactivate D
 
