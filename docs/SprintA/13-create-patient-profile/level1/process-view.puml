@@ -2,14 +2,14 @@
 autonumber
 
 actor "Admin" as USER
-participant "<<System>>\n Hospital" as SYSTEM
+participant "<<System>>\n SurgicalSync" as SYSTEM
 
 activate USER
 
     USER -> SYSTEM: wants to create a patient profile
     activate SYSTEM
 
-        SYSTEM --> USER : requests data (first name, last name, date of birth,\n email, phone number, medical history )
+        SYSTEM --> USER : requests data (patientName, birthDate, gender, medicalRecordNumber,\nphoneNumber, medicalConditions, emergencyContact, appointmentHistory)
     deactivate SYSTEM
         
     USER -> SYSTEM : provides data
