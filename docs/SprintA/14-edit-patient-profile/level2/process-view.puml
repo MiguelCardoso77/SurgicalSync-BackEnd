@@ -1,0 +1,37 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate USER
+
+    USER -> FE: wants to edit a patient profile
+    activate FE
+
+        FE --> USER :  lists all patient profiles and asks to select one
+    deactivate FE
+        
+    USER -> FE : selects patient profile
+    activate FE
+    
+        FE --> USER : shows fields of profile that can be edited
+    deactivate FE
+    
+    loop Selects a field to edit
+    USER -> FE : gives information to replace
+    activate FE
+        
+        FE -> BE : POST /Patients
+        activate BE
+            
+            BE --> FE : success: edited patient profile
+        deactivate BE
+        USER <-- FE : updates information
+    end
+    
+    USER <-- FE : shows edited patient profile
+    deactivate FE
+deactivate USER
