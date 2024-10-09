@@ -25,7 +25,6 @@
     <Folder Include="Wiki\SprintA\diagrams\use-cases\12-access-my-features\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\12-access-my-features\level3\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\31-update-an-operation-requisition\level3\" />
-    <Folder Include="Wiki\SprintA\diagrams\use-cases\32-remove-an-operation-requisition\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\32-remove-an-operation-requisition\level3\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\33-list-operation-requisitions\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\33-list-operation-requisitions\level3\" />
