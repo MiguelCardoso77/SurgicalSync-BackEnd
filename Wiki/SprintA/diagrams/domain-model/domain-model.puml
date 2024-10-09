@@ -146,6 +146,13 @@ package "Operation Request Aggregate"{
         OperationRequest --> OperationRequestID
         OperationRequest --> DeadlineDate
         OperationRequest --> Priority
+        
+        note right of Priority
+                    Can be one of the following:
+                        - Elective Surgery
+                        - Urgent Surgery
+                        - Emergency Surgery
+                end note
 }
 
 package "Operation Type Aggregate"{
