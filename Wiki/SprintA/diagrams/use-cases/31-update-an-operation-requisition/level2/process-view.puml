@@ -1,0 +1,74 @@
+﻿@startuml
+autonumber
+
+Title "UC31 - Update an Operation Requisition"
+
+actor "Doctor" as D 
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+participant "Planning" as P
+
+activate D
+
+D -> FE: asks to update an operation requisition
+
+activate FE
+
+FE --> D: asks for the ID of the \n operation request to update
+
+deactivate FE
+
+D -> FE: inserts the operation request ID
+
+alt the logged-in doctor is the one who \n created the operation request
+
+    activate FE
+
+    FE -> BE: GET /operationRequest/id (with details)
+    
+    activate BE
+
+    BE --> FE: operation request details
+    
+    deactivate BE
+
+    FE --> D: shows the current operation \n request details (priority, deadline)
+
+    deactivate FE
+
+    D -> FE: updates the operation request \n details (priority, deadline)
+
+    activate FE
+    
+    FE -> BE: PUT /operationRequest/id (with new details)
+    
+    activate BE
+        
+    BE -> P: notify of changes to the operation requisition
+    
+    BE --> FE: operation success
+    
+    deactivate BE
+    
+    FE --> D: shows operation success
+
+else The doctor is not authorized to update the request
+
+    FE -> BE: GET /operationRequest/id (for validation)
+    
+    activate BE
+    
+    BE --> FE: error: unauthorized doctor
+    
+    deactivate BE
+    
+    FE --> D: shows error message
+    
+    deactivate FE
+
+end
+
+deactivate D
+
+@enduml

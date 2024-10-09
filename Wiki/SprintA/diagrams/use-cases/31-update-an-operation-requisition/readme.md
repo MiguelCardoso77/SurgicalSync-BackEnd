@@ -68,6 +68,8 @@ access to the necessary healthcare.
 
 #### Process View
 
+![process-view.svg](level2%2Fprocess-view.svg)
+
 ### Level 3
 
 #### Process View
