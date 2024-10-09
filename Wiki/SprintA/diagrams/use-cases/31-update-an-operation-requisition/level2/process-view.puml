@@ -47,6 +47,12 @@ alt the logged-in doctor is the one who \n created the operation request
         
     BE -> P: notify of changes to the operation requisition
     
+    activate P
+    
+    P --> BE : confirms that the  \n notification was received
+    
+    deactivate P 
+    
     BE --> FE: operation success
     
     deactivate BE
