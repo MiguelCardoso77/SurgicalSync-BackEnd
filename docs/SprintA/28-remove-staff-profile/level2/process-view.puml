@@ -8,13 +8,13 @@ participant "BackEnd" as BE
 
 activate USER
 
-    USER -> FE : wants to see staff profile details
+    USER -> FE : wants to remove staff profile from hospital's active roster
     activate FE
     
     FE -> BE : GET /staff
     activate BE
     
-    BE --> FE : return list of staff profiles 
+    BE --> FE : return list of staff profiles active in hospital's roster
     deactivate BE
     
     FE --> USER : shows list of staff profiles and asks to select one
@@ -23,13 +23,13 @@ activate USER
     USER -> FE : selects a staff profile 
     activate FE
     
-    FE -> BE  : GET /staff(id)
+    FE -> BE  : DELETE /staff(id)
     activate BE
     
-   BE --> FE : return staff profile information
+   BE --> FE : return operation's success
    deactivate BE
    
-   FE --> USER : shows staff details
+   FE --> USER : shows operation's success
 deactivate USER
 
 @enduml

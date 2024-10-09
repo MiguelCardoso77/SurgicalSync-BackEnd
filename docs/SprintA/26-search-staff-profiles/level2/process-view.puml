@@ -11,7 +11,7 @@ activate USER
     USER -> FE : wants to edit a staff profile 
     activate FE
     
-    FE -> BE : GET / staffProfiles
+    FE -> BE : GET /staff
     activate BE
     
     BE --> FE : return list of staff profiles 
@@ -30,7 +30,7 @@ activate USER
     USER -> FE : selects and write the information to change
     activate FE
     
-    FE -> BE : PUT / editStaffProfile
+    FE -> BE : PUT /staff/(staff-profile-information) 
     activate BE
     
     BE --> FE : return operation success
