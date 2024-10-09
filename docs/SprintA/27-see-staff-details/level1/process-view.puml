@@ -1,0 +1,22 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+participant "<<System>>\n SurgicalSync" as SYSTEM
+
+activate USER
+
+    USER -> SYSTEM: wants to see a staff profile
+    activate SYSTEM
+
+        SYSTEM --> USER : show list of staff profiles
+    deactivate SYSTEM
+        
+    USER -> SYSTEM : selects a staff profile
+    activate SYSTEM
+    
+    SYSTEM --> USER: show staff details
+    
+  
+deactivate USER
+@enduml
