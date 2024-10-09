@@ -11,7 +11,7 @@ activate USER
     USER -> FE : wants to list staff profiles
     activate FE
     
-    FE -> BE : GET / staffProfiles
+    FE -> BE : GET /staff
     activate BE
     
     BE --> FE : return list of staff profiles 
