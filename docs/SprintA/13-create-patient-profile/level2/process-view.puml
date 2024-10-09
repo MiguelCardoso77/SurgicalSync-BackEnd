@@ -11,13 +11,13 @@ activate USER
     USER -> FE: wants to create a patient profile
     activate FE
 
-        FE --> USER : requests data (first name, last name, date of birth,\n email, phone number, medical history )
+        FE --> USER : requests data (patientName, birthDate, gender, medicalRecordNumber,\nphoneNumber, medicalConditions, emergencyContact, appointmentHistory)
     deactivate FE
         
     USER -> FE : provides data
     activate FE
         alt Email and Phone number are unique
-            FE -> BE : POST /
+            FE -> BE : POST /api/Patients
             activate BE
             
                 BE --> FE : success: patient profile created 
@@ -25,7 +25,7 @@ activate USER
             USER <-- FE : shows created patient profile
             
         else Email and Phone number already exists
-            FE -> BE : POST / 
+            FE -> BE : POST /api/Patients
             activate BE
             
                 BE --> FE : error: email and phone number already exists
