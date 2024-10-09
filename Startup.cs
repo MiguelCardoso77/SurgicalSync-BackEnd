@@ -21,6 +21,8 @@ using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
 using DDDSample1.Infrastructure.Patients;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 
 namespace DDDSample1
 {
@@ -40,9 +42,13 @@ namespace DDDSample1
                 opt.UseInMemoryDatabase("DDDSample1DB")
                 .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
 
-            ConfigureMyServices(services);
+            // Configuração do Firebase Admin SDK
+            FirebaseApp.Create(new AppOptions()
+            {
+                Credential = GoogleCredential.FromFile("surgicalsync-d5bd5-firebase-adminsdk-7v461-12fb9fe637.json")
+            });
             
-
+            ConfigureMyServices(services);
             services.AddControllers().AddNewtonsoftJson();
         }
 

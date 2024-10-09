@@ -5,6 +5,7 @@ using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
+using FirebaseAdmin.Auth;
 
 namespace DDDNetCore.Application.Services
 {
@@ -45,6 +46,15 @@ namespace DDDNetCore.Application.Services
             var userId = string.IsNullOrEmpty(dto.Id) ? new UserId(Guid.NewGuid().ToString()) : new UserId(dto.Id);
             
             var user = UserMapper.ToDomain(dto, userId);
+            
+            UserRecordArgs args = new UserRecordArgs()
+            {
+                Email = user.UserEmail.ToString(),
+                Password = user.Password.ToString(),
+            };
+            
+            UserRecord userRecord = await FirebaseAuth.DefaultInstance.CreateUserAsync(args);
+            Console.WriteLine($"Successfully created new user: {userRecord.Uid}");
             
             await this._repo.AddAsync(user);
             await this._unitOfWork.CommitAsync();
