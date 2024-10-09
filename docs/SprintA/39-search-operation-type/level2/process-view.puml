@@ -1,0 +1,35 @@
+﻿@startuml
+autonumber
+
+actor "Admin" as USER
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate USER
+
+    USER -> FE : wants to search for operation type
+    activate FE
+    
+        FE -> BE : GET /operationTypes/{id}
+    
+        alt Operation Types Listed Successfully
+ 
+            activate BE
+            
+                BE --> FE : returns operationType
+            FE --> USER : shows operationType
+            
+        else Couldn't Find Operation Type 
+                             
+                BE --> FE : returns error message
+            deactivate BE
+            FE --> USER : informs error with suggestion
+            
+        end 
+        
+    deactivate FE
+            
+deactivate USER
+
+@enduml
