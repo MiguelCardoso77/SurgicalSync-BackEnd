@@ -49,6 +49,18 @@ end loop
         
         CN --> FE : returns List<OperationTypeDTO>
     deactivate CN
+    
+    FE -> CN : filters operation types
+    activate CN
+    
+        CN -> SV : FilterOperationTypesAsync(list)
+        activate SV
+        
+            SV --> CN : returns List<OperationTypeDTO>
+        deactivate SV
+        
+        CN --> FE : returns List<OperationTypeDTO>
+    deactivate CN
 
 deactivate FE
 
