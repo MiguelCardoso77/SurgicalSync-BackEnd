@@ -1,0 +1,26 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+participant "<<System>>\n SurgicalSync" as SYSTEM
+
+activate USER
+
+    USER -> SYSTEM: wants to deactivate a staff profile
+    activate SYSTEM
+
+        SYSTEM --> USER : show list of staff profiles
+    deactivate SYSTEM
+        
+    USER -> SYSTEM : selects a staff profile
+    
+    activate SYSTEM
+        alt staff profile deactivated
+            USER <-- SYSTEM : success: staff profile deactivated
+        else staff profile already deactivated
+            USER <-- SYSTEM : error: staff profile already deactivated
+        end
+    deactivate SYSTEM
+    
+deactivate USER
+@enduml
