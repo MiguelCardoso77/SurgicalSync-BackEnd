@@ -78,7 +78,11 @@ activities are provided as necessary.
 
 ##### Backend Process View
 
+![backend-process-view.svg](level3%2Fbackend-process-view.svg)
+
 ##### Class Diagram
+
+![class-diagram.svg](class-diagram.svg)
 
 ## 4. Acceptance Criteria and Tests
 
@@ -106,8 +110,15 @@ To successfully implement this use case, the following criteria must be met:
 
 This use case relies on:
 
+[1-register-backoffice-users](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F1-register-backoffice-users)
 
+[12-create-a-new-staff-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F12-create-a-new-staff-profile)
 
+[13-create-patient-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F13-create-patient-profile)
+
+[30-request-an-operation](..%2F30-request-an-operation)
+
+[37-add-new-operation-types](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F37-add-new-operation-types)
 
 </div>
 

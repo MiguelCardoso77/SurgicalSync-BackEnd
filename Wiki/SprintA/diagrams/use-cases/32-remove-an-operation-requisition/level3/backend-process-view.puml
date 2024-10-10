@@ -1,0 +1,77 @@
+﻿@startuml
+autonumber
+
+Title "UC 32 - Remove an operation requisition"
+
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "Domain" as DM
+participant "Repositories" as REPO
+database "SQL Database" as SQL
+
+activate FE
+
+FE -> CN  : GET /operation-requisitions
+
+activate CN
+
+CN -> SV: GetAllAsync()
+
+activate SV
+
+            note left of SV
+                Process documented on UC33
+            end note
+
+SV --> CN : List<OperationRequisitionDTO>
+
+deactivate SV
+
+CN --> FE : List<OperationRequisitionDTO>
+
+deactivate CN
+
+FE -> CN : INACTIVATE /operationRequisitions/id
+
+activate CN
+
+CN -> SV : INACTIVATE /operationTypes/id
+
+activate SV
+
+SV -> DM : Deactivate(OperationRequisition)
+
+activate DM
+
+DM --> SV : updated operation requisition 
+
+deactivate DM
+
+SV -> REPO : InactivateAsync(OperationRequisition)
+
+activate REPO
+
+REPO -> SQL : INACTIVATE /operationRequisitions/id
+
+activate SQL
+
+SQL --> REPO : operation success
+
+deactivate SQL 
+
+REPO  --> SV : operation success
+
+deactivate REPO
+
+SV --> CN : operation success
+
+deactivate  SV
+
+CN --> FE : operation success
+
+deactivate CN 
+
+deactivate FE
+
+@enduml
