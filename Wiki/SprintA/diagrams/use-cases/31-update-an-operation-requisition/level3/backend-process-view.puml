@@ -1,11 +1,96 @@
 ﻿@startuml
-'https://plantuml.com/sequence-diagram
-
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+Title "UC31 - Update an operation requisition"
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "DTOs" as DTO
+participant "Mappers" as MP
+participant "Domain" as DM
+participant "Repositories" as REPO
+database "SQL Database" as SQL
+
+activate FE
+
+FE -> CN : GET /operation-requests
+
+activate CN
+
+CN -> SV: GetAllAsync()
+
+activate SV
+
+    note left of SV
+    
+    Process documented on UC33
+    
+    end note
+    
+    SV --> CN : List<OperationRequisitionDTO>
+
+deactivate SV
+
+CN --> FE : List<OperationRequisitionDTO>
+
+deactivate CN
+
+FE -> CN : PUT /operation-request (with given data)
+
+activate CN
+
+CN -> SV : Create(OperationRequestDTO)
+
+activate SV
+
+SV -> DTO :  Create(OperationRequestDTO)
+
+activate DTO 
+
+DTO --> SV : OperationRequestDTO
+
+deactivate DTO 
+
+SV -> MP : MapToDomain(OperationRequisitionDTO))
+
+activate MP
+
+MP -> DM : Create(OperationRequest)
+
+activate DM
+
+DM --> MP : OperationRequest
+
+deactivate DM
+
+MP --> SV : OperationRequest
+
+deactivate MP 
+
+SV -> REPO : UpdateAsync(OperationRequest)
+
+activate REPO
+
+REPO -> SQL : PUT /operation-requests (OperationRequest)
+
+activate SQL 
+
+SQL --> REPO : operation success
+
+deactivate SQL
+
+REPO --> SV : operation success
+
+deactivate REPO
+
+SV --> CN : operation success
+
+deactivate SV
+
+CN --> FE : operation success
+
+deactivate CN
+
+deactivate FE
 @enduml
