@@ -9,11 +9,13 @@ participant "Services" as SV
 participant "DTOs" as DTO
 participant "Mappers" as MP
 participant "Domain" as DM
+participant "Firebase IAM API" as IAM
+participant "SMTP API" as SMTP
 participant "Repositories" as REPO
 database "SQL Database" as SQL
 
 activate FE
-    FE -> CN: POST /users-backoffice (with user data)
+    FE -> CN: POST /users (with user data)
     activate CN
     
         CN -> SV : Create(UserDTO)
@@ -26,6 +28,18 @@ alt User data is valid
             
                 DTO --> SV : returns UserDTO
             deactivate DTO
+            
+            SV -> IAM : create user
+            activate IAM
+            
+                IAM --> SV : returns UID of created user
+            deactivate IAM
+            
+            SV -> SMTP : send set-up email
+            activate SMTP
+            
+                SMTP --> SV : success: email sent
+            deactivate
             
             SV -> MP : MapToDomain(UserDTO)
             activate MP
@@ -42,7 +56,7 @@ alt User data is valid
             SV -> REPO : AddAsync(User)
             activate REPO
             
-                REPO -> SQL : POST /users-backoffice (User)
+                REPO -> SQL : POST /users (User)
                 activate SQL
                 
                     SQL --> REPO : success: created user (returns user ID)
@@ -56,7 +70,7 @@ alt User data is valid
 
 else User data is invalid
 
-                REPO -> SQL : POST /users-backoffice (User)
+                REPO -> SQL : POST /users (User)
                 activate SQL
                 
                     SQL --> REPO : error: user already exists
