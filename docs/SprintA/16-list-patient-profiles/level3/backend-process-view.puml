@@ -30,12 +30,10 @@ activate FE
             
                 REPO --> SV : returns List<Patients>
             deactivate REPO
-            
-            SV --> CN : returns List<PatientDTO>
-        
+                    
             SV -> MP : ToDTO(List<Patients>)
             activate MP   
-loop for all operation types
+loop for all patient profiles
                 MP -> DTO : Create(Patient)
                 activate DTO
                 
