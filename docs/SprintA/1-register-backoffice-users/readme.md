@@ -1,6 +1,6 @@
 ﻿# Register New Backoffice Users
 
-## 1. User Story Description
+## 1. Use Case Description
 
 As an Admin, I want to register new backoffice users (e.g., doctors, nurses,
 technicians, admins) via an out-of-band process, so that they can access the
@@ -23,6 +23,7 @@ Attributes are :
 - Role
 
 The system enforces strong password requirements for security.
+Requirements: "at least 10 characters long, at least a digit, a capital letter and a special character"
 
 Registered users receive a one-time setup link via email to set their password and activate their
 account.
@@ -91,9 +92,13 @@ To successfully complete this user story, the following criteria must be met:
 
 This user story relies on the following API functionalities:
 
+-   Firebase IAM API
+
+-   SMTP Email API
+
 -   To create backoffice user
     ```
-    POST /users-backoffice
+    POST /users
     ```
 
 ## 6. Definition of Ready (DoR)
@@ -117,7 +122,7 @@ are identified. This includes the API functionalities necessary for the creation
 
 ### 6.4 Estimation and Sizing
 
-This user story is estimated to necessitate an allocation of approximately 4 to 12 hours for completion.
+This user story is estimated to necessitate an allocation of approximately 6 to 12 hours for completion.
 This estimate is based on the complexity of the user story and the anticipated effort required for its
 implementation.
 
