@@ -10,30 +10,32 @@ activate USER
 
     USER -> FE: wants to edit a patient profile
     activate FE
-
+        
+        FE -> BE : GET /Patients
+        activate BE
+            
+            BE --> FE : returns patients
+        deactivate BE
+        
         FE --> USER :  lists all patient profiles and asks to select one
     deactivate FE
         
     USER -> FE : selects patient profile
     activate FE
     
-        FE --> USER : shows fields of profile that can be edited
+        FE --> USER : requests new profile details 
     deactivate FE
     
-    loop Selects a field to edit
     USER -> FE : gives information to replace
     activate FE
         
-        FE -> BE : POST /Patients
+        FE -> BE : PUT /Patients/id (with given data)
         activate BE
             
             BE --> FE : success: edited patient profile
         deactivate BE
-        USER <-- FE : updates information
-    end
     
-    USER <-- FE : shows edited patient profile
+    USER <-- FE : success: edited patient profile
     deactivate FE
 deactivate USER
-
 @enduml
