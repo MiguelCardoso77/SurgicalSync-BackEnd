@@ -10,7 +10,7 @@ Represents the professionals providing healthcare.
 
 The client has outlined that the Admin Role should possess the functionality to create new staff profiles.
 
-All Surgeries require the following staff:
+All staff require the following data:
 • Attributes:
 - Name
 - License Number (unique identifier)
@@ -68,7 +68,7 @@ To successfully complete this user story, the following criteria must be met:
 
 This user story relies on the following API functionalities:
 
--   To update an operation type:
+-   To create a staff profile:
     ```
     POST /staff
     ```
