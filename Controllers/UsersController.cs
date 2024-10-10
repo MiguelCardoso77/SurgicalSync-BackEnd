@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
 using System.Collections.Generic;
-using System;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
-using DDDSample1.Domain.Families;
+using Microsoft.AspNetCore.Mvc;
 
-namespace DDDSample1.Controllers
+namespace DDDNetCore.Controllers
 { 
     [Route("api/[controller]")]
     [ApiController]

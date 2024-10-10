@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
+using DDDNetCore.Domain;
 using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
 using FirebaseAdmin.Auth;
@@ -56,12 +57,17 @@ namespace DDDNetCore.Application.Services
             UserRecord userRecord = await FirebaseAuth.DefaultInstance.CreateUserAsync(args);
             Console.WriteLine($"Successfully created new user: {userRecord.Uid}");
             
-            // Send set-up email to user
-            
             // Create user in system database
             var user = UserMapper.ToDomain(dto, new UserId(userRecord.Uid));
             await this._repo.AddAsync(user);
             await this._unitOfWork.CommitAsync();
+            
+            // Send set-up email to user
+            var smtpEmailService = new EmailService();
+            var emailContent = $"Hello {user.Username}! \n Your current password is: {password}, here is the link to reset it: http://localhost:5001/reset-password \n Your account will be active once you set-up your account!";            
+            var email = new Email(emailContent, user.UserEmail.ToString(), "Activate Your SurgicalSync Account");
+            await smtpEmailService.SendEmailAsync(email.Destination, email.Subject, email.EmailContent);
+            Console.WriteLine($"Successfully sent the email to {email.Destination}");
             
             return UserMapper.ToDto(user);
         }
