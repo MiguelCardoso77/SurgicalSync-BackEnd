@@ -13,8 +13,7 @@ namespace DDDNetCore.SurgicalSyncTests.Application.Mappers
         {
             var dto = new UserDto()
             {
-                Id = "1", UserName = "Test", UserEmail = "emailTest@gmail.com", UserRole = "Admin",
-                Password = "password"
+                Id = "1", UserName = "Test", UserEmail = "emailTest@gmail.com", UserRole = "Admin"
             };
 
             var user = UserMapper.ToDomain(dto, new UserId(dto.Id));
@@ -23,14 +22,13 @@ namespace DDDNetCore.SurgicalSyncTests.Application.Mappers
             Assert.AreEqual(user.Username.ToString(), dto.UserName);
             Assert.AreEqual(user.UserEmail.ToString(), dto.UserEmail);
             Assert.AreEqual(user.UserRole.ToString(), dto.UserRole);
-            Assert.AreEqual(user.Password.ToString(), dto.Password);
         }
 
         [Test]
         public void TestToDto()
         {
             var user = new User(new UserId("1"), new Username("Test"), new UserEmail("emailTest@gmail.com"),
-                new UserRole("Admin"), new Password("password"));
+                new UserRole("Admin"));
 
             var dto = UserMapper.ToDto(user);
 
@@ -38,7 +36,6 @@ namespace DDDNetCore.SurgicalSyncTests.Application.Mappers
             Assert.AreEqual(dto.UserName, user.Username.ToString());
             Assert.AreEqual(dto.UserEmail, user.UserEmail.ToString());
             Assert.AreEqual(dto.UserRole, user.UserRole.ToString());
-            Assert.AreEqual(dto.Password, user.Password.ToString());
         }
     }
 }

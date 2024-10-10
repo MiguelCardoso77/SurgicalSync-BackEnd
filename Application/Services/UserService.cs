@@ -43,19 +43,23 @@ namespace DDDNetCore.Application.Services
         
         public async Task<UserDto> AddAsync(UserDto dto)
         {
-            var userId = string.IsNullOrEmpty(dto.Id) ? new UserId(Guid.NewGuid().ToString()) : new UserId(dto.Id);
+            // Generate random password
+            var password = PasswordService.GeneratePassword();
             
-            var user = UserMapper.ToDomain(dto, userId);
-            
+            // Create user in Firebase IAM
             UserRecordArgs args = new UserRecordArgs()
             {
-                Email = user.UserEmail.ToString(),
-                Password = user.Password.ToString(),
+                Email = dto.UserEmail,
+                Password = password,
             };
             
             UserRecord userRecord = await FirebaseAuth.DefaultInstance.CreateUserAsync(args);
             Console.WriteLine($"Successfully created new user: {userRecord.Uid}");
             
+            // Send set-up email to user
+            
+            // Create user in system database
+            var user = UserMapper.ToDomain(dto, new UserId(userRecord.Uid));
             await this._repo.AddAsync(user);
             await this._unitOfWork.CommitAsync();
             

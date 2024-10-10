@@ -8,6 +8,5 @@ namespace DDDNetCore.Application.DTO
         public String UserName { get; set; }
         public String UserEmail { get; set; }
         public String UserRole { get; set; }
-        public String Password { get; set; }
     }
 }

@@ -10,12 +10,6 @@ namespace DDDNetCore.Infraestructure.Users
         {
             builder.HasKey(b => b.Id);
             
-            builder.OwnsOne(b => b.Password, passwordBuilder =>
-            {
-                passwordBuilder.Property(p => p.PasswordValue)
-                    .HasColumnName("Password");
-            });
-            
             builder.OwnsOne(b => b.UserEmail, emailBuilder =>
             {
                 emailBuilder.Property(p => p.UserEmailValue)
