@@ -1,0 +1,87 @@
+@startuml
+autonumber
+
+title BackEnd Process View
+
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "DTOs" as DTO
+participant "Mappers" as MP
+participant "Domain" as DM
+participant "Repositories" as REPO
+database "SQL Database" as SQL
+
+activate FE
+    FE -> CN: GET /staff (with given data)
+    activate CN
+    
+        CN -> SV : GetAllAsync()
+        activate SV
+        
+        SV --> CN : returns List<StaffProfileDTO>
+        deactivate SV
+        
+        CN --> FE : returns List<StaffProfileDTO>
+        deactivate CN
+        
+        FE -> CN : PUT /staff (with given data)
+        activate CN
+        
+        CN -> SV: Create(StaffProfileDTO)
+        activate SV
+        
+        SV -> DTO: Create(StaffProfileDTO) 
+        activate DTO
+                        
+                DTO --> SV : returns StaffProfileDTO
+            deactivate DTO
+            
+            SV -> MP : MapToDomain(StaffProfileDTO)
+            activate MP
+            
+                MP -> DM : Create(StaffProfile)
+                activate DM
+                     
+                    DM --> MP : returns StaffProfile
+                deactivate DM
+            
+                MP --> SV : returns StaffProfile
+            deactivate MP
+                
+            SV -> REPO : UpdateAsync(StaffProfile)
+            activate REPO
+            
+            alt Staff Profile data is valid
+
+                REPO -> SQL : PUT /staff (StaffProfile)
+                activate SQL
+                
+                    SQL --> REPO : success: edited staff profile 
+                deactivate SQL
+                
+                REPO --> SV : success: added staff profile 
+            
+
+            SV --> CN : success: edited staff profile 
+        FE <-- CN: success: edited staff profile 
+
+else Wrong format of parameters
+
+                REPO -> SQL : PUT /staff (StaffProfile)
+                activate SQL
+                
+                    SQL --> REPO : error: Wrong format of parameters
+                deactivate SQL
+                
+        REPO --> SV : error: Wrong format of parameters
+            deactivate REPO
+            SV --> CN : error: Wrong format of parameters
+        deactivate SV
+        FE <-- CN: error: Wrong format of parameters
+    deactivate CN     
+               
+deactivate FE
+end
+
+@enduml
