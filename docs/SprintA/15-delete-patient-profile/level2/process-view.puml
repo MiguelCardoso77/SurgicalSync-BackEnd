@@ -1,0 +1,52 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate USER
+
+    USER -> FE: wants to delete a patient profile
+    activate FE
+        
+        FE -> BE : GET /Patients
+        activate BE
+            
+            BE --> FE : returns patients
+        deactivate BE
+        
+        FE --> USER :  lists all patient profiles and asks to select one
+    deactivate FE
+        
+    USER -> FE : selects patient profile
+    activate FE
+    
+alt Couldn't Find Patient Profile
+        FE --> USER : informs error with suggestion
+        
+        FE -> BE : INACTIVATE /Patients/id
+        activate BE
+        
+            BE --> FE : error : couldn't find patient profile
+        deactivate BE
+        
+else Patient Deleted Successfully
+        FE --> USER : requests confirmation
+        deactivate FE
+        
+        USER -> FE :  confirms deletion
+        activate FE
+        
+        FE -> BE : INACTIVATE /Patients/id
+        activate BE
+        
+            BE --> FE : error : couldn't find patient profile
+        deactivate BE
+                
+        FE --> USER : success: patient profile deleted
+        deactivate FE
+end
+deactivate USER
+@enduml
