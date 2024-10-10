@@ -15,19 +15,14 @@ activate USER
     USER -> SYSTEM : selects patient profile
     activate SYSTEM
     
-        SYSTEM --> USER: shows fields of profile that can be edited
+        SYSTEM --> USER: requests new profile details 
     deactivate SYSTEM
-    
-    loop Selects a field to edit
-    
-        USER -> SYSTEM: gives information to replace
-        activate SYSTEM
         
-            SYSTEM --> USER: updates information
-    end
+    USER -> SYSTEM: gives information to replace
+    activate SYSTEM
     
-    USER <-- SYSTEM : success: confirms operation success
+        SYSTEM --> USER : success: edited patient profile
     deactivate SYSTEM
     
 deactivate USER
-@end
+@enduml
