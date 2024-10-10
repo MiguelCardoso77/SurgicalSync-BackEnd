@@ -11,7 +11,7 @@ activate USER
     USER -> FE : wants to create a staff profile
     activate FE
     
-        FE --> USER : requests data ( name, email , phone number and specialization)
+        FE --> USER : requests data ( name, email , phone number, specialization and availability slots)
     deactivate FE
 
     USER -> FE : provides data
@@ -19,7 +19,7 @@ activate USER
     
             alt Staff Profile Already Exists
                
-                FE -> BE : POST /staff-backoffice (with staff data)
+                FE -> BE : PUT /staff/id (with staff data)
                 activate BE
                 
                     BE --> FE : error: staff profile already exists
@@ -28,13 +28,13 @@ activate USER
                 FE --> USER : informs error with suggestion
             else Staff Profile Created Successfully
             
-                FE -> BE : POST /staff-backoffice (with staff data)
+                FE -> BE : POST /staff (with staff data)
                 activate BE
                 
                     BE --> FE : success: created staff profile (returns staff ID)
                 deactivate BE
                         
-        FE --> USER : shows created staff profile
+        FE --> USER : shows success message
     deactivate FE
     end
             
