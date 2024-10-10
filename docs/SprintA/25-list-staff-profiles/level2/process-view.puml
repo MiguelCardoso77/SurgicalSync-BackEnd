@@ -17,7 +17,7 @@ activate USER
     BE --> FE : return list of staff profiles 
     deactivate BE
     
-    FE --> USER : shows list of staff profiles 
+    FE --> USER : lists staff profiles 
     deactivate FE
 
     
