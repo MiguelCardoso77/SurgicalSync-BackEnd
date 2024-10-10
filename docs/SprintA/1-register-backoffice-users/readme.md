@@ -36,7 +36,7 @@ A confirmation email is sent to verify the user’s registration
 
 - Logical View
 
-![logical-view.svg](../global-artifacts/level1/logical-view.svg)
+![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level1/logical-view/logical-view.svg)
 ###
 - Process View
 
@@ -46,7 +46,7 @@ A confirmation email is sent to verify the user’s registration
 
 - Logical View
 
-![logical-view.svg](../global-artifacts/level2/logical-view.svg)
+![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
 ###
 - Process View
 
