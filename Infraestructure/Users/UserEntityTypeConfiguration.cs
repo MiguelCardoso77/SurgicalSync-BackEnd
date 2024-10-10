@@ -22,11 +22,10 @@ namespace DDDNetCore.Infraestructure.Users
                     .HasColumnName("Name");
             });
             
-            builder.OwnsOne(b => b.UserRole, roleBuilder =>
-            {
-                roleBuilder.Property(p => p.RoleValue)
-                    .HasColumnName("Role");
-            });
+             
+            builder.Property(b => b.UserRole)
+                .HasColumnName("Role")
+                .HasConversion<string>();
         }
     }
 }

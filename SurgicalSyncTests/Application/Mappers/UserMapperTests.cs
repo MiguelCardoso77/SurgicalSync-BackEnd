@@ -28,7 +28,7 @@ namespace DDDNetCore.SurgicalSyncTests.Application.Mappers
         public void TestToDto()
         {
             var user = new User(new UserId("1"), new Username("Test"), new UserEmail("emailTest@gmail.com"),
-                new UserRole("Admin"));
+                UserRole.Admin);
 
             var dto = UserMapper.ToDto(user);
 

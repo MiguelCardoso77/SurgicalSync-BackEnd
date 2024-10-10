@@ -14,7 +14,7 @@ namespace DDDNetCore.Domain.Users
         {
             this.Username = null;
             this.UserEmail = null;
-            this.UserRole = null;
+            this.UserRole = UserRole.None;
         }
         
         public User(UserId id, Username username, UserEmail email, UserRole role)

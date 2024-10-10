@@ -1,4 +1,5 @@
-﻿using DDDNetCore.Application.DTO;
+﻿using System;
+using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.Users;
 
 namespace DDDNetCore.Application.Mappers
@@ -7,7 +8,7 @@ namespace DDDNetCore.Application.Mappers
     {
         public static User ToDomain(UserDto dto, UserId userId)
         {
-            return new User(userId, new Username(dto.UserName), new UserEmail(dto.UserEmail), new UserRole(dto.UserRole));
+            return new User(userId, new Username(dto.UserName), new UserEmail(dto.UserEmail), Enum.Parse<UserRole>(dto.UserRole));
         }
         
         public static UserDto ToDto(User user)

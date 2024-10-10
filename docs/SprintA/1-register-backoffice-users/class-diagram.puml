@@ -43,8 +43,12 @@ class UserEmail {
     + UserEmail(string email)
 }
 
-class UserRole {
-    + UserRole(string role)
+enum UserRole {
+    - Admin
+    - Doctor
+    - Nurse
+    - Technician
+    - Patient
 }
 
 class UserService {
