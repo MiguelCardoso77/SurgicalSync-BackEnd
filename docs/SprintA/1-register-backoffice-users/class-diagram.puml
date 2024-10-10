@@ -18,14 +18,8 @@ class User {
 
 class UserDTO {
     - UserEmail
-    - UserPassword
     - UserName
     - IsActive
-    + UserDTO(string userEmail, string userName, string password)
-    + ChangeUserName(string userName)
-    + ChangePassword(string password)
-    + ActivateUser()
-    + DeactivateUser()
 }
 
 class UsersController {
@@ -53,10 +47,6 @@ class UserRole {
     + UserRole(string role)
 }
 
-class Password {
-    + Password(string password)
-}
-
 class UserService {
     + GetAllAsync()
     + GetByIdAsync(UserId id)
@@ -64,6 +54,14 @@ class UserService {
     + UpdateAsync(UserDto dto)
     + InactivateAsync(UserId id)
     + DeleteAsync(UserId id)
+}
+
+class PasswordService {
+    + GeneratePassword()
+}
+
+class EmailService {
+    + SendEmail()
 }
 
 interface IUserRepository {
@@ -84,8 +82,11 @@ class UserMapper {
 }
 
 UsersController -> UserService
-UserService --> UserMapper : uses
-UserService -> UserDTO : creates
+UserService ---> UserMapper : uses
+UserService --> UserDTO : creates
+
+UserService --> PasswordService : uses
+UserService -> EmailService : uses
 
 UserMapper <-- UserDTO : receives
 UserMapper --> User : creates
@@ -94,7 +95,6 @@ User --> UserId : has a
 User --> Username : has a
 User --> UserEmail : has a
 User --> UserRole : has a
-User --> Password : has a
 
 UserService --> UserRepository
 UserRepository --|> BaseRepository
