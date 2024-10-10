@@ -1,0 +1,27 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate USER
+
+    USER -> FE : wants to list staff profiles
+    activate FE
+    
+    FE -> BE : GET /staff
+    activate BE
+    
+    BE --> FE : return list of staff profiles 
+    deactivate BE
+    
+    FE --> USER : shows list of staff profiles 
+    deactivate FE
+
+    
+ 
+deactivate USER
+
+@enduml

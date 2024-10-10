@@ -17,7 +17,7 @@ activate USER
     BE --> FE : return list of staff profiles 
     deactivate BE
     
-    FE --> USER : shows list of staff profiles and asks to select one
+    FE --> USER : shows list of staff profiles and asks to selects one
     deactivate FE
 
     USER -> FE : selects a staff profile 
@@ -30,7 +30,7 @@ activate USER
     USER -> FE : selects and write the information to change
     activate FE
     
-    FE -> BE : PUT /staffProfile/( with staff profile information)
+    FE -> BE : PUT /staff/(staff-profile-information) 
     activate BE
     
     BE --> FE : return operation success

@@ -11,7 +11,7 @@ activate USER
     USER -> FE : wants to add a staff profile to the hospital's roster
     activate FE
     
-    FE -> BE : GET / staffProfileNotInHospitalRoster
+    FE -> BE : GET /staff
     activate BE
     
     BE --> FE : return list of staff profile not in hospital's roster
@@ -23,7 +23,7 @@ activate USER
     USER -> FE : selects a staff profile 
     activate FE
     
-    FE -> BE : POST / addToHospitalRoster
+    FE -> BE : POST /staff/(id)
     activate BE
     
     BE --> FE : return operation success

@@ -40,11 +40,19 @@ alt the selected operation type matches \n the doctor's specialization
 
     activate FE
     
-    FE --> D: asks for the operation's priority
+    FE -> BE : GET /priority
+    
+    activate BE
+    
+    BE --> FE : priority levels
+    
+    deactivate BE
+    
+    FE --> D: shows the different priority levels and \n asks for the operation's priority
     
     deactivate FE
     
-    D -> FE: inserts the given priority
+    D -> FE: chooses the priority
     
     activate FE
     

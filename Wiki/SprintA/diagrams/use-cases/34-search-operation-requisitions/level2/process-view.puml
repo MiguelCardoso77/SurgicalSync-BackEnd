@@ -1,0 +1,41 @@
+﻿@startuml
+autonumber
+
+Title "UC34 - Search operation requisitions"
+
+actor "Doctor" as D
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate D
+
+D -> FE: requests to search for operation requisitions
+
+    activate FE
+    
+    FE -> BE : GET /operationRequisitions{id}
+    
+    alt the requested operation requisition exists
+    
+    activate BE
+    
+    BE --> FE : required operation requisition \n (eg., patient name, operation type, status)
+    
+    
+    FE --> D: shows the operation requisition's details \n (eg., patient name, operation type, status)
+    
+    else 
+    
+    BE --> FE : error message
+    
+    deactivate BE
+    
+    FE --> D : shows error message
+    
+    deactivate FE 
+    
+    end
+    
+deactivate D
+
+@enduml
