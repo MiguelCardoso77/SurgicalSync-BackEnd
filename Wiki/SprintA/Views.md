@@ -12,11 +12,9 @@
     - [Logical View](#logical-view-1)
     - [Implementation View](#implementation-view)
   - [Level 3 (Backend)](#level-3-backend)
-    - [Logical View](#logical-view-2)
-  - [Level 3 (Frontend)](#level-3-frontend)
+    - [Logical View](#logical-view-2) 
+  - [Level 4](#level-4)
     - [Logical View](#logical-view-3)
-  - [Level 3 (Planning)](#level-3-planning)
-    - [Logical View](#logical-view-4)
 
 </div>
 
@@ -82,19 +80,13 @@ To visually model/represent both what was implemented and the ideas and alternat
 
 ### Logical View
 
-------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 
-## Level 3 (Frontend)
+![logical-view.png](diagrams%2Fviews%2Flevel3%2Fbackend%2Flogical-view%2Flogical-view.png)
 
-------------------------------------------------------------------------
+## Level 4
 
-### Logical View
+-----------------------------------------------------------------------------------------
 
------------------------------------------------------------------------
-
-## Level 3 (Planning)
-
-------------------------------------------------------------------------
-
-### Logical View
+#### Logical View
 
