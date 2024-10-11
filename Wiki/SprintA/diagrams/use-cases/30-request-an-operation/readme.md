@@ -78,8 +78,11 @@ necessary healthcare.
 
 ##### Backend Process View
 
+![backend-process-view.png](level3%2Fbackend-process-view.png)
+
 ##### Class Diagram
 
+![class-diagram.svg](class-diagram.svg)
 
 ## 4. Acceptance Criteria and Tests
 

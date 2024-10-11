@@ -26,11 +26,11 @@ activate USER
     FE --> USER : asks the information to change  \n(contact information, availability slots and specialization)
     deactivate FE
     
-    loop  
-    USER -> FE : selects and write the information to change
+    alt   
+    USER -> FE : provides new staff details
     activate FE
     
-    FE -> BE : PUT /staffProfile/( with staff profile information)
+    FE -> BE : PUT /staffProfile/id ( with staff profile information)
     activate BE
     
     BE --> FE : return operation success

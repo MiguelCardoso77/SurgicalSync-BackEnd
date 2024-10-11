@@ -1,0 +1,28 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+participant "<<System>>\n SurgicalSync" as SYSTEM
+
+activate USER
+
+    USER -> SYSTEM: wants to search for patient profiles
+    activate SYSTEM
+    
+        SYSTEM --> USER : asks for patient id
+    deactivate SYSTEM 
+       
+    USER -> SYSTEM: provides patient id
+    activate SYSTEM
+
+        alt Couldn't Find Patient Profile
+            USER <-- SYSTEM : informs error with suggestion
+            
+        else Patient Profile Found
+            SYSTEM --> USER : shows patient profile
+        end
+        
+    deactivate SYSTEM
+    
+deactivate USER
+@enduml

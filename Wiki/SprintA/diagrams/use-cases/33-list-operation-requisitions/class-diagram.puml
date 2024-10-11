@@ -103,6 +103,4 @@ OperationRequestService --> OperationRequestRepository
 OperationRequestRepository --|> BaseRepository
 OperationRequestRepository --|> IOperationRequestRepository
 
-
-
 @enduml

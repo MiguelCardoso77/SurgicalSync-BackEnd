@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using DDDNetCore.Domain.Products;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Categories;
 

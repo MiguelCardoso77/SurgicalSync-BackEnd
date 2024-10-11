@@ -1,3 +1,4 @@
+using DDDNetCore.Domain.Products;
 using DDDSample1.Domain.Products;
 using DDDSample1.Infrastructure.Shared;
 

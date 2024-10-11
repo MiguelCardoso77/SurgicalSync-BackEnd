@@ -1,0 +1,32 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+participant "<<System>>\n SurgicalSync" as SYSTEM
+
+activate USER
+
+    USER -> SYSTEM: wants to delete a patient profile
+    activate SYSTEM
+
+        SYSTEM --> USER : lists all patient profiles and asks to select one
+    deactivate SYSTEM
+        
+    USER -> SYSTEM : selects patient profile
+    activate SYSTEM
+    
+alt Couldn't Find Patient Profile
+    SYSTEM --> USER : informs error with suggestion
+    
+else Patient Deleted Successfully
+    SYSTEM --> USER : requests confirmation
+    deactivate SYSTEM
+    
+    USER -> SYSTEM :  confirms deletion
+    activate SYSTEM
+    
+    SYSTEM --> USER : success: patient profile deleted
+    deactivate SYSTEM
+end
+deactivate USER
+@enduml

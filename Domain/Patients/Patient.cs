@@ -3,70 +3,86 @@ using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Domain.Patients
 {
-    public class Patient : Entity<PatientId>, IAggregateRoot
+    public class Patient : Entity<MedicalRecordNumber>, IAggregateRoot
     {
-        public string PatientName { get; private set; }
-        public string PhoneNumber { get; private set; }
-        public string Gender { get; private set; }
-        private List<string> MedicalConditions { get; }
-        public string EmergencyContact { get; private set; }
-        public string BirthDate { get; private set; }
+        public PatientName PatientName { get; private set; }
+        public BirthDate BirthDate { get; private set; }
+        public Gender Gender { get; private set; }
+        public MedicalRecordNumber MedicalRecordNumber { get; private set; }
+        public PhoneNumber PhoneNumber { get; private set; }
+        public List<MedicalConditions> MedicalConditions { get; private set; }
+        public EmergencyContact EmergencyContact { get; private set; }
+        public List<AppointmentHistory> AppointmentHistory { get; private set;}
 
         private Patient()
         {
-            this.PatientName = "";
-            this.PhoneNumber = "";
-            this.MedicalConditions = new List<string>();
-            this.EmergencyContact = "";
-            this.BirthDate = "";
-            this.Gender = "";
+            this.PatientName = null;
+            this.PhoneNumber = null;
+            this.MedicalConditions = null;
+            this.EmergencyContact = null;
+            this.BirthDate = null;
+            this.Gender = null;
+            this.AppointmentHistory = null;
+            this.MedicalRecordNumber = null;
         }
         
-        public Patient(string patientName, string phoneNumber, List<string> medicalConditions, string emergencyContact, string birthDate, string gender)
+        public Patient(PatientName patientName, BirthDate birthDate, Gender gender, MedicalRecordNumber medicalRecordNumber, PhoneNumber phoneNumber, List<MedicalConditions> medicalConditions, 
+            EmergencyContact emergencyContact, List<AppointmentHistory> appointmentHistory)
         {
-            this.Id = new PatientId(patientName);
             this.PatientName = patientName;
+            this.BirthDate = birthDate;
+            this.Gender = gender;
+            this.MedicalRecordNumber = medicalRecordNumber;
             this.PhoneNumber = phoneNumber;
             this.MedicalConditions = medicalConditions;
             this.EmergencyContact = emergencyContact;
-            this.BirthDate = birthDate;
-            this.Gender = gender;
+            this.AppointmentHistory = appointmentHistory;
+
         }
         
-        public Patient(string patientName, string phoneNumber, string emergencyContact, string birthDate, string gender)
-        {
-            this.Id = new PatientId(patientName);
-            this.PatientName = patientName;
-            this.PhoneNumber = phoneNumber;
-            this.MedicalConditions = new List<string>();
-            this.EmergencyContact = emergencyContact;
-            this.BirthDate = birthDate;
-            this.Gender = gender;
-        }
-        
-        public void ChangePhoneNumber(string phoneNumber)
+        public void ChangePhoneNumber(PhoneNumber phoneNumber)
         {
             this.PhoneNumber = phoneNumber;
         }
         
-        public void AddMedicalCondition(string medicalCondition)
+        public void AddMedicalCondition(MedicalConditions medicalCondition)
         {
             this.MedicalConditions.Add(medicalCondition);
         }
-        
-        public void RemoveMedicalCondition(string medicalCondition)
+
+        public void RemoveMedicalCondition(MedicalConditions medicalConditions)
         {
-            this.MedicalConditions.Remove(medicalCondition);
+            this.MedicalConditions.Remove(medicalConditions);
         }
         
-        public void ChangeEmergencyContact(string emergencyContact)
+        public void ChangePatientName(PatientName patientName)
+        {
+            this.PatientName = patientName;
+        }
+        
+        public void ChangeEmergencyContact(EmergencyContact emergencyContact)
         {
             this.EmergencyContact = emergencyContact;
         }
         
-        public void ChangeBirthDate(string birthDate)
+        public void ChangeBirthDate(BirthDate birthDate)
         {
             this.BirthDate = birthDate;
+        }
+
+        public void ChangeGender(Gender gender)
+        {
+            this.Gender = gender;
+        }
+
+        public void AddAppointmentHistory(AppointmentHistory appointmentHistory)
+        {
+            this.AppointmentHistory.Add(appointmentHistory);
+        }
+        
+        public void RemoveAppointmentHistory(AppointmentHistory appointmentHistory)
+        {
+            this.AppointmentHistory.Remove(appointmentHistory);
         }
     }
 }

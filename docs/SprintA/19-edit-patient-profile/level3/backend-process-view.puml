@@ -1,0 +1,75 @@
+﻿@startuml
+autonumber
+
+title BackEnd Process View
+
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "DTOs" as DTO
+participant "Mappers" as MP
+participant "Domain" as DM
+participant "Repositories" as REPO
+database "SQL Database" as SQL
+
+activate FE
+    FE -> CN : GET /Patients
+    activate CN
+        
+        CN -> SV : GetAllAsync()
+        activate SV
+        
+            note left of SV
+                Process documented on use case 16
+            end note
+            
+            SV --> CN : returns List<PatientDTO>
+        deactivate SV
+        
+    CN --> FE : returns List<PatientDTO>
+    deactivate CN
+                
+    FE -> CN: PUT /Patients/id (with given data)
+    activate CN
+        
+        CN -> SV : Create(PatientDTO)
+        activate SV
+                
+            SV -> DTO : Create(PatientDTO)
+            activate DTO
+    
+                DTO --> SV : returns PatientDTO
+            deactivate DTO
+            
+            SV -> MP : ToDomain(PatientDTO)
+            activate MP
+                
+                MP -> DM : Create(Patient)
+                activate DM
+                
+                    DM --> MP : returns Patient
+                deactivate DM
+                
+                MP --> SV : returns Patient
+            deactivate MP
+            
+            SV -> REPO : UpdateAsync(PatientDTO)
+            activate REPO
+            
+                REPO -> SQL : PUT /Patients (Patient)
+                activate SQL
+                    
+                    SQL --> REPO : success : updated patient (returns patient ID)
+                deactivate SQL
+                
+                REPO --> SV : success : updated patient (returns patient ID)
+            deactivate REPO            
+                
+            SV --> CN : success: patient profile updated (returns patient ID)
+        deactivate SV
+        
+        CN --> FE : success: edited patient profile
+    deactivate CN
+deactivate FE                
+    
+@enduml

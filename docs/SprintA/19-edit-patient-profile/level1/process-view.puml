@@ -1,0 +1,28 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+participant "<<System>>\n SurgicalSync" as SYSTEM
+
+activate USER
+
+    USER -> SYSTEM: wants to edit a patient profile
+    activate SYSTEM
+
+        SYSTEM --> USER : lists all patient profiles and asks to select one
+    deactivate SYSTEM
+        
+    USER -> SYSTEM : selects patient profile
+    activate SYSTEM
+    
+        SYSTEM --> USER: requests new profile details 
+    deactivate SYSTEM
+        
+    USER -> SYSTEM: gives information to replace
+    activate SYSTEM
+    
+        SYSTEM --> USER : success: edited patient profile
+    deactivate SYSTEM
+    
+deactivate USER
+@enduml

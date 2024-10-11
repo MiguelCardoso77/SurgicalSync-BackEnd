@@ -1,0 +1,90 @@
+﻿@startuml
+autonumber
+
+Title "UC33 - List operation requisitions"
+
+participant "FrontEnd" as FE
+participant "Controllers" as C
+participant "Services" as S
+participant "Repositories" as R
+participant "Mappers" as M
+participant "DTOs" as DTO
+database "SQL Database" as SQL
+
+activate FE
+
+FE -> C : GET /operation-requisitions
+
+    activate C
+    
+    C -> S : GetAllAsync()
+    
+    activate S
+    
+    S -> R : GetAllAsync()
+    
+    activate R
+    
+    R -> SQL : SELECT * FROM OperationRequisitions
+    
+    activate SQL
+    
+    SQL --> R : List<OperationRequisitions>
+    
+    deactivate SQL
+    
+    R --> S : List<OperationRequisitions>
+    
+    deactivate R
+    
+    S -> M : ToDto(List<OperationRequisitions> list)
+    
+    activate M
+    
+    loop for all the list's members
+    
+    M -> DTO : Create(OperationRequisition)
+    
+    activate DTO
+    
+    DTO --> M : OperationRequestDTO
+    
+    deactivate DTO
+    
+    end
+    
+    M --> S : List<OperationRequisitionDTO>
+    
+    deactivate M 
+    
+    S --> C : List<OperationRequisitionDTO>
+    
+    deactivate S
+    
+    C --> FE : List<OperationRequisitionDTO>
+    
+    deactivate C 
+    
+    alt The doctor applies a filter
+    
+    FE -> C : filters operation requisitions
+    
+    activate C
+    
+    C -> S : FilterOperationRequisitionsAsync(list)
+    
+    activate S
+    
+    S -->C : List<OperationRequestDTO>
+    
+    deactivate S 
+    
+    C --> FE : List<OperationRequestDTO>
+    
+    deactivate C 
+    
+    end 
+    
+deactivate FE 
+
+@enduml

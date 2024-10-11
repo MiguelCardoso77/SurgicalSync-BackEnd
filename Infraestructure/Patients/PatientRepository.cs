@@ -3,7 +3,7 @@ using DDDSample1.Infrastructure.Shared;
 
 namespace DDDSample1.Infrastructure.Patients
 {
-    public class PatientRepository : BaseRepository<Patient, PatientId>, IPatientRepository
+    public class PatientRepository : BaseRepository<Patient, MedicalRecordNumber>, IPatientRepository
     {
         public PatientRepository(DDDSample1DbContext context) : base(context.Patients)
         {
