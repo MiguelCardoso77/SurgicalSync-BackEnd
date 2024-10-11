@@ -13,8 +13,6 @@ The patient's email, phone number and medical record number must be unique.
 
 The profile is stored securely in the system, and access is governed by role-based permissions.
 
-Surgeries involve 3 phases: Preparation; Surgery; Cleaning.
-
 Attributes are :
 
 - Patient Name
