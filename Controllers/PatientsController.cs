@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DDDNetCore.Application.DTO;
+using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.Patients;
+using DDDSample1.Domain.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDDNetCore.Controllers
@@ -26,9 +29,9 @@ namespace DDDNetCore.Controllers
         
         // GET: api/Patients/P1
         [HttpGet("{id}")]
-        public async Task<ActionResult<PatientDto>> GetById(String id)
+        public async Task<ActionResult<PatientDto>> GetById(string id)
         {
-            var pat = await _service.GetByIdAsync(new PatientId(id));
+            var pat = await _service.GetByIdAsync(new MedicalRecordNumber(id));
             
             if (pat == null)
             {
@@ -44,44 +47,54 @@ namespace DDDNetCore.Controllers
         {
             var pat = await _service.AddAsync(dto);
             
-            //return CreatedAtAction(nameof(GetById), new { id = pat.Id }, pat);
-            return null;
+            return CreatedAtAction(nameof(GetById), new { id = pat.MedicalRecordNumber}, pat);
         }
         
         // PUT: api/Patients/P5
         [HttpPut("{id}")]
         public async Task<ActionResult<PatientDto>> Update(String id, PatientDto dto)
         {
-            //if (id != dto.Id)
+            if (id != dto.MedicalRecordNumber)
             {
                 return BadRequest();
             }
-            
-            var pat = await _service.UpdateAsync(dto);
-            
-            if (pat == null)
+
+            try
             {
-                return NotFound();
+                var pat = await _service.UpdateAsync(dto);
+
+                if (pat == null)
+                {
+                    return NotFound();
+                }
+
+                return pat;
             }
-            
-            return pat;
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         
         // DELETE: api/Patients/P5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(String id)
+        public async Task<ActionResult> Delete(string id)
         {
-            var pat = await _service.GetByIdAsync(new PatientId(id));
-            
-            if (pat == null)
+            try
             {
-                return NotFound();
+                var pat = await _service.DeleteAsync(new MedicalRecordNumber(id));
+
+                if (pat == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(pat);
             }
-            
-            //await _service.DeleteAsync(pat);
-            
-            return NoContent();
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new {Message = ex.Message});
+            }
         }
-        
     }
 }

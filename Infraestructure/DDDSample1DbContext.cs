@@ -1,5 +1,6 @@
 using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.Products;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Users;
