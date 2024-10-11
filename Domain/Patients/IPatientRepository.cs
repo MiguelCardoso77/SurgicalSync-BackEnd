@@ -2,7 +2,7 @@
 
 namespace DDDNetCore.Domain.Patients
 {
-    public interface IPatientRepository : IRepository<Patient, PatientId>
+    public interface IPatientRepository : IRepository<Patient, MedicalRecordNumber>
     {
         
     }

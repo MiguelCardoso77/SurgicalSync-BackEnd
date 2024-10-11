@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Domain.Patients
 {
-    public class PatientId : EntityId
+    public class MedicalRecordNumber : EntityId
     {
-        public PatientId(string value) : base(value)
+        public MedicalRecordNumber(string value) : base(value)
         {
         }
 
@@ -17,6 +17,11 @@ namespace DDDNetCore.Domain.Patients
 
         override
             public string AsString()
+        {
+            return Value;
+        }
+
+        public override string ToString()
         {
             return Value;
         }
