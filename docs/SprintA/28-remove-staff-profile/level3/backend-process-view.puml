@@ -1,0 +1,70 @@
+﻿@startuml
+autonumber
+
+title BackEnd Process View
+
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "Domain" as DM
+participant "Repositories" as REPO
+database "SQL Database" as SQL
+
+activate FE
+    FE -> CN : GET /staff
+    activate CN
+        
+        CN -> SV : GetAllAsync()
+        activate SV
+       
+    note left of SV
+                        Process documented on UC33
+                    end note
+
+            SV --> CN : returns List<StaffProfileDTO>
+        deactivate SV
+        
+        CN --> FE : returns List<StaffProfileDTO>
+    deactivate CN
+
+    FE -> CN: INACTIVATE /staff/id
+    activate CN
+    
+        CN -> SV : INACTIVATE /staff/id
+        activate SV
+        
+alt Staff Profile Removed Successfully
+
+            SV -> DM : Deactivate(StaffProfile)
+            activate DM
+            
+                DM --> SV : returns updated StaffProfile
+            deactivate DM
+                 
+            SV -> REPO : InactivateAsync(StaffProfile)
+            activate REPO
+            
+                REPO -> SQL : INACTIVATE /staff/id
+                activate SQL
+                
+                    SQL --> REPO : success: removed staff profile successfully
+                deactivate SQL
+                
+                REPO --> SV : success: removed staff profile successfully
+            deactivate REPO
+            
+
+            SV --> CN : success: removed staff profile successfully
+        FE <-- CN: success: removed staff profile successfully
+
+else Couldn't Remove staff profile
+
+            SV --> CN : error: staff profile couldn't be removed
+        deactivate SV
+        FE <-- CN: error: staff profile couldn't be removed
+    deactivate CN     
+               
+deactivate FE
+end
+
+@enduml
