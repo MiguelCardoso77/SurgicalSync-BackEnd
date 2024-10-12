@@ -43,24 +43,17 @@ namespace DDDNetCore.Application.Services
         {
             var patient = await this._repo.GetByIdAsync(id);
 
-            return patient == null
-                ? null
-                : new PatientDto
-                {
-                    MedicalRecordNumber = patient.MedicalRecordNumber.AsString(),
-                    PatientName = patient.PatientName.ToString(),
-                    BirthDate = patient.BirthDate.ToString(),
-                    Gender = patient.Gender.ToString(),
-                    PhoneNumber = patient.PhoneNumber.ToString(),
-                    MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
-                    EmergencyContact = patient.EmergencyContact.ToString(),
-                    AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList()
-                };
+            if (patient == null)
+            {
+                return null;
+            }
+
+            return null;
         }
 
         public async Task<PatientDto> AddAsync(PatientDto dto)
         {
-            var MedicalRecordNumber = string.IsNullOrEmpty(dto.MedicalRecordNumber)
+            var medicalRecordNumber = string.IsNullOrEmpty(dto.MedicalRecordNumber)
                 ? new MedicalRecordNumber(Guid.NewGuid().ToString())
                 : new MedicalRecordNumber(dto.MedicalRecordNumber);
 
@@ -73,7 +66,7 @@ namespace DDDNetCore.Application.Services
             appointmentHistoryList.AddRange(dtoAppointmentHistory);
 
 
-            var patient = PatientMapper.ToDomain(dto, MedicalRecordNumber, medicalConditionsList, appointmentHistoryList);
+            var patient = PatientMapper.ToDomain(dto, medicalRecordNumber, medicalConditionsList, appointmentHistoryList);
 
             await this._repo.AddAsync(patient);
             await this._unitOfWork.CommitAsync();

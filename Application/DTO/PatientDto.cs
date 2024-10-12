@@ -1,7 +1,4 @@
-
-using System;
 using System.Collections.Generic;
-using DDDNetCore.Domain.Patients;
 
 namespace DDDNetCore.Application.DTO
 {

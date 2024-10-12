@@ -14,42 +14,42 @@ namespace DDDNetCore.Controllers
     public class PatientsController : ControllerBase
     {
         private readonly PatientService _service;
-        
+
         public PatientsController(PatientService service)
         {
             _service = service;
         }
-        
+
         // GET: api/Patients
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PatientDto>>> GetAll()
         {
             return await _service.GetAllAsync();
         }
-        
+
         // GET: api/Patients/P1
         [HttpGet("{id}")]
         public async Task<ActionResult<PatientDto>> GetById(string id)
         {
             var pat = await _service.GetByIdAsync(new MedicalRecordNumber(id));
-            
+
             if (pat == null)
             {
                 return NotFound();
             }
-            
+
             return pat;
         }
-        
+
         // POST: api/Patients
         [HttpPost]
         public async Task<ActionResult<PatientDto>> Create(PatientDto dto)
         {
             var pat = await _service.AddAsync(dto);
-            
-            return CreatedAtAction(nameof(GetById), new { id = pat.MedicalRecordNumber}, pat);
+
+            return CreatedAtAction(nameof(GetById), new { id = pat.MedicalRecordNumber }, pat);
         }
-        
+
         // PUT: api/Patients/P5
         [HttpPut("{id}")]
         public async Task<ActionResult<PatientDto>> Update(String id, PatientDto dto)
@@ -75,26 +75,19 @@ namespace DDDNetCore.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+
         // DELETE: api/Patients/P5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(MedicalRecordNumber id)
         {
-            try
-            {
-                var pat = await _service.DeleteAsync(new MedicalRecordNumber(id));
+            var pat = await _service.DeleteAsync(id);
 
-                if (pat == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(pat);
-            }
-            catch (BusinessRuleValidationException ex)
+            if (pat == null)
             {
-                return BadRequest(new {Message = ex.Message});
+                return NotFound();
             }
+
+            return Ok(pat);
         }
     }
 }

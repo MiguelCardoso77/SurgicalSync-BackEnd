@@ -34,16 +34,16 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasColumnName("PhoneNumber");
             });
             
-            builder.OwnsMany(b => b.MedicalConditions, medicalConditionsBuilder =>
-            {
-                medicalConditionsBuilder.Property(p => p.MedicalConditionsValue)
-                    .HasColumnName("MedicalConditions");
-            });
-            
             builder.OwnsOne(b => b.EmergencyContact, emergencyContactBuilder =>
             {
                 emergencyContactBuilder.Property(p => p.EmergencyContactValue)
                     .HasColumnName("EmergencyContact");
+            });
+            
+            builder.OwnsMany(b => b.MedicalConditions, medicalConditionsBuilder =>
+            {
+                medicalConditionsBuilder.Property(p => p.MedicalConditionsValue)
+                    .HasColumnName("MedicalConditions");
             });
             
             builder.OwnsMany(b => b.AppointmentHistory, appointmentHistoryBuilder =>
