@@ -1,0 +1,76 @@
+@startuml
+autonumber
+
+title BackEnd Process View
+
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "DTOs" as DTO
+participant "Mappers" as MP
+participant "Domain" as DM
+participant "Repositories" as REPO
+database "SQL Database" as SQL
+
+activate FE
+        
+        FE -> CN : GET /staff/id
+        activate CN
+        
+        CN -> SV: Create(StaffProfileDTO)
+        activate SV
+        
+        SV -> DTO: Create(StaffProfileDTO) 
+        activate DTO
+                        
+                DTO --> SV : returns StaffProfileDTO
+            deactivate DTO
+            
+            SV -> MP : MapToDomain(StaffProfileDTO)
+            activate MP
+            
+                MP -> DM : Create(StaffProfile)
+                activate DM
+                     
+                    DM --> MP : returns StaffProfile
+                deactivate DM
+            
+                MP --> SV : returns StaffProfile
+            deactivate MP
+                
+            SV -> REPO : SeeAsync(StaffProfile)
+            activate REPO
+            
+            alt Staff ID  is valid
+
+                REPO -> SQL : GET /staff/id 
+                activate SQL
+                
+                    SQL --> REPO : success: staff profile  data
+                deactivate SQL
+                
+                REPO --> SV : success: staff profile data
+            
+
+            SV --> CN : success: staff profile data
+        FE <-- CN: success: shows staff profile's data
+
+else No Staff with this ID
+
+                REPO -> SQL : GET /staff/id 
+                activate SQL
+                
+                    SQL --> REPO : error: no Staff with this ID
+                deactivate SQL
+                
+        REPO --> SV : error: no Staff with this ID
+            deactivate REPO
+            SV --> CN : error: no Staff with this ID
+        deactivate SV
+        FE <-- CN: error: shows ERROR:no Staff with this ID
+    deactivate CN     
+               
+deactivate FE
+end
+
+@enduml
