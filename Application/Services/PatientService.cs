@@ -26,7 +26,7 @@ namespace DDDNetCore.Application.Services
 
             List<PatientDto> listDto = list.ConvertAll<PatientDto>(patient => new PatientDto
             {
-                MedicalRecordNumber = patient.MedicalRecordNumber.AsString(),
+                MedicalRecordNumber = patient.Id.AsString(),
                 PatientName = patient.PatientName.ToString(),
                 BirthDate = patient.BirthDate.ToString(),
                 Gender = patient.Gender.ToString(),
@@ -73,7 +73,7 @@ namespace DDDNetCore.Application.Services
 
             return new PatientDto
             {
-                MedicalRecordNumber = patient.MedicalRecordNumber.AsString(),
+                MedicalRecordNumber = patient.Id.AsString(),
                 PatientName = patient.PatientName.ToString(),
                 BirthDate = patient.BirthDate.ToString(),
                 Gender = patient.Gender.ToString(),
@@ -98,7 +98,7 @@ namespace DDDNetCore.Application.Services
 
             return new PatientDto
             {
-                MedicalRecordNumber = patient.MedicalRecordNumber.AsString(),
+                MedicalRecordNumber = patient.Id.AsString(),
                 PatientName = patient.PatientName.ToString(),
                 BirthDate = patient.BirthDate.ToString(),
                 Gender = patient.Gender.ToString(),
@@ -121,7 +121,7 @@ namespace DDDNetCore.Application.Services
 
             return new PatientDto
             {
-                MedicalRecordNumber = patient.MedicalRecordNumber.AsString(),
+                MedicalRecordNumber = patient.Id.AsString(),
                 PatientName = patient.PatientName.ToString(),
                 BirthDate = patient.BirthDate.ToString(),
                 Gender = patient.Gender.ToString(),

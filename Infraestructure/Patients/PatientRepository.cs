@@ -1,7 +1,8 @@
 ﻿using DDDNetCore.Domain.Patients;
+using DDDSample1.Infrastructure;
 using DDDSample1.Infrastructure.Shared;
 
-namespace DDDSample1.Infrastructure.Patients
+namespace DDDNetCore.Infraestructure.Patients
 {
     public class PatientRepository : BaseRepository<Patient, MedicalRecordNumber>, IPatientRepository
     {

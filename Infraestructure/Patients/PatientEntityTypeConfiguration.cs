@@ -8,7 +8,7 @@ namespace DDDNetCore.Infraestructure.Patients
     {
         public void Configure(EntityTypeBuilder<Patient> builder)
         {
-            builder.HasKey(b => b.MedicalRecordNumber);
+            builder.HasKey(b => b.Id);
             
             builder.OwnsOne(b => b.PatientName, nameBuilder =>
             {

@@ -29,7 +29,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Patients
                 appointmentHistories
             );
 
-            Assert.AreEqual("1000", patient.MedicalRecordNumber.AsString());
+            Assert.AreEqual("1000", patient.Id.AsString());
             Assert.AreEqual("Miguel", patient.PatientName.PatientNameValue);
             Assert.AreEqual("4 de Julho de 2004", patient.BirthDate.BirthDateValue);
             Assert.AreEqual("masculino", patient.Gender.GenderValue);

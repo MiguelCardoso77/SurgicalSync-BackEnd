@@ -14,7 +14,7 @@ namespace DDDNetCore.Application.Mappers
                 PatientName = domain.PatientName.ToString(),
                 BirthDate = domain.BirthDate.ToString(),
                 Gender = domain.Gender.ToString(),
-                MedicalRecordNumber = domain.MedicalRecordNumber.ToString(),
+                MedicalRecordNumber = domain.Id.AsString(),
                 PhoneNumber = domain.PhoneNumber.ToString(),
                 MedicalConditions = domain.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
                 EmergencyContact = domain.EmergencyContact.ToString(),

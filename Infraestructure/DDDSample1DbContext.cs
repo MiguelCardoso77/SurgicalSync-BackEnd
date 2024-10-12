@@ -3,6 +3,7 @@ using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Products;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure.OperationTypes;
+using DDDNetCore.Infraestructure.Patients;
 using DDDNetCore.Infraestructure.Users;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Categories;
@@ -39,6 +40,7 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OperationTypesEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PatientEntityTypeConfiguration());
         }
     }
 }
