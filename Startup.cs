@@ -1,7 +1,9 @@
-﻿using DDDNetCore.Application.Services;
+﻿using System.Collections.Generic;
+using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
+using DDDNetCore.Infraestructure;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
 using DDDNetCore.Infraestructure.Users;
@@ -40,20 +42,20 @@ namespace DDDSample1
         {
             services.AddDbContext<DDDSample1DbContext>(opt =>
                 opt.UseInMemoryDatabase("DDDSample1DB")
-                .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
+                    .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
 
             // Configuração do Firebase Admin SDK
             FirebaseApp.Create(new AppOptions()
             {
                 Credential = GoogleCredential.FromFile("surgicalsync-d5bd5-firebase-adminsdk-7v461-12fb9fe637.json")
             });
-            
+
             ConfigureMyServices(services);
             services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DDDSample1DbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -71,29 +73,28 @@ namespace DDDSample1
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            Bootstrap.BootstrapData(context);
         }
 
         public void ConfigureMyServices(IServiceCollection services)
         {
-            services.AddTransient<IUnitOfWork,UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<ICategoryRepository,CategoryRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<CategoryService>();
 
-            services.AddTransient<IProductRepository,ProductRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ProductService>();
 
-            services.AddTransient<IFamilyRepository,FamilyRepository>();
+            services.AddTransient<IFamilyRepository, FamilyRepository>();
             services.AddTransient<FamilyService>();
-            
-            services.AddTransient<IPatientRepository,PatientRepository>();
+
+            services.AddTransient<IPatientRepository, PatientRepository>();
             services.AddTransient<PatientService>();
-            
-            services.AddTransient<IUserRepository,UserRepository>();
+
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<UserService>();
 
             services.AddTransient<IOperationTypeRepository, OperationTypeRepository>();
