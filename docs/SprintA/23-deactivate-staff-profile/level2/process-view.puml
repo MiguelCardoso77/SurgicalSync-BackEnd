@@ -1,0 +1,37 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate USER
+
+    USER -> FE : wants to deactivate a staff profile
+    activate FE
+    
+    FE -> BE : GET /staff
+    activate BE
+    
+    BE --> FE : return list of staff profile in hospital's roster
+    deactivate BE
+    
+    FE --> USER : shows list of staff profiles in hospital's roster
+    deactivate FE
+
+    USER -> FE : selects a staff profile 
+    activate FE
+    
+    FE -> BE : DEACTIVATE /staff/(id)
+    activate BE
+    
+    BE --> FE : return operation success
+    deactivate BE
+    
+    FE --> USER: operation success
+    deactivate FE
+    
+deactivate USER
+
+@enduml

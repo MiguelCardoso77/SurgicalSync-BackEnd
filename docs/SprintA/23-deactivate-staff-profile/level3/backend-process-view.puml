@@ -1,0 +1,47 @@
+@startuml
+autonumber
+
+title BackEnd Process View
+
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "Domain" as DM
+
+
+activate FE
+    FE -> CN: GET /staff (with given data)
+    activate CN
+    
+        CN -> SV : GetAllActiveAsync()
+        activate SV
+        
+        SV --> CN : returns List<StaffProfileDTO>
+        deactivate SV
+        
+        CN --> FE : returns List<StaffProfileDTO>
+        deactivate CN
+        
+        FE -> CN : INACTIVATE /staff/id
+        activate CN
+        
+        CN -> SV: INACTIVATE /staff/id
+        activate SV
+        
+        SV -> DM: Deactivate(StaffProfile) 
+        activate DM
+                        
+                DM --> SV : returns updated staff profile and hospital's roster
+            deactivate DM
+            
+        SV --> CN : success: updated staff profile and hospital's roster
+        deactivate SV
+           
+       
+       CN --> FE : success: updated staff profile and hospital's roster 
+       deactivate CN   
+               
+deactivate FE
+
+
+@enduml
