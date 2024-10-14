@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DDDNetCore.Domain.OperationTypes;
+using DDDNetCore.Domain.Patients;
 using DDDSample1.Infrastructure;
 
 namespace DDDNetCore.Infraestructure
@@ -143,6 +144,42 @@ namespace DDDNetCore.Infraestructure
                     new List<EstimatedDuration> { new("15"), new("10"), new("15") })
             };
 
+            var patients = new List<Patient>
+            {
+                new(new PatientName("Diana"), new BirthDate("30 de Junho de 2004"), new Gender("Feminino"),
+                    new MedicalRecordNumber("1"), new PhoneNumber("938413938"),
+                    new List<MedicalConditions>
+                    {
+                        new("Asma"),
+                        new("Escoliose")
+                    },
+                    new EmergencyContact("933264402"),
+                    new List<AppointmentHistory>()
+                    {
+                        new("3 de Outubro de 2023"),
+                        new("5 de Novembro de 2023"),
+                        new("10 de Dezembro de 2023"),
+                        new("27 de Janeiro de 2024"),
+                        new("12 Maio de Outubro de 2024"),
+                    }
+                ),
+
+                new(new PatientName("Miguel"), new BirthDate("4 de Julho de 2004"), new Gender("Masculino"),
+                    new MedicalRecordNumber("2"), new PhoneNumber("938745060"),
+                    new List<MedicalConditions>
+                    {
+                        new("Alergias"),
+                    },
+                    new EmergencyContact("930923458"),
+                    new List<AppointmentHistory>()
+                    {
+                        new("10 de Janeiro de 2023"),
+                        new("5 de Novembro de 2023")
+                    }
+                )
+            };
+            
+            context.Patients.AddRange(patients);
             context.OperationTypes.AddRange(operationTypes);
             context.SaveChanges();
         }

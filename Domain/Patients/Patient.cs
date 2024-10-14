@@ -38,5 +38,31 @@ namespace DDDNetCore.Domain.Patients
             this.EmergencyContact = emergencyContact;
             this.AppointmentHistory = appointmentHistory;
         }
+        
+        public void ChangePhoneNumber(PhoneNumber phoneNumber)
+        {
+            this.PhoneNumber = phoneNumber;
+        }
+        
+        public void ChangePatientName(PatientName patientName)
+        {
+            this.PatientName = patientName;
+        }
+        
+        public void ChangeEmergencyContact(EmergencyContact emergencyContact)
+        {
+            this.EmergencyContact = emergencyContact;
+        }
+        
+        public void ChangeBirthDate(BirthDate birthDate)
+        {
+            this.BirthDate = birthDate;
+        }
+        public void ChangeGender(Gender gender)
+        {
+            this.Gender = gender;
+        }
+
+        
     }
 }
