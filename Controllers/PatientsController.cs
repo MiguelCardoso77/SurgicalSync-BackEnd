@@ -78,9 +78,9 @@ namespace DDDNetCore.Controllers
 
         // DELETE: api/Patients/P5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(MedicalRecordNumber id)
+        public async Task<ActionResult<PatientDto>> Delete(string id)
         {
-            var pat = await _service.DeleteAsync(id);
+            var pat = await _service.DeleteAsync(new MedicalRecordNumber(id));
 
             if (pat == null)
             {
