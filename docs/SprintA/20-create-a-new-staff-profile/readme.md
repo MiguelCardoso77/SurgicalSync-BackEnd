@@ -79,8 +79,7 @@ This user story relies on the following API functionalities:
 
 The user story is deemed ready when the requirements are clearly outlined, providing a comprehensive
 understanding of the functionality to be implemented. Specifically, the Administrator role is expected to
-possess the capability to create a new staff profile, designating their respective roles and
-details such as their name and email address.
+possess the capability to create a new staff profile, designating details such as name and email address.
 
 ### 6.2 Acceptance Criteria
 
