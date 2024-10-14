@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using DDDNetCore.Domain.Staffs;
-using DDDSample1.Domain.Staffs;
 
 namespace DDDNetCore.Application.DTO
 {

@@ -1,5 +1,4 @@
 using DDDNetCore.Domain.Staffs;
-using DDDSample1.Domain.Staffs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
