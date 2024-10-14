@@ -48,7 +48,17 @@ namespace DDDNetCore.Application.Services
                 return null;
             }
 
-            return null;
+            return new PatientDto
+            {
+                MedicalRecordNumber = patient.Id.AsString(),
+                PatientName = patient.PatientName.ToString(),
+                BirthDate = patient.BirthDate.ToString(),
+                Gender = patient.Gender.ToString(),
+                PhoneNumber = patient.PhoneNumber.ToString(),
+                MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
+                EmergencyContact = patient.EmergencyContact.ToString(),
+                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList()
+            };
         }
 
         public async Task<PatientDto> AddAsync(PatientDto dto)

@@ -52,7 +52,7 @@ namespace DDDNetCore.Controllers
 
         // PUT: api/Patients/P5
         [HttpPut("{id}")]
-        public async Task<ActionResult<PatientDto>> Update(String id, PatientDto dto)
+        public async Task<ActionResult<PatientDto>> Update(string id, PatientDto dto)
         {
             if (id != dto.MedicalRecordNumber)
             {
