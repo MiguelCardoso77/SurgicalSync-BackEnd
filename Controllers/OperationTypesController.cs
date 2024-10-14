@@ -28,16 +28,16 @@ namespace DDDNetCore.Controllers
         
         // GET: api/OperationTypes/OT1
         [HttpGet("{id}")]
-        public async Task<ActionResult<OperationTypeDto>> GetById(String id)
+        public async Task<ActionResult<OperationTypeDto>> GetById(string id)
         {
-            var ot = await _service.GetByIdAsync(new OperationTypeId(id));
+            var oT = await _service.GetByIdAsync(new OperationTypeId(id));
             
-            if (ot == null)
+            if (oT == null)
             {
                 return NotFound();
             }
             
-            return ot;
+            return oT;
         }
         
         // POST: api/OperationTypes

@@ -34,12 +34,17 @@ namespace DDDNetCore.Application.Services
         
         public async Task<OperationTypeDto> GetByIdAsync(OperationTypeId id)
         {
-            var ot = await this._repo.GetByIdAsync(id);
+            var oT = await this._repo.GetByIdAsync(id);
             
-            if(ot == null)
+            if (oT == null)
                 return null;
             
-            return null;
+            return new OperationTypeDto {
+                Id = oT.Id.AsString(),
+                OperationName = oT.Name.ToString(),
+                RequiredStaff = oT.RequiredStaff.Select(rs => rs.RequiredStaffValue).ToList(),
+                EstimatedDuration = oT.EstimatedDuration.Select(rs => rs.EstimatedDurationValue).ToList()
+            };
         }
         
         public async Task<OperationTypeDto> AddAsync(OperationTypeDto dto)

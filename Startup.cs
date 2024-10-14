@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
@@ -76,6 +77,7 @@ namespace DDDSample1
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             Bootstrap.BootstrapData(context);
+            Console.WriteLine("Bootstrap data loaded.");
         }
 
         public void ConfigureMyServices(IServiceCollection services)
