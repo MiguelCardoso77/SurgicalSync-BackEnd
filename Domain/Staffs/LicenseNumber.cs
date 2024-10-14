@@ -1,23 +1,36 @@
 using System;
+using System.Text.RegularExpressions;
 using DDDSample1.Domain.Shared;
 
-namespace DDDSample1.Domain.Staffs
+namespace DDDNetCore.Domain.Staffs
 {
     public class LicenseNumber : EntityId
     {
-        
+        private static readonly Regex LicenseNumberFormat = new Regex(@"^(N|D|O)\d{4}\d{5}$");
+
         public LicenseNumber(string value) : base(value)
         {
+            if (!IsValidFormat(value))
+            {
+                throw new ArgumentException("Invalid license number format. It must follow the format '(N | D | O)yyyynnnnn'.");
+            }
         }
-        
-        override 
-            protected Object createFromString(String text)
+
+        private static bool IsValidFormat(string value)
         {
+            return LicenseNumberFormat.IsMatch(value);
+        }
+
+        protected override object createFromString(string text)
+        {
+            if (!IsValidFormat(text))
+            {
+                throw new ArgumentException("Invalid license number format. It must follow the format '(N | D | O)yyyynnnnn'.");
+            }
             return text;
         }
 
-        override
-            public string AsString()
+        public override string AsString()
         {
             return Value;
         }
