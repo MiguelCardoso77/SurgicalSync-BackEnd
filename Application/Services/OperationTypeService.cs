@@ -119,7 +119,12 @@ namespace DDDNetCore.Application.Services
             
             await this._unitOfWork.CommitAsync();
 
-            return null;
+            return new OperationTypeDto {
+                Id = oT.Id.AsString(),
+                OperationName = oT.Name.ToString(),
+                RequiredStaff = oT.RequiredStaff.Select(rs => rs.RequiredStaffValue).ToList(),
+                EstimatedDuration = oT.EstimatedDuration.Select(rs => rs.EstimatedDurationValue).ToList()
+            };
         }
     }
 }

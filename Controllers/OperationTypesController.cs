@@ -70,10 +70,12 @@ namespace DDDNetCore.Controllers
         
         // DELETE: api/OperationTypes/OT5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<OperationTypeDto>> Delete(Guid id)
+        public async Task<ActionResult<OperationTypeDto>> Delete(string id)
         {
-            // Do you really wish to erase this operation type from the system?
-            var oT = await _service.InactivateAsync(new OperationTypeId(id.ToString()));
+            // Confirmation for deletion example, can't be obtained without UI.
+            Console.WriteLine("Do you really wish to erase this operation type from the system?");
+            
+            var oT = await _service.InactivateAsync(new OperationTypeId(id));
 
             if (oT == null)
             {
