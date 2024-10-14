@@ -54,7 +54,7 @@ To visually model/represent both what was implemented and the ideas and alternat
 
 ### Logical View
 
-![logical-view.svg](diagrams%2Fviews%2Flevel1%2Flogical-view%2Flogical-view.svg)
+![logical-view.png](diagrams%2Fviews%2Flevel1%2Flogical-view%2Flogical-view.png)
 
 ---------------------------------------------------------------------
 
