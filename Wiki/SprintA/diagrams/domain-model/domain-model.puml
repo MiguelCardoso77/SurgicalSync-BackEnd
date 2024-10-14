@@ -94,12 +94,15 @@ package "Staff Aggregate"{
         }
         card AvailabilitySlots <<Value Object>>{
         }
+        card StaffType <<Value Object>>{
+        }
         
         Staff --> Name
         Staff --> LicenseNumber
         Staff --> Specialization
         Staff --> PhoneNumber
         Staff --> AvailabilitySlots
+        Staff --> StaffType
         
         note right of Specialization
             Can be one of the following:
@@ -130,6 +133,12 @@ package "Staff Aggregate"{
                 - pathology
                 - urology
         end note
+        
+        note right of StaffType
+            Can be one of the following:
+                - Doctor
+                - Nurse
+        end note 
         
 }
 
