@@ -1,29 +1,14 @@
-# Create a new staff profile
+# Lists staff profiles
 
 ## 1. Use Case Description
 
-As an Admin, I want to create a new staff profile, so that I can add them to the hospital’s roster.
+As an Admin, I want to list staff profiles.
 
 ## 2. Customer Specifications and Clarifications
 
-Represents the professionals providing healthcare.
 
-The client has outlined that the Admin Role should possess the functionality to create new staff profiles.
+The client has outlined that the Admin Role should possess the functionality to lists staff profiles.
 
-All staff require the following data:
-• Attributes:
-- Name
-- License Number (unique identifier)
-- Specialization` (e.g., cardiology, orthopedics). Each medical professional has only one specialty
-- Email
-- Phone number
-- Availability Slots (the list of time slots the staff defines as being available for appointments)
-
-• Rules:
-- A staff must be unique in terms of `License Number`, `Email` and `Phone number`.
-- Staff define the availability slots, e.g. slot 1: 2024-09-25:14h00-18h00; slot2: 2024-09-25:19h00/2024-09-26:02h00.
-- The availability slots remain unchanged when slots are used for an appointment.
-- Staff can handle multiple appointments but cannot be double-booked at the same time.
 
 ## 3. Diagrams
 
@@ -59,18 +44,18 @@ All staff require the following data:
 
 To successfully complete this user story, the following criteria must be met:
 
-    - Admins can input staff details such as name, contact information, and specialization.
-    - A unique staff ID (License Number) is generated upon profile creation.
-    - The system ensures that the staff’s email and phone number are unique.
-    - The profile is stored securely, and access is based on role-based permissions.
-
+    - Admins can search staff profiles by attributes such as name, email, or specialization.
+    - The system displays search results in a list view with key staff information (name, email,
+        specialization).
+    - Admins can select a profile from the list to view, edit, or deactivate.
+    - The search results are paginated, and filters are available for refining the search results.
 ## 5. Dependencies
 
 This user story relies on the following API functionalities:
 
--   To create a staff profile:
+-   To lists staff profiles:
     ```
-    POST /staff
+    GET /staff
     ```
 
 ## 6. Definition of Ready (DoR)
@@ -79,7 +64,7 @@ This user story relies on the following API functionalities:
 
 The user story is deemed ready when the requirements are clearly outlined, providing a comprehensive
 understanding of the functionality to be implemented. Specifically, the Administrator role is expected to
-possess the capability to create a new staff profile, designating details such as name and email address.
+possess the capability to edit a staff profile, updating details such as their availability slots and specialization.
 
 ### 6.2 Acceptance Criteria
 
@@ -89,7 +74,7 @@ defined. These criteria serve as the benchmark for determining the successful co
 ### 6.3 Dependencies and Resources
 
 The user story is considered ready when all dependencies and resources required for its implementation
-are identified. This includes the API functionalities necessary for the creation of staff profiles.
+are identified. This includes the API functionalities necessary for lists staff profiles.
 
 ### 6.4 Estimation and Sizing
 

@@ -91,8 +91,12 @@ namespace DDDNetCore.Application.Services
             if (patient == null)
                 return null;
 
-            // change all field
-            //patient.ChangeEmergencyContact(dto.EmergencyContact);
+            // change all fields
+            patient.ChangePatientName(new PatientName(dto.PatientName));
+            patient.ChangePhoneNumber(new PhoneNumber(dto.PhoneNumber));
+            patient.ChangeGender(new Gender(dto.Gender));
+            patient.ChangeBirthDate(new BirthDate(dto.BirthDate)); 
+            patient.ChangeEmergencyContact(new EmergencyContact(dto.EmergencyContact));
 
             await this._unitOfWork.CommitAsync();
 

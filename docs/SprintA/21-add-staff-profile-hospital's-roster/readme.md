@@ -1,4 +1,4 @@
-# Create a new staff profile
+# Add a staff to hospital's roster
 
 ## 1. Use Case Description
 
@@ -6,24 +6,7 @@ As an Admin, I want to create a new staff profile, so that I can add them to the
 
 ## 2. Customer Specifications and Clarifications
 
-Represents the professionals providing healthcare.
-
-The client has outlined that the Admin Role should possess the functionality to create new staff profiles.
-
-All staff require the following data:
-• Attributes:
-- Name
-- License Number (unique identifier)
-- Specialization` (e.g., cardiology, orthopedics). Each medical professional has only one specialty
-- Email
-- Phone number
-- Availability Slots (the list of time slots the staff defines as being available for appointments)
-
-• Rules:
-- A staff must be unique in terms of `License Number`, `Email` and `Phone number`.
-- Staff define the availability slots, e.g. slot 1: 2024-09-25:14h00-18h00; slot2: 2024-09-25:19h00/2024-09-26:02h00.
-- The availability slots remain unchanged when slots are used for an appointment.
-- Staff can handle multiple appointments but cannot be double-booked at the same time.
+Each staff can only pretence in one hospital's roster.
 
 ## 3. Diagrams
 
@@ -68,9 +51,9 @@ To successfully complete this user story, the following criteria must be met:
 
 This user story relies on the following API functionalities:
 
--   To create a staff profile:
+-   To add a staff to hospital's roster:
     ```
-    POST /staff
+    PUT /staff
     ```
 
 ## 6. Definition of Ready (DoR)
@@ -79,7 +62,7 @@ This user story relies on the following API functionalities:
 
 The user story is deemed ready when the requirements are clearly outlined, providing a comprehensive
 understanding of the functionality to be implemented. Specifically, the Administrator role is expected to
-possess the capability to create a new staff profile, designating details such as name and email address.
+possess the capability to add a staff profile to a hospital's roster.
 
 ### 6.2 Acceptance Criteria
 
@@ -89,7 +72,7 @@ defined. These criteria serve as the benchmark for determining the successful co
 ### 6.3 Dependencies and Resources
 
 The user story is considered ready when all dependencies and resources required for its implementation
-are identified. This includes the API functionalities necessary for the creation of staff profiles.
+are identified. This includes the API functionalities necessary for the addition to hospital's roster.
 
 ### 6.4 Estimation and Sizing
 

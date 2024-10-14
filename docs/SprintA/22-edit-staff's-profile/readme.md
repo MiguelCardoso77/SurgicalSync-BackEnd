@@ -1,4 +1,4 @@
-# Create a new staff profile
+# Edit a staff profile
 
 ## 1. Use Case Description
 
