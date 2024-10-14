@@ -1,0 +1,132 @@
+@startuml
+
+title Class Diagram
+
+class Staff {
+    - StaffName
+    - LicenseNumber
+    - Email
+    - PhoneNumber
+    - Specialization
+    - List<AvailabilitySlots>
+    + Staff(StaffName staffName, LicenseNumber licenseNumber, Email email,PhoneNumber phoneNumber, Specialization Specialization , List<AvailabilitySlots> availabilitySlots)
+    + ChangeSpecialization(Specialization specialization)
+    + ChangeAvailabilitySlots(AvailabilitySlots availabilitySlots)
+ 
+}
+
+class StaffDTO {
+    - StaffName
+    - License Number
+    - Email
+    - PhoneNumber
+    - Specialization
+    - List<AvailabilitySlots>    
+}
+
+class StaffProfileController {
+    + GetAll()
+    + GetById(String id)
+    + Create(StaffProfileDTO dto)
+    + Update(String id, StaffProfileDTO dto)
+    + SoftDelete(String id)
+    + HardDelete(String id)
+    
+}
+
+class StaffName {
+    + StaffName(string operationName)
+}
+
+class LicenseNumber {
+    + LicenseNumber(string licenseNumber)
+}
+
+class Email {
+    + Email(string email)
+}
+
+class PhoneNumber {
+    + PhoneNumber(string phoneNumber)
+}
+
+class Specialization {
+                - cardiology
+                - orthopedics
+                - neurology
+                - emergency medicine
+                - obstetrics and gynaecology
+                - internal medicine
+                - anesthesiology
+                - oncology
+                - psychiatry
+                - nuclear medicine
+                - dermatology
+                - family medicine
+                - geriatrics
+                - radiology
+                - critical care medicine
+                - nephrology
+                - hematology
+                - ophthalmology
+                - gastroenterology
+                - immunology
+                - general surgery 
+                - endocrinology
+                - pediatrics
+                - medical genetics
+                - pathology
+                - urology
+}
+
+class AvailabilitySlots {
+    + AvailabilitySlots(list<AvailabilitySlots> availabilitySlots)
+}
+
+
+
+class StaffProfileService {
+    + GetAllAsync()
+    + GetByIdAsync(StaffProfileId id)
+    + AddAsync(StaffProfileDto dto)
+    + UpdateAsync(StaffProfileDto dto)
+    + InactivateAsync(StaffProfileId id)
+    + DeleteAsync(StaffProfileId id)
+}
+
+interface IStaffProfileRepository {
+}
+
+interface StaffProfileRepository {
+}
+
+class BaseRepository {
+    ====
+    Classe do projeto base
+    ====
+}
+
+class StaffProfileMapper {
+    + ToDomain(StaffProfileDto dto, StaffProfileId StaffProfileId)
+    + ToDto(StaffProfile StaffProfile)
+}
+
+StaffProfileController -> StaffProfileService
+StaffProfileService --> StaffProfileMapper : uses
+StaffProfileService -> StaffDTO : creates
+
+StaffProfileMapper <-- StaffDTO : enters
+StaffProfileMapper --> Staff : creates
+
+Staff ---> StaffName : has a
+Staff ---> LicenseNumber : has a
+Staff ---> Email : has a
+Staff ---> PhoneNumber : has a
+Staff ---> Specialization : has a
+Staff ---> AvailabilitySlots : has a
+
+StaffProfileService --> StaffProfileRepository
+StaffProfileRepository --|> BaseRepository
+StaffProfileRepository -|> IStaffProfileRepository
+
+@enduml
