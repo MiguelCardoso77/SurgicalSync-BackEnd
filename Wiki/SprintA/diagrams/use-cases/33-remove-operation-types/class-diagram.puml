@@ -7,6 +7,9 @@ class OperationType {
     - OperationName
     - List<RequiredStaff>
     - List<EstimatedDuration>
+    - IsActive
+    + ActivateOperationType()
+    + InactivateOperationType()
     + OperationType(OperationTypeId id, OperationName name, List<RequiredStaff> requiredStaff, List<EstimatedDuration> estimatedDuration)
 }
 

@@ -18,7 +18,7 @@ A confirmation prompt must be shown before deactivating an operation type.
 
 - Logical View
 
-![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level1/logical-view/logical-view.svg)
+![logical-view.svg](../../views/level1/logical-view/logical-view.svg)
 ###
 - Process View
 
@@ -28,7 +28,7 @@ A confirmation prompt must be shown before deactivating an operation type.
 
 - Logical View
 
-![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
+![logical-view.svg](../../views/level2/logical-view/logical-view.png)
 ###
 - Process View
 
@@ -38,13 +38,8 @@ A confirmation prompt must be shown before deactivating an operation type.
 
 #### Logical Views
 
--   [MDR Logical View](../general-purpose/level3/mdr-logical-view.svg)
--   [UI Logical View](../general-purpose/level3/ui-logical-view.svg)
-
-#### Implementation Views
-
--   [MDR Implementation View](./level3/mdr-implementation-view.svg)
--   [UI Implementation View](../general-purpose/level3/ui-implementation-view.svg)
+- BackEnd Logical View
+![backend-logical-view.svg](../../views/level3/backend/logical-view/logical-view.png)
 
 #### Process Views
 
@@ -104,7 +99,7 @@ are identified. This includes the API functionalities necessary for the creation
 
 ### 6.4 Estimation and Sizing
 
-This user story is estimated to necessitate an allocation of approximately 3 to 5 hours for completion.
+This user story is estimated to necessitate an allocation of approximately 3 to 6 hours for completion.
 This estimate is based on the complexity of the user story and the anticipated effort required for its
 implementation.
 

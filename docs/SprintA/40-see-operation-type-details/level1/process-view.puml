@@ -1,0 +1,21 @@
+﻿@startuml
+autonumber
+
+actor "Admin" as USER
+participant "<<System>>\n SurgicalSync" as SYSTEM
+
+activate USER
+
+    USER -> SYSTEM: wants to display details for selected operation type
+    activate SYSTEM
+
+        alt No Details Available
+            USER <-- SYSTEM : informs error with suggestion
+        else Details Available
+            SYSTEM --> USER : shows operation type details
+        end
+        
+    deactivate SYSTEM
+    
+deactivate USER
+@enduml
