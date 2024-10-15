@@ -1,13 +1,13 @@
 ﻿@startuml
 autonumber
 
-Title "UC 32 - Remove an operation requisition"
+Title "UC27 - Remove an operation requisition"
 
 participant "FrontEnd" as FE
-participant "Controllers" as CN
-participant "Services" as SV
+participant "<<Controller>>\nOperationRequestController" as CN
+participant "<<Application>>\nOperationRequestService" as SV
 participant "Domain" as DM
-participant "Repositories" as REPO
+participant "<<Repositories>>\nOperationRequestRepository" as REPO
 database "SQL Database" as SQL
 
 activate FE
@@ -21,7 +21,7 @@ CN -> SV: GetAllAsync()
 activate SV
 
             note left of SV
-                Process documented on UC33
+                Process documented on UC28
             end note
 
 SV --> CN : List<OperationRequisitionDTO>

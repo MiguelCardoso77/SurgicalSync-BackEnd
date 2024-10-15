@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC32 - Remove an operation requisition"
+Title "UC27 - Remove an operation requisition"
 
 actor "Doctor" as D 
 
