@@ -1,0 +1,73 @@
+﻿using DDDNetCore.Domain.OperationTypes;
+using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.Staffs;
+using DDDSample1.Domain.Shared;
+
+namespace DDDNetCore.Domain.OperationRequests {
+    
+    // The OperationRequest class represents a request for a medical operation.
+    // It is an aggregate root in the domain model, responsible for handling
+    // operation request properties such as priority, deadline, operation type, related patient
+    // and doctor information.
+
+    
+    public class OperationRequest : Entity<OperationRequestId>, IAggregateRoot
+    {
+
+        // The unique identifier for the operation request.
+
+        public OperationRequestId Id { get; private set; }
+      
+        // The priority of the operation request (e.g., High, Medium, Low).
+        public Priority Priority { get; private set; }
+        
+        // The deadline date for when the operation needs to be performed.
+        
+        public DeadlineDate DeadlineDate { get; private set; }
+        
+        // The identifier for the type of operation being requested.
+        
+        public OperationTypeId OperationTypeId {get; private set; }
+        
+        // The patient's medical record number, linking the request to a specific patient.
+        public MedicalRecordNumber MedicalRecordNumber { get; private set; }
+        
+        // The license number of the doctor or medical professional responsible for the operation.
+        public LicenseNumber LicenseNumber { get; private set; }
+        
+        // Flag indicating if the operation request is active or inactive.
+        
+        public bool IsActive { get; private set; }
+        
+        // Default constructor for ORM and serialization purposes.
+
+        private OperationRequest()
+        {
+            this.DeadlineDate = null;
+        }
+        
+        // Constructs a new OperationRequest with the given parameters.
+
+        public OperationRequest(OperationRequestId id, Priority priority, DeadlineDate deadlineDate,
+            OperationTypeId operationTypeId, MedicalRecordNumber medicalRecordNumber, LicenseNumber licenseNumber)
+        {
+            this.Id = id;
+            this.Priority = priority;
+            this.DeadlineDate = deadlineDate;
+            this.OperationTypeId = operationTypeId;
+            this.MedicalRecordNumber = medicalRecordNumber;
+            this.LicenseNumber = licenseNumber;
+            this.IsActive  = true;
+        }
+        // Activates the operation request, marking it as active.
+        public void ActivateOperationRequest()
+        {
+            this.IsActive = true;
+        }
+        // Deactivates the operation request, marking it as inactive.
+        public void DeactivateOperationRequest()
+        {
+            this.IsActive = false;
+        }
+    }
+}

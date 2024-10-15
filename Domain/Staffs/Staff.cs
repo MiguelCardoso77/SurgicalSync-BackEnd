@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
-
 namespace DDDNetCore.Domain.Staffs
 {
     public class Staff : Entity<LicenseNumber>, IAggregateRoot
@@ -13,7 +12,6 @@ namespace DDDNetCore.Domain.Staffs
         public StaffSpecialization StaffSpecialization { get; private set; }
         public List<StaffAvaiabilitySlots> StaffAvaiabilitySlots { get; private set; }
         public bool IsActive { get; private set; }
-
         private Staff()
         {
             this.Id = null;
@@ -24,7 +22,6 @@ namespace DDDNetCore.Domain.Staffs
             this.StaffAvaiabilitySlots = null;
             this.StaffType = StaffType.Other;
         }
-
         public Staff(LicenseNumber id ,StaffName staffName, StaffEmail staffEmail, StaffPhoneNumber staffPhoneNumber,
             StaffSpecialization staffSpecialization, List<StaffAvaiabilitySlots > staffAvaiabilitySlots, StaffType staffType)
         {
@@ -36,8 +33,6 @@ namespace DDDNetCore.Domain.Staffs
             this.StaffAvaiabilitySlots = staffAvaiabilitySlots;
             this.IsActive = true;
             this.StaffType = staffType;
-
-
         }
         
         public void ChangeStaffSpecialization(StaffSpecialization specialization)
@@ -59,6 +54,6 @@ namespace DDDNetCore.Domain.Staffs
         {
             this.IsActive = false;
         }
-        
+
     }
 }

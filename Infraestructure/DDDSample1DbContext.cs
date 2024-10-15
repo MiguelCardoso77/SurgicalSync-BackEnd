@@ -1,3 +1,4 @@
+using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Products;
@@ -31,6 +32,7 @@ namespace DDDSample1.Infrastructure
         public DbSet<OperationType> OperationTypes { get; set; }
 
         public DbSet<Staff> Staffs { get; set; }
+        public DbSet<OperationRequest> OperationRequests { get; set; }
 
         public DDDSample1DbContext(DbContextOptions options) : base(options)
         {
@@ -46,6 +48,7 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new OperationTypesEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PatientEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StaffEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new OperationTypesEntityTypeConfiguration());
 
         }
     }
