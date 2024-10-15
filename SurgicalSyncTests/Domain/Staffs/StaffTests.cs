@@ -26,7 +26,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
                 staffAvaiabilitySlotsList,
                 StaffType.Other);
             
-            Assert.AreEqual("100", staff.Id);
+            Assert.AreEqual("N202400001", staff.Id);
             Assert.AreEqual("Raquel Gonçalves", staff.StaffName);
             Assert.AreEqual("raquelgoncalves@gmail.com" , staff.StaffEmail);
             Assert.AreEqual("962839401" , staff.StaffPhoneNumber);

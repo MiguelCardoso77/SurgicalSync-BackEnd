@@ -16,7 +16,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
         public void TestToString()
         {
             var staffSpecialization1 = StaffSpecialization.Dermatology;
-            Assert.AreEqual(StaffSpecialization.Dermatology, staffSpecialization1.ToString());
+            Assert.AreEqual(StaffSpecialization.Dermatology.ToString(), staffSpecialization1.ToString());
         }
         
         [Test]
