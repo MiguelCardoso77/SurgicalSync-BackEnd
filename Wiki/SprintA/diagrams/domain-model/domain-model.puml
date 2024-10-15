@@ -138,6 +138,7 @@ package "Staff Aggregate"{
             Can be one of the following:
                 - Doctor
                 - Nurse
+                - Other
         end note 
         
 }
