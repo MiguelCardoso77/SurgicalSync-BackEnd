@@ -31,6 +31,18 @@ namespace DDDNetCore.Application.Services
                 RequiredStaff = ot.RequiredStaff.Select(rs => rs.RequiredStaffValue).ToList(), EstimatedDuration = ot.EstimatedDuration.Select(rs => rs.EstimatedDurationValue).ToList()});
             return listDto;
         }
+
+        public async Task<List<OperationTypeDto>> GetAllByStatus(bool isActive)
+        {
+            var list = await this._repo.GetAllAsync();
+            
+            // Filter list by Status
+            var filteredList = list.Where(oT => oT.IsActive == isActive).ToList();
+
+            var dtoList = OperationTypeMapper.ToListDto(filteredList);
+
+            return dtoList;
+        }
         
         public async Task<OperationTypeDto> GetByIdAsync(OperationTypeId id)
         {
@@ -38,13 +50,10 @@ namespace DDDNetCore.Application.Services
             
             if (oT == null)
                 return null;
-            
-            return new OperationTypeDto {
-                Id = oT.Id.AsString(),
-                OperationName = oT.Name.ToString(),
-                RequiredStaff = oT.RequiredStaff.Select(rs => rs.RequiredStaffValue).ToList(),
-                EstimatedDuration = oT.EstimatedDuration.Select(rs => rs.EstimatedDurationValue).ToList()
-            };
+
+            var dto = OperationTypeMapper.ToDto(oT);
+
+            return dto;
         }
         
         public async Task<OperationTypeDto> AddAsync(OperationTypeDto dto)

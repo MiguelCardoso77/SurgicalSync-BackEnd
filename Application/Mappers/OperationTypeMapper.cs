@@ -17,6 +17,11 @@ namespace DDDNetCore.Application.Mappers
                 EstimatedDuration = domain.EstimatedDuration.Select(rs => rs.EstimatedDurationValue).ToList()
             };
         }
+
+        public static List<OperationTypeDto> ToListDto(List<OperationType> domainList)
+        {
+            return domainList.Select(domain => ToDto(domain)).ToList();
+        }
         
         public static OperationType ToDomain(OperationTypeDto dto, OperationTypeId operationTypeId, List<RequiredStaff> requiredStaffList, List<EstimatedDuration> durations)
         {
