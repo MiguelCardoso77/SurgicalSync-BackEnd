@@ -18,7 +18,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
             staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 2: 2024-09-25:19h00/2024-09-26:02h00"));
 
             var staff = new Staff(
-                new LicenseNumber("100"),
+                new LicenseNumber("N202400001"),
                 new StaffName("Raquel Gonçalves"),
                 new StaffEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
@@ -46,7 +46,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
             staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00"));
             staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 2: 2024-09-25:19h00/2024-09-26:02h00"));
             var staff = new Staff(
-                new LicenseNumber("N20240001"),
+                new LicenseNumber("N202400001"),
                 new StaffName("Raquel Gonçalves"),
                 new StaffEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
@@ -65,7 +65,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
             staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00"));
             staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 2: 2024-09-25:19h00/2024-09-26:02h00"));
             var staff = new Staff(
-                new LicenseNumber("N20240001"),
+                new LicenseNumber("N202400001"),
                 new StaffName("Raquel Gonçalves"),
                 new StaffEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
@@ -84,7 +84,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
             staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00"));
             staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 2: 2024-09-25:19h00/2024-09-26:02h00"));
             var staff = new Staff(
-                new LicenseNumber("N20240001"),
+                new LicenseNumber("N202400001"),
                 new StaffName("Raquel Gonçalves"),
                 new StaffEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),

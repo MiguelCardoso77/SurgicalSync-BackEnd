@@ -8,23 +8,23 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
         [Test]
         public void TestConstructor()
         {
-            var staffSpecialization1 = new StaffSpecialization() == StaffSpecialization.Dermatology;
+            var staffSpecialization1 = StaffSpecialization.Dermatology;
             Assert.AreEqual(StaffSpecialization.Dermatology, staffSpecialization1);
         }
         
         [Test]
         public void TestToString()
         {
-            var staffSpecialization1 = new StaffSpecialization() == StaffSpecialization.Dermatology;
+            var staffSpecialization1 = StaffSpecialization.Dermatology;
             Assert.AreEqual(StaffSpecialization.Dermatology, staffSpecialization1.ToString());
         }
         
         [Test]
         public void TestEquals()
         {
-            var staffSpecialization2 = new StaffSpecialization() == StaffSpecialization.Dermatology;
-            var staffSpecialization3 = new StaffSpecialization() == StaffSpecialization.Dermatology;
-            Assert.AreEqual(staffSpecialization2, staffSpecialization3);
+            var staffSpecialization =  StaffSpecialization.Dermatology;
+            var staffSpecialization1 = StaffSpecialization.Dermatology;
+            Assert.AreEqual(staffSpecialization, staffSpecialization1);
         }
     }
 }
