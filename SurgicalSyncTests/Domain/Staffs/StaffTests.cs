@@ -26,13 +26,13 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
                 staffAvaiabilitySlotsList,
                 StaffType.Other);
             
-            Assert.AreEqual("N202400001", staff.Id);
-            Assert.AreEqual("Raquel Gonçalves", staff.StaffName);
-            Assert.AreEqual("raquelgoncalves@gmail.com" , staff.StaffEmail);
-            Assert.AreEqual("962839401" , staff.StaffPhoneNumber);
-            Assert.AreEqual(StaffSpecialization.Dermatology , staff.StaffSpecialization);
-            Assert.AreEqual(2, staff.StaffAvaiabilitySlots.Count);
-            Assert.AreEqual(StaffType.Other, staff.StaffType);
+            Assert.AreEqual("N202400001", staff.Id.ToString());
+            Assert.AreEqual("Raquel Gonçalves", staff.StaffName.ToString());
+            Assert.AreEqual("raquelgoncalves@gmail.com" , staff.StaffEmail.ToString());
+            Assert.AreEqual("962839401" , staff.StaffPhoneNumber.ToString());
+            Assert.AreEqual(StaffSpecialization.Dermatology , staff.StaffSpecialization.ToString());
+            Assert.AreEqual(2, staff.StaffAvaiabilitySlots.Count.ToString());
+            Assert.AreEqual(StaffType.Other, staff.StaffType.ToString());
             
         }
         
@@ -55,7 +55,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
                 StaffType.Other);
 
             staff.ChangeStaffSpecialization(StaffSpecialization.Dermatology);
-            Assert.AreEqual(StaffSpecialization.Dermatology, staff.StaffSpecialization);
+            Assert.AreEqual(StaffSpecialization.Dermatology, staff.StaffSpecialization.ToString());
         }
 
         [Test]
