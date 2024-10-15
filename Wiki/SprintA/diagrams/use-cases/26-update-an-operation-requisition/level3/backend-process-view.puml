@@ -1,15 +1,15 @@
 ﻿@startuml
 autonumber
 
-Title "UC31 - Update an operation requisition"
+Title "UC26 - Update an operation requisition"
 
 participant "FrontEnd" as FE
-participant "Controllers" as CN
-participant "Services" as SV
-participant "DTOs" as DTO
-participant "Mappers" as MP
+participant "<<Controller>>\nOperationRequestController" as CN
+participant "<<Application>>\nOperationRequestService" as SV
+participant "<<DTO>>\nOperationRequestDTO" as DTO
+participant "<<Mappers>>\nOperationRequestMapper" as MP
 participant "Domain" as DM
-participant "Repositories" as REPO
+participant "<<Repositories>>\nOperationRequestRepository" as REPO
 database "SQL Database" as SQL
 
 activate FE
@@ -24,7 +24,7 @@ activate SV
 
     note left of SV
     
-    Process documented on UC33
+    Process documented on UC26
     
     end note
     
