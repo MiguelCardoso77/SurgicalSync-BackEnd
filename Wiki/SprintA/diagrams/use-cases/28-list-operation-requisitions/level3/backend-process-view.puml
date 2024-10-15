@@ -1,14 +1,14 @@
 ﻿@startuml
 autonumber
 
-Title "UC33 - List operation requisitions"
+Title "UC28 - List operation requisitions"
 
 participant "FrontEnd" as FE
-participant "Controllers" as C
-participant "Services" as S
-participant "Repositories" as R
-participant "Mappers" as M
-participant "DTOs" as DTO
+participant "<<Controller>>\nOperationRequestController" as C
+participant "<<Application>>\nOperationRequestService" as S
+participant "<<Mappers>>\nOperationRequestMapper" as M
+participant "<<DTO>>\nOperationRequestDTO" as DTO
+participant "<<Repositories>>\nOperationRequestRepository" as R
 database "SQL Database" as SQL
 
 activate FE
@@ -75,7 +75,7 @@ FE -> C : GET /operation-requisitions
     
     activate S
     
-    S -->C : List<OperationRequestDTO>
+    S --> C : List<OperationRequestDTO>
     
     deactivate S 
     

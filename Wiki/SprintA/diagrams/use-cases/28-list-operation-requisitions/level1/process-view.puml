@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC33 - List operation requisitions"
+Title "UC28 - List operation requisitions"
 
 actor "Doctor" as D
 participant "<<System>> \n SurgicalSync" as SYSTEM
