@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC34 - Search operation requisitions"
+Title "UC29 - Search operation requisitions"
 
 actor "Doctor" as D
 participant "FrontEnd" as FE

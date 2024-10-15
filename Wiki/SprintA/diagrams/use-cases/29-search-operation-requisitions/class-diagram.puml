@@ -1,6 +1,8 @@
 ﻿@startuml
 
-Title "UC31 - Update an operation requisition"
+Title "UC29 - Search operation requisitions"
+
+package "Domain"{
 
 class OperationRequest{
     - OperationRequestId
@@ -10,25 +12,6 @@ class OperationRequest{
     - LicenseNumber
     - OperationTypeID
     + OperationRequest(OperationRequestId id, Priority priority, DeadlineDate date, PatientID patientID, LicenseNumber LicenseNumber, OperationTypeID operationTypeID)
-}
-
-class OperationRequestDTO{
-    - Id
-    - Priority
-    - DeadlineDate
-    - PatientID
-    - LicenseNumber
-    - OperationTypeID
-}
-
-class OperationRequestsController{
-    + GetAll()
-    + GetById(OperationRequestID id)
-    + FilterOperationRequests(List<OperationRequestDTO> operationRequests)
-    + Create(OperationRequestDTO dto)
-    + Update(OperationRequestID id, OperationRequestDTO dto)
-    + SoftDelete(OperationRequestID id)
-    + HardDelete(OperationRequestID id)
 }
 
 class OperationRequestID{
@@ -57,15 +40,52 @@ class LicenseNumber{
     + LicenseNumber(String value)
 }
 
-class OperationRequestService{
-    + GetAllAsync()
-    + GetByIdAsync(OperationRequestID id)
-    + FilterAsync(List<OperationRequestDTO> operationRequests)
-    + AddAsync(OperationRequestDTO DTO)
-    + UpdateAsync(OperationRequestDTO DTO)
-    + InactivateAsync(OperationRequestId id)
-    + DeleteAsync(OperationRequestId id)
 }
+
+package "DTO"{
+
+class OperationRequestDTO{
+    - Id
+    - Priority
+    - DeadlineDate
+    - PatientID
+    - LicenseNumber
+    - OperationTypeID
+}
+
+class OperationRequestMapper{
+    + ToDomain(OperationRequestDTO dto, OperationRequestID)
+    + ToDTO(OperationRequest request)
+}
+}
+
+package "Controllers"{
+
+class OperationRequestsController{
+    + GetAll()
+    + GetById(OperationRequestID id)
+    + FilterOperationRequests(List<OperationRequestDTO> operationRequests)
+    + Create(OperationRequestDTO dto)
+    + Update(OperationRequestID id, OperationRequestDTO dto)
+    + SoftDelete(OperationRequestID id)
+    + HardDelete(OperationRequestID id)
+}
+
+}
+
+package "Services"{
+    class OperationRequestService{
+        + GetAllAsync()
+        + GetByIdAsync(OperationRequestID id)
+        + FilterAsync(List<OperationRequestDTO> operationRequests)
+        + AddAsync(OperationRequestDTO DTO)
+        + UpdateAsync(OperationRequestDTO DTO)
+        + InactivateAsync(OperationRequestId id)
+        + DeleteAsync(OperationRequestId id)
+    }
+}
+
+package "Repositories"{
 
 interface IOperationRequestRepository{
 }
@@ -79,9 +99,6 @@ Base Project class
 ====
 }
 
-class OperationRequestMapper{
-    + ToDomain(OperationRequestDTO dto, OperationRequestID)
-    + ToDTO(OperationRequest request)
 }
 
 OperationRequestsController -> OperationRequestService
