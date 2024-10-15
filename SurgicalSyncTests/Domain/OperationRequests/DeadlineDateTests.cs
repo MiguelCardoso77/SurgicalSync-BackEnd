@@ -98,12 +98,13 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.OperationRequests
         [Test]
         public void ToString_ShouldReturnFormattedDate()
         {
-            var date = new DateTime(2024, 10, 15);
+            var date = DateTime.Now;
             var deadline = new DeadlineDate(date);
 
             var result = deadline.ToString();
 
-            Assert.AreEqual("2024-10-15", result);
+            var expectedDateString = date.ToString("yyyy-MM-dd");
+            Assert.AreEqual(expectedDateString, result);
         }
     }
 }
