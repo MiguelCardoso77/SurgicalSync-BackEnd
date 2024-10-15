@@ -13,6 +13,7 @@ using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
 using DDDSample1.Infrastructure.Categories;
+using DDDSample1.Infrastructure.OperationRequests;
 using DDDSample1.Infrastructure.Products;
 
 namespace DDDSample1.Infrastructure
@@ -48,7 +49,7 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new OperationTypesEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PatientEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StaffEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new OperationTypesEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new OperationRequestEntityTypeConfiguration());
 
         }
     }

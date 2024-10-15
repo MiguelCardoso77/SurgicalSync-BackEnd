@@ -1,14 +1,16 @@
 ﻿using System;
+using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Domain.OperationRequests
 {
     // Represents a deadline date for an operation request in the domain.
     // This class encapsulates the logic and validation associated with a deadline date,
     // ensuring that it adheres to the rules of not being set in the past.
-    public class DeadlineDate
+    public class DeadlineDate : IValueObject
     {
         // Stores the deadline date as a DateTime value.
         public DateTime Date { get; private set; }
+        
         // Constructor that initializes the DeadlineDate with a specific date.
         public DeadlineDate(DateTime date)
         {

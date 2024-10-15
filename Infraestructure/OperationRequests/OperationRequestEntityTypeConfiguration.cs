@@ -1,6 +1,7 @@
 ﻿using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.Staffs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,47 +15,48 @@ namespace DDDSample1.Infrastructure.OperationRequests
     {
         // Configures the entity of type <see cref="OperationRequest"/> using the provided <EntityTypeBuilder{TEntity}>.
         // This method sets up the primary key, properties, and relationships with other entities.
-        /// <param name="builder">The <EntityTypeBuilder/> used to configure the entity.</param>
-        /// 
+        // <param name="builder">The <EntityTypeBuilder/> used to configure the entity.</param>
+        //
         public void Configure(EntityTypeBuilder<OperationRequest> builder)
         {
+            // Primary key configuration
             builder.HasKey(b => b.Id);
+
+            // Configure owned Priority value object
+            builder.Property(b => b.Priority)
+                .HasColumnName("Priority")
+                .IsRequired();
             
+            // Configure owned DeadlineDate value object
             builder.OwnsOne(b => b.DeadlineDate, deadlineDateBuilder =>
             {
-                deadlineDateBuilder.Property(d => d.Date)
+                deadlineDateBuilder.Property(p => p.Date)
                     .HasColumnName("DeadlineDate")
                     .IsRequired();
             });
 
-            builder.Property(b => b.Priority)
-                .HasColumnName("Priority")
-                .IsRequired();
-
-            builder.Property(b => b.OperationTypeId)
-                .HasColumnName("OperationTypeId")
-                .IsRequired();
-
+            // Configure the foreign key relationship for OperationType
             builder.HasOne<OperationType>()
                 .WithMany()
-                .HasForeignKey(b => b.OperationTypeId);
+                .HasForeignKey(b => b.OperationTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(b => b.MedicalRecordNumber)
-                .HasColumnName("MedicalRecordNumber")
-                .IsRequired();
-
+            // Configure the foreign key relationship for Patient (via MedicalRecordNumber)
             builder.HasOne<Patient>()
                 .WithMany()
-                .HasForeignKey(b => b.MedicalRecordNumber);
+                .HasForeignKey(b => b.MedicalRecordNumber)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(b => b.LicenseNumber)
-                .HasColumnName("LicenseNumber")
-                .IsRequired();
+            // Configure the foreign key relationship for Staff (via LicenseNumber)
+            builder.HasOne<Staff>()  // Assuming Staff entity handles LicenseNumber
+                .WithMany()
+                .HasForeignKey(b => b.LicenseNumber)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            // Configure the IsActive property
             builder.Property(b => b.IsActive)
                 .HasColumnName("IsActive")
-                .IsRequired();
-
+                .IsRequired();  // Optional: enforce it to be required
         }
     }
 }
