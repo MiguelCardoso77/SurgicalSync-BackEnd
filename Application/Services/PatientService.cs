@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Application.Mappers;
+using DDDNetCore.Domain;
 using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
 
@@ -99,13 +100,23 @@ namespace DDDNetCore.Application.Services
             if (patient == null)
                 return null;
 
+            var phoneNumber = patient.PhoneNumber.ToString();
+            var emailPatient = patient.UserEmail.ToString();
+            var emergencyContact = patient.EmergencyContact.ToString();
+            
             // change all fields
             patient.ChangePatientName(new PatientName(dto.PatientName));
             patient.ChangePhoneNumber(new PhoneNumber(dto.PhoneNumber));
             patient.ChangeGender(new Gender(dto.Gender));
             patient.ChangeBirthDate(new BirthDate(dto.BirthDate)); 
             patient.ChangeEmergencyContact(new EmergencyContact(dto.EmergencyContact));
-            patient.ChangeEmail(new UserEmail(dto.Email));
+            
+            // Send set-up email to user
+            var smtpEmailService = new EmailService();
+            var emailContent = $"Hello {patient.PatientName}! \n Your  contact information: {phoneNumber} and {emergencyContact}, were changed.";
+            var email = new Email(emailContent, patient.UserEmail.ToString(), "Changes On Your Contact Information");
+            await smtpEmailService.SendEmailAsync(email);
+            Console.WriteLine($"Successfully sent the email to {email.Destination}");
 
             await this._unitOfWork.CommitAsync();
 

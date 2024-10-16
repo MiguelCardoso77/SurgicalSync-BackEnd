@@ -66,10 +66,5 @@ namespace DDDNetCore.Domain.Patients
         {
             this.Gender = gender;
         }
-
-        public void ChangeEmail(UserEmail email)
-        {
-            this.UserEmail = email;
-        }
     }
 }
