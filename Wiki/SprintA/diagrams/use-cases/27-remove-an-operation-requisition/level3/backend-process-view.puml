@@ -6,7 +6,7 @@ Title "UC27 - Remove an operation requisition"
 participant "FrontEnd" as FE
 participant "<<Controller>>\nOperationRequestController" as CN
 participant "<<Application>>\nOperationRequestService" as SV
-participant "Domain" as DM
+participant "<<Domain>>\nOperationRequest" as DM
 participant "<<Repositories>>\nOperationRequestRepository" as REPO
 database "SQL Database" as SQL
 
