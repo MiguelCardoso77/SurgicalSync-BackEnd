@@ -4,11 +4,11 @@ autonumber
 title "UC34 - Search for an operation requisition"
 
 participant "FrontEnd" as FE
-participant "Controllers" as C
-participant "Services" as S
-participant "Repositories" as R
-participant "Mappers" as M
-participant "DTOs" as DTO
+participant "<<Controller>>\nOperationRequestController" as C
+participant "<<Application>>\nOperationRequestService" as S
+participant "<<Mappers>>\nOperationRequestMapper" as M
+participant "<<DTO>>\nOperationRequestDTO" as DTO
+participant "<<Repositories>>\nOperationRequestRepository" as R
 database "SQL Database" as SQL
 
 activate FE
@@ -41,7 +41,7 @@ activate C
     
     activate M
     
-    M -> DTO : Create(OperationRequest)
+    M -> DTO : Create(OperationRequest(operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber))
     
     activate DTO
     

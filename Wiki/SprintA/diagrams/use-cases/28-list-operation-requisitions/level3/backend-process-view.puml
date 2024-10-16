@@ -43,7 +43,7 @@ FE -> C : GET /operation-requisitions
     
     loop for all the list's members
     
-    M -> DTO : Create(OperationRequisition)
+    M -> DTO : Create(OperationRequisitionDTO(operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber))
     
     activate DTO
     
@@ -65,7 +65,7 @@ FE -> C : GET /operation-requisitions
     
     deactivate C 
     
-    alt The doctor applies a filter
+    alt The doctor applies one or more filters
     
     FE -> C : filters operation requisitions
     
