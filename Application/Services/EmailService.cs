@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using DDDNetCore.Domain;
 using Microsoft.Extensions.Configuration;
 
 namespace DDDNetCore.Application.Services
@@ -18,7 +19,7 @@ namespace DDDNetCore.Application.Services
                 .Build();
         }
 
-        public async Task SendEmailAsync(string toEmail, string subject, string messageContent)
+        public async Task SendEmailAsync(Email emailObj)
         {
             var smtpConfig = _configuration.GetSection("Smtp");
 
@@ -30,12 +31,12 @@ namespace DDDNetCore.Application.Services
                 var mailMessage = new MailMessage
                 {
                     From = new MailAddress(smtpConfig["SenderEmail"], smtpConfig["SenderName"]),
-                    Subject = subject,
-                    Body = messageContent,
+                    Subject = emailObj.Subject,
+                    Body = emailObj.EmailContent,
                     IsBodyHtml = true
                 };
             
-                mailMessage.To.Add(new MailAddress(toEmail));
+                mailMessage.To.Add(new MailAddress(emailObj.Destination));
 
                 await client.SendMailAsync(mailMessage);
             }

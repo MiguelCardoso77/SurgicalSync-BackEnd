@@ -27,9 +27,9 @@ namespace DDDNetCore.Application.Services
         {
             var list = await this._repo.GetAllAsync();
             
-            List<OperationTypeDto> listDto = list.ConvertAll<OperationTypeDto>(ot => new OperationTypeDto{Id = ot.Id.AsString(), OperationName = ot.Name.ToString(), 
-                RequiredStaff = ot.RequiredStaff.Select(rs => rs.RequiredStaffValue).ToList(), EstimatedDuration = ot.EstimatedDuration.Select(rs => rs.EstimatedDurationValue).ToList()});
-            return listDto;
+            var dtoList = OperationTypeMapper.ToListDto(list);
+            
+            return dtoList;
         }
 
         public async Task<List<OperationTypeDto>> GetAllByStatus(bool isActive)
@@ -39,6 +39,39 @@ namespace DDDNetCore.Application.Services
             // Filter list by Status
             var filteredList = list.Where(oT => oT.IsActive == isActive).ToList();
 
+            var dtoList = OperationTypeMapper.ToListDto(filteredList);
+
+            return dtoList;
+        }
+
+        public async Task<List<OperationTypeDto>> GetAllByName(string operationName)
+        {
+            var list = await this._repo.GetAllAsync();
+            
+            // Filter list by Name
+            var filteredList = list.Where(op => op.Name.ToString().Contains(operationName, StringComparison.OrdinalIgnoreCase)).ToList();
+    
+            var dtoList = OperationTypeMapper.ToListDto(filteredList);
+
+            return dtoList;
+        }
+        
+        public async Task<List<OperationTypeDto>> GetAllBySpecialization(string specialization)
+        {
+            var list = await this._repo.GetAllAsync();
+            
+            // Available specializations: Prosthetics, Arthroscopy, Spine
+            var surgeryIds = specialization switch
+            {
+                "Prosthetics" => new List<string> { "2", "3", "4" },
+                "Arthroscopy" => new List<string> { "1", "5", "6", "7" },
+                "Spine" => new List<string> { "8" },
+                _ => new List<string>()
+            };
+            
+            // Filter list by Specialization
+            var filteredList = list.Where(op => surgeryIds.Contains(op.Id.AsString())).ToList();
+    
             var dtoList = OperationTypeMapper.ToListDto(filteredList);
 
             return dtoList;

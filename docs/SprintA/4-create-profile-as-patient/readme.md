@@ -1,28 +1,25 @@
-# Adding New Patient Profiles
+﻿# Create User Profile As Patient
 
 ## 1. Use Case Description
 
-As an Admin, I want to create a new patient profile, 
-so that I can register their personal details and medical history
+As a Patient, I want to create a user profile.
 
 ## 2. Customer Specifications and Clarifications
 
-The client has outlined that the Admin Role should possess the functionality to add new patient profiles.
+The client has outlined that the Patient Role should possess the functionality to create it's own profile.
 
-The patient's email, phone number and medical record number must be unique.
+- During registration, patients provide personal details (e.g., name, email, phone) and create a
+  profile.
 
-The profile is stored securely in the system, and access is governed by role-based permissions.
+This use case only happens after the IAM account of patient is set-up.
 
-Attributes are :
-
-- Patient Name
-- Birth Date
-- Gender
-- Medical Record Number
-- Phone Number
-- Medical Conditions
-- Emergency Contact
-- Appointment History
+#### To Use in Postman:
+{
+"id": "1",
+"userName": "TestUsername",
+"userEmail": "defaultEmail@isep.ipp.pt",
+"userRole": "Admin"
+}
 
 ## 3. Diagrams
 
@@ -63,7 +60,10 @@ Attributes are :
 - BackEnd Process View
 
 ![backend-process-view.svg](./level3/backend-process-view.svg)
+###
+- FrontEnd Process View
 
+![frontend-process-view.svg](./level3/frontend-process-view.svg)
 ###
 - Class Diagram View
 
@@ -73,26 +73,19 @@ Attributes are :
 
 To successfully complete this user story, the following criteria must be met:
 
-- Admins can add new patient profiles with attributes like:
-- Patient Name
-- Birth Date
-- Gender
-- Medical Record Number
-- Phone Number
-- Medical Conditions
-- Emergency Contact
-- Appointment History
-- A unique patient ID (Medical Record Number) is generated upon profile creation.
-- The system validates that the patient’s email and phone number are unique.
-- The profile is stored securely in the system, and access is governed by role-based permissions.
+- Patients can self-register using the external IAM system.
+- During registration, patients provide personal details (e.g., name, email, phone) and create a
+  profile.
+- The system validates the email address by sending a verification email with a confirmation link.
+- Patients cannot list their appointments without completing the registration process.
 
 ## 5. Dependencies
 
 This user story relies on the following API functionalities:
 
--   To create patient profile
+-   To create backoffice user
     ```
-    POST /Patients
+    POST /patients
     ```
 
 ## 6. Definition of Ready (DoR)
@@ -101,8 +94,8 @@ This user story relies on the following API functionalities:
 
 The user story is deemed ready when the requirements are clearly outlined, providing a comprehensive
 understanding of the functionality to be implemented. Specifically, the Administrator role is expected to
-possess the ability to register new patient profiles, designating their respective roles and
-details such as their name and phone number.
+possess the capability to register new backoffice users, designating their respective roles and
+details such as their username and email address.
 
 ### 6.2 Acceptance Criteria
 
@@ -112,12 +105,12 @@ defined. These criteria serve as the benchmark for determining the successful co
 ### 6.3 Dependencies and Resources
 
 The user story is considered ready when all dependencies and resources required for its implementation
-are identified. This includes the API functionalities necessary for the creation of patient profiles.
+are identified. This includes the API functionalities necessary for the creation of backoffice users.
 
 ### 6.4 Estimation and Sizing
 
-This user story is estimated to require an allocation of approximately 4 to 7 hours for completion.
-This estimate is based on the complexity of the user story and the expected effort required for its
+This user story is estimated to necessitate an allocation of approximately 2 to 4 hours for completion.
+This estimate is based on the complexity of the user story and the anticipated effort required for its
 implementation.
 
 ## 7. Definition of Done (DoD)

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.Users;
 using NUnit.Framework;
 
 namespace DDDNetCore.SurgicalSyncTests.Domain.Patients
@@ -26,7 +27,8 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Patients
                 new PhoneNumber("930983821"),
                 medicalConditions,
                 new EmergencyContact("983457634"),
-                appointmentHistories
+                appointmentHistories,
+                new UserEmail("1220772@isep.ipp.pt")
             );
 
             Assert.AreEqual("1000", patient.Id.AsString());

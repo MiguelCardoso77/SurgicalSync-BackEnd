@@ -10,11 +10,6 @@ The client has outlined that the Admin Role should possess the functionality to 
 
 Admins can search and filter operation types by name, specialization, or status (active/inactive).
 
-Attributes of operation types include:
-- Operation type name
-- Required staff roles
-- Estimated duration
-
 The following operation types are already available in the system:
 - ACL Reconstruction Surgery
 - Knee Replacement Surgery
@@ -26,6 +21,13 @@ The following operation types are already available in the system:
 - Lumbar Discectomy
 - Trigger Finger
 - Carpal Tunnel Syndrome
+
+To complete this use case the system should accept query parameters to filter the operation types by name, specialization, or status (active/inactive).
+
+#### To Use in Postman:
+- https://localhost:5001/api/operationTypes?operationname=Carpal Tunnel Syndrome - (filter by name)
+- https://localhost:5001/api/operationTypes?specialization=Orthopedics - (filter by specialization)
+- https://localhost:5001/api/operationTypes?status=true - (filter by status)
 
 ## 3. Diagrams
 

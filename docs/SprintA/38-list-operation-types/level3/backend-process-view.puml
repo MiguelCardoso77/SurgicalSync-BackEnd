@@ -12,7 +12,7 @@ participant "DTOs" as DTO
 database "SQL Database" as SQL
 
 activate FE
-    FE -> CN : GET /operation-types
+    FE -> CN : GET /operationTypes
     activate CN
         
         CN -> SV : GetAllAsync()
@@ -30,7 +30,7 @@ activate FE
                 REPO --> SV : returns List<OperationType>
             deactivate REPO
             
-            SV -> MP : ToDTO(List<OperationType>)
+            SV -> MP : ToDTOList(List<OperationType>)
             activate MP
             
 loop for all operation types
@@ -53,11 +53,31 @@ end loop
     FE -> CN : filters operation types
     activate CN
     
-        CN -> SV : FilterOperationTypesAsync(list)
+alt Filter by Status
+    
+        CN -> SV : GetAllByStatus(Status)
         activate SV
         
             SV --> CN : returns List<OperationTypeDTO>
         deactivate SV
+        
+else Filter by Name
+
+        CN -> SV : GetAllByName(Name)
+        activate SV
+        
+            SV --> CN : returns List<OperationTypeDTO>
+        deactivate SV
+        
+else Filter by Specialization
+
+        CN -> SV : GetAllBySpecialization(Specialization)
+        activate SV
+        
+            SV --> CN : returns List<OperationTypeDTO>
+        deactivate SV
+
+end alt
         
         CN --> FE : returns List<OperationTypeDTO>
     deactivate CN

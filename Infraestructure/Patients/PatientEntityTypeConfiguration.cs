@@ -40,6 +40,12 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasColumnName("EmergencyContact");
             });
             
+            builder.OwnsOne(b => b.UserEmail, emailBuilder =>
+            {
+                emailBuilder.Property(p => p.UserEmailValue)
+                    .HasColumnName("Email");
+            });
+            
             builder.OwnsMany(b => b.MedicalConditions, medicalConditionsBuilder =>
             {
                 medicalConditionsBuilder.Property(p => p.MedicalConditionsValue)

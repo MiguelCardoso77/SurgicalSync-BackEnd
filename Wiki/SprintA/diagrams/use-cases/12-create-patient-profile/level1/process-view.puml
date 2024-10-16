@@ -9,7 +9,7 @@ activate USER
     USER -> SYSTEM: wants to create a patient profile
     activate SYSTEM
 
-        SYSTEM --> USER : requests data (patientName, birthDate, gender, medicalRecordNumber,\nphoneNumber, medicalConditions, emergencyContact, appointmentHistory)
+        SYSTEM --> USER : requests data (patientName, birthDate, gender, medicalRecordNumber,\nphoneNumber, medicalConditions, emergencyContact, appointmentHistory, email)
     deactivate SYSTEM
         
     USER -> SYSTEM : provides data

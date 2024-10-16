@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Domain.Patients
@@ -13,6 +14,7 @@ namespace DDDNetCore.Domain.Patients
         public List<MedicalConditions> MedicalConditions { get; private set; }
         public EmergencyContact EmergencyContact { get; private set; }
         public List<AppointmentHistory> AppointmentHistory { get; private set; }
+        public UserEmail UserEmail { get; private set; }
 
         private Patient()
         {
@@ -23,11 +25,12 @@ namespace DDDNetCore.Domain.Patients
             this.BirthDate = null;
             this.Gender = null;
             this.AppointmentHistory = null;
+            this.UserEmail = null;
         }
 
         public Patient(PatientName patientName, BirthDate birthDate, Gender gender,
             MedicalRecordNumber medicalRecordNumber, PhoneNumber phoneNumber, List<MedicalConditions> medicalConditions,
-            EmergencyContact emergencyContact, List<AppointmentHistory> appointmentHistory)
+            EmergencyContact emergencyContact, List<AppointmentHistory> appointmentHistory, UserEmail userEmail)
         {
             this.PatientName = patientName;
             this.BirthDate = birthDate;
@@ -37,6 +40,7 @@ namespace DDDNetCore.Domain.Patients
             this.MedicalConditions = medicalConditions;
             this.EmergencyContact = emergencyContact;
             this.AppointmentHistory = appointmentHistory;
+            this.UserEmail = userEmail;
         }
         
         public void ChangePhoneNumber(PhoneNumber phoneNumber)
@@ -62,7 +66,5 @@ namespace DDDNetCore.Domain.Patients
         {
             this.Gender = gender;
         }
-
-        
     }
 }

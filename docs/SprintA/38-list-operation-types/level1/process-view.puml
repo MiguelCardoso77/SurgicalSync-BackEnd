@@ -15,7 +15,7 @@ activate USER
             SYSTEM --> USER : offers filtering options
     deactivate SYSTEM
     
-    USER -> SYSTEM: selects filter or no filter
+    USER -> SYSTEM: selects filter option
     activate SYSTEM
         
             USER <-- SYSTEM : lists all operation types

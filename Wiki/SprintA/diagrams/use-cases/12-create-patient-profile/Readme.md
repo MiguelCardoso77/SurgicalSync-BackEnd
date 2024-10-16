@@ -1,42 +1,29 @@
-﻿# Register New Backoffice Users
+# Adding New Patient Profiles
 
 ## 1. Use Case Description
 
-As an Admin, I want to register new backoffice users (e.g., doctors, nurses,
-technicians, admins) via an out-of-band process, so that they can access the
-backoffice system with appropriate permissions.
+As an Admin, I want to create a new patient profile, 
+so that I can register their personal details and medical history
 
 ## 2. Customer Specifications and Clarifications
 
-The client has outlined that the Admin Role should possess the functionality to create backoffice users through an out-of-band process.
+The client has outlined that the Admin Role should possess the functionality to add new patient profiles.
 
-The admin decides the role of the user, which can be one of the following:
+The patient's email, phone number and medical record number must be unique.
 
-- Doctor
-- Nurse
-- Technician
+The profile is stored securely in the system, and access is governed by role-based permissions.
 
 Attributes are :
 
-- Username
+- Patient Name
+- Birth Date
+- Gender
+- Medical Record Number
+- Phone Number
+- Medical Conditions
+- Emergency Contact
+- Appointment History
 - Email
-- Role
-
-The system enforces strong password requirements for security.
-Requirements: "at least 10 characters long, at least a digit, a capital letter and a special character"
-
-Registered users receive a one-time setup link via email to set their password and activate their
-account.
-
-A confirmation email is sent to verify the user’s registration.
-
-#### To Use in Postman:
-{
-"id": "1",
-"userName": "TestUsername",
-"userEmail": "defaultEmail@isep.ipp.pt",
-"userRole": "Admin"
-}
 
 ## 3. Diagrams
 
@@ -77,10 +64,7 @@ A confirmation email is sent to verify the user’s registration.
 - BackEnd Process View
 
 ![backend-process-view.svg](./level3/backend-process-view.svg)
-###
-- FrontEnd Process View
 
-![frontend-process-view.svg](./level3/frontend-process-view.svg)
 ###
 - Class Diagram View
 
@@ -90,23 +74,27 @@ A confirmation email is sent to verify the user’s registration.
 
 To successfully complete this user story, the following criteria must be met:
 
-- Backoffice users (e.g., doctors, nurses, technicians) are registered by an Admin via an internal process, not via self-registration.
-- Admin assigns roles (e.g., Doctor, Nurse, Technician) during the registration process.
-- Registered users receive a one-time setup link via email to set their password and activate their account.
-- The system enforces strong password requirements for security.
-- A confirmation email is sent to verify the user’s registration.
+- Admins can add new patient profiles with attributes like:
+- Patient Name
+- Birth Date
+- Gender
+- Medical Record Number
+- Phone Number
+- Medical Conditions
+- Emergency Contact
+- Appointment History
+- Email
+- A unique patient ID (Medical Record Number) is generated upon profile creation.
+- The system validates that the patient’s email and phone number are unique.
+- The profile is stored securely in the system, and access is governed by role-based permissions.
 
 ## 5. Dependencies
 
 This user story relies on the following API functionalities:
 
--   Firebase IAM API
-
--   SMTP Email API
-
--   To create backoffice user
+-   To create patient profile
     ```
-    POST /users
+    POST /Patients
     ```
 
 ## 6. Definition of Ready (DoR)
@@ -114,9 +102,9 @@ This user story relies on the following API functionalities:
 ### 6.1 Clear and Detailed Description
 
 The user story is deemed ready when the requirements are clearly outlined, providing a comprehensive
-understanding of the functionality to be implemented. Specifically, the Administrator role is expected to 
-possess the capability to register new backoffice users, designating their respective roles and
-details such as their username and email address.
+understanding of the functionality to be implemented. Specifically, the Administrator role is expected to
+possess the ability to register new patient profiles, designating their respective roles and
+details such as their name and phone number.
 
 ### 6.2 Acceptance Criteria
 
@@ -126,12 +114,12 @@ defined. These criteria serve as the benchmark for determining the successful co
 ### 6.3 Dependencies and Resources
 
 The user story is considered ready when all dependencies and resources required for its implementation
-are identified. This includes the API functionalities necessary for the creation of backoffice users.
+are identified. This includes the API functionalities necessary for the creation of patient profiles.
 
 ### 6.4 Estimation and Sizing
 
-This user story is estimated to necessitate an allocation of approximately 6 to 12 hours for completion.
-This estimate is based on the complexity of the user story and the anticipated effort required for its
+This user story is estimated to require an allocation of approximately 4 to 7 hours for completion.
+This estimate is based on the complexity of the user story and the expected effort required for its
 implementation.
 
 ## 7. Definition of Done (DoD)
