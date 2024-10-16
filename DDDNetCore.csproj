@@ -8,30 +8,33 @@
   
   <ItemGroup>
     <PackageReference Include="FirebaseAdmin" Version="3.0.1" />
+    <PackageReference Include="FluentAssertions" Version="6.12.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0" />
+    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="xunit" Version="2.9.2" />
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Scripts\" />
+    <Folder Include="Integration.Tests\" />
+    <Folder Include="Wiki\SprintA\1220772\" />
+    <Folder Include="Wiki\SprintA\1220812\" />
+    <Folder Include="Wiki\SprintA\1220917\" />
+    <Folder Include="Wiki\SprintA\1221194\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\11-log-in-to-the-system-using-the-IAM-credentials\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\11-log-in-to-the-system-using-the-IAM-credentials\level3\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\12-access-my-features\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\12-access-my-features\level3\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\8-delete-my-account-and-all-associated-data\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\8-delete-my-account-and-all-associated-data\level3\" />
-    <Folder Include="Wiki\SprintA\diagrams\views\level4\" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Remove="Wiki\SprintA\diagrams\views\level3\backend\logical-view\logical-view.png" />
   </ItemGroup>
 
 </Project>

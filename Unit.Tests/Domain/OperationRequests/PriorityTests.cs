@@ -2,7 +2,7 @@
 using DDDNetCore.Domain.OperationRequests;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Domain.OperationRequests
+namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
 {
     [TestFixture]
     public class PriorityTest

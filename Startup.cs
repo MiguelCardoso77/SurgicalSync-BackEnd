@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using DDDNetCore.Application.Mappers;
 using DDDNetCore.Application.Services;
+using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure;
+using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
 using DDDNetCore.Infraestructure.Users;
@@ -101,6 +103,10 @@ namespace DDDSample1
 
             services.AddTransient<IOperationTypeRepository, OperationTypeRepository>();
             services.AddTransient<OperationTypeService>();
+
+            services.AddTransient<IOperationRequestRepository, OperationRequestRepository>();
+            services.AddTransient<OperationRequestService>();
+            services.AddTransient<OperationRequestMapper>();
         }
     }
 }

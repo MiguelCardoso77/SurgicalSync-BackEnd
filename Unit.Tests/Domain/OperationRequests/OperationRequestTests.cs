@@ -5,7 +5,7 @@ using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Staffs;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Domain.OperationRequests
+namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
 {
     [TestFixture]
     public class OperationRequestTest

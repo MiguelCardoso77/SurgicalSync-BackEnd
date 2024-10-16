@@ -5,18 +5,21 @@ using DDDNetCore.Domain.Staffs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DDDSample1.Infrastructure.OperationRequests
+namespace DDDNetCore.Infraestructure.OperationRequests
 {
-    // Configures the entity properties and relationships for the <see cref="OperationRequest"/> entity.
-    // This class implements the <IEntityTypeConfiguration{TEntity}> interface to define
-    // how the <OperationRequest> entity maps to the database schema.
+    /**
+     * Configures the entity properties and relationships for the <see cref="OperationRequest"/> entity.
+     * This class implements the <IEntityTypeConfiguration/> interface to define
+     * how the <OperationRequest/> entity maps to the database schema.
+     */
     
     internal class OperationRequestEntityTypeConfiguration : IEntityTypeConfiguration<OperationRequest>
     {
-        // Configures the entity of type <see cref="OperationRequest"/> using the provided <EntityTypeBuilder{TEntity}>.
-        // This method sets up the primary key, properties, and relationships with other entities.
-        // <param name="builder">The <EntityTypeBuilder/> used to configure the entity.</param>
-        //
+        /**
+         * Configures the entity of type <OperationRequest/> using the provided <EntityTypeBuilder/>.
+         * This method sets up the primary key, properties, and relationships with other entities.
+         * <param name="builder">The <EntityTypeBuilder/> used to configure the entity.</param>
+         */
         public void Configure(EntityTypeBuilder<OperationRequest> builder)
         {
             // Primary key configuration

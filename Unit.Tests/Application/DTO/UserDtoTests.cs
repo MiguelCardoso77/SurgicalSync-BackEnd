@@ -1,7 +1,7 @@
 ﻿using DDDNetCore.Application.DTO;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Application.DTO
+namespace DDDNetCore.Unit.Tests.Application.DTO
 {
     [TestFixture]
     public class UserDtoTests

@@ -2,7 +2,7 @@
 using DDDNetCore.Application.Services;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Application.Services
+namespace DDDNetCore.Unit.Tests.Application.Services
 {
     [TestFixture]
     public class PasswordServiceTests

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationTypes;
@@ -7,12 +8,17 @@ using DDDNetCore.Domain.Staffs;
 
 namespace DDDNetCore.Application.Mappers
 {
+    /**
+     * Mapper class to convert between OperationRequest domain model and OperationRequestDto.
+     */
     public class OperationRequestMapper
     {
-        // Mapper class to convert between OperationRequest domain model and OperationRequestDto.
-        public static OperationRequestDto ToDto(OperationRequest domain)
+        /**
+         * Converts a domain OperationRequest object to an OperationRequestDto type object.
+         */
+        public OperationRequestDto ToDto(OperationRequest domain)
         {
-            // Converts a domain OperationRequest object to an OperationRequestDto.
+            
             return new OperationRequestDto
             {
                 OperationRequestId = domain.Id.AsString(),
@@ -23,12 +29,14 @@ namespace DDDNetCore.Application.Mappers
                 MedicalRecordNumber = domain.MedicalRecordNumber.AsString(),
             };
         }
-        // Converts the input data to a domain OperationRequest object.
-        public static OperationRequest ToDomain(OperationRequestDto dto, OperationRequestId operationRequestId,
-            DeadlineDate deadlineDate, Priority priority, OperationTypeId operationTypeId,
-            MedicalRecordNumber medicalRecordNumber, LicenseNumber licenseNumber)
+        
+        /**
+         * Converts the input data to a domain OperationRequest object.
+         */
+        public OperationRequest ToDomain(OperationRequestDto dto, OperationRequestId operationRequestId)
         {
-            return new OperationRequest(operationRequestId, priority, deadlineDate, operationTypeId, medicalRecordNumber, licenseNumber);
+            var parsedDeadlineDate = DateTime.Parse(dto.DeadlineDate);
+            return new OperationRequest(operationRequestId, Enum.Parse<Priority>(dto.Priority), new DeadlineDate(parsedDeadlineDate), new OperationTypeId(dto.OperationTypeId), new MedicalRecordNumber(dto.MedicalRecordNumber), new LicenseNumber(dto.LicenseNumber));
         }
     }
 }

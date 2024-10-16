@@ -3,7 +3,7 @@ using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.Users;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Application.Mappers
+namespace DDDNetCore.Unit.Tests.Application.Mappers
 {
     [TestFixture]
     public class UserMapperTests

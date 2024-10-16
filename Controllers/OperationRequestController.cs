@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.OperationRequests;
+using DDDSample1.Domain.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDDNetCore.Controllers
@@ -30,57 +31,70 @@ namespace DDDNetCore.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<OperationRequestDto>> GetById(String id)
         {
-            var ot = await _service.GetByIdAsync(new OperationRequestId(id));
+            var or = await _service.GetByIdAsync(new OperationRequestId(id));
             
-            if (ot == null)
+            if (or == null)
             {
                 return NotFound();
             }
             
-            return ot;
+            return or;
         }
         
         // POST: api/OperationRequests
         [HttpPost]
         public async Task<ActionResult<OperationRequestDto>> Create(OperationRequestDto dto)
         {
-            var task = await _service.AddAsync(dto);
+            var or = await _service.AddAsync(dto);
             
-            return CreatedAtAction(nameof(GetById), new { id = task.OperationRequestId}, task);
+            return CreatedAtAction(nameof(GetById), new { id = or.OperationRequestId}, or);
         }
         
         // PUT: api/OperationRequests/OR5
         [HttpPut("{id}")]
         public async Task<ActionResult<OperationRequestDto>> Update(String id, OperationRequestDto dto)
         {
-            //if (id != dto.Id)
+            if (id != dto.OperationRequestId)
             {
                 return BadRequest();
             }
-            
-            var ot = await _service.UpdateAsync(dto);
-            
-            if (ot == null)
+
+            try
             {
-                return NotFound();
+                var or = await _service.UpdateAsync(dto);
+
+                if (or == null)
+                {
+                    return NotFound();
+                }
+
+                return or;
             }
-            
-            return ot;
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         
         // DELETE: api/OperationRequests/OR5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<OperationRequestDto>> Delete(Guid id)
+        public async Task<ActionResult<OperationRequestDto>> Delete(String id)
         {
-            // Do you really wish to erase this operation type from the system?
-            var oT = await _service.InactivateAsync(new OperationRequestId(id.ToString()));
-
-            if (oT == null)
+            try
             {
-                return NotFound();
-            }
+                var or = await _service.InactivateAsync(new OperationRequestId(id));
 
-            return Ok(oT);
+                if (or == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(or);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

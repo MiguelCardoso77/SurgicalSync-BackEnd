@@ -5,7 +5,7 @@ using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.OperationTypes;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Application.Mappers
+namespace DDDNetCore.Unit.Tests.Application.Mappers
 {
     [TestFixture]
     public class OperationTypeMapperTests

@@ -4,6 +4,7 @@ using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Products;
 using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain.Users;
+using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
 using DDDNetCore.Infraestructure.Staffs;
@@ -13,7 +14,6 @@ using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
 using DDDSample1.Infrastructure.Categories;
-using DDDSample1.Infrastructure.OperationRequests;
 using DDDSample1.Infrastructure.Products;
 
 namespace DDDSample1.Infrastructure
