@@ -8,21 +8,21 @@ participant "<<Controller>>\nOperationRequestController" as CN
 participant "<<Application>>\nOperationRequestService" as SV
 participant "<<DTO>>\nOperationRequestDTO" as DTO
 participant "<<Mappers>>\nOperationRequestMapper" as MP
-participant "Domain" as DM
+participant "<<Domain>>\nOperationRequest" as DM
 participant "<<Repositories>>\nOperationRequestRepository" as REPO
 database "SQL Database" as SQL
 
 activate FE
 
-FE -> CN : POST /operationRequest (with given data)
+FE -> CN : POST /operationRequest (operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber)
 
 activate CN
 
-CN -> SV : Create(OperationRequestDTO)
+CN -> SV : Create(OperationRequestDTO(operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber))
 
 activate SV
 
-SV -> DTO : Create(OperationRequestDTO)
+SV -> DTO : Create(OperationRequestDTO(operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber))
 
 activate DTO
 
@@ -34,7 +34,7 @@ SV -> MP : MapToDomain(OperationRequestDTO)
 
 activate MP
 
-MP -> DM : Create(OperationRequest)
+MP -> DM : Create(OperationRequest(operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber))
 
 activate DM
 
