@@ -101,8 +101,8 @@ namespace DDDNetCore.Application.Services
                 return null;
 
             var phoneNumber = patient.PhoneNumber.ToString();
-            var emailPatient = patient.UserEmail.ToString();
             var emergencyContact = patient.EmergencyContact.ToString();
+            var patientEmail = patient.UserEmail.ToString();
             
             // change all fields
             patient.ChangePatientName(new PatientName(dto.PatientName));
@@ -113,7 +113,7 @@ namespace DDDNetCore.Application.Services
             
             // Send set-up email to user
             var smtpEmailService = new EmailService();
-            var emailContent = $"Hello {patient.PatientName}! \n Your  contact information: {phoneNumber} and {emergencyContact}, were changed.";
+            var emailContent = $"Hello {patient.PatientName}! \n Your  contact information was changed. Now it is : phone number : {phoneNumber}, emergency contact : {emergencyContact} and email : {patientEmail}";
             var email = new Email(emailContent, patient.UserEmail.ToString(), "Changes On Your Contact Information");
             await smtpEmailService.SendEmailAsync(email);
             Console.WriteLine($"Successfully sent the email to {email.Destination}");
