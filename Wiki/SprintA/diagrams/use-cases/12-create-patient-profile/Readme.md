@@ -23,6 +23,7 @@ Attributes are :
 - Medical Conditions
 - Emergency Contact
 - Appointment History
+- Email
 
 ## 3. Diagrams
 
@@ -82,6 +83,7 @@ To successfully complete this user story, the following criteria must be met:
 - Medical Conditions
 - Emergency Contact
 - Appointment History
+- Email
 - A unique patient ID (Medical Record Number) is generated upon profile creation.
 - The system validates that the patient’s email and phone number are unique.
 - The profile is stored securely in the system, and access is governed by role-based permissions.

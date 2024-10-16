@@ -11,7 +11,7 @@ activate USER
     USER -> FE: wants to create a patient profile
     activate FE
 
-        FE --> USER : requests data (patientName, birthDate, gender, medicalRecordNumber,\nphoneNumber, medicalConditions, emergencyContact, appointmentHistory)
+        FE --> USER : requests data (patientName, birthDate, gender, medicalRecordNumber,\nphoneNumber, medicalConditions, emergencyContact, appointmentHistory, email)
     deactivate FE
         
     USER -> FE : provides data

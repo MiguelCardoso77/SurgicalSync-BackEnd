@@ -11,9 +11,10 @@ class Patient {
     - Medical Conditions
     - Emergency Contact
     - Appointment History
+    - Email
     + Patient(PatientName patientName, BirthDate birthDate, Gender gender, MedicalRecordNumber medicalRecordNumber, 
         PhoneNumber phoneNumber, List<MedicalConditions> medicalConditions, 
-        EmergencyContact emergencyContact, List<AppointmentHistory> appointmentHistory)
+        EmergencyContact emergencyContact, List<AppointmentHistory> appointmentHistory, UserEmail email)
 }
 
 class PatientDTO {
@@ -67,6 +68,10 @@ class AppointmentHistory {
     + AppointmentHistory(string appointmentHistory)
 }
 
+class UserEmail {
+    + UserEmail(string email)
+}
+
 class PatientService {
     + GetAllAsync()
     + GetByIdAsync(PatientId id)
@@ -106,6 +111,7 @@ Patient --> PhoneNumber : has a
 Patient --> EmergencyContact : has a
 Patient --> BirthDate : has a
 Patient --> Gender : has a
+Patient --> UserEmail : has a
 Patient --> MedicalConditions : has multiple
 Patient --> AppointmentHistory : has multiple
 
