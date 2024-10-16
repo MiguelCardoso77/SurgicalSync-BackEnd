@@ -28,7 +28,15 @@ Requirements: "at least 10 characters long, at least a digit, a capital letter a
 Registered users receive a one-time setup link via email to set their password and activate their
 account.
 
-A confirmation email is sent to verify the user’s registration
+A confirmation email is sent to verify the user’s registration.
+
+#### To Use in Postman:
+{
+"id": "1",
+"userName": "TestUsername",
+"userEmail": "defaultEmail@isep.ipp.pt",
+"userRole": "Admin"
+}
 
 ## 3. Diagrams
 

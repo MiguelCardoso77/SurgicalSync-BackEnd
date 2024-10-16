@@ -46,19 +46,12 @@ namespace DDDNetCore.Application.Services
         {
             // Generate random password
             var password = PasswordService.GeneratePassword();
-            
-            // Create user in Firebase IAM
-            UserRecordArgs args = new UserRecordArgs()
-            {
-                Email = dto.UserEmail,
-                Password = password,
-            };
-            
-            UserRecord userRecord = await FirebaseAuth.DefaultInstance.CreateUserAsync(args);
-            Console.WriteLine($"Successfully created new user: {userRecord.Uid}");
+
+            // Create User in IAM
+            var userRecord = FirebaseService.CreateUserRecordAsync(dto.UserEmail, password);
             
             // Create user in system database
-            var user = UserMapper.ToDomain(dto, new UserId(userRecord.Uid));
+            var user = UserMapper.ToDomain(dto, new UserId(userRecord.Result.Uid));
             await this._repo.AddAsync(user);
             await this._unitOfWork.CommitAsync();
             
@@ -66,7 +59,7 @@ namespace DDDNetCore.Application.Services
             var smtpEmailService = new EmailService();
             var emailContent = $"Hello {user.Username}! \n Your current password is: {password}, here is the link to reset it: http://localhost:5001/reset-password \n Your account will be active once you set-up your account!";            
             var email = new Email(emailContent, user.UserEmail.ToString(), "Activate Your SurgicalSync Account");
-            await smtpEmailService.SendEmailAsync(email.Destination, email.Subject, email.EmailContent);
+            await smtpEmailService.SendEmailAsync(email);
             Console.WriteLine($"Successfully sent the email to {email.Destination}");
             
             return UserMapper.ToDto(user);

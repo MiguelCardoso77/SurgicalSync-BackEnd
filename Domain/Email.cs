@@ -8,6 +8,11 @@
         
         public Email(string emailContent, string destination, string subject)
         {
+            if (emailContent == null || destination == null || subject == null)
+            {
+                throw new System.ArgumentNullException();
+            }
+            
             this.EmailContent = emailContent;
             this.Destination = destination;
             this.Subject = subject;
