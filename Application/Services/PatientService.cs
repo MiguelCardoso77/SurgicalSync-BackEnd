@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Application.Mappers;
+using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Application.Services
@@ -33,7 +34,8 @@ namespace DDDNetCore.Application.Services
                 PhoneNumber = patient.PhoneNumber.ToString(),
                 MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
                 EmergencyContact = patient.EmergencyContact.ToString(),
-                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList()
+                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList(),
+                Email = patient.UserEmail.ToString()
             });
 
             return listDto;
@@ -57,7 +59,8 @@ namespace DDDNetCore.Application.Services
                 PhoneNumber = patient.PhoneNumber.ToString(),
                 MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
                 EmergencyContact = patient.EmergencyContact.ToString(),
-                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList()
+                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList(),
+                Email = patient.UserEmail.ToString()
             };
         }
 
@@ -68,14 +71,8 @@ namespace DDDNetCore.Application.Services
                 : new MedicalRecordNumber(dto.MedicalRecordNumber);
 
             var medicalConditionsList = new List<MedicalConditions>();
-            var dtoMedicalConditions = dto.MedicalConditions.Select(rs => new MedicalConditions(rs)).ToList();
-            medicalConditionsList.AddRange(dtoMedicalConditions);
-
             var appointmentHistoryList = new List<AppointmentHistory>();
-            var dtoAppointmentHistory = dto.AppointmentHistory.Select(rs => new AppointmentHistory(rs)).ToList();
-            appointmentHistoryList.AddRange(dtoAppointmentHistory);
-
-
+            
             var patient = PatientMapper.ToDomain(dto, medicalRecordNumber, medicalConditionsList, appointmentHistoryList);
 
             await this._repo.AddAsync(patient);
@@ -90,7 +87,8 @@ namespace DDDNetCore.Application.Services
                 PhoneNumber = patient.PhoneNumber.ToString(),
                 MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
                 EmergencyContact = patient.EmergencyContact.ToString(),
-                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList()
+                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList(),
+                Email = patient.UserEmail.ToString()
             };
         }
 
@@ -107,6 +105,7 @@ namespace DDDNetCore.Application.Services
             patient.ChangeGender(new Gender(dto.Gender));
             patient.ChangeBirthDate(new BirthDate(dto.BirthDate)); 
             patient.ChangeEmergencyContact(new EmergencyContact(dto.EmergencyContact));
+            patient.ChangeEmail(new UserEmail(dto.Email));
 
             await this._unitOfWork.CommitAsync();
 
@@ -119,7 +118,8 @@ namespace DDDNetCore.Application.Services
                 PhoneNumber = patient.PhoneNumber.ToString(),
                 MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
                 EmergencyContact = patient.EmergencyContact.ToString(),
-                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList()
+                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList(),
+                Email = patient.UserEmail.ToString()
             };
         }
 
@@ -142,7 +142,8 @@ namespace DDDNetCore.Application.Services
                 PhoneNumber = patient.PhoneNumber.ToString(),
                 MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
                 EmergencyContact = patient.EmergencyContact.ToString(),
-                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList()
+                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList(),
+                Email = patient.UserEmail.ToString()
             };
         }
     }
