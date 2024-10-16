@@ -1,0 +1,44 @@
+﻿@startuml
+autonumber
+
+actor "Patient" as USER
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate USER
+
+    USER -> FE : wants to create user profile
+    activate FE
+    
+        FE --> USER : requests data (name, email, phoneNumber)
+    deactivate FE
+
+    USER -> FE : provides data
+   
+        activate FE
+        
+            alt User Already Exists
+               
+            FE -> BE : POST /users (with data)
+            activate BE
+            
+                BE --> FE : error: user already exists
+            deactivate BE 
+            FE --> USER : informs error with suggestion
+            
+            else User Created Successfully
+            
+            FE -> BE : POST /users (with data)
+            activate BE
+            
+                BE --> FE : success: created user (returns user ID)
+            deactivate BE
+               
+            FE --> USER : shows created user
+        deactivate FE
+    end
+            
+deactivate USER
+
+@enduml
