@@ -23,7 +23,7 @@ activate USER
         FE --> USER : offers filtering options
     deactivate FE
     
-    USER -> FE : selects filter or no filter
+    USER -> FE : selects filter option
     activate FE
     
         FE -> BE : filters operation types
@@ -32,7 +32,7 @@ activate USER
             BE --> FE : returns filtered operation types
         deactivate BE
         
-        FE --> USER : lists operation types
+        FE --> USER : lists filtered operation types
         end
         
     deactivate FE

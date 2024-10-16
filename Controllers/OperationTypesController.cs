@@ -21,9 +21,28 @@ namespace DDDNetCore.Controllers
         
         // GET: api/OperationTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OperationTypeDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<OperationTypeDto>>> GetAll([FromQuery] string specialization = null, [FromQuery] string operationName = null, [FromQuery] bool? isActive = null)
         {
-            return await _service.GetAllAsync();
+            if (!string.IsNullOrEmpty(specialization))
+            {
+                var result = await _service.GetAllBySpecialization(specialization);
+                return Ok(result);
+            }
+
+            if (!string.IsNullOrEmpty(operationName))
+            {
+                var result = await _service.GetAllByName(operationName);
+                return Ok(result);
+            }
+
+            if (isActive.HasValue)
+            {
+                var result = await _service.GetAllByStatus(isActive.Value);
+                return Ok(result);
+            }
+            
+            var allOperations = await _service.GetAllAsync();
+            return Ok(allOperations);
         }
         
         // GET: api/OperationTypes/OT1

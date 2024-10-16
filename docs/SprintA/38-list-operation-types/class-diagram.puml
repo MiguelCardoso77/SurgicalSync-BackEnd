@@ -45,6 +45,9 @@ class EstimatedDuration {
 
 class OperationTypeService {
     + GetAllAsync()
+    + GetAllByStatus(bool status)
+    + GetAllByName(string name)
+    + GetAllBySpecialization(string specialization)
     + GetByIdAsync(OperationTypeId id)
     + FilterAsync(List<OperationTypeDto> operationTypes)
     + AddAsync(OperationTypeDto dto)
