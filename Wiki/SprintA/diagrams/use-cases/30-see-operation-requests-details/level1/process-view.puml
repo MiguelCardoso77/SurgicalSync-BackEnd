@@ -1,0 +1,37 @@
+﻿@startuml
+autonumber
+
+Title "UC30 - See operation requisitions details"
+
+actor "Doctor" as D
+participant "<<System>> \n SurgicalSync" as SYSTEM
+
+activate D
+
+D -> SYSTEM: requests to see the details \n of an operation requisition
+
+    activate SYSTEM
+    
+    SYSTEM --> D: shows the list of all the operation \nrequisitions and asks for the id 
+    
+    deactivate SYSTEM
+    
+    D -> SYSTEM : Inserts the id
+
+    alt the requested operation requisition exists 
+    
+    activate SYSTEM
+    
+    SYSTEM --> D: shows the operation requisition's details \n (eg., operationRequisitionId, DeadlineDate, Priority \n OperationType and PatientNumber)
+
+    else
+    
+    SYSTEM --> D : shows error message
+    
+    deactivate SYSTEM
+    
+    end
+    
+deactivate D
+
+@enduml

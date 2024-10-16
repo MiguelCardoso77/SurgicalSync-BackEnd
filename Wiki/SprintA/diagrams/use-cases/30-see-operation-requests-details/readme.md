@@ -1,4 +1,4 @@
-﻿# UC25 - Request an operation
+﻿# UC30 - See operation requisitions details
 
 -----------------------------------------------------------------------
 
@@ -39,8 +39,7 @@
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
-As a Doctor, I want to request an operation, so that the Patient has access to the
-necessary healthcare.
+As a Doctor, I want to see operation requisitions details.
 
 </div>
 
@@ -50,10 +49,6 @@ necessary healthcare.
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
-**Q:** Can the same doctor who requests a surgery perform it?
-
-**A:** Not necessarily. The planning module may assign different doctors based on availability and optimization.
-
 </div>
 
 ## 3. Diagrams
@@ -62,7 +57,7 @@ necessary healthcare.
 
 ### Level 1
 
-#### Process View
+#### Process 
 
 ![process-view.svg](level1%2Fprocess-view.svg)
 
@@ -78,7 +73,7 @@ necessary healthcare.
 
 ##### Backend Process View
 
-![backend-process-view.png](level3%2Fbackend-process-view.png)
+![backend-process-view.svg](level3%2Fbackend-process-view.svg)
 
 ##### Class Diagram
 
@@ -92,17 +87,7 @@ necessary healthcare.
 
 To successfully implement this use case, the following criteria must be met:
 
-- Doctors can create an operation request by selecting the patient, operation type, priority, and
-  suggested deadline.
-- The system validates that the operation type matches the doctor’s specialization.
-- The operation request includes:
-- Patient ID
-- Doctor ID
-- Operation Type
-- Deadline
-- Priority
-- The system confirms successful submission of the operation request and logs the request in
-  the patient’s medical history.
+- Doctors can see all the operation requisitions details
 
 </div>
 
@@ -114,8 +99,21 @@ To successfully implement this use case, the following criteria must be met:
 
 This use case relies on:
 
+[1-register-backoffice-users](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F1-register-backoffice-users)
 
+[12-create-a-new-staff-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F12-create-a-new-staff-profile)
 
+[13-create-patient-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F13-create-patient-profile)
+
+[21-add-staff-profile-hospital's-roster](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F21-add-staff-profile-hospital%27s-roster)
+
+[25-request-an-operation](..%2F30-request-an-operation)
+
+[28-list-operation-requisitions](..%2F28-list-operation-requisitions)
+
+[29-search-operation-requisitions](..%2F29-search-operation-requisitions)
+
+[37-add-new-operation-types](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F37-add-new-operation-types)
 
 </div>
 
@@ -129,7 +127,7 @@ This use case relies on:
 
 The use case is deemed ready when the requirements are clearly outlined, providing a comprehensive
 understanding of the functionality to be implemented. Specifically, the user with the Doctor role is expected to
-possess the capability to request an operation.
+possess the capability to search operation requisitions.
 
 </div>
 
@@ -147,7 +145,7 @@ defined. These criteria serve as the benchmark for determining the successful co
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
 The use case is considered ready when all dependencies and resources required for its implementation
-are identified. This includes the API functionalities necessary for the operation´s request.
+are identified. This includes the API functionalities necessary for the operation requisitions search.
 
 </div>
 
