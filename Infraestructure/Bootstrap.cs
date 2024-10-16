@@ -152,7 +152,7 @@ namespace DDDNetCore.Infraestructure
                     new List<MedicalConditions>(),
                     new EmergencyContact("933264402"),
                     new List<AppointmentHistory>(),
-                    new UserEmail("diana.neves2004@gmail.com")
+                    new UserEmail("1221194@isep.ipp.pt")
                 ),
 
                 new(new PatientName("Miguel"), new BirthDate("4 de Julho de 2004"), new Gender("Masculino"),
