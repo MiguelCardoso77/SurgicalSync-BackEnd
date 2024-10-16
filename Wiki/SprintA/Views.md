@@ -90,3 +90,5 @@ To visually model/represent both what was implemented and the ideas and alternat
 
 #### Logical View
 
+![logical-view.png](diagrams%2Fviews%2Flevel4%2Fbackend%2Flogical-view.png)
+

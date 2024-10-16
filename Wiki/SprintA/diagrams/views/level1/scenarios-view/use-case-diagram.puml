@@ -52,12 +52,13 @@ rectangle "System" as SYS {
     usecase "UC27 - Remove an operation requisition"
     usecase "UC28 - List operation requisitions"
     usecase "UC29 - Search operation requisitions"
-    usecase "UC30 - Add new types of operations"
-    usecase "UC31 - Edit existing operation types"
-    usecase "UC32 - Remove operation types"
-    usecase "UC33 - List operation types"
-    usecase "UC34 - Search operation types"
-    usecase "UC35 - See operation type details"
+    usecase "UC30 - See operation requests details"
+    usecase "UC31 - Add new types of operations"
+    usecase "UC32 - Edit existing operation types"
+    usecase "UC33 - Remove operation types"
+    usecase "UC34 - List operation types"
+    usecase "UC35 - Search operation types"
+    usecase "UC36 - See operation type details"
     
     A --> "UC01 - Register new backoffice user via an out-of-band process"
     A --> "UC12 - Create new patient profile"
@@ -73,12 +74,12 @@ rectangle "System" as SYS {
     A --> "UC22 - List staff profiles"
     A --> "UC23 - Search staff profiles"
     A --> "UC24 - See staff details"
-    A --> "UC30 - Add new types of operations"
-    A --> "UC31 - Edit existing operation types"
-    A --> "UC32 - Remove operation types"
-    A --> "UC33 - List operation types"
-    A --> "UC34 - Search operation types"
-    A --> "UC35 - See operation type details"
+    A --> "UC31 - Add new types of operations"
+    A --> "UC32 - Edit existing operation types"
+    A --> "UC33 - Remove operation types"
+    A --> "UC34 - List operation types"
+    A --> "UC35 - Search operation types"
+    A --> "UC36 - See operation type details"
     
     BU --> "UC02 - Reset my password if I forget it"
     
@@ -97,7 +98,8 @@ rectangle "System" as SYS {
     D --> "UC26 - Update an operation requisition"
     D --> "UC27 - Remove an operation requisition"
     D --> "UC28 - List operation requisitions"
-    D --> "UC29 - Search operation requisitions"   
+    D --> "UC29 - Search operation requisitions"  
+    D --> "UC30 - See operation requests details" 
 }
 
 @enduml
