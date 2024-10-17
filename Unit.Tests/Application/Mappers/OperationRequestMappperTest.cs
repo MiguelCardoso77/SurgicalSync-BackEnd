@@ -1,77 +1,86 @@
-﻿using NUnit.Framework;
+﻿using System;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
-using System;
 using DDDNetCore.Domain.Staffs;
+using Moq;
+using NUnit.Framework;
+using Xunit;
+using Assert = NUnit.Framework.Assert;
 
-namespace DDDNetCore.SurgicalSyncTests.Application.Mappers
+namespace DDDNetCore.Unit.Tests.Application.Mappers
 {
-    /*
     public class OperationRequestMapperTests
     {
-        private OperationRequest _request;
-        private OperationRequestDto _dto;
-
+        private OperationRequestMapper _mapper;
+        private Mock<OperationRequestId> _mockOperationRequestId;
+        private Mock<DeadlineDate> _mockDeadlineDate;
+        private Mock<OperationTypeId> _mockOperationTypeId;
+        private Mock<LicenseNumber> _mockLicenseNumber;
+        private Mock<MedicalRecordNumber> _mockMedicalRecordNumber;
+        
+        private Priority _mockPriority;
+        
         [SetUp]
         public void Setup()
         {
-            var operationRequestId = new OperationRequestId("123");
-            var priority = Priority.EmergencySurgery;
-            var deadlineDate = new DeadlineDate(DateTime.Now.AddDays(10));
-            var operationTypeId = new OperationTypeId("456");
-            var medicalRecordNumber = new MedicalRecordNumber("123");
-            var licenseNumber = new LicenseNumber("N202400001");
+            _mapper = new OperationRequestMapper();
+            _mockOperationRequestId = new Mock<OperationRequestId>("1");
+            _mockDeadlineDate = new Mock<DeadlineDate>(new DateTime(2025, 10, 1));
+            _mockOperationTypeId = new Mock<OperationTypeId>("2");
+            _mockLicenseNumber = new Mock<LicenseNumber>("D202400001");
+            _mockMedicalRecordNumber = new Mock<MedicalRecordNumber>("123456");
 
-            _request = new OperationRequest(operationRequestId, priority, deadlineDate, operationTypeId, medicalRecordNumber, licenseNumber);
+            _mockPriority = Priority.ElectiveSurgery;
+            _mockDeadlineDate.Setup(m => m.ToString()).Returns("2025-10-01");
+        }
 
-            _dto = new OperationRequestDto
+        [Test]
+        public void ToDto_ValidDomain_ReturnsCorrectDto()
+        {
+            var operationRequest = new OperationRequest(
+                _mockOperationRequestId.Object,
+                _mockPriority,
+                _mockDeadlineDate.Object,
+                _mockOperationTypeId.Object,
+                _mockMedicalRecordNumber.Object,
+                _mockLicenseNumber.Object
+            );
+
+            var dto = _mapper.ToDto(operationRequest);
+
+            Assert.AreEqual(_mockOperationRequestId.Object.AsString(), dto.OperationRequestId);
+            Assert.AreEqual("2025-10-01", dto.DeadlineDate);
+            Assert.AreEqual(_mockLicenseNumber.Object.AsString(), dto.LicenseNumber);
+            Assert.AreEqual(_mockPriority.ToString(), dto.Priority);
+            Assert.AreEqual(_mockOperationTypeId.Object.AsString(), dto.OperationTypeId);
+            Assert.AreEqual(_mockMedicalRecordNumber.Object.AsString(), dto.MedicalRecordNumber);
+        }
+
+        [Test]
+        public void ToDomain_ValidDto_ReturnsCorrectDomain()
+        {
+            var dto = new OperationRequestDto()
             {
-                OperationRequestId = "123",
-                DeadlineDate = DateTime.Now.AddDays(10).ToString("yyyy-MM-dd"),
-                Priority = "EmergencySurgery",
-                OperationTypeId = "456",
-                MedicalRecordNumber = "123",
-                LicenseNumber = "N202400001"
+                OperationRequestId = "1",
+                DeadlineDate = "2025-10-01",
+                LicenseNumber = "D202400001",
+                Priority = _mockPriority.ToString(),
+                OperationTypeId = "2",
+                MedicalRecordNumber = "123456"
             };
-        }
 
-        [Test]
-        public void ToDto_ValidDomainModel_ShouldReturnCorrectDto()
-        {
-            var dtoResult = OperationRequestMapper.ToDto(_request);
-
-            Assert.NotNull(dtoResult);
-            Assert.AreEqual(_request.Id.AsString(), dtoResult.OperationRequestId);
-            Assert.AreEqual(_request.DeadlineDate.ToString(), dtoResult.DeadlineDate);
-            Assert.AreEqual(_request.Priority.ToString(), dtoResult.Priority);
-            Assert.AreEqual(_request.OperationTypeId.AsString(), dtoResult.OperationTypeId);
-            Assert.AreEqual(_request.MedicalRecordNumber.AsString(), dtoResult.MedicalRecordNumber);
-            Assert.AreEqual(_request.LicenseNumber.AsString(), dtoResult.LicenseNumber);
-        }
-
-        [Test]
-        public void ToDomain_ValidDto_ShouldReturnCorrectDomainModel()
-        {
-            var operationRequestId = new OperationRequestId(_dto.OperationRequestId);
-            var deadlineDate = new DeadlineDate(DateTime.Parse(_dto.DeadlineDate));
-            var priority = Enum.Parse<Priority>(_dto.Priority);
-            var operationTypeId = new OperationTypeId(_dto.OperationTypeId);
-            var medicalRecordNumber = new MedicalRecordNumber(_dto.MedicalRecordNumber);
-            var licenseNumber = new LicenseNumber(_dto.LicenseNumber);
-
-            var requestResult = OperationRequestMapper.ToDomain(_dto, operationRequestId);
-
-            Assert.NotNull(requestResult);
-            Assert.AreEqual(_dto.OperationRequestId, requestResult.Id.AsString());
-            Assert.AreEqual(_dto.DeadlineDate, requestResult.DeadlineDate.ToString());
-            Assert.AreEqual(_dto.Priority, requestResult.Priority.ToString());
-            Assert.AreEqual(_dto.OperationTypeId, requestResult.OperationTypeId.AsString());
-            Assert.AreEqual(_dto.MedicalRecordNumber, requestResult.MedicalRecordNumber.AsString());
-            Assert.AreEqual(_dto.LicenseNumber, requestResult.LicenseNumber.AsString());
+            var operationRequestId = new OperationRequestId("1");
+            var operationRequest = _mapper.ToDomain(dto, operationRequestId);
+            
+            Assert.AreEqual(operationRequestId, operationRequest.Id);
+            Assert.AreEqual(_mockPriority, operationRequest.Priority); 
+            Assert.AreEqual(new DeadlineDate(DateTime.Parse(dto.DeadlineDate)), operationRequest.DeadlineDate);
+            Assert.AreEqual(new OperationTypeId(dto.OperationTypeId), operationRequest.OperationTypeId);
+            Assert.AreEqual(new MedicalRecordNumber(dto.MedicalRecordNumber), operationRequest.MedicalRecordNumber);
+            Assert.AreEqual(new LicenseNumber(dto.LicenseNumber), operationRequest.LicenseNumber);
         }
     }
-    */
 }
