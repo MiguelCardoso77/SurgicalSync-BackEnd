@@ -70,21 +70,21 @@ namespace DDDNetCore.Controllers
         
         // PUT: api/OperationTypes/OT5
         [HttpPut("{id}")]
-        public async Task<ActionResult<OperationTypeDto>> Update(String id, OperationTypeDto dto)
+        public async Task<ActionResult<OperationTypeDto>> Update(string id, OperationTypeDto dto)
         {
-            //if (id != dto.Id)
+            if (id != dto.Id)
             {
                 return BadRequest();
             }
             
-            var ot = await _service.UpdateAsync(dto);
+            var oT = await _service.UpdateAsync(dto);
             
-            if (ot == null)
+            if (oT == null)
             {
                 return NotFound();
             }
             
-            return ot;
+            return oT;
         }
         
         // DELETE: api/OperationTypes/OT5

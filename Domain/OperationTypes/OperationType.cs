@@ -27,6 +27,21 @@ namespace DDDNetCore.Domain.OperationTypes
             this.IsActive = true;
         }
         
+        public void ChangeOperationTypeName(OperationName name)
+        {
+            this.Name = name;
+        }
+        
+        public void ChangeRequiredStaff(List<RequiredStaff> requiredStaff)
+        {
+            this.RequiredStaff = requiredStaff;
+        }
+        
+        public void ChangeEstimatedDuration(List<EstimatedDuration> estimatedDuration)
+        {
+            this.EstimatedDuration = estimatedDuration;
+        }
+        
         public void ActivateOperationType()
         {
             this.IsActive = true;

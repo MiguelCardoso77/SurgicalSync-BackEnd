@@ -140,18 +140,22 @@ namespace DDDNetCore.Application.Services
         
         public async Task<OperationTypeDto> UpdateAsync(OperationTypeDto dto)
         {
-            var ot = await this._repo.GetByIdAsync(new OperationTypeId(dto.Id)); 
+            var oT = await this._repo.GetByIdAsync(new OperationTypeId(dto.Id)); 
             
-            if (ot == null)
-                return null;   
+            if (oT == null)
+                return null;
+
+            oT.ChangeOperationTypeName(new OperationName(dto.OperationName));
             
-            //ot.Name = new Name(dto.Name);
-            //ot.Description = new Description(dto.Description);
+            var requiredStaffList = dto.RequiredStaff.Select(rs => new RequiredStaff(rs)).ToList();
+            oT.ChangeRequiredStaff(requiredStaffList);
             
-            //await this._repo.Update(ot);
+            var estimatedDurationList = dto.EstimatedDuration.Select(ed => new EstimatedDuration(ed)).ToList();
+            oT.ChangeEstimatedDuration(estimatedDurationList);
+            
             await this._unitOfWork.CommitAsync();
 
-            return null;
+            return OperationTypeMapper.ToDto(oT);
         }
         
         public async Task<OperationTypeDto> InactivateAsync(OperationTypeId id)

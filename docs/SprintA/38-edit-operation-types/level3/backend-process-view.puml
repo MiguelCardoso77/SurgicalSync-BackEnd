@@ -13,7 +13,7 @@ participant "Repositories" as REPO
 database "SQL Database" as SQL
 
 activate FE
-    FE -> CN : GET /operation-types
+    FE -> CN : GET /operationTypes
     activate CN
         
         CN -> SV : GetAllAsync()
@@ -28,7 +28,7 @@ activate FE
         CN --> FE : returns List<OperationTypeDTO>
     deactivate CN
 
-    FE -> CN: PUT /operation-types (with given data)
+    FE -> CN: PUT /operationTypes/id (with given data)
     activate CN
     
         CN -> SV : Create(OperationTypeDTO)
@@ -42,7 +42,7 @@ alt Operation Type Updated Successfully
                 DTO --> SV : returns OperationTypeDTO
             deactivate DTO
             
-            SV -> MP : MapToDomain(OperationTypeDTO)
+            SV -> MP : ToDomain(OperationTypeDTO)
             activate MP
             
                 MP -> DM : Create(OperationType)
@@ -57,15 +57,15 @@ alt Operation Type Updated Successfully
             SV -> REPO : UpdateAsync(OperationType)
             activate REPO
             
-                REPO -> SQL : PUT /operation-types (OperationType)
+                REPO -> SQL : PUT /operationTypes/id (OperationType)
                 activate SQL
                 
                     SQL --> REPO : success: updated operation type (returns ID)
                 deactivate SQL
                 
                 REPO --> SV : success: updated operation type (returns ID)
+            deactivate REPO
             
-
             SV --> CN : success: updated operation type (returns ID)
         FE <-- CN: success: updated operation type (returns ID) 
 

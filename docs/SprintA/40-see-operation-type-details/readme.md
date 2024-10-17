@@ -1,21 +1,30 @@
-﻿# Edit Existing Operation Types
+﻿# Show Operation Type Details
 
 ## 1. Use Case Description
 
-As an Admin, I want to edit existing operation types, so that I can update or correct
-information about the procedure.
+As an Admin, I want to view the details of an operation type so that I can access relevant information
 
 ## 2. Customer Specifications and Clarifications
 
-The client has outlined that the Admin Role should possess the functionality to edit existing operation types.
+The client has outlined that the Admin Role should possess the functionality to view the details of an operation type.
 
-Updatable attributes include:
+The following operation types are already available in the system:
+- ACL Reconstruction Surgery
+- Knee Replacement Surgery
+- Shoulder Replacement Surgery
+- Hip Replacement Surgery
+- Meniscal Injury Treatment
+- Rotator Cuff Repair
+- Ankle Ligaments Reconstruction or Repair
+- Lumbar Discectomy
+- Trigger Finger
+- Carpal Tunnel Syndrome
 
-- Operation Name
-- Required Staff by Specialization
+Once the Admin selects an operation type, they should be able to view the following details:
+- ID
+- Name
+- Required Staff
 - Estimated Duration
-
-Changes are reflected in the system immediately.
 
 ## 3. Diagrams
 
@@ -69,12 +78,11 @@ Changes are reflected in the system immediately.
 
 To successfully complete this user story, the following criteria must be met:
 
-- Admins can search for and select an existing operation type to edit.
-- Editable fields include operation name, required staff by specialization, and estimated
-  duration.
-- Changes are reflected in the system immediately for future operation requests.
-- Historical data is maintained, but new operation requests will use the updated operation type
-  information.
+- Admins can search and filter operation types by name, specialization, or status
+  (active/inactive).
+- The system displays operation types in a searchable list with attributes such as name, required
+  staff, and estimated duration.
+- Admins can select an operation type to view, edit, or deactivate it.
 
 ## 5. Dependencies
 
@@ -82,12 +90,8 @@ This user story relies on the following API functionalities:
 
 -   To update an operation type:
     ```
-    PUT /operationTypes/{id}
+    GET /operationTypes/{id}
     ```
-    
-This user story relies on another user story:
-
-- [List Operation Types](../40-list-operation-types/readme.md)
 
 ## 6. Definition of Ready (DoR)
 
@@ -110,7 +114,7 @@ are identified. This includes the API functionalities necessary for the creation
 
 ### 6.4 Estimation and Sizing
 
-This user story is estimated to necessitate an allocation of approximately 3 to 6 hours for completion.
+This user story is estimated to necessitate an allocation of approximately 1 to 2 hours for completion.
 This estimate is based on the complexity of the user story and the anticipated effort required for its
 implementation.
 

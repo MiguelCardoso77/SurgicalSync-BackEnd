@@ -1,0 +1,53 @@
+﻿ @startuml
+autonumber
+
+title BackEnd Process View
+
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "Repositories" as REPO
+participant "Mappers" as MP
+participant "DTOs" as DTO
+database "SQL Database" as SQL
+
+activate FE
+    FE -> CN : GET /operationTypes/id
+    activate CN
+        
+        CN -> SV : GetById(id)
+        activate SV
+        
+            SV -> REPO : GetById(id)
+            activate REPO
+            
+                REPO -> SQL : SELECT * FROM OperationTypes WHERE Id = id
+                activate SQL
+                
+                    SQL --> REPO : returns OperationType
+                deactivate SQL
+            
+                REPO --> SV : returns OperationType
+            deactivate REPO
+            
+            SV -> MP : ToDTO(OperationType)
+            activate MP
+            
+                MP -> DTO : Create(OperationType)
+                activate DTO
+                
+                    DTO --> MP : returns OperationTypeDTO
+                deactivate DTO
+            
+                MP --> SV : returns OperationTypeDTO
+            deactivate MP
+        
+            SV --> CN : returns OperationTypeDTO
+        deactivate SV
+        
+        CN --> FE : shows operation type details
+    deactivate CN
+
+deactivate FE
+
+@enduml
