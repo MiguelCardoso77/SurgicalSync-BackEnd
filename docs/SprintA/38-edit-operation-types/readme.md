@@ -1,6 +1,6 @@
-﻿# Edit existing operation types
+﻿# Edit Existing Operation Types
 
-## 1. User Story Description
+## 1. Use Case Description
 
 As an Admin, I want to edit existing operation types, so that I can update or correct
 information about the procedure.
@@ -82,7 +82,7 @@ This user story relies on the following API functionalities:
 
 -   To update an operation type:
     ```
-    PUT /operation-types
+    PUT /operationTypes/{id}
     ```
     
 This user story relies on another user story:
@@ -110,7 +110,7 @@ are identified. This includes the API functionalities necessary for the creation
 
 ### 6.4 Estimation and Sizing
 
-This user story is estimated to necessitate an allocation of approximately 3 to 5 hours for completion.
+This user story is estimated to necessitate an allocation of approximately 3 to 6 hours for completion.
 This estimate is based on the complexity of the user story and the anticipated effort required for its
 implementation.
 
