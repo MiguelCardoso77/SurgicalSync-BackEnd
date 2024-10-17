@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
 {
     [TestFixture]
-    public class OperationRequestIDTest
+    public class OperationRequestIdTests
     {
         [Test]
         public void Constructor_ValidString_ShouldCreateInstance()

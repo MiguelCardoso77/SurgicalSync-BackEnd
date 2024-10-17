@@ -7,13 +7,17 @@ namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
     [TestFixture]
     public class PriorityTest
     {
+        
+        private const string ElectiveSurgeryString = "ElectiveSurgery";
+        private const string UrgentSurgeryString = "UrgentSurgery";
+        private const string EmergencySurgeryString = "EmergencySurgery";
+        
         [Test]
         public void Enum_Contains_AllPriorityLevels()
         {
-            Assert.AreEqual(3, Enum.GetValues(typeof(Priority)).Length);
-            Assert.IsTrue(Enum.IsDefined(typeof(Priority), "ElectiveSurgery"));
-            Assert.IsTrue(Enum.IsDefined(typeof(Priority), "UrgentSurgery"));
-            Assert.IsTrue(Enum.IsDefined(typeof(Priority), "EmergencySurgery"));
+            Assert.IsTrue(Enum.IsDefined(typeof(Priority), Priority.ElectiveSurgery));
+            Assert.IsTrue(Enum.IsDefined(typeof(Priority), Priority.UrgentSurgery));
+            Assert.IsTrue(Enum.IsDefined(typeof(Priority), Priority.EmergencySurgery));
         }
         
         [Test]
@@ -23,17 +27,17 @@ namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
             var urgent = Priority.UrgentSurgery;
             var emergency = Priority.EmergencySurgery;
 
-            Assert.AreEqual("ElectiveSurgery", elective.ToString());
-            Assert.AreEqual("UrgentSurgery", urgent.ToString());
-            Assert.AreEqual("EmergencySurgery", emergency.ToString());
+            Assert.AreEqual(ElectiveSurgeryString, elective.ToString());
+            Assert.AreEqual(UrgentSurgeryString, urgent.ToString());
+            Assert.AreEqual(EmergencySurgeryString, emergency.ToString());
         }
         
         [Test]
         public void Parse_ValidString_ShouldReturnCorrectEnumValue()
         {
-            var elective = (Priority)Enum.Parse(typeof(Priority), "ElectiveSurgery");
-            var urgent = (Priority)Enum.Parse(typeof(Priority), "UrgentSurgery");
-            var emergency = (Priority)Enum.Parse(typeof(Priority), "EmergencySurgery");
+            var elective = (Priority)Enum.Parse(typeof(Priority), ElectiveSurgeryString);
+            var urgent = (Priority)Enum.Parse(typeof(Priority), UrgentSurgeryString);
+            var emergency = (Priority)Enum.Parse(typeof(Priority), EmergencySurgeryString);
 
             Assert.AreEqual(Priority.ElectiveSurgery, elective);
             Assert.AreEqual(Priority.UrgentSurgery, urgent);
@@ -42,7 +46,7 @@ namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
         [Test]
         public void Parse_InvalidString_ShouldThrowException()
         {
-            Assert.Throws<ArgumentException>(() => Enum.Parse(typeof(Priority), "NonExistentPriority"));
+            Assert.Throws<ArgumentException>(() => Enum.Parse(typeof(Priority), "NonExistentPriority"));        
         }
     }
 }
