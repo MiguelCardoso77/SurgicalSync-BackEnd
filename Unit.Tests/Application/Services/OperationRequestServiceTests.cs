@@ -326,7 +326,61 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             _repoMock.Verify(repo => repo.GetByIdAsync(operationRequestId), Times.Once);
             _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Never);
         }
+        
+        [Fact]
+        public async Task InactivateAsync_ReturnsOperationRequestDto_WhenOperationRequestExists()
+        {
+            // Arrange
+            var operationRequestId = new OperationRequestId("1");
+            var priority = Priority.ElectiveSurgery;
+            var existingDeadlineDate = new DeadlineDate(new DateTime(2025, 10, 1));
+            var operationTypeId = new OperationTypeId("2");
+            var medicalRecordNumber = new MedicalRecordNumber("202411000001");
+            var licenseNumber = new LicenseNumber("D202400001");
 
+            var operationRequest = new OperationRequest(
+                operationRequestId,
+                priority,
+                existingDeadlineDate,
+                operationTypeId,
+                medicalRecordNumber,
+                licenseNumber
+            );
+
+            // Setting up the repository to return the existing operation request
+            _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId))
+                .ReturnsAsync(operationRequest);
+
+            // Act
+            var result = await _operationRequestService.InactivateAsync(operationRequestId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(operationRequestId.AsString(), result.OperationRequestId);
+            _repoMock.Verify(repo => repo.GetByIdAsync(operationRequestId), Times.Once);
+            _repoMock.Verify(repo => repo.Remove(operationRequest), Times.Once);
+            _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Once);
+        }
+        
+        [Fact]
+        public async Task InactivateAsync_ReturnsNull_WhenOperationRequestDoesNotExist()
+        {
+            // Arrange
+            var operationRequestId = new OperationRequestId("1");
+    
+            // Setting up the repository to return null for the non-existent operation request
+            _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId))
+                .ReturnsAsync((OperationRequest)null);
+
+            // Act
+            var result = await _operationRequestService.InactivateAsync(operationRequestId);
+
+            // Assert
+            Assert.Null(result);
+            _repoMock.Verify(repo => repo.GetByIdAsync(operationRequestId), Times.Once);
+            _repoMock.Verify(repo => repo.Remove(It.IsAny<OperationRequest>()), Times.Never);
+            _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Never);
+        }
 
     }
 }
