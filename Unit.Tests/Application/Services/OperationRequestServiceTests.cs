@@ -333,7 +333,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             // Arrange
             var operationRequestId = new OperationRequestId("1");
             var priority = Priority.ElectiveSurgery;
-            var existingDeadlineDate = new DeadlineDate(new DateTime(2025, 10, 1));
+            var existingDeadlineDate = new DeadlineDate(new DateTime(2025, 11, 1));
             var operationTypeId = new OperationTypeId("2");
             var medicalRecordNumber = new MedicalRecordNumber("202411000001");
             var licenseNumber = new LicenseNumber("D202400001");
