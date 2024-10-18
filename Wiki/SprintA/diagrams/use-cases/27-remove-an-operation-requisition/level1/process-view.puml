@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC27 - Remove an operation requisition"
+Title "UC27 - Remove an operation request"
 
 actor "Doctor" as D
 participant "<<System>> \n SurgicalSync" as SYSTEM
@@ -9,15 +9,15 @@ participant "<<Planning Module>>" as PLANNING
 
 activate D
 
-D -> SYSTEM: asks to remove an operation requisition
+D -> SYSTEM: asks to remove an operation request
 
 activate SYSTEM
 
-SYSTEM --> D: asks for the ID of the requisition to be 
+SYSTEM --> D: asks for the ID of the request to be 
 
 deactivate SYSTEM
 
-D -> SYSTEM : Inserts the operation requisition ID
+D -> SYSTEM : Inserts the operation request ID
 
 activate SYSTEM
 

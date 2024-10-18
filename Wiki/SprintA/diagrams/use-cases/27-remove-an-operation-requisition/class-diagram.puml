@@ -1,6 +1,6 @@
 ﻿@startuml
 
-Title "UC27 - Remove an operation requisition"
+Title "UC27 - Remove an operation request"
 
 package "Domain"{
 
