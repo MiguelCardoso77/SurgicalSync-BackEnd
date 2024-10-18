@@ -1,4 +1,5 @@
-﻿using DDDNetCore.Domain.OperationRequests;
+﻿using System;
+using DDDNetCore.Domain.OperationRequests;
 using NUnit.Framework;
 
 namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
@@ -7,73 +8,103 @@ namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
     public class OperationRequestIdTests
     {
         [Test]
-        public void Constructor_ValidString_ShouldCreateInstance()
+        [TestCase("12345")]
+        [TestCase("67890")]
+        [TestCase("ABCDE")]
+        public void WhenInstantiatingWithValidString_ThenShouldCreateInstance(string idValue)
         {
-            var idValue = "12345";
-
+            // act
             var operationRequestId = new OperationRequestId(idValue);
 
+            // assert
             Assert.NotNull(operationRequestId);
             Assert.AreEqual(idValue, operationRequestId.AsString());
         }
 
         [Test]
-        public void AsString_ShouldReturnCorrectStringValue()
+        [TestCase("11111", "11111", true)]
+        [TestCase("22222", "33333", false)]
+        public void WhenComparingIds_ThenEqualsShouldReturnExpectedResult(string idValue1, string idValue2, bool expected)
         {
-            var idValue = "67890";
-            var operationRequestId = new OperationRequestId(idValue);
+            // arrange
+            var operationRequestId1 = new OperationRequestId(idValue1);
+            var operationRequestId2 = new OperationRequestId(idValue2);
 
-            var result = operationRequestId.AsString();
+            // act
+            var result = operationRequestId1.Equals(operationRequestId2);
 
-            Assert.AreEqual(idValue, result);
+            // assert
+            Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Equals_SameId_ShouldReturnTrue()
+        [TestCase("44444")]
+        [TestCase("55555")]
+        public void WhenGettingHashCodeForSameId_ThenShouldReturnSameHashCode(string idValue)
         {
-            var idValue = "11111";
+            // arrange
             var operationRequestId1 = new OperationRequestId(idValue);
             var operationRequestId2 = new OperationRequestId(idValue);
 
-            var result = operationRequestId1.Equals(operationRequestId2);
-
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        public void Equals_DifferentId_ShouldReturnFalse()
-        {
-            var operationRequestId1 = new OperationRequestId("11111");
-            var operationRequestId2 = new OperationRequestId("22222");
-
-            var result = operationRequestId1.Equals(operationRequestId2);
-
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void GetHashCode_SameId_ShouldReturnSameHashCode()
-        {
-            var idValue = "33333";
-            var operationRequestId1 = new OperationRequestId(idValue);
-            var operationRequestId2 = new OperationRequestId(idValue);
-
+            // act
             var hash1 = operationRequestId1.GetHashCode();
             var hash2 = operationRequestId2.GetHashCode();
 
+            // assert
             Assert.AreEqual(hash1, hash2);
         }
 
         [Test]
-        public void GetHashCode_DifferentId_ShouldReturnDifferentHashCodes()
+        [TestCase("66666", "77777")]
+        [TestCase("88888", "99999")]
+        public void WhenGettingHashCodeForDifferentIds_ThenShouldReturnDifferentHashCodes(string idValue1, string idValue2)
         {
-            var operationRequestId1 = new OperationRequestId("44444");
-            var operationRequestId2 = new OperationRequestId("55555");
+            // arrange
+            var operationRequestId1 = new OperationRequestId(idValue1);
+            var operationRequestId2 = new OperationRequestId(idValue2);
 
+            // act
             var hash1 = operationRequestId1.GetHashCode();
             var hash2 = operationRequestId2.GetHashCode();
 
+            // assert
             Assert.AreNotEqual(hash1, hash2);
+        }
+
+        [Test]
+        [TestCase(null)]
+        public void WhenInstantiatingWithInvalidString_ThenShouldThrowArgumentNullException(string idValue)
+        {
+            // assert
+            var ex = Assert.Throws<NullReferenceException>(() => new OperationRequestId(idValue));
+            Assert.That(ex.Message, Is.EqualTo("Object reference not set to an instance of an object."));
+        }
+
+        [Test]
+        public void WhenComparingWithNullObject_ThenEqualsShouldReturnFalse()
+        {
+            // arrange
+            var operationRequestId = new OperationRequestId("11111");
+
+            // act
+            var result = operationRequestId.Equals(null);
+
+            // assert
+            Assert.False(result);
+        }
+
+        [Test]
+        public void WhenComparingToObjectOfDifferentType_ThenEqualsShouldReturnFalse()
+        {
+            // arrange
+            var operationRequestId = new OperationRequestId("11111");
+            var anotherObject = new { Value = "11111" }; 
+
+            // act
+            var result = operationRequestId.Equals(anotherObject);
+
+            // assert
+            Assert.False(result);
         }
     }
 }

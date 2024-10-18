@@ -7,11 +7,10 @@ using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Staffs;
 using Moq;
 using NUnit.Framework;
-using Xunit;
-using Assert = NUnit.Framework.Assert;
 
 namespace DDDNetCore.Unit.Tests.Application.Mappers
 {
+    [TestFixture]
     public class OperationRequestMapperTests
     {
         private OperationRequestMapper _mapper;
@@ -20,9 +19,9 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
         private Mock<OperationTypeId> _mockOperationTypeId;
         private Mock<LicenseNumber> _mockLicenseNumber;
         private Mock<MedicalRecordNumber> _mockMedicalRecordNumber;
-        
+
         private Priority _mockPriority;
-        
+
         [SetUp]
         public void Setup()
         {
