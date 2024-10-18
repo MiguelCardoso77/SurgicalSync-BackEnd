@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC26 - Update an operation requisition"
+Title "UC26 - Update an operation request"
 
 actor "Doctor" as D
 participant "<<System>> \n SurgicalSync" as SYSTEM
@@ -9,7 +9,7 @@ participant "<<Planning Module>>" as PLANNING
 
 activate D
 
-D -> SYSTEM: asks to update an operation requisition
+D -> SYSTEM: asks to update an operation request
 
 activate SYSTEM
 
@@ -35,7 +35,7 @@ SYSTEM -> SYSTEM: logs the update \n (change in priority, deadline)
 
 SYSTEM --> D: shows operation success
 
-SYSTEM -> PLANNING : notify of changes to the operation requisition
+SYSTEM -> PLANNING : notify of changes to the operation request
 
 else The doctor is not authorized to update the request
 
