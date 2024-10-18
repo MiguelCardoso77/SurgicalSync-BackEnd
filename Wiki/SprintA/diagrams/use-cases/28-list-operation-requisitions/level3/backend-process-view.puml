@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC28 - List operation requisitions"
+Title "UC28 - List operation requests"
 
 participant "FrontEnd" as FE
 participant "<<Controller>>\nOperationRequestController" as C
@@ -13,7 +13,7 @@ database "SQL Database" as SQL
 
 activate FE
 
-FE -> C : GET /operation-requisitions
+FE -> C : GET /operationRequests
 
     activate C
     
@@ -25,25 +25,25 @@ FE -> C : GET /operation-requisitions
     
     activate R
     
-    R -> SQL : SELECT * FROM OperationRequisitions
+    R -> SQL : SELECT * FROM OperationRequest
     
     activate SQL
     
-    SQL --> R : List<OperationRequisitions>
+    SQL --> R : List<OperationRequest>
     
     deactivate SQL
     
-    R --> S : List<OperationRequisitions>
+    R --> S : List<OperationRequest>
     
     deactivate R
     
-    S -> M : ToDto(List<OperationRequisitions> list)
+    S -> M : ToDto(List<OperationRequest> list)
     
     activate M
     
     loop for all the list's members
     
-    M -> DTO : Create(OperationRequisitionDTO(operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber))
+    M -> DTO : Create(OperationRequestDTO(operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber))
     
     activate DTO
     
@@ -53,25 +53,25 @@ FE -> C : GET /operation-requisitions
     
     end
     
-    M --> S : List<OperationRequisitionDTO>
+    M --> S : List<OperationRequestDTO>
     
     deactivate M 
     
-    S --> C : List<OperationRequisitionDTO>
+    S --> C : List<OperationRequestDTO>
     
     deactivate S
     
-    C --> FE : List<OperationRequisitionDTO>
+    C --> FE : List<OperationRequestDTO>
     
     deactivate C 
     
     alt The doctor applies one or more filters
     
-    FE -> C : filters operation requisitions
+    FE -> C : filters operation requests
     
     activate C
     
-    C -> S : FilterOperationRequisitionsAsync(list)
+    C -> S : FilterOperationRequestsAsync(list)
     
     activate S
     
