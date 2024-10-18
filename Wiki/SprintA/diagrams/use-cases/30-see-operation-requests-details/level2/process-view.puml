@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC30 - See an operation requisition details"
+Title "UC30 - See details of an operation request"
 
 actor "Doctor" as D
 participant "FrontEnd" as FE
@@ -9,19 +9,19 @@ participant "BackEnd" as BE
 
 activate D
 
-D -> FE: requests to see the details \nof an operation requisition 
+D -> FE: requests to see the details \nof an operation request 
 
     activate FE
     
-    FE -> BE : GET /operationRequisitions
+    FE -> BE : GET /operationRequests
     
     activate BE
     
-    BE --> FE : list of operationRequisitions
+    BE --> FE : list of operationRequests
     
     deactivate BE
     
-    FE --> D : shows the list of all the operation \n requisitions and asks for the id
+    FE --> D : shows the list of all the operation \n requests and asks for the id
     
     deactivate FE
     
@@ -31,15 +31,15 @@ D -> FE: requests to see the details \nof an operation requisition
     
     activate FE
     
-    FE -> BE : GET /operationRequisitions/{id}
+    FE -> BE : GET /operationRequests/{id}
     
     activate BE
     
-    BE --> FE : operationRequisition details (eg., operationRequisitionId, \n DeadlineDate, Priority, OperationType and PatientNumber)
+    BE --> FE : operationRequests details (eg., operationRequisitionId, \n DeadlineDate, Priority, OperationType and PatientNumber)
     
     deactivate BE
     
-    FE --> D: shows the operation requisition's details \n (eg., operationRequisitionId, DeadlineDate, Priority \n OperationType and PatientNumber) 
+    FE --> D: shows the operation request's details \n (eg., operationRequisitionId, DeadlineDate, Priority \n OperationType and PatientNumber) 
         
     else
     

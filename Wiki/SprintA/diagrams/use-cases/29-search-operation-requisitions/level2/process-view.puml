@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC29 - Search operation requisitions"
+Title "UC29 - Search operation requests"
 
 actor "Doctor" as D
 participant "FrontEnd" as FE
@@ -9,20 +9,20 @@ participant "BackEnd" as BE
 
 activate D
 
-D -> FE: requests to search for operation requisitions
+D -> FE: requests to search for operation requests
 
     activate FE
     
-    FE -> BE : GET /operationRequisitions{id}
+    FE -> BE : GET /operationRequests{id}
     
-    alt the requested operation requisition exists
+    alt the requested operation request exists
     
     activate BE
     
-    BE --> FE : required operation requisition \n (eg., patient name, operation type, status)
+    BE --> FE : required operation request \n (eg., patient name, operation type, status)
     
     
-    FE --> D: shows the operation requisition's details \n (eg., patient name, operation type, status)
+    FE --> D: shows the operation request's details \n (eg., patient name, operation type, status)
     
     else 
     

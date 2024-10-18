@@ -1,4 +1,5 @@
-﻿# UC30 - See operation requisitions details
+﻿# UC30 - See details of an operation request
+
 
 -----------------------------------------------------------------------
 
@@ -73,7 +74,7 @@ As a Doctor, I want to see operation requisitions details.
 
 ##### Backend Process View
 
-![backend-process-view.svg](level3%2Fbackend-process-view.svg)
+![backend-process-view.png](level3%2Fbackend-process-view.png)
 
 ##### Class Diagram
 

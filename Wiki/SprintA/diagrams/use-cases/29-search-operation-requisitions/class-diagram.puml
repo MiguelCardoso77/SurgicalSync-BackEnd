@@ -1,6 +1,6 @@
 ﻿@startuml
 
-Title "UC29 - Search operation requisitions"
+Title "UC29 - Search operation requests"
 
 package "Domain"{
 

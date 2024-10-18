@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-title "UC29 - Search for an operation request"
+Title "UC30 - See details of an operation request"
 
 participant "FrontEnd" as FE
 participant "<<Controller>>\nOperationRequestController" as C
@@ -13,7 +13,7 @@ database "SQL Database" as SQL
 
 activate FE
 
-FE -> C : GET /operationRequest{id}
+FE -> C : GET /operationRequests/{id}
 
 activate C
 
@@ -25,15 +25,15 @@ activate C
     
     activate R
     
-    R -> SQL : SELECT * FROM operationRequests WHERE ID = id
+    R -> SQL : SELECT * FROM operationRequests WHERE Id = id
     
     activate SQL
     
-    SQL --> R : required operation request
+    SQL --> R : OperationRequest
     
     deactivate SQL 
     
-    R --> S : required operation request
+    R --> S : OperationRequest
     
     deactivate R
     

@@ -1,20 +1,20 @@
 ﻿@startuml
 autonumber
 
-Title "UC29 - Search operation requisitions"
+Title "UC29 - Search operation requests"
 
 actor "Doctor" as D
 participant "<<System>> \n SurgicalSync" as SYSTEM
 
 activate D
 
-D -> SYSTEM: requests to search for operation requisitions
+D -> SYSTEM: requests to search for operation request
 
-    alt the requested operation requisition exists 
+    alt the requested operation request exists 
     
     activate SYSTEM
     
-    SYSTEM --> D: shows the operation requisition's details \n (eg., patient name, operation type, status)
+    SYSTEM --> D: shows the operation request's details \n (eg., patient name, operation type, status)
 
     
     else
