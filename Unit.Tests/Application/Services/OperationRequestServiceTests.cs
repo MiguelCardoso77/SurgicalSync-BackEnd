@@ -11,6 +11,7 @@ using DDDNetCore.Domain.Staffs;
 using DDDSample1.Domain.Shared;
 using Microsoft.Extensions.Logging;
 using Moq;
+using NSubstitute;
 using Xunit;
 
 namespace DDDNetCore.Unit.Tests.Application.Services
@@ -196,6 +197,61 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             Assert.Empty(result); // Ensure the result is an empty list
             _repoMock.Verify(repo => repo.GetAllAsync(), Times.Once);
         }
+        
+        [Fact]
+        public async Task AddAsync_CreatesNewOperationRequest_WhenValidDtoIsProvided()
+        {
+            // Arrange
+            var operationRequestDto = new OperationRequestDto
+            {
+                OperationRequestId = null, // Simulate a new request (ID will be generated)
+                DeadlineDate = "2025-10-01",
+                LicenseNumber = "D202400001",
+                Priority = Priority.ElectiveSurgery.ToString(),
+                OperationTypeId = "2",
+                MedicalRecordNumber = "202411000001"
+            };
+
+            var operationRequestId = new OperationRequestId(Guid.NewGuid().ToString());
+
+            var domainOperationRequest = new OperationRequest(
+                operationRequestId,
+                Priority.ElectiveSurgery,
+                new DeadlineDate(new DateTime(2025, 10, 1)),
+                new OperationTypeId("2"),
+                new MedicalRecordNumber("202411000001"),
+                new LicenseNumber("D202400001")
+            );
+            
+            // Act
+            await _operationRequestService.AddAsync(operationRequestDto);
+
+            // Assert
+            _repoMock.Verify(repo => repo.AddAsync(It.Is<OperationRequest>(op => 
+                op.Priority == domainOperationRequest.Priority &&
+                op.DeadlineDate.Date == domainOperationRequest.DeadlineDate.Date &&
+                op.OperationTypeId.AsString() == domainOperationRequest.OperationTypeId.AsString() &&
+                op.MedicalRecordNumber.AsString() == domainOperationRequest.MedicalRecordNumber.AsString() &&
+                op.LicenseNumber.AsString() == domainOperationRequest.LicenseNumber.AsString()
+            )), Times.Once);
+            
+            _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Once);
+        }
+        
+        [Fact]
+        public async Task AddAsync_ThrowsArgumentNullException_WhenDtoIsNull()
+        {
+            // Arrange
+            OperationRequestDto nullDto = null;
+
+            // Act & Assert
+            var exception = await Assert.ThrowsAsync<NullReferenceException>(() => _operationRequestService.AddAsync(nullDto));
+    
+            // Verify that neither AddAsync nor CommitAsync were called on the mocks
+            _repoMock.Verify(repo => repo.AddAsync(It.IsAny<OperationRequest>()), Times.Never);
+            _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Never);
+        }
+
 
     }
 }
