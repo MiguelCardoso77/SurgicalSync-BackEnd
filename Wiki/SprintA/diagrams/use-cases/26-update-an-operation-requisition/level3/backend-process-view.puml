@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC26 - Update an operation requisition"
+Title "UC26 - Update an operation request"
 
 participant "FrontEnd" as FE
 participant "<<Controller>>\nOperationRequestController" as CN
@@ -14,7 +14,7 @@ database "SQL Database" as SQL
 
 activate FE
 
-FE -> CN : GET /operation-requests
+FE -> CN : GET /operationRequests
 
 activate CN
 
@@ -28,15 +28,15 @@ activate SV
     
     end note
     
-    SV --> CN : List<OperationRequisitionDTO>
+    SV --> CN : List<OperationRequestDTO>
 
 deactivate SV
 
-CN --> FE : List<OperationRequisitionDTO>
+CN --> FE : List<OperationRequestDTO>
 
 deactivate CN
 
-FE -> CN : PUT /operation-request (operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber)
+FE -> CN : PUT /operationRequest (operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber)
 
 activate CN
 
@@ -52,7 +52,7 @@ DTO --> SV : OperationRequestDTO
 
 deactivate DTO 
 
-SV -> MP : MapToDomain(OperationRequisitionDTO))
+SV -> MP : MapToDomain(OperationRequestDTO))
 
 activate MP
 
@@ -72,7 +72,7 @@ SV -> REPO : UpdateAsync(OperationRequest)
 
 activate REPO
 
-REPO -> SQL : PUT /operation-requests (OperationRequest)
+REPO -> SQL : PUT /operationRequests (OperationRequest)
 
 activate SQL 
 

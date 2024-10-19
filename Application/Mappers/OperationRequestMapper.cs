@@ -22,7 +22,7 @@ namespace DDDNetCore.Application.Mappers
             return new OperationRequestDto
             {
                 OperationRequestId = domain.Id.AsString(),
-                DeadlineDate = domain.DeadlineDate.ToString(),
+                DeadlineDate = domain.DeadlineDate.Date.ToString("yyyy-MM-dd"),
                 LicenseNumber = domain.LicenseNumber.AsString(),
                 Priority = domain.Priority.ToString(),
                 OperationTypeId = domain.OperationTypeId.AsString(),

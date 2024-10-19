@@ -1,6 +1,6 @@
 ﻿@startuml
 
-Title "UC26 - Update an operation requisition"
+Title "UC26 - Update an operation request"
 
 package "Domain"{
 

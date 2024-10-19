@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC26 - Update an Operation Requisition"
+Title "UC26 - Update an Operation Request"
 
 actor "Doctor" as D 
 
@@ -11,7 +11,7 @@ participant "Planning" as P
 
 activate D
 
-D -> FE: asks to update an operation requisition
+D -> FE: asks to update an operation request
 
 activate FE
 
@@ -25,7 +25,7 @@ alt the logged-in doctor is the one who \n created the operation request
 
     activate FE
 
-    FE -> BE: GET /operationRequest/id (with details)
+    FE -> BE: GET /operationRequest/{id} (with details)
     
     activate BE
 
@@ -41,11 +41,11 @@ alt the logged-in doctor is the one who \n created the operation request
 
     activate FE
     
-    FE -> BE: PUT /operationRequest/id (with new details)
+    FE -> BE: PUT /operationRequest/{id} (with new details)
     
     activate BE
         
-    BE -> P: notify of changes to the operation requisition
+    BE -> P: notify of changes to the operation request
     
     activate P
     
@@ -61,7 +61,7 @@ alt the logged-in doctor is the one who \n created the operation request
 
 else The doctor is not authorized to update the request
 
-    FE -> BE: GET /operationRequest/id (for validation)
+    FE -> BE: GET /operationRequest/{id} (for validation)
     
     activate BE
     

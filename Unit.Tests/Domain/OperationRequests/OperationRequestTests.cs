@@ -1,10 +1,10 @@
-﻿using System;
-using DDDNetCore.Domain.OperationRequests;
+﻿using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Staffs;
 using Moq;
 using NUnit.Framework;
+using System;
 
 namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
 {
@@ -17,9 +17,10 @@ namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
         private Mock<LicenseNumber> _mockLicenseNumber;
         private Mock<MedicalRecordNumber> _mockMedicalRecordNumber;
         private Mock<DeadlineDate> _mockNewDeadlineDate;
-        
+
         private Priority _mockPriority;
         private Priority _mockNewPriority;
+
         [SetUp]
         public void Setup()
         {
@@ -28,22 +29,23 @@ namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
             _mockNewDeadlineDate = new Mock<DeadlineDate>(new DateTime(2025, 11, 1));
             _mockOperationTypeId = new Mock<OperationTypeId>("2");
             _mockLicenseNumber = new Mock<LicenseNumber>("D202400001");
-            _mockMedicalRecordNumber = new Mock<MedicalRecordNumber>("23242");
+            _mockMedicalRecordNumber = new Mock<MedicalRecordNumber>("202511000001");
 
             _mockPriority = Priority.ElectiveSurgery;
             _mockNewPriority = Priority.UrgentSurgery;
         }
+
         [Test]
         public void Constructor_ValidParameters_ShouldCreateInstance()
         {
             var operationRequest = new OperationRequest(
                 _mockOperationRequestId.Object,
-                _mockPriority, 
+                _mockPriority,
                 _mockDeadlineDate.Object,
                 _mockOperationTypeId.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockLicenseNumber.Object
-                );
+            );
 
             Assert.NotNull(operationRequest);
             Assert.AreEqual(_mockOperationRequestId.Object, operationRequest.Id);
@@ -54,36 +56,36 @@ namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
             Assert.AreEqual(_mockLicenseNumber.Object, operationRequest.LicenseNumber);
             Assert.IsTrue(operationRequest.IsActive);
         }
-        
+
         [Test]
         public void ActivateOperationRequest_ShouldSetIsActiveToTrue()
         {
             var operationRequest = new OperationRequest(
                 _mockOperationRequestId.Object,
-                _mockPriority, 
+                _mockPriority,
                 _mockDeadlineDate.Object,
                 _mockOperationTypeId.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockLicenseNumber.Object
             );
-            
+
             operationRequest.ActivateOperationRequest();
 
             Assert.IsTrue(operationRequest.IsActive);
         }
-        
+
         [Test]
         public void DeactivateOperationRequest_ShouldSetIsActiveToFalse()
         {
             var operationRequest = new OperationRequest(
                 _mockOperationRequestId.Object,
-                _mockPriority, 
+                _mockPriority,
                 _mockDeadlineDate.Object,
                 _mockOperationTypeId.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockLicenseNumber.Object
             );
-            
+
             operationRequest.DeactivateOperationRequest();
 
             Assert.IsFalse(operationRequest.IsActive);
@@ -94,13 +96,13 @@ namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
         {
             var operationRequest = new OperationRequest(
                 _mockOperationRequestId.Object,
-                _mockPriority, 
+                _mockPriority,
                 _mockDeadlineDate.Object,
                 _mockOperationTypeId.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockLicenseNumber.Object
             );
-            
+
             Assert.IsTrue(operationRequest.IsActive);
         }
 
@@ -109,13 +111,13 @@ namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
         {
             var operationRequest = new OperationRequest(
                 _mockOperationRequestId.Object,
-                _mockPriority, 
+                _mockPriority,
                 _mockDeadlineDate.Object,
                 _mockOperationTypeId.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockLicenseNumber.Object
             );
-            
+
             Assert.AreEqual(_mockOperationRequestId.Object, operationRequest.Id);
             Assert.AreEqual(_mockPriority, operationRequest.Priority);
             Assert.AreEqual(_mockDeadlineDate.Object, operationRequest.DeadlineDate);
@@ -132,7 +134,7 @@ namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
             Assert.NotNull(operationRequest);
             Assert.IsNull(operationRequest.DeadlineDate);
         }
-        
+
         [Test]
         public void ChangeDeadlineDate_ValidNewDate_ShouldUpdateDeadlineDate()
         {

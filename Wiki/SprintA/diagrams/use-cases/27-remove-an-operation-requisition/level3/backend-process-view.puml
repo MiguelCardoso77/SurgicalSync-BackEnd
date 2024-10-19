@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC27 - Remove an operation requisition"
+Title "UC27 - Remove an operation request"
 
 participant "FrontEnd" as FE
 participant "<<Controller>>\nOperationRequestController" as CN
@@ -12,7 +12,7 @@ database "SQL Database" as SQL
 
 activate FE
 
-FE -> CN  : GET /operation-requisitions
+FE -> CN  : GET /OperationRequests
 
 activate CN
 
@@ -24,35 +24,35 @@ activate SV
                 Process documented on UC28
             end note
 
-SV --> CN : List<OperationRequisitionDTO>
+SV --> CN : List<OperationRequestDTO>
 
 deactivate SV
 
-CN --> FE : List<OperationRequisitionDTO>
+CN --> FE : List<OperationRequestDTO>
 
 deactivate CN
 
-FE -> CN : INACTIVATE /operationRequisitions/id
+FE -> CN : INACTIVATE /operationRequest/{id}
 
 activate CN
 
-CN -> SV : INACTIVATE /operationTypes/id
+CN -> SV : INACTIVATE /operationRequest/{id}
 
 activate SV
 
-SV -> DM : Deactivate(OperationRequisition)
+SV -> DM : Deactivate(OperationRequest)
 
 activate DM
 
-DM --> SV : updated operation requisition 
+DM --> SV : updated operation request 
 
 deactivate DM
 
-SV -> REPO : InactivateAsync(OperationRequisition)
+SV -> REPO : InactivateAsync(OperationRequest)
 
 activate REPO
 
-REPO -> SQL : INACTIVATE /operationRequisitions/id
+REPO -> SQL : INACTIVATE /operationRequest/{id}
 
 activate SQL
 

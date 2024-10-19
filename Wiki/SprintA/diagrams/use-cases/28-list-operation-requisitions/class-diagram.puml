@@ -1,6 +1,6 @@
 ﻿@startuml
 
-Title "UC28 - List operation requisitions"
+Title "UC28 - List operation requests"
 
 package "Domain"{
 

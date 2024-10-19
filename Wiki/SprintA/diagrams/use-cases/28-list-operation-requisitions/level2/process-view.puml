@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC28 - List operation requisitions"
+Title "UC28 - List operation requests"
 
 actor "Doctor" as D
 
@@ -10,19 +10,19 @@ participant "BackEnd" as BE
 
 activate D
 
-D -> FE: requests to list the operation requisitions
+D -> FE: requests to list the operation requests
 
 activate FE
 
-FE -> BE: GET /operationRequisitions
+FE -> BE: GET /operationRequests
 
 activate BE
 
-BE --> FE: operation requisitions
+BE --> FE: operation requests
 
 deactivate BE
 
-FE --> D: shows the list of the operation requisitions \n (with details: patient name, operation type, status) \n and filtering options
+FE --> D: shows the list of the operation requests \n (with details: patient name, operation type, status) \n and filtering options
 
 deactivate FE
 
@@ -32,11 +32,11 @@ alt The doctor applies a filter
 
     activate FE
     
-    FE -> BE: GET /operationRequisitions with filters
+    FE -> BE: GET /operationRequests with filters
 
     activate BE
 
-    BE --> FE: filtered requisitions
+    BE --> FE: filtered requests
 
     deactivate BE
 

@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC27 - Remove an operation requisition"
+Title "UC27 - Remove an operation request"
 
 actor "Doctor" as D 
 
@@ -10,15 +10,15 @@ participant "BackEnd" as BE
 
 activate D
 
-D -> FE: asks to remove an operation requisition
+D -> FE: asks to remove an operation request
 
 activate FE
 
-FE --> D: asks for the ID of the requisition to be 
+FE --> D: asks for the ID of the request to be 
 
 deactivate FE
 
-D -> FE : Inserts the operation requisition ID
+D -> FE : Inserts the operation request ID
 
 activate FE
 

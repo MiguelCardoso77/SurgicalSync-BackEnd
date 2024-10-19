@@ -12,7 +12,7 @@ namespace DDDNetCore.Application.Services
     /**
      * Service class for handling operation requests. Provides methods to add, update, and retrieve operation requests.
      */
-    public class OperationRequestService
+    public class  OperationRequestService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOperationRequestRepository _repo;
@@ -128,5 +128,6 @@ namespace DDDNetCore.Application.Services
             
             return _mapper.ToDto(operationRequest);
         }
+        
     }
 }
