@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
+using DDDNetCore.Domain.Staffs;
+using DDDNetCore.SurgicalSyncTests.Domain.Staffs;
 using DDDSample1.Infrastructure;
+using NUnit.Framework;
 
 namespace DDDNetCore.Infraestructure
 {
@@ -163,9 +167,29 @@ namespace DDDNetCore.Infraestructure
                     new UserEmail("1220772@isep.ipp.pt")
                 )
             };
+
+            
+
+            var staffs = new List<Domain.Staffs.Staff>
+            {
+                new(new LicenseNumber("N202400001"), new StaffName("Tomás Gonçalves"),
+                    new StaffEmail("1220917@isep.ipp.pt"), new StaffPhoneNumber("962754971"),
+                    StaffSpecialization.Family_medicine,
+                    new List<StaffAvaiabilitySlots>(),
+                         StaffType.Nurse
+                    ),
+                    
+                new(new LicenseNumber("N202400002"), new StaffName("José Mesquita"),
+                    new StaffEmail("josemesquita@gmail.com"), new StaffPhoneNumber("962749671"),
+                    StaffSpecialization.Family_medicine,
+                    new List<StaffAvaiabilitySlots>(),
+                         StaffType.Doctor 
+                    )
+            };  
             
             context.Patients.AddRange(patients);
             context.OperationTypes.AddRange(operationTypes);
+            context.Staffs.AddRange(staffs);
             context.SaveChanges();
         }
     }

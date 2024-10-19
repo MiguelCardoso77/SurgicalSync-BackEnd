@@ -2,11 +2,11 @@ using DDDNetCore.Domain.Staffs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DDDNetCore.Infraestructure.Staffs
+namespace DDDNetCore.Infraestructure.Staff
 {
-    internal class StaffEntityTypeConfiguration : IEntityTypeConfiguration<Staff>
+    internal class StaffEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Staffs.Staff>
     {
-        public void Configure(EntityTypeBuilder<Staff> builder)
+        public void Configure(EntityTypeBuilder<Domain.Staffs.Staff> builder)
         {
             builder.HasKey(b => b.Id);
             
@@ -39,6 +39,11 @@ namespace DDDNetCore.Infraestructure.Staffs
                 avaiabilitySlotsBuilder.Property(p => p.StaffAvaiabilitySlotsValue)
                     .HasColumnName("StaffAvaiabilitySlots");
             });
+            
+            builder.Property(b => b.StaffType)
+                .HasColumnName("StaffType")
+                .HasConversion<string>();
+
 
 
 

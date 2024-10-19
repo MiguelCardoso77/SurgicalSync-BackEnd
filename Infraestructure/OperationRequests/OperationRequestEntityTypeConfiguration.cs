@@ -51,7 +51,7 @@ namespace DDDNetCore.Infraestructure.OperationRequests
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Configure the foreign key relationship for Staff (via LicenseNumber)
-            builder.HasOne<Staff>()  // Assuming Staff entity handles LicenseNumber
+            builder.HasOne<Domain.Staffs.Staff>()  // Assuming Staff entity handles LicenseNumber
                 .WithMany()
                 .HasForeignKey(b => b.LicenseNumber)
                 .OnDelete(DeleteBehavior.Restrict);
