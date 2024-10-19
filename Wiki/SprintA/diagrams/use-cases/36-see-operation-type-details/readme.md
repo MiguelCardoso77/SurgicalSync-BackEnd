@@ -32,7 +32,7 @@ Once the Admin selects an operation type, they should be able to view the follow
 
 - Logical View
 
-![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level1/logical-view/logical-view.svg)
+![logical-view.svg](../../views/level1/logical-view/logical-view.png)
 ###
 - Process View
 
@@ -42,7 +42,7 @@ Once the Admin selects an operation type, they should be able to view the follow
 
 - Logical View
 
-![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
+![logical-view.svg](../../views/level2/logical-view/logical-view.png)
 ###
 - Process View
 
@@ -52,13 +52,8 @@ Once the Admin selects an operation type, they should be able to view the follow
 
 #### Logical Views
 
--   [MDR Logical View](../general-purpose/level3/mdr-logical-view.svg)
--   [UI Logical View](../general-purpose/level3/ui-logical-view.svg)
-
-#### Implementation Views
-
--   [MDR Implementation View](./level3/mdr-implementation-view.svg)
--   [UI Implementation View](../general-purpose/level3/ui-implementation-view.svg)
+- BackEnd Logical View
+![backend-logical-view.svg](../../views/level3/backend/logical-view/logical-view.png)
 
 #### Process Views
 
