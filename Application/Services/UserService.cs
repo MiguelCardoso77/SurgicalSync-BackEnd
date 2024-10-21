@@ -55,12 +55,13 @@ namespace DDDNetCore.Application.Services
             await this._repo.AddAsync(user);
             await this._unitOfWork.CommitAsync();
             
+            var resetLink = await FirebaseService.GeneratePasswordResetLink(dto.UserEmail);
+            
             // Send set-up email to user
             var smtpEmailService = new EmailService();
-            var emailContent = $"Hello {user.Username}! \n Your current password is: {password}, here is the link to reset it: http://localhost:5001/reset-password \n Your account will be active once you set-up your account!";            
+            var emailContent = $"Hello {user.Username}! \n Your current password is: {password} , here is the link to reset it: {resetLink} \n Your account will be active once you set-up your account!";            
             var email = new Email(emailContent, user.UserEmail.ToString(), "Activate Your SurgicalSync Account");
             await smtpEmailService.SendEmailAsync(email);
-            Console.WriteLine($"Successfully sent the email to {email.Destination}");
             
             return UserMapper.ToDto(user);
         }

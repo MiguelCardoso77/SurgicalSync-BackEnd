@@ -40,6 +40,8 @@ namespace DDDNetCore.Application.Services
 
                 await client.SendMailAsync(mailMessage);
             }
+            
+            Console.WriteLine($"Successfully sent the email to {emailObj.Destination}");
         }
     }
 }

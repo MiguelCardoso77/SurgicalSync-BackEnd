@@ -35,6 +35,12 @@ alt User data is valid
                 IAM --> SV : returns UID of created user
             deactivate IAM
             
+            SV -> IAM : generate password reset link
+            activate IAM
+            
+                IAM --> SV : returns password reset link
+            deactivate IAM
+            
             SV -> SMTP : send set-up email
             activate SMTP
             
