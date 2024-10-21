@@ -9,7 +9,7 @@ namespace DDDNetCore.Application.Mappers
     public class StaffMapper
     {
         
-        public  Staff ToDomain(StaffDto dto, LicenseNumber id ,List<StaffAvaiabilitySlots> staffAvaiabilitySlotsList)
+        public  static Staff ToDomain(StaffDto dto, LicenseNumber id ,List<StaffAvaiabilitySlots> staffAvaiabilitySlotsList)
         {
             return new Staff(new LicenseNumber(dto.Id), new StaffName(dto.StaffName.ToString()),
                 new StaffEmail(dto.StaffEmail.ToString()),
@@ -22,7 +22,7 @@ namespace DDDNetCore.Application.Mappers
 
         
         
-        public  StaffDto ToDto(Staff domain)
+        public  static StaffDto ToDto(Staff domain)
         {
             return new StaffDto
             {

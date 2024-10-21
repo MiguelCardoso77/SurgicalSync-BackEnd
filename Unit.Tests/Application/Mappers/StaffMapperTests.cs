@@ -49,7 +49,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             var licenseNumber = new LicenseNumber(dto.Id);
             var staffAvaiabilitySlots = dto.StaffAvaiabilitySlots.Select(rs => new StaffAvaiabilitySlots(rs)).ToList();
            
-            var staff = _mapper.ToDomain(dto, licenseNumber, staffAvaiabilitySlots );
+            var staff = StaffMapper.ToDomain(dto, licenseNumber, staffAvaiabilitySlots );
             
             Assert.AreEqual(dto.Id, licenseNumber.AsString());
             Assert.AreEqual(dto.StaffAvaiabilitySlots, staffAvaiabilitySlots.ToString());
@@ -67,7 +67,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
                 _mockAvaiabilitySlots
                 //, StaffType.Other
             );
-            var dto = _mapper.ToDto(staff);
+            var dto = StaffMapper.ToDto(staff);
             
             Assert.AreEqual(_mockLicenseNumber.Object.AsString(), dto.Id);
             Assert.AreEqual(_mockStaffName.Object, dto.StaffName);
