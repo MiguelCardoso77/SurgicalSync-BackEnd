@@ -12,11 +12,15 @@ namespace DDDNetCore.SurgicalSyncTests.Application.Services
         [SetUp]
         public void Setup()
         {
-            // Configuração do Firebase Admin SDK
-            FirebaseApp.Create(new AppOptions()
+            if (FirebaseApp.DefaultInstance == null)
             {
-                Credential = GoogleCredential.FromFile("../../../surgicalsync-d5bd5-firebase-adminsdk-7v461-12fb9fe637.json")
-            });
+                // Configuração do Firebase Admin SDK
+                FirebaseApp.Create(new AppOptions()
+                {
+                    Credential =
+                        GoogleCredential.FromFile("../../../surgicalsync-d5bd5-firebase-adminsdk-7v461-12fb9fe637.json")
+                });
+            }
         }
 
         [Test]
@@ -24,7 +28,7 @@ namespace DDDNetCore.SurgicalSyncTests.Application.Services
         {
             // Arrange
             var email = "testuser@example.com";
-            var password = "TestPassword123";
+            var password = "TestPassword123#";
             var role = "Admin";
             var args = new UserRecordArgs
             {
