@@ -3,6 +3,7 @@ using System.Linq;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.OperationTypes;
+using Moq;
 using NUnit.Framework;
 
 namespace DDDNetCore.Unit.Tests.Application.Mappers
@@ -11,46 +12,60 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
     public class OperationTypeMapperTests
     {
         private OperationTypeMapper _mapper;
+        private Mock<OperationTypeId> _mockOperationTypeId;
+        private Mock<OperationName> _mockOperationName;
+        private Mock<RequiredStaff> _mockRequiredStaff;
+        private Mock<EstimatedDuration> _mockDuration;
         
         [SetUp]
         public void Setup()
         {
             _mapper = new OperationTypeMapper();
+            _mockOperationTypeId = new Mock<OperationTypeId>("1");
+            _mockOperationName = new Mock<OperationName>("Test");
+            _mockRequiredStaff = new Mock<RequiredStaff>("Nurse");
+            _mockDuration = new Mock<EstimatedDuration>("30");
         }
         
         [Test]
         public void TestToDomain()
         {
-            var requiredStaff = new List<string>() {"Nurse", "Doctor"};
-            var estimatedDuration = new List<string>() {"30", "40"};
             var dto = new OperationTypeDto()
             {
-                Id = "1", OperationName = "Test", RequiredStaff = requiredStaff, EstimatedDuration = estimatedDuration
+                Id = "1",
+                OperationName = "Test",
+                RequiredStaff = new List<string>() { "Nurse" },
+                EstimatedDuration = new List<string>() { "30" }
             };
             
-            var operationType = _mapper.ToDomain(dto, new OperationTypeId(dto.Id), 
-                dto.RequiredStaff.Select(rs => new RequiredStaff(rs)).ToList(), 
-                dto.EstimatedDuration.Select(rs => new EstimatedDuration(rs)).ToList());
-            
-            Assert.AreEqual(operationType.Id.AsString(), dto.Id);
-            Assert.AreEqual(operationType.Name.ToString(), dto.OperationName);
-            Assert.AreEqual(operationType.RequiredStaff.Select(rs => rs.RequiredStaffValue).ToList(), requiredStaff);
-            Assert.AreEqual(operationType.EstimatedDuration.Select(rs => rs.EstimatedDurationValue).ToList(), estimatedDuration);
-        }
-        
-        [Test]
-        public void TestToDto()
-        {
-            var requiredStaff = new List<RequiredStaff>() {new RequiredStaff("Nurse"), new RequiredStaff("Doctor")};
-            var estimatedDuration = new List<EstimatedDuration>() {new EstimatedDuration("30"), new EstimatedDuration("40")};
-            var operationType = new OperationType(new OperationTypeId("1"), new OperationName("Test"), requiredStaff, estimatedDuration);
-            
-            var dto = _mapper.ToDto(operationType);
+            var operationTypeId = new OperationTypeId(dto.Id);
+            var requiredStaffList = dto.RequiredStaff.Select(rs => new RequiredStaff(rs)).ToList();
+            var estimatedDurationList = dto.EstimatedDuration.Select(ed => new EstimatedDuration(ed)).ToList();
+
+            var operationType = _mapper.ToDomain(dto, operationTypeId, requiredStaffList, estimatedDurationList);
             
             Assert.AreEqual(dto.Id, operationType.Id.AsString());
             Assert.AreEqual(dto.OperationName, operationType.Name.ToString());
-            Assert.AreEqual(dto.RequiredStaff, operationType.RequiredStaff.Select(rs => rs.RequiredStaffValue).ToList());
-            Assert.AreEqual(dto.EstimatedDuration, operationType.EstimatedDuration.Select(rs => rs.EstimatedDurationValue).ToList());
+            Assert.AreEqual(dto.RequiredStaff.First(), operationType.RequiredStaff.First().RequiredStaffValue);
+            Assert.AreEqual(dto.EstimatedDuration.First(), operationType.EstimatedDuration.First().EstimatedDurationValue);
+        }
+
+        [Test]
+        public void TestToDto()
+        {
+            var operationType = new OperationType(
+                _mockOperationTypeId.Object, 
+                _mockOperationName.Object,
+                new List<RequiredStaff>() { _mockRequiredStaff.Object }, 
+                new List<EstimatedDuration>() { _mockDuration.Object }
+            );
+            
+            var dto = _mapper.ToDto(operationType);
+            
+            Assert.AreEqual(_mockOperationTypeId.Object.AsString(), dto.Id);
+            Assert.AreEqual(_mockOperationName.Object.ToString(), dto.OperationName);
+            Assert.AreEqual(_mockRequiredStaff.Object.RequiredStaffValue, dto.RequiredStaff.First());
+            Assert.AreEqual(_mockDuration.Object.EstimatedDurationValue, dto.EstimatedDuration.First());
         }
     }
 }
