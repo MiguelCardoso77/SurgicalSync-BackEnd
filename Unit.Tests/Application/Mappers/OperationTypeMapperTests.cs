@@ -10,6 +10,14 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
     [TestFixture]
     public class OperationTypeMapperTests
     {
+        private OperationTypeMapper _mapper;
+        
+        [SetUp]
+        public void Setup()
+        {
+            _mapper = new OperationTypeMapper();
+        }
+        
         [Test]
         public void TestToDomain()
         {
@@ -20,7 +28,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
                 Id = "1", OperationName = "Test", RequiredStaff = requiredStaff, EstimatedDuration = estimatedDuration
             };
             
-            var operationType = OperationTypeMapper.ToDomain(dto, new OperationTypeId(dto.Id), 
+            var operationType = _mapper.ToDomain(dto, new OperationTypeId(dto.Id), 
                 dto.RequiredStaff.Select(rs => new RequiredStaff(rs)).ToList(), 
                 dto.EstimatedDuration.Select(rs => new EstimatedDuration(rs)).ToList());
             
@@ -37,7 +45,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             var estimatedDuration = new List<EstimatedDuration>() {new EstimatedDuration("30"), new EstimatedDuration("40")};
             var operationType = new OperationType(new OperationTypeId("1"), new OperationName("Test"), requiredStaff, estimatedDuration);
             
-            var dto = OperationTypeMapper.ToDto(operationType);
+            var dto = _mapper.ToDto(operationType);
             
             Assert.AreEqual(dto.Id, operationType.Id.AsString());
             Assert.AreEqual(dto.OperationName, operationType.Name.ToString());

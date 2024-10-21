@@ -109,6 +109,7 @@ namespace DDDSample1
 
             services.AddTransient<IOperationTypeRepository, OperationTypeRepository>();
             services.AddTransient<OperationTypeService>();
+            services.AddTransient<OperationTypeMapper>();
 
             services.AddTransient<IOperationRequestRepository, OperationRequestRepository>();
             services.AddTransient<OperationRequestService>();

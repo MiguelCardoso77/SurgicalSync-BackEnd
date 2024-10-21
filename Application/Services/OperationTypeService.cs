@@ -15,21 +15,21 @@ namespace DDDNetCore.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOperationTypeRepository _repo;
         private readonly ILogger<OperationTypeService> _logger;
+        private readonly OperationTypeMapper _mapper;
         
-        public OperationTypeService(IUnitOfWork unitOfWork, IOperationTypeRepository repo, ILogger<OperationTypeService> logger)
+        public OperationTypeService(IUnitOfWork unitOfWork, IOperationTypeRepository repo, ILogger<OperationTypeService> logger, OperationTypeMapper mapper)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
             this._logger = logger;
+            this._mapper = mapper;
         }
         
         public async Task<List<OperationTypeDto>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
             
-            var dtoList = OperationTypeMapper.ToListDto(list);
-            
-            return dtoList;
+            return  _mapper.ToListDto(list);
         }
 
         public async Task<List<OperationTypeDto>> GetAllByStatus(bool isActive)
@@ -39,9 +39,7 @@ namespace DDDNetCore.Application.Services
             // Filter list by Status
             var filteredList = list.Where(oT => oT.IsActive == isActive).ToList();
 
-            var dtoList = OperationTypeMapper.ToListDto(filteredList);
-
-            return dtoList;
+            return _mapper.ToListDto(filteredList);
         }
 
         public async Task<List<OperationTypeDto>> GetAllByName(string operationName)
@@ -51,9 +49,7 @@ namespace DDDNetCore.Application.Services
             // Filter list by Name
             var filteredList = list.Where(op => op.Name.ToString().Contains(operationName, StringComparison.OrdinalIgnoreCase)).ToList();
     
-            var dtoList = OperationTypeMapper.ToListDto(filteredList);
-
-            return dtoList;
+            return _mapper.ToListDto(filteredList);
         }
         
         public async Task<List<OperationTypeDto>> GetAllBySpecialization(string specialization)
@@ -72,9 +68,7 @@ namespace DDDNetCore.Application.Services
             // Filter list by Specialization
             var filteredList = list.Where(op => surgeryIds.Contains(op.Id.AsString())).ToList();
     
-            var dtoList = OperationTypeMapper.ToListDto(filteredList);
-
-            return dtoList;
+            return _mapper.ToListDto(filteredList);
         }
         
         public async Task<OperationTypeDto> GetByIdAsync(OperationTypeId id)
@@ -84,7 +78,7 @@ namespace DDDNetCore.Application.Services
             if (oT == null)
                 return null;
 
-            var dto = OperationTypeMapper.ToDto(oT);
+            var dto = _mapper.ToDto(oT);
 
             return dto;
         }
@@ -120,7 +114,7 @@ namespace DDDNetCore.Application.Services
             requiredStaffList.AddRange(dtoStaff);
 
             // Use the mapper to convert the DTO to a domain object
-            var domainObj = OperationTypeMapper.ToDomain(dto, dtoId, requiredStaffList, estimatedDurations);
+            var domainObj = _mapper.ToDomain(dto, dtoId, requiredStaffList, estimatedDurations);
             
             await this._repo.AddAsync(domainObj);
             await this._unitOfWork.CommitAsync();
@@ -129,13 +123,7 @@ namespace DDDNetCore.Application.Services
             _logger.LogInformation("OperationType with ID {OperationTypeId} was successfully created.", domainObj.Id.AsString());
             
             // Return the same DTO
-            return new OperationTypeDto
-            {
-                Id = domainObj.Id.AsString(),
-                OperationName = domainObj.Name.ToString(),
-                RequiredStaff = domainObj.RequiredStaff.Select(rs => rs.RequiredStaffValue).ToList(),
-                EstimatedDuration = domainObj.EstimatedDuration.Select(rs => rs.EstimatedDurationValue).ToList()
-            };
+            return _mapper.ToDto(domainObj);
         }
         
         public async Task<OperationTypeDto> UpdateAsync(OperationTypeDto dto)
@@ -155,7 +143,7 @@ namespace DDDNetCore.Application.Services
             
             await this._unitOfWork.CommitAsync();
 
-            return OperationTypeMapper.ToDto(oT);
+            return _mapper.ToDto(oT);
         }
         
         public async Task<OperationTypeDto> InactivateAsync(OperationTypeId id)
@@ -170,12 +158,7 @@ namespace DDDNetCore.Application.Services
             
             await this._unitOfWork.CommitAsync();
 
-            return new OperationTypeDto {
-                Id = oT.Id.AsString(),
-                OperationName = oT.Name.ToString(),
-                RequiredStaff = oT.RequiredStaff.Select(rs => rs.RequiredStaffValue).ToList(),
-                EstimatedDuration = oT.EstimatedDuration.Select(rs => rs.EstimatedDurationValue).ToList()
-            };
+            return _mapper.ToDto(oT);
         }
     }
 }
