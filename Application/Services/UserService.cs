@@ -48,7 +48,7 @@ namespace DDDNetCore.Application.Services
             var password = PasswordService.GeneratePassword();
 
             // Create User in IAM
-            var userRecord = FirebaseService.CreateUserRecordAsync(dto.UserEmail, password);
+            var userRecord = FirebaseService.CreateUserRecordAsync(dto.UserEmail, password, dto.UserRole);
             
             // Create user in system database
             var user = UserMapper.ToDomain(dto, new UserId(userRecord.Result.Uid));

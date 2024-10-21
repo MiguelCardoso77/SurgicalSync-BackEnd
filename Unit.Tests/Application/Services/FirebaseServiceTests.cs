@@ -25,6 +25,7 @@ namespace DDDNetCore.SurgicalSyncTests.Application.Services
             // Arrange
             var email = "testuser@example.com";
             var password = "TestPassword123";
+            var role = "Admin";
             var args = new UserRecordArgs
             {
                 Email = email,
@@ -35,7 +36,7 @@ namespace DDDNetCore.SurgicalSyncTests.Application.Services
             UserRecord userRecord = null;
             try
             {
-                userRecord = await FirebaseService.CreateUserRecordAsync(email, password);
+                userRecord = await FirebaseService.CreateUserRecordAsync(email, password, role);
             }
             catch (FirebaseAuthException ex)
             {
