@@ -13,6 +13,9 @@ The client has outlined that the Admin Role should possess the functionality to 
 ## 3. Diagrams
 
 ### Level 1
+- Logical View
+
+![logical-view.png](/Wiki/SprintA/diagrams/views/level1/logical-view/logical-view.png)
 
 ###
 - Process View
@@ -21,12 +24,21 @@ The client has outlined that the Admin Role should possess the functionality to 
 
 ### Level 2
 
+
+- Logical View
+
+![logical-view.svg](/Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
+
 ###
 - Process View
 
 ![process-view.svg](./level2/process-view.svg)
 
 ### Level 3
+#### Logical Views
+
+- BackEnd Logical View
+  ![backend-logical-view.svg](/Wiki/SprintA/diagrams/views/level3/backend/logical-view/logical-view.png)
 
 
 #### Process Views
