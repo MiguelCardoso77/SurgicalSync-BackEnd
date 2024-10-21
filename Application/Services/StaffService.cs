@@ -157,7 +157,7 @@ namespace DDDNetCore.Application.Services
                 ? new LicenseNumber(Guid.NewGuid().ToString())
                 : new LicenseNumber(dto.Id);
             
-            var staff = new StaffMapper().ToDomain(dto, licenseNumber , avaiabilitySlotsList);
+            var staff = StaffMapper.ToDomain(dto, licenseNumber , avaiabilitySlotsList);
 
             await this._repo.AddAsync(staff);
             await this._unitOfWork.CommitAsync();
