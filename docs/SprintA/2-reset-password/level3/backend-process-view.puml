@@ -1,0 +1,99 @@
+@startuml
+autonumber
+
+title BackEnd Process View
+
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "Repositories" as REPO
+participant "Mappers" as MP
+participant "DTOs" as DTO
+participant "Firebase IAM API" as IAM
+participant "SMTP API" as SMTP
+database "SQL Database" as SQL
+
+activate FE
+    FE -> CN: GET /users (with email)
+    activate CN
+    
+        CN -> SV : GetUserByEmailAsync()
+        activate SV
+        
+        SV -> REPO: GetUserByEmailAsync()
+        activate REPO
+        
+        REPO -> SQL: SELECT * FROM users WHERE EMAIL = email
+        activate SQL
+        
+        SQL --> REPO: required user profile
+        deactivate SQL
+        
+        REPO --> SV: required user profile request
+       deactivate REPO
+       
+        SV -> MP: ToDTO(UserProfileRequest)
+      activate MP
+      
+            MP -> DTO : Create(UserDTO)
+            activate DTO
+            
+            DTO --> MP : returns UserDTO
+            deactivate DTO
+            
+              MP --> SV : returns UserDTO
+             deactivate MP
+            
+  alt email is invalid
+  
+  
+              deactivate REPO
+              SV --> CN : error: user doesn't exist
+          FE <-- CN: error: user doesn't exist
+      
+   else email is valid     
+   
+
+               
+   SV -> IAM : generate password reset link
+               activate IAM
+               
+                   IAM --> SV : returns password reset link
+               deactivate IAM
+               
+               SV -> SMTP : send set-up email
+               activate SMTP
+          
+                 
+                SMTP --> SV : success: email sent
+            deactivate SMTP
+
+            SV --> CN : success: email sent
+            deactivate SV
+        FE <-- CN: success: email sent with link
+        deactivate CN
+        
+        FE -> CN: provides new password
+        activate CN
+        alt password is valid
+        
+        CN -> IAM : update password
+        activate IAM
+        
+        IAM --> CN : show success: password updated
+        deactivate IAM
+        
+        CN --> FE:
+        
+        
+        else password doesn't meet rules
+       
+         FE <-- CN : show success: password updated
+         deactivate CN
+
+        end
+
+deactivate FE
+end
+
+@enduml

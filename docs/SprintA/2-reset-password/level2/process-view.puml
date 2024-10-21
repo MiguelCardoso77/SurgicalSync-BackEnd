@@ -1,0 +1,81 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+participant "SMTP API" as EMAIL
+participant "Firebase IAM API" as FIREBASE
+
+
+activate USER
+
+    USER -> FE : wants to send a email to reset my password
+    activate FE
+    
+        FE --> USER : requests email
+    deactivate FE
+
+alt User Doesn't Exist
+    USER -> FE : provides email
+   
+        activate FE
+        
+            alt User Not Exists
+               
+            FE -> BE : GET /users
+            activate BE
+            
+                BE --> FE : error: user not exists
+            deactivate BE 
+            FE --> USER : informs error with suggestion
+            
+            else User Exists 
+            
+            FE -> BE : GET /users
+            activate BE
+            
+              BE -> EMAIL : send email to setup password
+                activate EMAIL
+                
+                    EMAIL --> BE : email sent
+                deactivate EMAIL
+            
+                BE --> FE : email sent
+            deactivate BE
+               
+            FE --> USER : shows email success
+        deactivate FE
+        
+      
+    USER -> FE: provides new password
+    activate FE
+     
+     alt password meets the rules
+    FE -> BE : update password
+    activate BE
+    
+    BE -> FIREBASE : update password
+    activate FIREBASE
+    
+    FIREBASE --> BE:  success: password updated
+    deactivate FIREBASE
+    
+    BE --> FE: success: password updated
+    deactivate BE
+    
+    FE --> USER: shows success: password updated
+    
+    
+    else password not meets the rules
+           
+    FE --> USER: requests other password
+    deactivate FE
+    
+    end
+    end
+            
+deactivate USER
+
+@enduml
