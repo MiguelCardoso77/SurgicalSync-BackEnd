@@ -175,15 +175,15 @@ namespace DDDNetCore.Infraestructure
                 new(new LicenseNumber("N202400001"), new StaffName("Tomás Gonçalves"),
                     new StaffEmail("1220917@isep.ipp.pt"), new StaffPhoneNumber("962754971"),
                     StaffSpecialization.Family_medicine,
-                    new List<StaffAvaiabilitySlots>(),
-                         StaffType.Nurse
+                    new List<StaffAvaiabilitySlots>()
+                    //, StaffType.Nurse
                     ),
                     
                 new(new LicenseNumber("N202400002"), new StaffName("José Mesquita"),
                     new StaffEmail("josemesquita@gmail.com"), new StaffPhoneNumber("962749671"),
                     StaffSpecialization.Family_medicine,
-                    new List<StaffAvaiabilitySlots>(),
-                         StaffType.Doctor 
+                    new List<StaffAvaiabilitySlots>()
+                    //,StaffType.Doctor 
                     )
             };  
             

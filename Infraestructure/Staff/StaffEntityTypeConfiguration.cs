@@ -40,9 +40,9 @@ namespace DDDNetCore.Infraestructure.Staff
                     .HasColumnName("StaffAvaiabilitySlots");
             });
             
-            builder.Property(b => b.StaffType)
+            /*builder.Property(b => b.StaffType)
                 .HasColumnName("StaffType")
-                .HasConversion<string>();
+                .HasConversion<string>();*/
 
 
 

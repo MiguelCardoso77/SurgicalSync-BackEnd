@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore.Infrastructure;
+/*using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DDDNetCore.Domain.Staffs
 {
@@ -8,4 +8,4 @@ namespace DDDNetCore.Domain.Staffs
         Nurse,    
         Other    
     }
-}
+}*/

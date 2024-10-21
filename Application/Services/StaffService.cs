@@ -35,7 +35,7 @@ namespace DDDNetCore.Application.Services
                 StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
                 StaffSpecialization = staff.StaffSpecialization.ToString(),
                 StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                StaffType = staff.StaffType.ToString()
+                //StaffType = staff.StaffType.ToString()
             });
 
             return listDto;
@@ -71,7 +71,7 @@ namespace DDDNetCore.Application.Services
                 StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
                 StaffSpecialization = staff.StaffSpecialization.ToString(),
                 StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                StaffType = staff.StaffType.ToString()
+                //StaffType = staff.StaffType.ToString()
             };
         }
         
@@ -96,7 +96,7 @@ namespace DDDNetCore.Application.Services
                 StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
                 StaffSpecialization = staff.StaffSpecialization.ToString(),
                 StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                StaffType = staff.StaffType.ToString()
+                //StaffType = staff.StaffType.ToString()
             };
         }
 
@@ -142,7 +142,7 @@ namespace DDDNetCore.Application.Services
                 StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
                 StaffSpecialization = staff.StaffSpecialization.ToString(),
                 StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                StaffType = staff.StaffType.ToString()
+                //StaffType = staff.StaffType.ToString()
             };
             
             
@@ -157,7 +157,7 @@ namespace DDDNetCore.Application.Services
                 ? new LicenseNumber(Guid.NewGuid().ToString())
                 : new LicenseNumber(dto.Id);
             
-            var staff = StaffMapper.ToDomain(dto, licenseNumber , avaiabilitySlotsList);
+            var staff = new StaffMapper().ToDomain(dto, licenseNumber , avaiabilitySlotsList);
 
             await this._repo.AddAsync(staff);
             await this._unitOfWork.CommitAsync();
@@ -170,7 +170,7 @@ namespace DDDNetCore.Application.Services
                 StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
                 StaffSpecialization = staff.StaffSpecialization.ToString(),
                 StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                StaffType = staff.StaffType.ToString()
+                //StaffType = staff.StaffType.ToString()
             };
         }
 

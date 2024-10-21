@@ -5,7 +5,7 @@ namespace DDDNetCore.Domain.Staffs
 {
     public class Staff : Entity<LicenseNumber>, IAggregateRoot
     {
-        public StaffType StaffType{ get; private set; }
+        //public StaffType StaffType{ get; private set; }
         public LicenseNumber Id { get; private set; }
         public StaffName StaffName { get; private set; }
         public StaffEmail StaffEmail { get; private set; }
@@ -21,10 +21,10 @@ namespace DDDNetCore.Domain.Staffs
             this.StaffPhoneNumber = null;
             this.StaffSpecialization = StaffSpecialization.None;
             this.StaffAvaiabilitySlots = null;
-            this.StaffType = StaffType.Other;
+            //this.StaffType = StaffType.Other;
         }
         public Staff(LicenseNumber id ,StaffName staffName, StaffEmail staffEmail, StaffPhoneNumber staffPhoneNumber,
-            StaffSpecialization staffSpecialization, List<StaffAvaiabilitySlots > staffAvaiabilitySlots, StaffType staffType)
+            StaffSpecialization staffSpecialization, List<StaffAvaiabilitySlots > staffAvaiabilitySlots)
         {
             this.Id = id;
             this.StaffName = staffName;
@@ -33,7 +33,7 @@ namespace DDDNetCore.Domain.Staffs
             this.StaffSpecialization = staffSpecialization;
             this.StaffAvaiabilitySlots = staffAvaiabilitySlots;
             this.IsActive = true;
-            this.StaffType = staffType;
+            //this.StaffType = staffType;
         }
         
         public void ChangeStaffSpecialization(StaffSpecialization specialization)

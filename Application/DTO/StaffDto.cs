@@ -11,6 +11,6 @@ namespace DDDNetCore.Application.DTO
         public string StaffPhoneNumber { get;  set; }
         public string StaffSpecialization { get;  set; }
         public List<string> StaffAvaiabilitySlots { get;  set; }
-        public string StaffType { get;  set; }
+        //public string StaffType { get;  set; }
     }
 }
