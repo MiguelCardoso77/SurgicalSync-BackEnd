@@ -1,16 +1,22 @@
-# Add a staff to hospital's roster
+# Edit a staff profile
 
 ## 1. Use Case Description
 
-As an Admin, I want to create a new staff profile, so that I can add them to the hospital’s roster.
+As an Admin, I want to search a staff’s profile.
 
 ## 2. Customer Specifications and Clarifications
 
-Each staff can only pretence in one hospital's roster.
+
+The client has outlined that the Admin Role should possess the functionality to search a staff profile.
+
 
 ## 3. Diagrams
 
 ### Level 1
+
+- Logical View
+
+![logical-view.png](/Wiki/SprintA/diagrams/views/level1/logical-view/logical-view.png)
 
 ###
 - Process View
@@ -19,6 +25,10 @@ Each staff can only pretence in one hospital's roster.
 
 ### Level 2
 
+- Logical View
+
+![logical-view.svg](/Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
+
 ###
 - Process View
 
@@ -26,6 +36,10 @@ Each staff can only pretence in one hospital's roster.
 
 ### Level 3
 
+#### Logical Views
+
+- BackEnd Logical View
+  ![backend-logical-view.svg](/Wiki/SprintA/diagrams/views/level3/backend/logical-view/logical-view.png)
 
 #### Process Views
 
@@ -42,18 +56,19 @@ Each staff can only pretence in one hospital's roster.
 
 To successfully complete this user story, the following criteria must be met:
 
-    - Admins can input staff details such as name, contact information, and specialization.
-    - A unique staff ID (License Number) is generated upon profile creation.
-    - The system ensures that the staff’s email and phone number are unique.
-    - The profile is stored securely, and access is based on role-based permissions.
+    - Admins can search staff profiles by attributes such as name, email, or specialization.
+    - The system displays search results in a list view with key staff information (name, email,
+    specialization).
+    - Admins can select a profile from the list to view, edit, or deactivate.
+    - The search results are paginated, and filters are available for refining the search results.
 
 ## 5. Dependencies
 
 This user story relies on the following API functionalities:
 
--   To add a staff to hospital's roster:
+-   To search a staff profile:
     ```
-    PUT /staff
+    GET /staff
     ```
 
 ## 6. Definition of Ready (DoR)
@@ -62,7 +77,7 @@ This user story relies on the following API functionalities:
 
 The user story is deemed ready when the requirements are clearly outlined, providing a comprehensive
 understanding of the functionality to be implemented. Specifically, the Administrator role is expected to
-possess the capability to add a staff profile to a hospital's roster.
+possess the capability to edit a staff profile, updating details such as their availability slots and specialization.
 
 ### 6.2 Acceptance Criteria
 
@@ -72,7 +87,7 @@ defined. These criteria serve as the benchmark for determining the successful co
 ### 6.3 Dependencies and Resources
 
 The user story is considered ready when all dependencies and resources required for its implementation
-are identified. This includes the API functionalities necessary for the addition to hospital's roster.
+are identified. This includes the API functionalities necessary for the search of  a staff profile.
 
 ### 6.4 Estimation and Sizing
 
