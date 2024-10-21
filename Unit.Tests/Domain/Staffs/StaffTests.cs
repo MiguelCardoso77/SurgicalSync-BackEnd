@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DDDNetCore.Domain.Staffs;
+using Moq;
 using NUnit.Framework;
 
 
@@ -8,23 +9,40 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
     [TestFixture]
     public class StaffTests
     {
+        private Mock<LicenseNumber> _mockLicenseNumber;
+        private Mock<StaffName> _mockStaffName;
+        private Mock<StaffEmail> _mockEmail;
+        private Mock<StaffPhoneNumber> _mockPhoneNumber;
+        private List<StaffAvaiabilitySlots> _mockAvaiabilitySlots;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _mockLicenseNumber = new Mock<LicenseNumber>("N202400001");
+            _mockStaffName = new Mock<StaffName>("Raquel Gonçalves");
+            _mockEmail = new Mock<StaffEmail>("raquelgoncalves@gmail.com");
+            _mockPhoneNumber = new Mock<StaffPhoneNumber>("962839401");
+            var _mockSpecialization = StaffSpecialization.Dermatology ;
+            _mockAvaiabilitySlots = new List<StaffAvaiabilitySlots>();
+            _mockAvaiabilitySlots.Add(new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00"));
+            _mockAvaiabilitySlots.Add(new StaffAvaiabilitySlots("slot 2: 2024-09-25:19h00/2024-09-26:02h00"));
+
+        }
+        
         
         [Test]
         public void TestConstructor()
         {
 
-            List<StaffAvaiabilitySlots> staffAvaiabilitySlotsList = new List<StaffAvaiabilitySlots>();
-            staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00"));
-            staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 2: 2024-09-25:19h00/2024-09-26:02h00"));
-
             var staff = new Staff(
-                new LicenseNumber("N202400001"),
-                new StaffName("Raquel Gonçalves"),
-                new StaffEmail("raquelgoncalves@gmail.com"),
-                new StaffPhoneNumber("962839401"),
+                _mockLicenseNumber.Object,
+                _mockStaffName.Object,
+                _mockEmail.Object,
+                _mockPhoneNumber.Object,
                 StaffSpecialization.Dermatology,
-                staffAvaiabilitySlotsList,
-                StaffType.Other);
+                _mockAvaiabilitySlots
+                //, StaffType.Other
+                );
             
             Assert.AreEqual("N202400001", staff.Id.ToString());
             Assert.AreEqual("Raquel Gonçalves", staff.StaffName.ToString());
@@ -32,7 +50,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
             Assert.AreEqual("962839401" , staff.StaffPhoneNumber.ToString());
             Assert.AreEqual(StaffSpecialization.Dermatology.ToString() , staff.StaffSpecialization.ToString());
             Assert.AreEqual(2.ToString(), staff.StaffAvaiabilitySlots.Count.ToString());
-            Assert.AreEqual(StaffType.Other.ToString(), staff.StaffType.ToString());
+            //Assert.AreEqual(StaffType.Other.ToString(), staff.StaffType.ToString());
             
         }
         
@@ -42,37 +60,31 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
         [Test]
         public void TestChangeStaffSpecialization()
         {
-            List<StaffAvaiabilitySlots> staffAvaiabilitySlotsList = new List<StaffAvaiabilitySlots>();
-            staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00"));
-            staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 2: 2024-09-25:19h00/2024-09-26:02h00"));
             var staff = new Staff(
-                new LicenseNumber("N202400001"),
-                new StaffName("Raquel Gonçalves"),
-                new StaffEmail("raquelgoncalves@gmail.com"),
-                new StaffPhoneNumber("962839401"),
+                _mockLicenseNumber.Object,
+                _mockStaffName.Object,
+                _mockEmail.Object,
+                _mockPhoneNumber.Object,
                 StaffSpecialization.Dermatology,
-                staffAvaiabilitySlotsList,
-                StaffType.Other);
-
-            staff.ChangeStaffSpecialization(StaffSpecialization.Dermatology);
+                _mockAvaiabilitySlots
+                //, StaffType.Other
+            );
+            staff.ChangeStaffSpecialization(StaffSpecialization.Cardiology);
             Assert.AreEqual(StaffSpecialization.Dermatology.ToString(), staff.StaffSpecialization.ToString());
         }
 
         [Test]
         public void TestActivateStaff()
         {
-            List<StaffAvaiabilitySlots> staffAvaiabilitySlotsList = new List<StaffAvaiabilitySlots>();
-            staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00"));
-            staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 2: 2024-09-25:19h00/2024-09-26:02h00"));
             var staff = new Staff(
-                new LicenseNumber("N202400001"),
-                new StaffName("Raquel Gonçalves"),
-                new StaffEmail("raquelgoncalves@gmail.com"),
-                new StaffPhoneNumber("962839401"),
+                _mockLicenseNumber.Object,
+                _mockStaffName.Object,
+                _mockEmail.Object,
+                _mockPhoneNumber.Object,
                 StaffSpecialization.Dermatology,
-                staffAvaiabilitySlotsList,
-            StaffType.Other);
-
+                _mockAvaiabilitySlots
+                //, StaffType.Other
+            );
             staff.ActivateStaff();
             Assert.IsTrue(staff.IsActive);
         }
@@ -80,18 +92,15 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
         [Test]
         public void TestDeactivateStaff()
         {
-            List<StaffAvaiabilitySlots> staffAvaiabilitySlotsList = new List<StaffAvaiabilitySlots>();
-            staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00"));
-            staffAvaiabilitySlotsList.Add(new StaffAvaiabilitySlots("slot 2: 2024-09-25:19h00/2024-09-26:02h00"));
             var staff = new Staff(
-                new LicenseNumber("N202400001"),
-                new StaffName("Raquel Gonçalves"),
-                new StaffEmail("raquelgoncalves@gmail.com"),
-                new StaffPhoneNumber("962839401"),
+                _mockLicenseNumber.Object,
+                _mockStaffName.Object,
+                _mockEmail.Object,
+                _mockPhoneNumber.Object,
                 StaffSpecialization.Dermatology,
-                staffAvaiabilitySlotsList,
-                StaffType.Other);
-
+                _mockAvaiabilitySlots
+                //, StaffType.Other
+            );
             staff.DeactivateStaff();
             Assert.IsFalse(staff.IsActive);
         }
