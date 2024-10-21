@@ -9,7 +9,7 @@ activate USER
     USER -> SYSTEM: wants to create a new staff profile
     activate SYSTEM
 
-        SYSTEM --> USER : requests data ( name, email , phone number , specialization )
+        SYSTEM --> USER : requests data ( name, email , phone number , specialization , avaiabilitySlots)
     deactivate SYSTEM
         
     USER -> SYSTEM : provides data

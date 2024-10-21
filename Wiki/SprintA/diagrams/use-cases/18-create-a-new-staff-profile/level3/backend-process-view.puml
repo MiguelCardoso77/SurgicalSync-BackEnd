@@ -17,12 +17,26 @@ activate FE
     activate CN
     
         CN -> SV : Create(StaffProfileDTO)
-        activate SV
-        
-            SV -> DTO : Create(StaffProfileDTO)
-            activate DTO
+            activate SV
+            
+    SV -> REPO : listOfUserData()
+                activate REPO 
+                
+                    REPO -> SQL : GET /Users
+                    activate SQL
+                    
+                        SQL --> REPO: returns listOfUserData
+                    deactivate SQL
+                    
+                    REPO --> SV: returns listOfUserData
+                deactivate REPO
+            
+            SV -> SV : verifyData (email,phoneNumber)
             
 alt Staff Profile data is valid
+
+ SV -> DTO : Create(StaffProfileDTO)
+            activate DTO
             
                 DTO --> SV : returns StaffProfileDTO
             deactivate DTO
