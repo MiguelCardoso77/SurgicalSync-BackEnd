@@ -44,7 +44,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
                 //, StaffType.Other
                 );
             
-            Assert.AreEqual("N202400001", staff.Id.ToString());
+            Assert.AreEqual("N202400001", staff.Id);
             Assert.AreEqual("Raquel Gonçalves", staff.StaffName.ToString());
             Assert.AreEqual("raquelgoncalves@gmail.com" , staff.StaffEmail.ToString());
             Assert.AreEqual("962839401" , staff.StaffPhoneNumber.ToString());
@@ -70,7 +70,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
                 //, StaffType.Other
             );
             staff.ChangeStaffSpecialization(StaffSpecialization.Cardiology);
-            Assert.AreEqual(StaffSpecialization.Dermatology.ToString(), staff.StaffSpecialization.ToString());
+            Assert.AreEqual(StaffSpecialization.Cardiology.ToString(), staff.StaffSpecialization.ToString());
         }
 
         [Test]
