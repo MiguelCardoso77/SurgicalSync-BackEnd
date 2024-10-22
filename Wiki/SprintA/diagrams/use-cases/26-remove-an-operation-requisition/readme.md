@@ -1,4 +1,4 @@
-﻿# UC27 - Remove an operation request
+﻿# UC26 - Remove an operation request
 
 -----------------------------------------------------------------------
 

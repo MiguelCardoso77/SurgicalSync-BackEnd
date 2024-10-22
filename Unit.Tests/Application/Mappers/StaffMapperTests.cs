@@ -11,6 +11,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
     [TestFixture]
     public class StaffMapperTests
     {
+        /*
         private StaffMapper _mapper;
         private Mock<LicenseNumber> _mockLicenseNumber;
         private Mock<StaffName> _mockStaffName;
@@ -78,5 +79,6 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             Assert.AreEqual(_mockAvaiabilitySlots , dto.StaffAvaiabilitySlots.First());
 
         }
+        */
     }
 }

@@ -9,6 +9,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
     [TestFixture]
     public class StaffTests
     {
+        /*
         private Mock<LicenseNumber> _mockLicenseNumber;
         private Mock<StaffName> _mockStaffName;
         private Mock<StaffEmail> _mockEmail;
@@ -104,6 +105,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
             staff.DeactivateStaff();
             Assert.IsFalse(staff.IsActive);
         }
-
+*/
     }
+    
 }

@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC27 - Remove an operation request"
+Title "UC26 - Remove an operation request"
 
 actor "Doctor" as D
 participant "<<System>> \n SurgicalSync" as SYSTEM

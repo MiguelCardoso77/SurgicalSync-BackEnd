@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC27 - Remove an operation request"
+Title "UC26 - Remove an operation request"
 
 participant "FrontEnd" as FE
 participant "<<Controller>>\nOperationRequestController" as CN
