@@ -13,6 +13,7 @@ namespace DDDNetCore.Domain.Staffs
         public StaffSpecialization StaffSpecialization { get; private set; }
         public List<StaffAvaiabilitySlots> StaffAvaiabilitySlots { get; private set; }
         public bool IsActive { get; set; }
+        public StaffType StaffType { get; private set; }
         private Staff()
         {
             this.Id = null;
@@ -21,10 +22,10 @@ namespace DDDNetCore.Domain.Staffs
             this.StaffPhoneNumber = null;
             this.StaffSpecialization = StaffSpecialization.None;
             this.StaffAvaiabilitySlots = null;
-            //this.StaffType = StaffType.Other;
+            this.StaffType = StaffType.Other;
         }
         public Staff(LicenseNumber id ,StaffName staffName, StaffEmail staffEmail, StaffPhoneNumber staffPhoneNumber,
-            StaffSpecialization staffSpecialization, List<StaffAvaiabilitySlots > staffAvaiabilitySlots)
+            StaffSpecialization staffSpecialization, List<StaffAvaiabilitySlots > staffAvaiabilitySlots, StaffType staffType)
         {
             this.Id = id;
             this.StaffName = staffName;
@@ -33,7 +34,7 @@ namespace DDDNetCore.Domain.Staffs
             this.StaffSpecialization = staffSpecialization;
             this.StaffAvaiabilitySlots = staffAvaiabilitySlots;
             this.IsActive = true;
-            //this.StaffType = staffType;
+            this.StaffType = staffType;
         }
         
         public void ChangeStaffSpecialization(StaffSpecialization specialization)

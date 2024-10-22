@@ -16,7 +16,7 @@ namespace DDDNetCore.Application.Mappers
                 new StaffPhoneNumber(dto.StaffPhoneNumber.ToString()),
                 Enum.Parse<StaffSpecialization>(dto.StaffSpecialization),
                 staffAvaiabilitySlotsList
-                //,Enum.Parse<StaffType>(dto.StaffType)
+                ,Enum.Parse<StaffType>(dto.StaffType)
                 );
         }
 

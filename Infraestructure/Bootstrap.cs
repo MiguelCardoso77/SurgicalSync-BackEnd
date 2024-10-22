@@ -174,14 +174,14 @@ namespace DDDNetCore.Infraestructure
                     new StaffEmail("1220917@isep.ipp.pt"), new StaffPhoneNumber("962754971"),
                     StaffSpecialization.Family_medicine,
                     new List<StaffAvaiabilitySlots>()
-                    //, StaffType.Nurse
+                    , StaffType.Nurse
                     ),
                     
                 new(new LicenseNumber("N202400002"), new StaffName("José Mesquita"),
                     new StaffEmail("josemesquita@gmail.com"), new StaffPhoneNumber("962749671"),
                     StaffSpecialization.Family_medicine,
                     new List<StaffAvaiabilitySlots>()
-                    //,StaffType.Doctor 
+                    ,StaffType.Doctor
                     )
             };
 
