@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.OperationRequests;
+using DDDNetCore.Domain.Patients;
 using DDDSample1.Domain.Shared;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,9 +23,36 @@ namespace DDDNetCore.Controllers
         
         // GET: api/OperationRequests
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OperationRequestDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<OperationRequestDto>>> GetAll(
+            [FromQuery] string operationTypeId = null, [FromQuery] string medicalRecordNumber = null,
+            [FromQuery] string startDate = null, [FromQuery] string endDate = null, [FromQuery] bool? isActive = null)
         {
-            return await _service.GetAllAsync();
+            if (!string.IsNullOrEmpty(operationTypeId))
+            {
+                var result = await _service.GetAllByOperationType(operationTypeId);
+                return Ok(result);
+            }
+
+            if (!string.IsNullOrEmpty(medicalRecordNumber))
+            {
+                var result = await _service.GetAllByMedicalRecordNumber(medicalRecordNumber);
+                return Ok(result);
+            }
+
+            if (isActive.HasValue)
+            {
+                var result = await _service.GetAllByStatus(isActive.Value);
+                return Ok(result);
+            }
+
+            if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
+            {
+                var result = await _service.GetAllInsideDataRange(startDate, endDate);
+                return Ok(result);
+            }
+
+            var allRequests = await _service.GetAllAsync();
+            return Ok(allRequests);
         }
         
         // GET: api/OperationRequests/OR1
@@ -58,43 +86,31 @@ namespace DDDNetCore.Controllers
             {
                 return BadRequest();
             }
+            
+            var or = await _service.UpdateAsync(dto);
 
-            try
+            if (or == null)
             {
-                var or = await _service.UpdateAsync(dto);
-
-                if (or == null)
-                {
-                    return NotFound();
-                }
-
-                return or;
+                return NotFound();
             }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+
+            return or;
         }
         
         // DELETE: api/OperationRequests/OR5
         [HttpDelete("{id}")]
         public async Task<ActionResult<OperationRequestDto>> Delete(String id)
         {
-            try
-            {
-                var or = await _service.InactivateAsync(new OperationRequestId(id));
+            Console.WriteLine("Do you really wish to erase this operation request from the system?");
+            
+            var oR = await _service.InactivateAsync(new OperationRequestId(id));
 
-                if (or == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(or);
-            }
-            catch (BusinessRuleValidationException ex)
+            if (oR == null)
             {
-                return BadRequest(ex.Message);
+                return NotFound();
             }
+
+            return Ok(oR);
         }
     }
 }
