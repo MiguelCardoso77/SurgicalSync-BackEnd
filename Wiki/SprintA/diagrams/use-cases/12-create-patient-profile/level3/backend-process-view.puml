@@ -13,7 +13,8 @@ participant "Repositories" as REPO
 database "SQL Database" as SQL
 
 activate FE
-    FE -> CN: POST /api/Patients (with given data)
+
+    FE -> CN: POST /Patients (with given data)
     activate CN
         
         CN -> SV : Create(PatientDTO)

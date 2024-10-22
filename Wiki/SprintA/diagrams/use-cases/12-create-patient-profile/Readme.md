@@ -31,7 +31,7 @@ Attributes are :
 
 - Logical View
 
-![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level1/logical-view/logical-view.svg)
+![logical-view.svg](/Wiki/SprintA/diagrams/views/level1/logical-view/logical-view.png)
 ###
 - Process View
 
@@ -41,23 +41,13 @@ Attributes are :
 
 - Logical View
 
-![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
+![logical-view.svg](/Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
 ###
 - Process View
 
 ![process-view.svg](./level2/process-view.svg)
 
 ### Level 3
-
-#### Logical Views
-
--   [MDR Logical View](../general-purpose/level3/mdr-logical-view.svg)
--   [UI Logical View](../general-purpose/level3/ui-logical-view.svg)
-
-#### Implementation Views
-
--   [MDR Implementation View](./level3/mdr-implementation-view.svg)
--   [UI Implementation View](../general-purpose/level3/ui-implementation-view.svg)
 
 #### Process Views
 
@@ -68,7 +58,7 @@ Attributes are :
 ###
 - Class Diagram View
 
-![class-diagram-view.svg](./class-diagram.svg)
+![class-diagram-view.svg](./class-diagram-view.svg)
 
 ## 4. Acceptance Criteria and Tests
 
