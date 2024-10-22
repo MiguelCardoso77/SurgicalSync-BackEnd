@@ -56,7 +56,7 @@ activate FE
             SV -> REPO : UpdateAsync(PatientDTO)
             activate REPO
             
-                REPO -> SQL : PUT /Patients (Patient)
+                REPO -> SQL : PUT /Patients/id (Patient)
                 activate SQL
                     
                     SQL --> REPO : success : updated patient (returns patient ID)
