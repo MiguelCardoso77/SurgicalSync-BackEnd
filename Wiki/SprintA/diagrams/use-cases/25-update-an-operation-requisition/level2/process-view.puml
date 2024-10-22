@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC26 - Update an Operation Request"
+Title "UC25 - Update an Operation Request"
 
 actor "Doctor" as D 
 
