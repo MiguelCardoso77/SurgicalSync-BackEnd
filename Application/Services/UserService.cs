@@ -75,17 +75,15 @@ namespace DDDNetCore.Application.Services
             
             // change all fields
             user.ChangeUserName(new Username(dto.UserName));
+            user.ChangeUserEmail(new UserEmail(dto.UserEmail));
             
-            if (!emailUser.Equals(dto.UserEmail))
-            {
-                user.ChangeUserEmail(new UserEmail(dto.UserEmail));
-                var smtpEmailService = new EmailService();
-                var emailContent = $"Hello {user.Username}! \n Your  contact information was changed. Now it is : email : {emailUser}";
-                var email = new Email(emailContent, user.UserEmail.ToString(), "Changes On Your Contact Information");
-                await smtpEmailService.SendEmailAsync(email);
-                Console.WriteLine($"Successfully sent the email to {email.Destination}");
+            var smtpEmailService = new EmailService();
+            var emailContent = $"Hello {user.Username}! \n Your  contact information was changed. Now it is : email : {emailUser}";
+            var email = new Email(emailContent, user.UserEmail.ToString(), "Changes On Your Contact Information");
+            await smtpEmailService.SendEmailAsync(email);
+            Console.WriteLine($"Successfully sent the email to {email.Destination}");
 
-            }
+            
             
             await this._unitOfWork.CommitAsync();
             

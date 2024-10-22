@@ -168,8 +168,6 @@ namespace DDDNetCore.Infraestructure
                 )
             };
 
-            
-
             var staffs = new List<Domain.Staffs.Staff>
             {
                 new(new LicenseNumber("N202400001"), new StaffName("Tomás Gonçalves"),
@@ -185,11 +183,19 @@ namespace DDDNetCore.Infraestructure
                     new List<StaffAvaiabilitySlots>()
                     //,StaffType.Doctor 
                     )
-            };  
+            };
+
+            var users = new List<User>
+            {
+                new(new UserId("1"), new Username("Diana"), new UserEmail("1221194@isep.ipp.pt"), UserRole.Patient),
+                new(new UserId("2"), new Username("Miguel"), new UserEmail("1220772@isep.ipp.pt"), UserRole.Admin),
+                new(new UserId("3"), new Username("Diogo"), new UserEmail("1220812@isep.ipp.pt"), UserRole.Doctor)
+            };
             
             context.Patients.AddRange(patients);
             context.OperationTypes.AddRange(operationTypes);
             context.Staffs.AddRange(staffs);
+            context.Users.AddRange(users);
             context.SaveChanges();
         }
     }
