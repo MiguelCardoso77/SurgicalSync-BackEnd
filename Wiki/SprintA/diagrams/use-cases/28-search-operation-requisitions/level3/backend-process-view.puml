@@ -1,0 +1,66 @@
+﻿@startuml
+autonumber
+
+title "UC28 - Search for an operation request"
+
+participant "FrontEnd" as FE
+participant "<<Controller>>\nOperationRequestController" as C
+participant "<<Application>>\nOperationRequestService" as S
+participant "<<Mappers>>\nOperationRequestMapper" as M
+participant "<<DTO>>\nOperationRequestDTO" as DTO
+participant "<<Repositories>>\nOperationRequestRepository" as R
+database "SQL Database" as SQL
+
+activate FE
+
+FE -> C : GET /operationRequest{id}
+
+activate C
+
+    C -> S : GetByIdAsync(id)
+    
+    activate S
+    
+    S -> R : GetByIdAsync(id)
+    
+    activate R
+    
+    R -> SQL : SELECT * FROM operationRequests WHERE ID = id
+    
+    activate SQL
+    
+    SQL --> R : required operation request
+    
+    deactivate SQL 
+    
+    R --> S : required operation request
+    
+    deactivate R
+    
+    S -> M : ToDTO(OperationRequest)
+    
+    activate M
+    
+    M -> DTO : Create(OperationRequest(operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber))
+    
+    activate DTO
+    
+    DTO --> M : OperationRequestDTO
+    
+    deactivate DTO 
+    
+    M --> S : OperationRequestDTO
+    
+    deactivate M
+    
+    S --> C : OperationRequestDTO
+    
+    deactivate S
+    
+    C --> FE : OperationRequestDTO
+    
+deactivate C
+
+deactivate FE 
+
+@enduml
