@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC25 - Request an operation"
+Title "UC24 - Request an operation"
 
 participant "FrontEnd" as FE
 participant "<<Controller>>\nOperationRequestController" as CN
