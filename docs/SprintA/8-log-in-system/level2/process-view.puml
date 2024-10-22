@@ -1,0 +1,38 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate USER
+
+    USER -> FE: wants to log in system
+    activate FE
+
+        FE --> USER : requests data (email, password)
+    deactivate FE
+        
+    USER -> FE : provides data
+    activate FE
+    
+        FE -> BE : POST /Authentication (with given data)
+        activate BE
+        
+           alt tried more than 5 times       
+               BE -> EMAIL : send email notification
+               activate EMAIL
+               
+                   EMAIL --> BE : email sent
+               deactivate EMAIL
+           end            
+            BE --> FE : success : logged in system
+        deactivate BE
+        
+            USER <-- FE : success: logged in system
+    deactivate FE
+       
+deactivate USER
+
+@enduml
