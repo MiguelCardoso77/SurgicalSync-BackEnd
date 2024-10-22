@@ -1,0 +1,122 @@
+﻿@startuml
+
+title Class Diagram
+
+class Patient {
+    - Patient Name
+    - Birth Date
+    - Gender
+    - Medical Record Number
+    - Phone Number
+    - Medical Conditions
+    - Emergency Contact
+    - Appointment History
+    - Email
+    + Patient(PatientName patientName, BirthDate birthDate, Gender gender, MedicalRecordNumber medicalRecordNumber, 
+        PhoneNumber phoneNumber, List<MedicalConditions> medicalConditions, 
+        EmergencyContact emergencyContact, List<AppointmentHistory> appointmentHistory, UserEmail email)
+}
+
+class PatientDTO {
+    - Patient Name
+    - Birth Date
+    - Gender
+    - Medical Record Number
+    - Phone Number
+    - Medical Conditions
+    - Emergency Contact
+    - Appointment History
+}
+
+class PatientsController {
+    + GetAll()
+    + GetById(String id)
+    + Create(PatientDto dto)
+    + Update(String id, PatientDto dto)
+    + Delete(String id)
+}
+
+class MedicalRecordNumber {
+    + MedicalRecordNumber(string value)
+}
+
+class PatientName {
+    + PatientName(string patientName)
+}
+
+class BirthDate {
+    + BirthDate(string birthDate)
+}
+
+class PhoneNumber {
+    + PhoneNumber(string phoneNumber)
+}
+
+class MedicalConditions {
+    + MedicalConditions(string medicalConditions)
+}
+
+class EmergencyContact {
+    + EmergencyContact(string emergencyContact)
+}
+
+class Gender {
+    + Gender(string gender)
+}
+
+class AppointmentHistory {
+    + AppointmentHistory(string appointmentHistory)
+}
+
+class UserEmail {
+    + UserEmail(string email)
+}
+
+class PatientService {
+    + GetAllAsync()
+    + GetByIdAsync(PatientId id)
+    + AddAsync(PatientDto dto)
+    + UpdateAsync(PatientDto dto)
+    + InactivateAsync(PatientId id)
+    + DeleteAsync(PatientId id)
+}
+
+interface IPatientRepository {
+}
+
+interface PatientRepository {
+}
+
+class BaseRepository {
+    ====
+    Classe do projeto base
+    ====
+}
+
+class PatientMapper {
+    + ToDomain(PatientDto dto, MedicalRecordNumber)
+    + ToDto(Patient patient)
+}
+
+PatientsController -> PatientService
+PatientService --> PatientMapper : uses
+PatientService -> PatientDTO : creates
+
+PatientMapper <-- PatientDTO : enters
+PatientMapper --> Patient : creates
+
+Patient --> MedicalRecordNumber : has a
+Patient --> PatientName : has a
+Patient --> PhoneNumber : has a
+Patient --> EmergencyContact : has a
+Patient --> BirthDate : has a
+Patient --> Gender : has a
+Patient --> UserEmail : has a
+Patient --> MedicalConditions : has multiple
+Patient --> AppointmentHistory : has multiple
+
+PatientService --> PatientRepository
+PatientRepository --|> BaseRepository
+PatientRepository -|> IPatientRepository
+
+@enduml
