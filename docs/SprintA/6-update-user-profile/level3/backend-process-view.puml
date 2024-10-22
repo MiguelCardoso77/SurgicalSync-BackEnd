@@ -1,0 +1,68 @@
+﻿@startuml
+autonumber
+
+title BackEnd Process View
+
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "DTOs" as DTO
+participant "Mappers" as MP
+participant "Domain" as DM
+participant "Repositories" as REPO
+participant "SMTP API" as EMAIL
+database "SQL Database" as SQL
+
+
+activate FE
+    
+    FE -> CN: PUT /users/id (with given data)
+    activate CN
+        
+        CN -> SV : Create(UserDTO)
+        activate SV
+                
+            SV -> DTO : Create(UserDTO)
+            activate DTO
+    
+                DTO --> SV : returns UserDTO
+            deactivate DTO
+            
+            SV -> MP : ToDomain(UserDTO)
+            activate MP
+                
+                MP -> DM : Create(User)
+                activate DM
+                
+                    DM --> MP : returns User
+                deactivate DM
+                
+                MP --> SV : returns User
+            deactivate MP
+            
+            SV -> REPO : UpdateAsync(UserDTO)
+            activate REPO
+            
+                REPO -> SQL : PUT /users/id (User)
+                activate SQL
+                    
+                    SQL --> REPO : success : updated User (returns User ID)
+                deactivate SQL
+                
+                REPO --> SV : success : updated User (returns User ID)
+            deactivate REPO            
+            
+            SV -> EMAIL : send email notification
+            activate EMAIL
+            
+                EMAIL --> SV : email sent
+            deactivate EMAIL
+            
+            SV --> CN : success: User profile updated (returns User ID)
+        deactivate SV
+        
+        CN --> FE : success: edited User profile
+    deactivate CN
+deactivate FE                
+    
+@enduml
