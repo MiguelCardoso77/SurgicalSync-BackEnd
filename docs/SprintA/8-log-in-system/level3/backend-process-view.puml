@@ -1,0 +1,52 @@
+﻿@startuml
+autonumber
+
+title BackEnd Process View
+
+participant "FrontEnd" as FE
+participant "Controllers" as CN
+participant "Services" as SV
+participant "Firebase IAM API" as IAM
+participant "SMTP API" as EMAIL
+
+activate FE
+    
+    FE -> CN: PUT /Authentication (with given data)
+    activate CN
+        
+        CN -> SV : LoginWithEmailPassword(LoginDto)
+        activate SV
+                
+            SV -> IAM : LoginWithEmailPasswordAsync(LoginDto)
+            activate IAM
+            
+    alt success log in
+    
+                IAM --> SV : returns success login response
+            
+            SV --> CN : success: logged in
+        
+        CN --> FE : success: logged in 
+        
+    else error in log in
+                IAM --> SV : returns error login response
+                deactivate IAM
+                
+    alt tried more than 5 times       
+            SV -> EMAIL : send email notification
+            activate EMAIL
+            
+                EMAIL --> SV : email sent
+            deactivate EMAIL
+    end       
+    
+            SV --> CN : error: could not log in system
+        deactivate SV
+        
+        CN --> FE : error: could not log in system
+        
+    end
+    deactivate CN
+deactivate FE                
+    
+@enduml
