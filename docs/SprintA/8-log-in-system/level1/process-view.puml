@@ -1,0 +1,28 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+participant "<<System>>\n SurgicalSync" as SYSTEM
+
+activate USER
+
+    USER -> SYSTEM: wants to log in system
+    activate SYSTEM
+
+        SYSTEM --> USER : requests data (email, password)
+    deactivate SYSTEM
+        
+    USER -> SYSTEM : provides data
+    activate SYSTEM
+    
+            SYSTEM -> EMAIL : sends email notification
+            activate EMAIL
+            
+                EMAIL --> SYSTEM : email sent
+            deactivate EMAIL
+            
+            USER <-- SYSTEM : success: logged in system
+    deactivate SYSTEM
+    
+deactivate USER
+@enduml
