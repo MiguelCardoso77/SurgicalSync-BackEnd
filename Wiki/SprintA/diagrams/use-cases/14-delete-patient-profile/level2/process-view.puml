@@ -23,26 +23,23 @@ activate USER
     USER -> FE : selects patient profile
     activate FE
     
-alt Couldn't Find Patient Profile
-        FE --> USER : informs error with suggestion
-        
-        FE -> BE : INACTIVATE /Patients/id
-        activate BE
-        
-            BE --> FE : error : couldn't find patient profile
-        deactivate BE
-        
-else Patient Deleted Successfully
         FE --> USER : requests confirmation
         deactivate FE
         
-        USER -> FE :  confirms deletion
-        activate FE
+    USER -> FE : confirms deletion
+    activate FE
         
-        FE -> BE : INACTIVATE /Patients/id
+        FE -> BE : DELETE /Patients/id
         activate BE
         
+alt Couldn't Find Patient Profile           
             BE --> FE : error : couldn't find patient profile
+            
+        FE --> USER : informs error with suggestion
+        
+else Patient Deleted Successfully
+        
+            BE --> FE : success: patient profile deleted
         deactivate BE
                 
         FE --> USER : success: patient profile deleted

@@ -28,13 +28,13 @@ activate FE
         CN --> FE : returns List<PatientDTO>
     deactivate CN
     
-    FE -> CN : INACTIVATE /Patients/id
+    FE -> CN : DELETE /Patients/id
     activate CN
         
-        CN -> SV : INACTIVATE /Patients/id
+        CN -> SV : Delete(id)
         activate SV
 alt Patient Deleted Successfully
-            SV -> DM : Deactivate(Patient)
+            SV -> DM : Delete(Patient)
             activate DM
             
                 DM --> SV : returns updated Patient
