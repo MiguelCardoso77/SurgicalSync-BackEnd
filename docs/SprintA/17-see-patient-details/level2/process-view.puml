@@ -1,0 +1,34 @@
+@startuml
+autonumber
+
+actor "Admin" as USER
+
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate USER
+
+    USER -> FE: wants to see patient details
+    activate FE
+    
+        FE -> BE : GET /Patients/id
+        activate BE 
+        alt patient was found
+            BE --> FE : success: returns patient details
+            
+        USER <-- FE : success: shows patient details
+
+            
+        else patient not found
+            BE --> FE : error: patient not found
+            
+        USER <-- FE : error: patient not found
+
+        end
+        deactivate BE
+        
+    deactivate FE
+    
+deactivate USER
+
+@enduml
