@@ -6,7 +6,6 @@ using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain;
 using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
-using FirebaseAdmin.Auth;
 
 namespace DDDNetCore.Application.Services
 {
@@ -71,15 +70,31 @@ namespace DDDNetCore.Application.Services
             var user = await this._repo.GetByIdAsync(new UserId(dto.Id)); 
             
             if (user == null)
-                return null;   
+                return null;
+            var emailUser = user.UserEmail.ToString();
             
-            // change all field
-            // user.ChangeUserName(dto.UserName.ToString());
+            // change all fields
+            user.ChangeUserName(new Username(dto.UserName));
+            
+            if (!emailUser.Equals(dto.UserEmail))
+            {
+                user.ChangeUserEmail(new UserEmail(dto.UserEmail));
+                var smtpEmailService = new EmailService();
+                var emailContent = $"Hello {user.Username}! \n Your  contact information was changed. Now it is : email : {emailUser}";
+                var email = new Email(emailContent, user.UserEmail.ToString(), "Changes On Your Contact Information");
+                await smtpEmailService.SendEmailAsync(email);
+                Console.WriteLine($"Successfully sent the email to {email.Destination}");
+
+            }
             
             await this._unitOfWork.CommitAsync();
             
-            return new UserDto{Id = user.Id.AsString(), UserName = user.Username.ToString(), 
-            UserEmail = user.UserEmail.ToString(), UserRole = user.UserRole.ToString()};
+            return new UserDto{
+                Id = user.Id.AsString(), 
+                UserName = user.Username.ToString(), 
+                UserEmail = user.UserEmail.ToString(), 
+                UserRole = user.UserRole.ToString()
+            };
         }
         
         public async Task<UserDto> DeleteAsync(UserId id)

@@ -30,6 +30,11 @@ namespace DDDNetCore.Domain.Users
         {
             this.Username = username;
         }
+
+        public void ChangeUserEmail(UserEmail userEmail)
+        {
+            this.UserEmail = userEmail;
+        }
         
         public void ChangeUserRole(UserRole role)
         {
