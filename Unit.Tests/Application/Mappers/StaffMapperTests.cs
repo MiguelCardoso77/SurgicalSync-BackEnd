@@ -43,6 +43,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
                 StaffEmail = "tomasgoncalves@gmail.com",
                 StaffPhoneNumber = "982740283", 
                 StaffAvaiabilitySlots = new List<string>() { "2024-09-25:14h00-18h00", "2024-09-25:19h00/2024-09-26:02h00"},
+                StaffType = StaffType.Doctor.ToString()
 
             };
             
@@ -65,7 +66,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
                 _mockPhoneNumber.Object,
                 StaffSpecialization.Dermatology,
                 _mockAvaiabilitySlots
-                //, StaffType.Other
+                , StaffType.Other
             );
             var dto = StaffMapper.ToDto(staff);
             
