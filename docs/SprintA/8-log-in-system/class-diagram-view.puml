@@ -1,0 +1,31 @@
+﻿@startuml
+
+title Class Diagram
+
+class FirebaseService {
+    + CreateUserRecordAsync(string email, string password, string role)
+    + GeneratePasswordResetLink(string email)
+    + LoginWithEmailPassword(string email, string password)
+}
+class LoginDTO {
+    - Email
+    - Password
+    - ReturnSecureToken
+}
+
+class AuthenticationController {
+    + LoginWithEmailPassword(LoginDto dto)
+}
+
+class AuthenticationService {
+    + LoginWithEmailPasswordAsync(LoginDto dto)
+}
+
+AuthenticationController --> AuthenticationService
+
+AuthenticationService --> FirebaseService
+
+AuthenticationService --> LoginDTO : creates
+
+
+@enduml
