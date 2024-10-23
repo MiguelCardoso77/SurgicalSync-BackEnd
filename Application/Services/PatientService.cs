@@ -67,7 +67,7 @@ namespace DDDNetCore.Application.Services
         public async Task<PatientDto> AddAsync(PatientDto dto)
         {
             var medicalRecordNumber = string.IsNullOrEmpty(dto.MedicalRecordNumber)
-                ? new MedicalRecordNumber(Guid.NewGuid().ToString())
+                ? new MedicalRecordNumber()
                 : new MedicalRecordNumber(dto.MedicalRecordNumber);
 
             var medicalConditionsList = new List<MedicalConditions>();

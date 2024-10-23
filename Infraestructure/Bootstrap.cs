@@ -154,7 +154,7 @@ namespace DDDNetCore.Infraestructure
             var patients = new List<Patient>
             {
                 new(new PatientName("Diana"), new BirthDate("30 de Junho de 2004"), new Gender("Feminino"),
-                    new MedicalRecordNumber("1"), new PhoneNumber("938413938"),
+                    new MedicalRecordNumber("202409000001"), new PhoneNumber("938413938"),
                     new List<MedicalConditions>(),
                     new EmergencyContact("933264402"),
                     new List<AppointmentHistory>(),
@@ -162,7 +162,7 @@ namespace DDDNetCore.Infraestructure
                 ),
 
                 new(new PatientName("Miguel"), new BirthDate("4 de Julho de 2004"), new Gender("Masculino"),
-                    new MedicalRecordNumber("2"), new PhoneNumber("938745060"),
+                    new MedicalRecordNumber("202409000002"), new PhoneNumber("938745060"),
                     new List<MedicalConditions>(),
                     new EmergencyContact("930923458"),
                     new List<AppointmentHistory>(),
