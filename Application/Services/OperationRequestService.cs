@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
@@ -63,9 +64,25 @@ namespace DDDNetCore.Application.Services
         {
             var list = await _repo.GetAllAsync();
 
-            List<OperationRequestDto> operationRequestDto = list.ConvertAll<OperationRequestDto>(ot => _mapper.ToDto(ot));
+            List<OperationRequestDto> operationRequestDto = list.ConvertAll<OperationRequestDto>(or => _mapper.ToDto(or));
 
             return operationRequestDto;
+        }
+        
+        /**
+         * Asynchronously retrieves a list of OperationRequestDto objects filtered by their active status.
+         * @param isActive a boolean indicating whether to retrieve active (true) or inactive (false) operation requests.
+         * @return a task representing the asynchronous operation, containing a list of OperationRequestDto objects
+         * that match the specified active status.
+         */
+
+        public async Task<List<OperationRequestDto>> GetAllByStatus(bool isActive)
+        {
+            var list = await this._repo.GetAllAsync();
+            
+            var filteredList = list.Where(or => or.IsActive == isActive).ToList();
+
+            return _mapper.ToListDto(filteredList);
         }
         
         /**
@@ -103,6 +120,7 @@ namespace DDDNetCore.Application.Services
                 return null;
             
             operationRequest.ChangeDeadlineDate(new DeadlineDate(DateTime.Parse(operationRequestDto.DeadlineDate)));
+            
             operationRequest.ChangePriority(Enum.Parse<Priority>(operationRequestDto.Priority));
 
             await _unitOfWork.CommitAsync();
@@ -129,5 +147,75 @@ namespace DDDNetCore.Application.Services
             return _mapper.ToDto(operationRequest);
         }
         
+        /**
+         * Asynchronously retrieves a list of OperationRequestDto objects filtered by operation type.
+         * <param name="operationTypeId">The ID of the operation type to filter by.</param>
+         * <return> A task representing the asynchronous operation, containing a list of OperationRequestDto objects
+         * that match the specified operation type. </return>
+         */
+
+        public async Task<List<OperationRequestDto>> GetAllByOperationType(string operationTypeId)
+        {
+            var list = await _repo.GetAllAsync();
+    
+            var filteredList = list.Where(or => or.OperationTypeId.AsString().Equals(operationTypeId)).ToList();
+    
+            return _mapper.ToListDto(filteredList);
+        }
+        
+        /**
+         * Asynchronously retrieves a list of OperationRequestDto objects filtered by medical record number.
+         * <param name="medicalRecordNumber">The medical record number of the patient to filter by.</param>
+         * <return> A task representing the asynchronous operation, containing a list of OperationRequestDto objects
+         * that match the specified medical record number. </return>
+         */
+
+        public async Task<List<OperationRequestDto>> GetAllByMedicalRecordNumber(string medicalRecordNumber)
+        {
+            var list = await _repo.GetAllAsync();
+    
+            var filteredList = list.Where(or => or.MedicalRecordNumber.AsString().Equals(medicalRecordNumber)).ToList();
+    
+            return _mapper.ToListDto(filteredList);
+        }
+        
+        /**
+         * Asynchronously retrieves a list of OperationRequestDto objects filtered by a date range.
+         * <param name="startDate">The start date of the range.</param>
+         * <param name="endDate">The end date of the range.</param>
+         * <return> A task representing the asynchronous operation, containing a list of OperationRequestDto objects
+         * that fall within the specified date range. </return>
+         */
+
+        public async Task<List<OperationRequestDto>> GetAllInsideDataRange(string startDate, string endDate)
+        {
+            var list = await _repo.GetAllAsync();
+            
+            DateTime start = DateTime.Parse(startDate);
+            DateTime end = DateTime.Parse(endDate);
+            
+            var filteredList = list.Where(or => or.DeadlineDate.Date >= start && or.DeadlineDate.Date <= end).ToList();
+            
+            return _mapper.ToListDto(filteredList);
+        }
+        
+        /**
+         * Asynchronously retrieves a list of OperationRequestDto objects filtered by patient name.
+         * <param name="patientName">The name of the patient to filter by.</param>
+         * <return> A task representing the asynchronous operation, containing a list of OperationRequestDto objects that match the specified patient name. </return>
+         */
+
+        public async Task<List<OperationRequestDto>> GetAllByPatientName(string patientName)
+        {
+            var list = await _repo.GetAllAsync();
+
+            // Filtro por Patient Name
+
+            // Ir ao repositorio dos Patients buscar o medical record number correspondente
+
+            // Fazer o mesmo que o GetAllByMedicalRecordNumber com o id retornado
+
+            return _mapper.ToListDto(list);
+        }
     }
 }

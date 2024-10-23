@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationTypes;
@@ -37,6 +39,15 @@ namespace DDDNetCore.Application.Mappers
         {
             var parsedDeadlineDate = DateTime.Parse(dto.DeadlineDate);
             return new OperationRequest(operationRequestId, Enum.Parse<Priority>(dto.Priority), new DeadlineDate(parsedDeadlineDate), new OperationTypeId(dto.OperationTypeId), new MedicalRecordNumber(dto.MedicalRecordNumber), new LicenseNumber(dto.LicenseNumber));
+        }
+        /**
+         * Converts a list of domain OperationRequest objects to a list of OperationRequestDto objects.
+         * @param domainList a list of OperationRequest domain objects to be converted.
+         * @return a list of OperationRequestDto objects corresponding to the provided domain objects.
+        */
+        public List<OperationRequestDto> ToListDto(List<OperationRequest> domainList)
+        {
+            return domainList.Select(domain => ToDto(domain)).ToList();
         }
     }
 }

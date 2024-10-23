@@ -1,0 +1,95 @@
+﻿@startuml
+autonumber
+
+Title "UC24 - Request an operation"
+
+actor "Doctor" as D
+
+participant "FrontEnd" as FE
+participant "Backend" as BE
+
+activate D
+
+D -> FE: asks to request an operation
+
+    activate FE
+    
+    FE -> BE: GET /operationTypes
+    
+    activate BE
+    
+    BE --> FE: operation types
+    
+    deactivate BE
+    
+    FE --> D: shows the list of the available \n operation types and asks to select one
+    
+    deactivate FE
+    
+D -> FE: selects one of the \n operation types displayed
+
+alt the selected operation type matches \n the doctor's specialization
+    
+    activate FE 
+    
+    FE --> D: asks for the ID of the patient \non whom the operation will be performed
+    
+    deactivate FE  
+
+    D -> FE: inserts the patient ID
+
+    activate FE
+    
+    FE -> BE : GET /priority
+    
+    activate BE
+    
+    BE --> FE : priority levels
+    
+    deactivate BE
+    
+    FE --> D: shows the different priority levels and \n asks for the operation's priority
+    
+    deactivate FE
+    
+    D -> FE: chooses the priority
+    
+    activate FE
+    
+    FE --> D: asks for the operation's deadline
+    
+    deactivate FE
+    
+    D -> FE: inserts the deadline
+    
+    activate FE
+    
+    FE -> BE: POST /operationRequest \n{patientID, doctorID, operationType, priority, deadline}
+    
+    activate BE
+    
+    BE --> FE : operation success
+    
+    deactivate BE
+    
+    FE --> D: shows operation success and logs the \n request in the patient’s medical history
+    
+    else operation type doesn't match the doctor's specialization
+    
+        FE -> BE: POST /operationRequest \n{patientID, doctorID, operationType, priority, deadline}
+        
+        activate BE 
+        
+        BE --> FE: error: operation type doesn't match the doctor's specialization
+        
+        deactivate BE
+        
+        FE --> D: shows an error message
+        
+        deactivate FE
+
+    end
+
+deactivate D
+
+@enduml

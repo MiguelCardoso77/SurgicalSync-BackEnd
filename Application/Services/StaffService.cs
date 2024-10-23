@@ -50,7 +50,11 @@ namespace DDDNetCore.Application.Services
                 return null;
             }
 
-            return null;
+            return new StaffDto
+            {
+                Id = staff.Id.ToString(), StaffName = staff.StaffName.ToString(), StaffEmail = staff.StaffEmail.ToString(),
+                StaffPhoneNumber = staff.StaffPhoneNumber.ToString(), StaffSpecialization = staff.StaffSpecialization.ToString(), StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs=> rs.StaffAvaiabilitySlotsValue).ToList()
+            };
         }
         
         public async Task<StaffDto> DeleteAsync(LicenseNumber id)
@@ -127,12 +131,13 @@ namespace DDDNetCore.Application.Services
             
             // Send set-up email to user
             var smtpEmailService = new EmailService();
-            var emailContent = $"Hello {staff.StaffName}! \n Your  staff information was changed. Now it is : phone number : {phoneNumber}, specialization : {specialization} avaiability Slots email : {avaiabilitySlots}";
+            var emailContent = $"Hello {staff.StaffName}! \n Your  staff information was changed. Now it is : \n phone number : {phoneNumber}, \nspecialization : {specialization} \n avaiability Slots email : {avaiabilitySlots.ToList()}";
             var email = new Email(emailContent, staff.StaffEmail.ToString() , "Changes On Your Contact Information");
             await smtpEmailService.SendEmailAsync(email);
             Console.WriteLine($"Successfully sent the email to {email.Destination}");
 
             await this._unitOfWork.CommitAsync();
+
 
             return new StaffDto()
             {
@@ -153,24 +158,29 @@ namespace DDDNetCore.Application.Services
         public async Task<StaffDto> AddAsync(StaffDto dto)
         {
             var avaiabilitySlotsList = new List<StaffAvaiabilitySlots>();
-            var licenseNumber = string.IsNullOrEmpty(dto.Id)
-                ? new LicenseNumber(Guid.NewGuid().ToString())
-                : new LicenseNumber(dto.Id);
+            
+            String staffTypeString = dto.StaffType;
+
+            if (!Enum.TryParse<StaffType>(staffTypeString, true, out var staffType))
+            {
+                throw new ArgumentException("Invalid staff type. Must be 'Doctor', 'Nurse', or 'Other'.");
+            }
+            LicenseNumber licenseNumber = LicenseNumberService.GenerateLN(staffType);
             
             var staff = StaffMapper.ToDomain(dto, licenseNumber , avaiabilitySlotsList);
 
             await this._repo.AddAsync(staff);
             await this._unitOfWork.CommitAsync();
+            
 
             return new StaffDto()
             {
-                Id = staff.Id.AsString(),
                 StaffName = staff.StaffName.ToString(),
                 StaffEmail = staff.StaffEmail.ToString(),
                 StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
                 StaffSpecialization = staff.StaffSpecialization.ToString(),
                 StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                //StaffType = staff.StaffType.ToString()
+                StaffType = staff.StaffType.ToString()
             };
         }
 

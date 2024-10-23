@@ -1,0 +1,96 @@
+﻿@startuml
+autonumber
+
+Title "UC25 - Update an operation request"
+
+participant "FrontEnd" as FE
+participant "<<Controller>>\nOperationRequestController" as CN
+participant "<<Application>>\nOperationRequestService" as SV
+participant "<<DTO>>\nOperationRequestDTO" as DTO
+participant "<<Mappers>>\nOperationRequestMapper" as MP
+participant "<<Domain>>\nOperationRequest" as DM
+participant "<<Repositories>>\nOperationRequestRepository" as REPO
+database "SQL Database" as SQL
+
+activate FE
+
+FE -> CN : GET /operationRequests
+
+activate CN
+
+CN -> SV: GetAllAsync()
+
+activate SV
+
+    note left of SV
+    
+    Process documented on UC26
+    
+    end note
+    
+    SV --> CN : List<OperationRequestDTO>
+
+deactivate SV
+
+CN --> FE : List<OperationRequestDTO>
+
+deactivate CN
+
+FE -> CN : PUT /operationRequest (operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber)
+
+activate CN
+
+CN -> SV : Create(OperationRequestDTO(operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber))
+
+activate SV
+
+SV -> DTO :  Create(OperationRequestDTO(operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber))
+
+activate DTO 
+
+DTO --> SV : OperationRequestDTO
+
+deactivate DTO 
+
+SV -> MP : MapToDomain(OperationRequestDTO))
+
+activate MP
+
+MP -> DM : Create(OperationRequest(operationRequestId, priority, deadlineDate,\n operationTypeId, LicenseNumber, MedicalRecordNumber))
+
+activate DM
+
+DM --> MP : OperationRequest
+
+deactivate DM
+
+MP --> SV : OperationRequest
+
+deactivate MP 
+
+SV -> REPO : UpdateAsync(OperationRequest)
+
+activate REPO
+
+REPO -> SQL : PUT /operationRequests (OperationRequest)
+
+activate SQL 
+
+SQL --> REPO : operation success
+
+deactivate SQL
+
+REPO --> SV : operation success
+
+deactivate REPO
+
+SV --> CN : operation success
+
+deactivate SV
+
+CN --> FE : operation success
+
+deactivate CN
+
+deactivate FE
+@enduml

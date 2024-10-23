@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
@@ -174,14 +176,14 @@ namespace DDDNetCore.Infraestructure
                     new StaffEmail("1220917@isep.ipp.pt"), new StaffPhoneNumber("962754971"),
                     StaffSpecialization.Family_medicine,
                     new List<StaffAvaiabilitySlots>()
-                    //, StaffType.Nurse
+                    , StaffType.Nurse
                     ),
                     
                 new(new LicenseNumber("N202400002"), new StaffName("José Mesquita"),
                     new StaffEmail("josemesquita@gmail.com"), new StaffPhoneNumber("962749671"),
                     StaffSpecialization.Family_medicine,
                     new List<StaffAvaiabilitySlots>()
-                    //,StaffType.Doctor 
+                    ,StaffType.Doctor
                     )
             };
 
@@ -191,11 +193,30 @@ namespace DDDNetCore.Infraestructure
                 new(new UserId("2"), new Username("Miguel"), new UserEmail("1220772@isep.ipp.pt"), UserRole.Admin),
                 new(new UserId("3"), new Username("Diogo"), new UserEmail("1220812@isep.ipp.pt"), UserRole.Doctor)
             };
+
+            var request = new List<OperationRequest>
+            {
+                new(new OperationRequestId("1"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01,07)), new OperationTypeId("5"), new MedicalRecordNumber("2"), new LicenseNumber("N202400001")),
+                
+                new(new OperationRequestId("2"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2025, 11,10)), new OperationTypeId("1"), new MedicalRecordNumber("1"), new LicenseNumber("N202400001")),
+    
+                new(new OperationRequestId("3"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2024, 12, 15)), new OperationTypeId("2"), new MedicalRecordNumber("1"), new LicenseNumber("N202400002")),
+    
+                new(new OperationRequestId("4"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01, 20)), new OperationTypeId("2"), new MedicalRecordNumber("2"), new LicenseNumber("N202400001")),
+    
+                new(new OperationRequestId("5"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2026, 02, 25)), new OperationTypeId("3"), new MedicalRecordNumber("2"), new LicenseNumber("N202400003")),
+    
+                new(new OperationRequestId("6"), Priority.EmergencySurgery, new DeadlineDate(new DateTime(2025, 03, 30)), new OperationTypeId("1"), new MedicalRecordNumber("3"), new LicenseNumber("N202400004")),
+
+                new(new OperationRequestId("7"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 04, 05)), new OperationTypeId("4"), new MedicalRecordNumber("4"), new LicenseNumber("N202400005")),
+
+            };
             
             context.Patients.AddRange(patients);
             context.OperationTypes.AddRange(operationTypes);
             context.Staffs.AddRange(staffs);
             context.Users.AddRange(users);
+            context.OperationRequests.AddRange(request);
             context.SaveChanges();
         }
     }
