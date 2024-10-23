@@ -64,8 +64,8 @@ namespace DDDNetCore.Unit.Tests.Domain.Patients
         {
             var medicalRecordNumber = (MedicalRecordNumber)Activator.CreateInstance(typeof(MedicalRecordNumber), true);
 
-            Assert.NotNull(medicalRecordNumber);
-            Assert.IsNull(medicalRecordNumber.Value);
+            Assert.AreEqual("202410000001",medicalRecordNumber.ToString());
+            Assert.AreEqual(medicalRecordNumber.Value, medicalRecordNumber.ToString());
         }
     }
 }
