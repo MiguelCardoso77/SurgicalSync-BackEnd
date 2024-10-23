@@ -38,5 +38,10 @@ namespace DDDNetCore.Application.Mappers
                 new UserEmail(dto.Email)
                 );
         }
+
+        public List<PatientDto> ToListDto(List<Patient> filteredPatientsList)
+        {
+            return filteredPatientsList.Select(patient => ToDto(patient)).ToList();
+        }
     }
 }

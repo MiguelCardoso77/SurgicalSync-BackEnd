@@ -20,14 +20,6 @@ namespace DDDNetCore.Controllers
             _service = service;
         }
         
-        // GET: api/staff
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<StaffDto>>> GetAll()
-        {
-            return await _service.GetAllAsync();
-        }
-
-        
         
         // GET: api/staff/st1
         [HttpGet("{id}")]
@@ -43,6 +35,37 @@ namespace DDDNetCore.Controllers
             return sT;
         }
         
+        // GET: api/OperationTypes
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<StaffDto>>> GetAll([FromQuery] string staffName = null, [FromQuery] string staffEmail = null, [FromQuery] string  StaffSpecialization = null)
+        {
+            if (!string.IsNullOrEmpty(StaffSpecialization))
+            {
+                var result = await _service.GetAllBySpecialization(StaffSpecialization);
+                return Ok(result);
+            }
+
+            if (!string.IsNullOrEmpty(staffName))
+            {
+                var result = await _service.GetAllByName(staffName);
+                return Ok(result);
+            }
+
+            if (!string.IsNullOrEmpty(staffEmail))
+            {
+                var result = await _service.GetAllByEmail(staffEmail);
+                return Ok(result);
+            }
+            if(string.IsNullOrEmpty(StaffSpecialization)&& string.IsNullOrEmpty(staffName) && string.IsNullOrEmpty(staffEmail))
+            {
+                var allStaff = await _service.GetAllAsync();
+                return Ok(allStaff);
+            }
+
+            return null;
+        }
+        
+
         // POST: api/Stff
         [HttpPost]
         public async Task<ActionResult<StaffDto>> AddAsync(StaffDto dto)
