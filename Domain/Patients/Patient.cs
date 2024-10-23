@@ -66,5 +66,15 @@ namespace DDDNetCore.Domain.Patients
         {
             this.Gender = gender;
         }
+        
+        public void ChangeAppointmentHistory(List<AppointmentHistory> appointmentHistory)
+        {
+            this.AppointmentHistory = appointmentHistory;
+        }
+        
+        public void ChangeMedicalConditions(List<MedicalConditions> medicalConditions)
+        {
+            this.MedicalConditions = medicalConditions;
+        }
     }
 }
