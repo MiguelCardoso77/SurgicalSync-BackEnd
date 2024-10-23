@@ -25,9 +25,16 @@ namespace DDDNetCore.Controllers
         
         // PUT: api/Authentication
         [HttpPut]
-        public async Task<ActionResult<string>> LoginWithGoogle(GoogleLoginDto dto)
+        public async Task<ActionResult<GoogleLoginDto>> LoginWithGoogle(GoogleLoginDto dto)
         {
             return await _service.LoginWithGoogle(dto);
+        }
+        
+        // PATCH: api/Authentication
+        [HttpPatch]
+        public async Task<ActionResult<PatientDto>> AuthenticatePatientToken(GoogleLoginDto dto)
+        {
+            return await _service.AuthenticatePatientToken(dto);
         }
     }
 }
