@@ -105,8 +105,6 @@ namespace DDDSample1
             
             services.AddTransient<IStaffRepository, StaffRepository>();
             services.AddTransient<StaffService>();
-            
-            services.AddTransient<AuthenticationService>();
 
             services.AddTransient<IOperationTypeRepository, OperationTypeRepository>();
             services.AddTransient<OperationTypeService>();
@@ -117,6 +115,9 @@ namespace DDDSample1
             services.AddTransient<OperationRequestMapper>();
             
             services.AddTransient<PatientNameMicroService>();
+
+            services.AddTransient<PatientMicroService>();
+            services.AddTransient<AuthenticationService>();
         }
     }
 }

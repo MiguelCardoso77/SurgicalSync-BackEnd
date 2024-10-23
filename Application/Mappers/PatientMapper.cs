@@ -8,7 +8,7 @@ namespace DDDNetCore.Application.Mappers
 {
     public class PatientMapper
     {
-        public static PatientDto ToDto(Patient domain)
+        public PatientDto ToDto(Patient domain)
         {
             return new PatientDto
             {
@@ -24,7 +24,7 @@ namespace DDDNetCore.Application.Mappers
             };
         }
 
-        public static Patient ToDomain(PatientDto dto, MedicalRecordNumber medicalRecordNumber, List<MedicalConditions> medicalConditions,
+        public Patient ToDomain(PatientDto dto, MedicalRecordNumber medicalRecordNumber, List<MedicalConditions> medicalConditions,
             List<AppointmentHistory> appointmentHistory)
         {
             return new Patient(
