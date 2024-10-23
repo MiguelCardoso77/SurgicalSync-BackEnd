@@ -189,7 +189,7 @@ namespace DDDNetCore.Application.Services
          * that fall within the specified date range. </return>
          */
 
-        public async Task<List<OperationRequestDto>> GetAllInsideDataRange(string startDate, string endDate)
+        public async Task<List<OperationRequestDto>> GetAllInsideDateRange(string startDate, string endDate)
         {
             var list = await _repo.GetAllAsync();
             
