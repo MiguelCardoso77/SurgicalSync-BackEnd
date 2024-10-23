@@ -15,11 +15,11 @@ namespace DDDNetCore.Application.Services
         private readonly IPatientRepository _repo;
         private readonly PatientMapper _mapper;
 
-        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper _mapper)
+        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper mapper)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
-            this._mapper = _mapper;
+            this._mapper = mapper;
         }
 
         public async Task<List<PatientDto>> GetAllAsync()
