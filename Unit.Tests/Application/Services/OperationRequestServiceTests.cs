@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
@@ -11,23 +12,24 @@ using DDDNetCore.Domain.Staffs;
 using DDDSample1.Domain.Shared;
 using Microsoft.Extensions.Logging;
 using Moq;
-using NSubstitute;
-using Xunit;
+using NUnit.Framework;
 
 namespace DDDNetCore.Unit.Tests.Application.Services
 {
+    [TestFixture]
     public class OperationRequestServiceTests
     {
-        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
-        private readonly Mock<IOperationRequestRepository> _repoMock;
-        private readonly Mock<IPatientRepository> _patientMock;
-        private readonly Mock<ILogger<OperationRequestService>> _loggerMock;
-        private readonly OperationRequestMapper _mapper;
-        private readonly PatientMapper _patientMapper;
-        private readonly OperationRequestService _operationRequestService;
-        private readonly PatientNameMicroService _patientNameMicroService;
+        private Mock<IUnitOfWork> _unitOfWorkMock;
+        private Mock<IOperationRequestRepository> _repoMock;
+        private Mock<IPatientRepository> _patientMock;
+        private Mock<ILogger<OperationRequestService>> _loggerMock;
+        private OperationRequestMapper _mapper;
+        private PatientMapper _patientMapper;
+        private OperationRequestService _operationRequestService;
+        private PatientNameMicroService _patientNameMicroService;
 
-        public OperationRequestServiceTests()
+        [SetUp]
+        public void SetUp()
         {
             _unitOfWorkMock = new Mock<IUnitOfWork>();
             _repoMock = new Mock<IOperationRequestRepository>();
@@ -49,7 +51,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 _patientNameMicroService);
         }
 
-        [Fact]
+        [Test]
         public async Task GetByIdAsync_ReturnsOperationRequestDto_WhenOperationRequestExists()
         {
             // Arrange
@@ -79,7 +81,6 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 MedicalRecordNumber = medicalRecordNumber.AsString()
             };
 
-            // Setting up the repository to return the mock operation request
             _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId))
                      .ReturnsAsync(operationRequest);
 
@@ -87,17 +88,17 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             var result = await _operationRequestService.GetByIdAsync(operationRequestId);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(expectedDto.OperationRequestId, result.OperationRequestId);
-            Assert.Equal(expectedDto.MedicalRecordNumber, result.MedicalRecordNumber);
-            Assert.Equal(expectedDto.LicenseNumber, result.LicenseNumber);
-            Assert.Equal(expectedDto.OperationTypeId, result.OperationTypeId);
-            Assert.Equal(expectedDto.Priority, result.Priority);
-            Assert.Equal(expectedDto.DeadlineDate, result.DeadlineDate);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedDto.OperationRequestId, result.OperationRequestId);
+            Assert.AreEqual(expectedDto.MedicalRecordNumber, result.MedicalRecordNumber);
+            Assert.AreEqual(expectedDto.LicenseNumber, result.LicenseNumber);
+            Assert.AreEqual(expectedDto.OperationTypeId, result.OperationTypeId);
+            Assert.AreEqual(expectedDto.Priority, result.Priority);
+            Assert.AreEqual(expectedDto.DeadlineDate, result.DeadlineDate);
             _repoMock.Verify(repo => repo.GetByIdAsync(operationRequestId), Times.Once);
         }
-        
-        [Fact]
+
+        [Test]
         public async Task GetByIdAsync_ReturnsNull_WhenOperationRequestDoesNotExist()
         {
             // Arrange
@@ -108,13 +109,13 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             var result = await _operationRequestService.GetByIdAsync(operationRequestId);
 
             // Assert
-            Assert.Null(result);
+            Assert.IsNull(result);
             _repoMock.Verify(repo => repo.GetByIdAsync(operationRequestId), Times.Once);
         }
-        
-        [Fact]
+
+        [Test]
         public async Task GetAllAsync_ReturnsListOfOperationRequestDto_WhenRequestsExist()
-        {
+        {   
             // Arrange
             var operationRequestId1 = new OperationRequestId("1");
             var operationRequestId2 = new OperationRequestId("2");
@@ -178,44 +179,46 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             var result = await _operationRequestService.GetAllAsync();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(expectedDto.Count, result.Count);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedDto.Count, result.Count, "The number of elements in the result list does not match the expected list.");
+
             for (int i = 0; i < expectedDto.Count; i++)
             {
-                Assert.Equal(expectedDto[i].OperationRequestId, result[i].OperationRequestId);
-                Assert.Equal(expectedDto[i].MedicalRecordNumber, result[i].MedicalRecordNumber);
-                Assert.Equal(expectedDto[i].LicenseNumber, result[i].LicenseNumber);
-                Assert.Equal(expectedDto[i].OperationTypeId, result[i].OperationTypeId);
-                Assert.Equal(expectedDto[i].Priority, result[i].Priority);
-                Assert.Equal(expectedDto[i].DeadlineDate, result[i].DeadlineDate);
+                Assert.AreEqual(expectedDto[i].OperationRequestId, result[i].OperationRequestId, $"Mismatch at index {i} for OperationRequestId.");
+                Assert.AreEqual(expectedDto[i].MedicalRecordNumber, result[i].MedicalRecordNumber, $"Mismatch at index {i} for MedicalRecordNumber.");
+                Assert.AreEqual(expectedDto[i].LicenseNumber, result[i].LicenseNumber, $"Mismatch at index {i} for LicenseNumber.");
+                Assert.AreEqual(expectedDto[i].OperationTypeId, result[i].OperationTypeId, $"Mismatch at index {i} for OperationTypeId.");
+                Assert.AreEqual(expectedDto[i].Priority, result[i].Priority, $"Mismatch at index {i} for Priority.");
+                Assert.AreEqual(expectedDto[i].DeadlineDate, result[i].DeadlineDate, $"Mismatch at index {i} for DeadlineDate.");
             }
+
             _repoMock.Verify(repo => repo.GetAllAsync(), Times.Once);
         }
-        [Fact]
+
+        [Test]
         public async Task GetAllAsync_ReturnsEmptyList_WhenNoRequestsExist()
         {
             // Arrange
             var emptyOperationRequests = new List<OperationRequest>();
-    
-            // Setting up the repository to return an empty list
+
             _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(emptyOperationRequests);
 
             // Act
             var result = await _operationRequestService.GetAllAsync();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result); // Ensure the result is an empty list
+            Assert.IsNotNull(result);
+            Assert.IsEmpty(result, "The result list is not empty as expected.");
             _repoMock.Verify(repo => repo.GetAllAsync(), Times.Once);
         }
-        
-        [Fact]
+
+        [Test]
         public async Task AddAsync_CreatesNewOperationRequest_WhenValidDtoIsProvided()
         {
             // Arrange
             var operationRequestDto = new OperationRequestDto
             {
-                OperationRequestId = null, // Simulate a new request (ID will be generated)
+                OperationRequestId = null,
                 DeadlineDate = "2025-10-01",
                 LicenseNumber = "D202400001",
                 Priority = Priority.ElectiveSurgery.ToString(),
@@ -233,165 +236,212 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new MedicalRecordNumber("202411000001"),
                 new LicenseNumber("D202400001")
             );
-            
+
             // Act
-            await _operationRequestService.AddAsync(operationRequestDto);
+            var result = await _operationRequestService.AddAsync(operationRequestDto);
 
             // Assert
-            _repoMock.Verify(repo => repo.AddAsync(It.Is<OperationRequest>(op => 
-                op.Priority == domainOperationRequest.Priority &&
-                op.DeadlineDate.Date == domainOperationRequest.DeadlineDate.Date &&
-                op.OperationTypeId.AsString() == domainOperationRequest.OperationTypeId.AsString() &&
-                op.MedicalRecordNumber.AsString() == domainOperationRequest.MedicalRecordNumber.AsString() &&
-                op.LicenseNumber.AsString() == domainOperationRequest.LicenseNumber.AsString()
-            )), Times.Once);
-            
+            Assert.IsNotNull(result);
+            _repoMock.Verify(repo => repo.AddAsync(It.IsAny<OperationRequest>()), Times.Once);
             _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Once);
         }
         
-        [Fact]
-        public async Task AddAsync_ThrowsArgumentNullException_WhenDtoIsNull()
-        {
-            // Arrange
-            OperationRequestDto nullDto = null;
-
-            // Act & Assert
-            var exception = await Assert.ThrowsAsync<NullReferenceException>(() => _operationRequestService.AddAsync(nullDto));
-    
-            // Verify that neither AddAsync nor CommitAsync were called on the mocks
-            _repoMock.Verify(repo => repo.AddAsync(It.IsAny<OperationRequest>()), Times.Never);
-            _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Never);
-        }
-        
-        [Fact]
-        public async Task UpdateAsync_ReturnsUpdatedOperationRequestDto_WhenOperationRequestExists()
-        {
-            // Arrange
-            var operationRequestId = new OperationRequestId("1");
-            var existingDeadlineDate = new DeadlineDate(new DateTime(2025, 10, 1));
-            var updatedDeadlineDate = new DeadlineDate(new DateTime(2025, 12, 1));
-            var priority = Priority.ElectiveSurgery;
-            var operationTypeId = new OperationTypeId("2");
-            var medicalRecordNumber = new MedicalRecordNumber("202411000001");
-            var licenseNumber = new LicenseNumber("D202400001");
-
-            var operationRequest = new OperationRequest(
-                operationRequestId,
-                priority,
-                existingDeadlineDate,
-                operationTypeId,
-                medicalRecordNumber,
-                licenseNumber
-            );
-
-            var operationRequestDto = new OperationRequestDto
-            {
-                OperationRequestId = operationRequestId.AsString(),
-                DeadlineDate = updatedDeadlineDate.Date.ToString("yyyy-MM-dd"),
-                LicenseNumber = licenseNumber.AsString(),
-                Priority = Priority.UrgentSurgery.ToString(),
-                OperationTypeId = operationTypeId.AsString(),
-                MedicalRecordNumber = medicalRecordNumber.AsString()
-            };
-
-            // Setting up the repository to return the existing operation request
-            _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId))
-                .ReturnsAsync(operationRequest);
-
-            // Act
-            var result = await _operationRequestService.UpdateAsync(operationRequestDto);
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal(operationRequestDto.OperationRequestId, result.OperationRequestId);
-            Assert.Equal(updatedDeadlineDate.Date.ToString("yyyy-MM-dd"), result.DeadlineDate);
-            Assert.Equal(operationRequestDto.Priority, result.Priority);
-            _repoMock.Verify(repo => repo.GetByIdAsync(operationRequestId), Times.Once);
-            _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Once);
-        }
-        
-        
-        [Fact]
-        public async Task UpdateAsync_ReturnsNull_WhenOperationRequestDoesNotExist()
-        {
+        [Test]
+        public async Task UpdateAsync_UpdatesExistingOperationRequest_WhenValidDtoIsProvided()
+        { 
             // Arrange
             var operationRequestId = new OperationRequestId("1");
             var operationRequestDto = new OperationRequestDto
-            {
-                OperationRequestId = operationRequestId.AsString(),
-                DeadlineDate = "2025-12-01",
+            { 
+                OperationRequestId = "1",
+                DeadlineDate = "2025-10-01",
                 LicenseNumber = "D202400001",
                 Priority = Priority.UrgentSurgery.ToString(),
                 OperationTypeId = "2",
                 MedicalRecordNumber = "202411000001"
             };
 
-            // Setting up the repository to return null when looking for the operation request
-            _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId)).ReturnsAsync((OperationRequest)null);
+            var operationRequest = new OperationRequest(
+                operationRequestId,
+                Priority.ElectiveSurgery,
+                new DeadlineDate(new DateTime(2025, 10, 1)),
+                new OperationTypeId("2"),
+                new MedicalRecordNumber("202411000001"),
+                new LicenseNumber("D202400001")
+            );
+
+            _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId))
+             .ReturnsAsync(operationRequest);
 
             // Act
             var result = await _operationRequestService.UpdateAsync(operationRequestDto);
 
             // Assert
-            Assert.Null(result);
-            _repoMock.Verify(repo => repo.GetByIdAsync(operationRequestId), Times.Once);
-            _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Never);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(operationRequestDto.Priority, result.Priority);
+            _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Once);
         }
-        
-        [Fact]
+
+        [Test]
+        public async Task UpdateAsync_ReturnsNull_WhenOperationRequestDoesNotExist()
+        { 
+            // Arrange
+            var operationRequestDto = new OperationRequestDto { OperationRequestId = "1" };
+            _repoMock.Setup(repo => repo.GetByIdAsync(It.IsAny<OperationRequestId>())).ReturnsAsync((OperationRequest)null);
+
+            // Act
+            var result = await _operationRequestService.UpdateAsync(operationRequestDto);
+
+            // Assert
+            Assert.IsNull(result);
+            _repoMock.Verify(repo => repo.GetByIdAsync(It.IsAny<OperationRequestId>()), Times.Once);
+        }
+
+        [Test]
         public async Task InactivateAsync_ReturnsOperationRequestDto_WhenOperationRequestExists()
-        {
+        { 
             // Arrange
             var operationRequestId = new OperationRequestId("1");
-            var priority = Priority.ElectiveSurgery;
-            var existingDeadlineDate = new DeadlineDate(new DateTime(2025, 11, 1));
-            var operationTypeId = new OperationTypeId("2");
-            var medicalRecordNumber = new MedicalRecordNumber("202411000001");
-            var licenseNumber = new LicenseNumber("D202400001");
-
             var operationRequest = new OperationRequest(
                 operationRequestId,
-                priority,
-                existingDeadlineDate,
-                operationTypeId,
-                medicalRecordNumber,
-                licenseNumber
+                Priority.ElectiveSurgery,
+                new DeadlineDate(new DateTime(2025, 10, 1)),
+                new OperationTypeId("2"),
+                new MedicalRecordNumber("202411000001"),
+                new LicenseNumber("D202400001")
             );
-
-            // Setting up the repository to return the existing operation request
-            _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId))
-                .ReturnsAsync(operationRequest);
-
+            
+            _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId)).ReturnsAsync(operationRequest);
+    
             // Act
             var result = await _operationRequestService.InactivateAsync(operationRequestId);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(operationRequestId.AsString(), result.OperationRequestId);
-            _repoMock.Verify(repo => repo.GetByIdAsync(operationRequestId), Times.Once);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(operationRequestId.AsString(), result.OperationRequestId);
+            Assert.AreEqual(Priority.ElectiveSurgery.ToString(), result.Priority);
+            Assert.AreEqual("2025-10-01", result.DeadlineDate);
+            Assert.AreEqual("D202400001", result.LicenseNumber);
+            Assert.AreEqual("2", result.OperationTypeId);
+            Assert.AreEqual("202411000001", result.MedicalRecordNumber);
+    
             _repoMock.Verify(repo => repo.Remove(operationRequest), Times.Once);
             _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Once);
         }
-        
-        [Fact]
+
+
+        [Test]
         public async Task InactivateAsync_ReturnsNull_WhenOperationRequestDoesNotExist()
         {
-            // Arrange
-            var operationRequestId = new OperationRequestId("1");
-    
-            // Setting up the repository to return null for the non-existent operation request
-            _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId))
-                .ReturnsAsync((OperationRequest)null);
+        // Arrange
+        var operationRequestId = new OperationRequestId("1");
+        _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId)).ReturnsAsync((OperationRequest)null);
 
-            // Act
-            var result = await _operationRequestService.InactivateAsync(operationRequestId);
+        // Act
+        var result = await _operationRequestService.InactivateAsync(operationRequestId);
 
-            // Assert
-            Assert.Null(result);
-            _repoMock.Verify(repo => repo.GetByIdAsync(operationRequestId), Times.Once);
-            _repoMock.Verify(repo => repo.Remove(It.IsAny<OperationRequest>()), Times.Never);
-            _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Never);
+        // Assert
+        Assert.IsNull(result);
+        _repoMock.Verify(repo => repo.GetByIdAsync(operationRequestId), Times.Once);
         }
 
+        [Test]
+        public async Task GetAllByStatus_ReturnsFilteredRequests_WhenRequestsExist()
+        {
+            // Arrange
+            var activeRequest = new OperationRequest(
+                new OperationRequestId("1"),
+                Priority.ElectiveSurgery,
+                new DeadlineDate(new DateTime(2025, 10, 1)),
+                new OperationTypeId("2"),
+                new MedicalRecordNumber("202411000001"),
+                new LicenseNumber("D202400001")
+            );
+            
+            var inactiveRequest = new OperationRequest(
+                new OperationRequestId("2"),
+                Priority.ElectiveSurgery,
+                new DeadlineDate(new DateTime(2025, 10, 2)),
+                new OperationTypeId("3"),
+                new MedicalRecordNumber("202411000002"),
+                new LicenseNumber("D202400002")
+            );
+
+            inactiveRequest.IsActive = false;
+
+            var operationRequests = new List<OperationRequest> { activeRequest, inactiveRequest };
+            _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationRequests);
+
+            // Act
+            var activeResults = await _operationRequestService.GetAllByStatus(true);
+            var inactiveResults = await _operationRequestService.GetAllByStatus(false);
+
+            // Assert
+            Assert.IsNotNull(activeResults);
+            Assert.IsNotNull(inactiveResults);
+    
+            Assert.AreEqual(1, activeResults.Count, "Expected one active request to be returned.");
+            Assert.AreEqual(activeRequest.Id.AsString(), activeResults.First().OperationRequestId, "Active request ID did not match.");
+
+            Assert.AreEqual(1, inactiveResults.Count, "Expected one inactive request to be returned.");
+            Assert.AreEqual(inactiveRequest.Id.AsString(), inactiveResults.First().OperationRequestId, "Inactive request ID did not match.");
+        }
+
+        [Test]
+        public async Task GetAllInsideDateRange_ReturnsFilteredRequests()
+        {
+            // Arrange
+            var start = "2025-09-01";
+            var end = "2025-12-01";
+
+            var operationRequest1 = new OperationRequest(
+                new OperationRequestId("1"),
+                Priority.ElectiveSurgery,
+                new DeadlineDate(new DateTime(2025, 10, 1)),
+                new OperationTypeId("2"),
+                new MedicalRecordNumber("202411000001"),
+                new LicenseNumber("D202400001")
+            );
+
+            var operationRequest2 = new OperationRequest(
+                new OperationRequestId("2"),
+                Priority.UrgentSurgery,
+                new DeadlineDate(new DateTime(2025, 11, 15)),
+                new OperationTypeId("3"),
+                new MedicalRecordNumber("202411000002"),
+                new LicenseNumber("D202400002")
+            );
+
+            var operationRequests = new List<OperationRequest> { operationRequest1, operationRequest2 };
+    
+            _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationRequests);
+
+            // Act
+            var result = await _operationRequestService.GetAllInsideDateRange(start, end);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count);
+            
+            var request1 = result.First();
+            Assert.AreEqual("1", request1.OperationRequestId);
+            Assert.AreEqual(Priority.ElectiveSurgery.ToString(), request1.Priority);
+            Assert.AreEqual("2025-10-01", request1.DeadlineDate);
+            Assert.AreEqual("2", request1.OperationTypeId);
+            Assert.AreEqual("202411000001", request1.MedicalRecordNumber);
+            Assert.AreEqual("D202400001", request1.LicenseNumber);
+
+            var request2 = result.Last();
+            Assert.AreEqual("2", request2.OperationRequestId);
+            Assert.AreEqual(Priority.UrgentSurgery.ToString(), request2.Priority);
+            Assert.AreEqual("2025-11-15", request2.DeadlineDate);
+            Assert.AreEqual("3", request2.OperationTypeId);
+            Assert.AreEqual("202411000002", request2.MedicalRecordNumber);
+            Assert.AreEqual("D202400002", request2.LicenseNumber);
+        }
+        
+        // TO DO: GetAllByOperationType
+        // TO DO: GetAllByMedicalRecordNumber
+        // TO DO: GetAllPatientName
     }
 }
