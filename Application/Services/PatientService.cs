@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.Patients;
@@ -16,28 +15,18 @@ namespace DDDNetCore.Application.Services
         private readonly IPatientRepository _repo;
         private readonly PatientMapper _mapper;
 
-        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo)
+        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper _mapper)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
+            this._mapper = _mapper;
         }
 
         public async Task<List<PatientDto>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
 
-            List<PatientDto> listDto = list.ConvertAll<PatientDto>(patient => new PatientDto
-            {
-                MedicalRecordNumber = patient.Id.AsString(),
-                PatientName = patient.PatientName.ToString(),
-                BirthDate = patient.BirthDate.ToString(),
-                Gender = patient.Gender.ToString(),
-                PhoneNumber = patient.PhoneNumber.ToString(),
-                MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
-                EmergencyContact = patient.EmergencyContact.ToString(),
-                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList(),
-                Email = patient.UserEmail.ToString()
-            });
+            List<PatientDto> listDto = list.ConvertAll<PatientDto>(patient => _mapper.ToDto(patient));
 
             return listDto;
         }
@@ -51,18 +40,7 @@ namespace DDDNetCore.Application.Services
                 return null;
             }
 
-            return new PatientDto
-            {
-                MedicalRecordNumber = patient.Id.AsString(),
-                PatientName = patient.PatientName.ToString(),
-                BirthDate = patient.BirthDate.ToString(),
-                Gender = patient.Gender.ToString(),
-                PhoneNumber = patient.PhoneNumber.ToString(),
-                MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
-                EmergencyContact = patient.EmergencyContact.ToString(),
-                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList(),
-                Email = patient.UserEmail.ToString()
-            };
+            return _mapper.ToDto(patient);
         }
 
         public async Task<PatientDto> AddAsync(PatientDto dto)
@@ -79,18 +57,7 @@ namespace DDDNetCore.Application.Services
             await this._repo.AddAsync(patient);
             await this._unitOfWork.CommitAsync();
 
-            return new PatientDto
-            {
-                MedicalRecordNumber = patient.Id.AsString(),
-                PatientName = patient.PatientName.ToString(),
-                BirthDate = patient.BirthDate.ToString(),
-                Gender = patient.Gender.ToString(),
-                PhoneNumber = patient.PhoneNumber.ToString(),
-                MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
-                EmergencyContact = patient.EmergencyContact.ToString(),
-                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList(),
-                Email = patient.UserEmail.ToString()
-            };
+            return _mapper.ToDto(patient);
         }
 
         public async Task<PatientDto> UpdateAsync(PatientDto dto)
@@ -120,18 +87,7 @@ namespace DDDNetCore.Application.Services
 
             await this._unitOfWork.CommitAsync();
 
-            return new PatientDto
-            {
-                MedicalRecordNumber = patient.Id.AsString(),
-                PatientName = patient.PatientName.ToString(),
-                BirthDate = patient.BirthDate.ToString(),
-                Gender = patient.Gender.ToString(),
-                PhoneNumber = patient.PhoneNumber.ToString(),
-                MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
-                EmergencyContact = patient.EmergencyContact.ToString(),
-                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList(),
-                Email = patient.UserEmail.ToString()
-            };
+            return _mapper.ToDto(patient);
         }
 
         public async Task<PatientDto> DeleteAsync(MedicalRecordNumber id)
@@ -144,18 +100,7 @@ namespace DDDNetCore.Application.Services
             this._repo.Remove(patient);
             await this._unitOfWork.CommitAsync();
 
-            return new PatientDto
-            {
-                MedicalRecordNumber = patient.Id.AsString(),
-                PatientName = patient.PatientName.ToString(),
-                BirthDate = patient.BirthDate.ToString(),
-                Gender = patient.Gender.ToString(),
-                PhoneNumber = patient.PhoneNumber.ToString(),
-                MedicalConditions = patient.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
-                EmergencyContact = patient.EmergencyContact.ToString(),
-                AppointmentHistory = patient.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList(),
-                Email = patient.UserEmail.ToString()
-            };
+            return _mapper.ToDto(patient);
         }
     }
 }
