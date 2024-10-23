@@ -115,6 +115,8 @@ namespace DDDSample1
             services.AddTransient<IOperationRequestRepository, OperationRequestRepository>();
             services.AddTransient<OperationRequestService>();
             services.AddTransient<OperationRequestMapper>();
+            
+            services.AddTransient<PatientNameMicroService>();
         }
     }
 }

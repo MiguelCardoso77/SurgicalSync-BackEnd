@@ -194,19 +194,19 @@ namespace DDDNetCore.Infraestructure
 
             var request = new List<OperationRequest>
             {
-                new(new OperationRequestId("1"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01,07)), new OperationTypeId("5"), new MedicalRecordNumber("2"), new LicenseNumber("N202400001")),
+                new(new OperationRequestId("1"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01,07)), new OperationTypeId("5"), new MedicalRecordNumber("202409000001"), new LicenseNumber("N202400001")),
                 
-                new(new OperationRequestId("2"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2025, 11,10)), new OperationTypeId("1"), new MedicalRecordNumber("1"), new LicenseNumber("N202400001")),
+                new(new OperationRequestId("2"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2025, 11,10)), new OperationTypeId("1"), new MedicalRecordNumber("202409000002"), new LicenseNumber("N202400001")),
     
-                new(new OperationRequestId("3"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2024, 12, 15)), new OperationTypeId("2"), new MedicalRecordNumber("1"), new LicenseNumber("N202400002")),
+                new(new OperationRequestId("3"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2024, 12, 15)), new OperationTypeId("2"), new MedicalRecordNumber("202409000003"), new LicenseNumber("N202400002")),
     
-                new(new OperationRequestId("4"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01, 20)), new OperationTypeId("2"), new MedicalRecordNumber("2"), new LicenseNumber("N202400001")),
+                new(new OperationRequestId("4"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01, 20)), new OperationTypeId("2"), new MedicalRecordNumber("202409000001"), new LicenseNumber("N202400001")),
     
-                new(new OperationRequestId("5"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2026, 02, 25)), new OperationTypeId("3"), new MedicalRecordNumber("2"), new LicenseNumber("N202400003")),
+                new(new OperationRequestId("5"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2026, 02, 25)), new OperationTypeId("3"), new MedicalRecordNumber("202409000002"), new LicenseNumber("N202400003")),
     
-                new(new OperationRequestId("6"), Priority.EmergencySurgery, new DeadlineDate(new DateTime(2025, 03, 30)), new OperationTypeId("1"), new MedicalRecordNumber("3"), new LicenseNumber("N202400004")),
+                new(new OperationRequestId("6"), Priority.EmergencySurgery, new DeadlineDate(new DateTime(2025, 03, 30)), new OperationTypeId("1"), new MedicalRecordNumber("202409000002"), new LicenseNumber("N202400004")),
 
-                new(new OperationRequestId("7"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 04, 05)), new OperationTypeId("4"), new MedicalRecordNumber("4"), new LicenseNumber("N202400005")),
+                new(new OperationRequestId("7"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 04, 05)), new OperationTypeId("4"), new MedicalRecordNumber("202409000003"), new LicenseNumber("N202400005")),
 
             };
             

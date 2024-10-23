@@ -20,22 +20,33 @@ namespace DDDNetCore.Unit.Tests.Application.Services
     {
         private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly Mock<IOperationRequestRepository> _repoMock;
+        private readonly Mock<IPatientRepository> _patientMock;
         private readonly Mock<ILogger<OperationRequestService>> _loggerMock;
         private readonly OperationRequestMapper _mapper;
+        private readonly PatientMapper _patientMapper;
         private readonly OperationRequestService _operationRequestService;
+        private readonly PatientNameMicroService _patientNameMicroService;
 
         public OperationRequestServiceTests()
         {
             _unitOfWorkMock = new Mock<IUnitOfWork>();
             _repoMock = new Mock<IOperationRequestRepository>();
+            _patientMock = new Mock<IPatientRepository>();
             _loggerMock = new Mock<ILogger<OperationRequestService>>();
             _mapper = new OperationRequestMapper();
+            _patientMapper = new PatientMapper();
+            _patientNameMicroService = new PatientNameMicroService(
+                _unitOfWorkMock.Object,
+                _patientMock.Object,
+                _repoMock.Object
+            );
 
             _operationRequestService = new OperationRequestService(
                 _unitOfWorkMock.Object,
                 _repoMock.Object,
                 _loggerMock.Object,
-                _mapper);
+                _mapper,
+                _patientNameMicroService);
         }
 
         [Fact]

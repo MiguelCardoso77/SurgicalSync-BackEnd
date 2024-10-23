@@ -19,6 +19,7 @@ namespace DDDNetCore.Application.Services
         private readonly IOperationRequestRepository _repo;
         private readonly ILogger<OperationRequestService> _logger;
         private readonly OperationRequestMapper _mapper;
+        private readonly PatientNameMicroService _patientNameMicroService;
 
         /** Initializes a new instance of the <OperationRequestService/> class.
          * <param name="unitOfWork"> The unit of work to manage transactions </param>
@@ -27,12 +28,13 @@ namespace DDDNetCore.Application.Services
          * <param name="operationRequestMapper"> Mapper instance for mapping operations (e.g., domain to dto, dto to domain)</param>
          */
         
-        public OperationRequestService(IUnitOfWork unitOfWork, IOperationRequestRepository repo, ILogger<OperationRequestService> logger, OperationRequestMapper operationRequestMapper)
+        public OperationRequestService(IUnitOfWork unitOfWork, IOperationRequestRepository repo, ILogger<OperationRequestService> logger, OperationRequestMapper operationRequestMapper, PatientNameMicroService patientNameMicroService)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
             this._logger = logger;
             this._mapper = operationRequestMapper;
+            this._patientNameMicroService = patientNameMicroService;
         }
         
         /**
@@ -207,15 +209,7 @@ namespace DDDNetCore.Application.Services
 
         public async Task<List<OperationRequestDto>> GetAllByPatientName(string patientName)
         {
-            var list = await _repo.GetAllAsync();
-
-            // Filtro por Patient Name
-
-            // Ir ao repositorio dos Patients buscar o medical record number correspondente
-
-            // Fazer o mesmo que o GetAllByMedicalRecordNumber com o id retornado
-
-            return _mapper.ToListDto(list);
+            return await _patientNameMicroService.GetAllOperationRequestsByPatientName(patientName);
         }
     }
 }
