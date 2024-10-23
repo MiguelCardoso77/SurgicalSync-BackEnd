@@ -14,6 +14,7 @@ namespace DDDNetCore.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPatientRepository _repo;
+        private readonly PatientMapper _mapper;
 
         public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo)
         {
@@ -73,7 +74,7 @@ namespace DDDNetCore.Application.Services
             var medicalConditionsList = new List<MedicalConditions>();
             var appointmentHistoryList = new List<AppointmentHistory>();
             
-            var patient = PatientMapper.ToDomain(dto, medicalRecordNumber, medicalConditionsList, appointmentHistoryList);
+            var patient = _mapper.ToDomain(dto, medicalRecordNumber, medicalConditionsList, appointmentHistoryList);
 
             await this._repo.AddAsync(patient);
             await this._unitOfWork.CommitAsync();
