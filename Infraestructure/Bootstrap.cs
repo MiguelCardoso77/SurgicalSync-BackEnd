@@ -172,19 +172,33 @@ namespace DDDNetCore.Infraestructure
 
             var staffs = new List<Domain.Staffs.Staff>
             {
-                new(new LicenseNumber("N202400001"), new StaffName("Tomás Gonçalves"),
+                new(new LicenseNumber("D202400001"), new StaffName("Tomás Gonçalves"),
                     new StaffEmail("1220917@isep.ipp.pt"), new StaffPhoneNumber("962754971"),
                     StaffSpecialization.Family_medicine,
-                    new List<StaffAvaiabilitySlots>()
-                    , StaffType.Nurse
+                    new List<StaffAvaiabilitySlots>
+                    {
+                        new StaffAvaiabilitySlots("2024-09-25:14h00-18h00"),
+                        new StaffAvaiabilitySlots("2024-09-25:19h00/2024-09-26:02h00")
+                    }
+                    , StaffType.Doctor
                     ),
                     
-                new(new LicenseNumber("N202400002"), new StaffName("José Mesquita"),
-                    new StaffEmail("josemesquita@gmail.com"), new StaffPhoneNumber("962749671"),
+                new(new LicenseNumber("N202400002"), new StaffName("Diana Neves"),
+                    new StaffEmail("1221194@isep.ipp.pt"), new StaffPhoneNumber("962749672"),
                     StaffSpecialization.Family_medicine,
-                    new List<StaffAvaiabilitySlots>()
-                    ,StaffType.Doctor
-                    )
+                    new List<StaffAvaiabilitySlots>
+                    {
+                        new StaffAvaiabilitySlots("2024-09-25:14h00-18h00"),
+                        new StaffAvaiabilitySlots("2024-09-25:19h00/2024-09-26:02h00")
+                    }                    ,StaffType.Nurse
+                    ),
+                
+                new(new LicenseNumber("N202400003"), new StaffName("Gonçalo Sousa"),
+                new StaffEmail("1221331@isep.ipp.pt"), new StaffPhoneNumber("962749673"),
+                StaffSpecialization.Cardiology,
+                new List<StaffAvaiabilitySlots>()
+                ,StaffType.Nurse
+                )
             };
 
             var users = new List<User>
