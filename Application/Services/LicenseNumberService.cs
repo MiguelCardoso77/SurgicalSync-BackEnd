@@ -1,38 +1,52 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using DDDNetCore.Application.DTO;
+using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.Staffs;
+using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Application.Services
 {
     public class LicenseNumberService
     {
         // Variável estática para rastrear o último número gerado
-        private static int _lastGeneratedNumber = 10002; // Começa em 10002 para garantir 5 dígitos
+        private static int _lastGeneratedNumber = 00003;
 
-        public static LicenseNumber GenerateLN(StaffType staffType)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IStaffRepository _repo;
+        private readonly StaffMapper _mapper;
+
+        public LicenseNumberService(IUnitOfWork unitOfWork, IStaffRepository repo, StaffMapper mapper, StaffService staffService)
         {
-            // Define o prefixo com base no tipo de funcionário
+            this._unitOfWork = unitOfWork;
+            this._repo = repo;
+            this._mapper = mapper;
+            
+        }
+        public static LicenseNumber GenerateLN(StaffDto staffDto,StaffType staffType, List<Staff> list)
+        {
+            bool exists = list.Any(s => s.StaffName.ToString() == staffDto.StaffName && s.StaffEmail.ToString() == staffDto.StaffEmail);
+
+            if (exists)
+            {
+                throw new InvalidOperationException("Já existe um registro com o mesmo nome e email.");
+            }
+
+            // Gera o prefixo com base no tipo de staff
             char prefix = staffType switch
             {
                 StaffType.Doctor => 'D',
                 StaffType.Nurse => 'N',
                 _ => 'O' // Para outros tipos
             };
-
-            // Obtém o ano atual
+            
             string year = DateTime.Now.Year.ToString();
 
-            // Gera um número crescente de 5 dígitos
-            _lastGeneratedNumber = (_lastGeneratedNumber + 1) % 100000; // Incrementa e garante que permaneça em 5 dígitos
-            if (_lastGeneratedNumber < 10000) // Se passar de 99999, reinicia
-            {
-                _lastGeneratedNumber = 10000;
-            }
+            _lastGeneratedNumber = (_lastGeneratedNumber + 1) % 10000; 
 
-            // Formata o número da licença
-            string licenseNumberValue = $"{prefix}{year}{_lastGeneratedNumber:D5}"; // Garante que seja sempre 5 dígitos
+            string licenseNumberValue = $"{prefix}{year}{_lastGeneratedNumber:D5}";
 
-            // Retorna um novo objeto LicenseNumber
             return new LicenseNumber(licenseNumberValue);
         }
     }
