@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.Patients;
-using DDDSample1.Domain.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDDNetCore.Controllers
@@ -22,9 +21,48 @@ namespace DDDNetCore.Controllers
 
         // GET: api/Patients
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PatientDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<PatientDto>>> GetAll([FromQuery] string patientName = null, 
+            [FromQuery] string birthDate = null, [FromQuery] string medicalRecordNumber = null, 
+            [FromQuery] string userEmail = null, [FromQuery] string phoneNumber = null, [FromQuery] string gender = null)
         {
-            return await _service.GetAllAsync();
+            if (!string.IsNullOrEmpty(patientName))
+            {
+                var result = await _service.GetAllByPatientName(patientName);
+                return Ok(result);
+            }
+            
+            if (!string.IsNullOrEmpty(birthDate))
+            {
+                var result = await _service.GetAllByBirthDate(birthDate);
+                return Ok(result);
+            }
+            
+            if (!string.IsNullOrEmpty(medicalRecordNumber))
+            {
+                var result = await _service.GetAllByMedicalRecordNumber(medicalRecordNumber);
+                return Ok(result);
+            }
+            
+            if (!string.IsNullOrEmpty(userEmail))
+            {
+                var result = await _service.GetAllByEmail(userEmail);
+                return Ok(result);
+            }
+            
+            if (!string.IsNullOrEmpty(phoneNumber))
+            {
+                var result = await _service.GetAllByPhoneNumber(phoneNumber);
+                return Ok(result);
+            }
+            
+            if (!string.IsNullOrEmpty(gender))
+            {
+                var result = await _service.GetAllByGender(gender);
+                return Ok(result);
+            }
+            
+            var allPatients = await _service.GetAllAsync();
+            return Ok(allPatients);
         }
 
         // GET: api/Patients/P1
