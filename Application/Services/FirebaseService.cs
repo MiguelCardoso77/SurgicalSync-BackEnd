@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
+using DDDNetCore.Domain;
 using FirebaseAdmin.Auth;
 using Newtonsoft.Json;
 
@@ -13,6 +14,7 @@ namespace DDDNetCore.Application.Services
     {
         private const string ApiKey = "AIzaSyDTHG-LMx7-4UW6Gr3H-djBX0eFzs1k43s";
         private static readonly string SignInUrl = $"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={ApiKey}";
+        private static readonly string GoogleSignInUrl = $"https://identitytoolkit.googleapis.com/v1/accounts:signInWithIdp?key={ApiKey}";
         
         public static async Task<UserRecord> CreateUserRecordAsync(string email, string password, string role)
         {
@@ -34,6 +36,20 @@ namespace DDDNetCore.Application.Services
             Console.WriteLine($"Successfully created new user: {userRecord.Uid}");
             
             return userRecord;
+        }
+        
+        public static async Task<string> SignInWithGoogleAsync(string requestUriDto, string destination)
+        {
+            var googleAuthUrl = $"https://accounts.google.com/o/oauth2/v2/auth?client_id=1087452717471-mq11aoff38sf70g8nunu1ja9uh9e64ef.apps.googleusercontent.com&redirect_uri={requestUriDto}&response_type=code&scope=openid%20email%20profile";
+
+            var content = $"URL: {googleAuthUrl}";
+
+            var email = new Email(content, destination, "Your request to authenticate with Google.");
+            
+            var emailService = new EmailService();
+            await emailService.SendEmailAsync(email);
+            
+            return googleAuthUrl;
         }
         
         public static async Task<string> GeneratePasswordResetLink(string email)

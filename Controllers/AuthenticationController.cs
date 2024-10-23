@@ -22,5 +22,12 @@ namespace DDDNetCore.Controllers
         {
             return await _service.LoginWithEmailPasswordAsync(dto);
         }
+        
+        // PUT: api/Authentication
+        [HttpPut]
+        public async Task<ActionResult<string>> LoginWithGoogle(GoogleLoginDto dto)
+        {
+            return await _service.LoginWithGoogle(dto);
+        }
     }
 }

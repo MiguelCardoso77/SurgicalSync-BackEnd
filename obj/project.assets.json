@@ -3521,6 +3521,7 @@
     "net5.0": [
       "FirebaseAdmin >= 3.0.1",
       "FluentAssertions >= 6.12.1",
+      "Google.Apis.Auth >= 1.68.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 5.0.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
       "Microsoft.EntityFrameworkCore >= 5.0.0",
@@ -3536,19 +3537,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Utilizador\\.nuget\\packages\\": {}
+    "C:\\Users\\migue\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Utilizador\\OneDrive\\Ambiente de Trabalho\\Faculdade\\3º Ano\\LAPR5\\DDDNetCore.csproj",
+      "projectUniqueName": "C:\\Users\\migue\\RiderProjects\\dddnetcore\\DDDNetCore.csproj",
       "projectName": "DDDNetCore",
-      "projectPath": "C:\\Users\\Utilizador\\OneDrive\\Ambiente de Trabalho\\Faculdade\\3º Ano\\LAPR5\\DDDNetCore.csproj",
-      "packagesPath": "C:\\Users\\Utilizador\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Utilizador\\OneDrive\\Ambiente de Trabalho\\Faculdade\\3º Ano\\LAPR5\\obj\\",
+      "projectPath": "C:\\Users\\migue\\RiderProjects\\dddnetcore\\DDDNetCore.csproj",
+      "packagesPath": "C:\\Users\\migue\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\migue\\RiderProjects\\dddnetcore\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Utilizador\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\migue\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp5.0"
@@ -3584,6 +3585,10 @@
           "FluentAssertions": {
             "target": "Package",
             "version": "[6.12.1, )"
+          },
+          "Google.Apis.Auth": {
+            "target": "Package",
+            "version": "[1.68.0, )"
           },
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
             "target": "Package",

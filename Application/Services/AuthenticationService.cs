@@ -20,5 +20,11 @@ namespace DDDNetCore.Application.Services
            Console.WriteLine(response);
            return response;
         }
+
+        public async Task<string> LoginWithGoogle(GoogleLoginDto dto)
+        {
+            var response = await FirebaseService.SignInWithGoogleAsync(dto.RequestUri, dto.Email);
+            return response;
+        }
     }
 }
