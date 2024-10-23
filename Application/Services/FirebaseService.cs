@@ -59,14 +59,14 @@ namespace DDDNetCore.Application.Services
             return link;
         }
         
-        public static async Task<string> LoginWithEmailPassword(string email, string password)
+        public static async Task<string> LoginWithEmailPassword(string emailDto, string passwordDto)
         {
             using (var client = new HttpClient())
             {
                 var loginData = new
                 {
-                    Email = email,
-                    Password = password,
+                    email = emailDto,
+                    password = passwordDto,
                     returnSecureToken = true
                 };
                 
@@ -78,14 +78,10 @@ namespace DDDNetCore.Application.Services
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Passou");
                     var responseData = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("Passou");
-
                     var loginResponse = JsonConvert.DeserializeObject<LoginResponse>(responseData);
                     
                     Console.WriteLine($"Access Token: {loginResponse.IdToken}");
-                    Console.WriteLine("Passou");
 
                     return loginResponse.IdToken;
                 }
