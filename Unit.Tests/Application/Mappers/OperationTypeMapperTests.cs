@@ -2,7 +2,7 @@
 using System.Linq;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
-using DDDNetCore.Domain.OperationTypes;
+using DDDNetCore.Domain.OperationType;
 using Moq;
 using NUnit.Framework;
 
@@ -47,7 +47,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             Assert.AreEqual(dto.Id, operationType.Id.AsString());
             Assert.AreEqual(dto.OperationName, operationType.Name.ToString());
             Assert.AreEqual(dto.RequiredStaff.First(), operationType.RequiredStaff.First().RequiredStaffValue);
-            Assert.AreEqual(dto.EstimatedDuration.First(), operationType.EstimatedDuration.First().EstimatedDurationValue);
+            Assert.AreEqual(dto.EstimatedDuration.First(), operationType.EstimatedDuration.First().EstimatedDurationValue.ToString());
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             Assert.AreEqual(_mockOperationTypeId.Object.AsString(), dto.Id);
             Assert.AreEqual(_mockOperationName.Object.ToString(), dto.OperationName);
             Assert.AreEqual(_mockRequiredStaff.Object.RequiredStaffValue, dto.RequiredStaff.First());
-            Assert.AreEqual(_mockDuration.Object.EstimatedDurationValue, dto.EstimatedDuration.First());
+            Assert.AreEqual(_mockDuration.Object.EstimatedDurationValue.ToString(), dto.EstimatedDuration.First());
         }
     }
 }

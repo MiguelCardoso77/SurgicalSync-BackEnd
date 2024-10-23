@@ -1,7 +1,7 @@
-﻿using DDDNetCore.Domain.OperationTypes;
+﻿using DDDNetCore.Domain.OperationType;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Domain.OperationTypes
+namespace DDDNetCore.Unit.Tests.Domain.OperationType
 {
     [TestFixture]
     public class OperationTypeIdTests

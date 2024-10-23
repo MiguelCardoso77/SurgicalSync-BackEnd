@@ -1,10 +1,10 @@
 ﻿using DDDNetCore.Domain.OperationRequests;
-using DDDNetCore.Domain.OperationTypes;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Staffs;
 using Moq;
 using NUnit.Framework;
 using System;
+using DDDNetCore.Domain.OperationType;
 
 namespace DDDNetCore.Unit.Tests.Domain.OperationRequests
 {

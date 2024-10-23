@@ -2,7 +2,7 @@
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.OperationRequests;
-using DDDNetCore.Domain.OperationTypes;
+using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain.Users;

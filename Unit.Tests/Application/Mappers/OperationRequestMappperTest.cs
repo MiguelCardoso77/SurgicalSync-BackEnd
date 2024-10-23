@@ -2,7 +2,7 @@
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.OperationRequests;
-using DDDNetCore.Domain.OperationTypes;
+using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Staffs;
 using Moq;

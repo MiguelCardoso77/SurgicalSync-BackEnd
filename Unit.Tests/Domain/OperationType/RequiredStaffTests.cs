@@ -1,8 +1,8 @@
 ﻿using System;
-using DDDNetCore.Domain.OperationTypes;
+using DDDNetCore.Domain.OperationType;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Domain.OperationTypes
+namespace DDDNetCore.Unit.Tests.Domain.OperationType
 {
     [TestFixture]
     public class RequiredStaffTests
@@ -12,6 +12,12 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.OperationTypes
         {
             var requiredStaff = new RequiredStaff("Surgeon");
             Assert.AreEqual("Surgeon", requiredStaff.RequiredStaffValue);
+        }
+        
+        [Test]
+        public void TestConstructorNull()
+        {
+            Assert.Throws<FormatException>(() => new RequiredStaff(null));
         }
         
         [Test]
@@ -27,6 +33,14 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.OperationTypes
             var requiredStaff1 = new RequiredStaff("Surgeon");
             var requiredStaff2 = new RequiredStaff("Surgeon");
             Assert.AreEqual(requiredStaff1, requiredStaff2);
+        }
+        
+        [Test]
+        public void TestNotEquals()
+        {
+            var requiredStaff1 = new RequiredStaff("Surgeon");
+            var requiredStaff2 = new RequiredStaff("Nurse");
+            Assert.AreNotEqual(requiredStaff1, requiredStaff2);
         }
         
         [Test]

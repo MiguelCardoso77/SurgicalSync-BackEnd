@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
-using DDDNetCore.Domain.OperationTypes;
+using DDDNetCore.Domain.OperationType;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDDNetCore.Controllers
@@ -45,7 +45,7 @@ namespace DDDNetCore.Controllers
             return Ok(allOperations);
         }
         
-        // GET: api/OperationTypes/OT1
+        // GET: api/OperationTypes/OTID
         [HttpGet("{id}")]
         public async Task<ActionResult<OperationTypeDto>> GetById(string id)
         {
@@ -68,7 +68,7 @@ namespace DDDNetCore.Controllers
             return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
         }
         
-        // PUT: api/OperationTypes/OT5
+        // PUT: api/OperationTypes/OTID
         [HttpPut("{id}")]
         public async Task<ActionResult<OperationTypeDto>> Update(string id, OperationTypeDto dto)
         {
@@ -87,7 +87,7 @@ namespace DDDNetCore.Controllers
             return oT;
         }
         
-        // DELETE: api/OperationTypes/OT5
+        // DELETE: api/OperationTypes/OTID
         [HttpDelete("{id}")]
         public async Task<ActionResult<OperationTypeDto>> Delete(string id)
         {

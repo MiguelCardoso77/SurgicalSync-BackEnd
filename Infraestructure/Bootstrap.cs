@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using DDDNetCore.Domain.OperationRequests;
-using DDDNetCore.Domain.OperationTypes;
+using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Domain.Staffs;

@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using DDDNetCore.Domain.OperationTypes;
+﻿using System.Collections.Generic;
 
 namespace DDDNetCore.Application.DTO
 {
+    /**
+     * Data Transfer Object (DTO) for an operation type.
+     * Represents the data needed for communication between the application and external layers.
+     */
     public class OperationTypeDto
     {
         public string Id { get; set; }

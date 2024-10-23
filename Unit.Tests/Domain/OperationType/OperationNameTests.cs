@@ -1,8 +1,8 @@
 ﻿using System;
-using DDDNetCore.Domain.OperationTypes;
+using DDDNetCore.Domain.OperationType;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Domain.OperationTypes
+namespace DDDNetCore.Unit.Tests.Domain.OperationType
 {
     [TestFixture]
     public class OperationNameTests
@@ -12,6 +12,12 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.OperationTypes
         {
             var operationName = new OperationName("Ankle Surgery");
             Assert.AreEqual("Ankle Surgery", operationName.OperationNameValue);
+        }
+        
+        [Test]
+        public void TestConstructorNull()
+        {
+            Assert.Throws<FormatException>(() => new OperationName(null));
         }
         
         [Test]
@@ -27,6 +33,14 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.OperationTypes
             var operationName1 = new OperationName("Ankle Surgery");
             var operationName2 = new OperationName("Ankle Surgery");
             Assert.AreEqual(operationName1, operationName2);
+        }
+        
+        [Test]
+        public void TestNotEquals()
+        {
+            var operationName1 = new OperationName("Ankle Surgery");
+            var operationName2 = new OperationName("Knee Surgery");
+            Assert.AreNotEqual(operationName1, operationName2);
         }
         
         [Test]
