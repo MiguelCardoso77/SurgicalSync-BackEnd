@@ -91,6 +91,7 @@ namespace DDDSample1
             services.AddTransient<IStaffRepository, StaffRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<StaffService>();
+            services.AddTransient<StaffMapper>();
 
             services.AddTransient<IOperationTypeRepository, OperationTypeRepository>();
             services.AddTransient<OperationTypeService>();

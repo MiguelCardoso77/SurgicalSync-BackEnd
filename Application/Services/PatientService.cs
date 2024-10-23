@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.Patients;
@@ -30,7 +31,66 @@ namespace DDDNetCore.Application.Services
 
             return listDto;
         }
+        
+        public async Task<List<PatientDto>> GetAllByPatientName(string patientName)
+        {
+            var patientsList = await this._repo.GetAllAsync();
+            var patient = patientsList.FirstOrDefault(p => p.PatientName.ToString().Equals(patientName, StringComparison.OrdinalIgnoreCase));
+            var medicalRecordNumber = patient.Id;
+            var filteredPatientsList = patientsList
+                .Where(pt => pt.Id.Equals(medicalRecordNumber))
+                .ToList();
+            
+            var patientsListDtos = _mapper.ToListDto(filteredPatientsList);
+            
+            return patientsListDtos;
+        }
 
+        public async Task<List<PatientDto>> GetAllByBirthDate(string birthDate)
+        {
+            var patientsList = await _repo.GetAllAsync();
+    
+            var filteredList = patientsList.Where(pt => pt.BirthDate.ToString().Equals(birthDate)).ToList();
+    
+            return _mapper.ToListDto(filteredList);
+        }
+        
+        public async Task<List<PatientDto>> GetAllByMedicalRecordNumber(string medicalRecordNumber)
+        {
+            var patientsList = await _repo.GetAllAsync();
+    
+            var filteredList = patientsList.Where(pt => pt.Id.AsString().Equals(medicalRecordNumber)).ToList();
+    
+            return _mapper.ToListDto(filteredList);
+        }
+        
+        public async Task<List<PatientDto>> GetAllByEmail(string email)
+        {
+            var patientsList = await _repo.GetAllAsync();
+    
+            var filteredList = patientsList.Where(or => or.UserEmail.ToString().Equals(email)).ToList();
+    
+            return _mapper.ToListDto(filteredList);
+        }
+        
+        public async Task<List<PatientDto>> GetAllByPhoneNumber(string phoneNumber)
+        {
+            var patientsList = await _repo.GetAllAsync();
+    
+            var filteredList = patientsList.Where(pt => pt.PhoneNumber.ToString().Equals(phoneNumber)).ToList();
+    
+            return _mapper.ToListDto(filteredList);
+        }
+        
+        public async Task<List<PatientDto>> GetAllByGender(string gender)
+        {
+            var patientsList = await _repo.GetAllAsync();
+    
+            var filteredList = patientsList.Where(pt => pt.Gender.ToString().Equals(gender)).ToList();
+    
+            return _mapper.ToListDto(filteredList);
+        }
+        
         public async Task<PatientDto> GetByIdAsync(MedicalRecordNumber id)
         {
             var patient = await this._repo.GetByIdAsync(id);

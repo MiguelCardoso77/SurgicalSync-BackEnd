@@ -7,7 +7,7 @@ using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.Staffs;
 using DDDSample1.Domain.Shared;
 using DDDNetCore.Domain;
-using DDDNetCore.Domain.Users;
+using NUnit.Framework;
 
 
 namespace DDDNetCore.Application.Services
@@ -16,30 +16,24 @@ namespace DDDNetCore.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IStaffRepository _repo;
+        private readonly StaffMapper _mapper;
+
         
-        public StaffService(IUnitOfWork unitOfWork, IStaffRepository repo)
+        public StaffService(IUnitOfWork unitOfWork, IStaffRepository repo, StaffMapper mapper)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
+            this._mapper = mapper;
         } 
         
         public async Task<List<StaffDto>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
 
-            List<StaffDto> listDto = list.ConvertAll<StaffDto>(staff => new StaffDto
-            {
-                Id = staff.Id.AsString(),
-                StaffName = staff.StaffName.ToString(),
-                StaffEmail = staff.StaffEmail.ToString(),
-                StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
-                StaffSpecialization = staff.StaffSpecialization.ToString(),
-                StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                //StaffType = staff.StaffType.ToString()
-            });
-
-            return listDto;
+           
+            return _mapper.ToListDto(list);
         }
+        
         
         public async Task<StaffDto> GetByIdAsync(LicenseNumber id)
         {
@@ -50,14 +44,47 @@ namespace DDDNetCore.Application.Services
                 return null;
             }
 
-            return new StaffDto
-            {
-                Id = staff.Id.ToString(), StaffName = staff.StaffName.ToString(), StaffEmail = staff.StaffEmail.ToString(),
-                StaffPhoneNumber = staff.StaffPhoneNumber.ToString(), StaffSpecialization = staff.StaffSpecialization.ToString(), StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs=> rs.StaffAvaiabilitySlotsValue).ToList()
-            };
+            var staffId = _mapper.ToDto(staff);
+
+            return _mapper.ToDto(staff);
         }
         
-        public async Task<StaffDto> DeleteAsync(LicenseNumber id)
+        
+        public async Task<List<StaffDto>> GetAllByName(string staffName)
+        {
+            var list = await this._repo.GetAllAsync();
+            
+            // Filter list by Name
+            var filteredList = list.Where(staff => staff.StaffName.ToString().Contains(staffName, StringComparison.OrdinalIgnoreCase)).ToList();
+    
+            //Console.WriteLine(filteredList);
+            var lists = _mapper.ToListDto(filteredList);
+            return lists;
+        }
+        
+        public async Task<List<StaffDto>> GetAllByEmail(string staffEmail)
+        {
+            var list = await this._repo.GetAllAsync();
+            
+            // Filter list by Email
+            var filteredList = list.Where(staff => staff.StaffEmail.ToString().Contains(staffEmail, StringComparison.OrdinalIgnoreCase)).ToList();
+            var lists = _mapper.ToListDto(filteredList);
+
+            return lists;
+        }
+        
+        public async Task<List<StaffDto>> GetAllBySpecialization(string staffSpecialization)
+        {
+            var list = await this._repo.GetAllAsync();
+            
+            // Filter list by Specialization
+            var filteredList = list.Where(staff => staff.StaffSpecialization.ToString().Contains(staffSpecialization, StringComparison.OrdinalIgnoreCase)).ToList();
+            var lists = _mapper.ToListDto(filteredList);
+
+            return lists;
+        }
+
+    public async Task<StaffDto> DeleteAsync(LicenseNumber id)
         {
             var staff = await this._repo.GetByIdAsync(id);
 
@@ -75,7 +102,7 @@ namespace DDDNetCore.Application.Services
                 StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
                 StaffSpecialization = staff.StaffSpecialization.ToString(),
                 StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                //StaffType = staff.StaffType.ToString()
+                StaffType = staff.StaffType.ToString()
             };
         }
         
@@ -86,73 +113,61 @@ namespace DDDNetCore.Application.Services
             if (staff == null)
                 return null;
 
-            // Marcando o registro como inativo
             staff.IsActive = false;
 
-            // Como o objeto 'staff' é rastreado pelo contexto do Entity Framework, não é necessário chamar um método 'Update'
             await this._unitOfWork.CommitAsync();
 
-            return new StaffDto()
-            {
-                Id = staff.Id.AsString(),
-                StaffName = staff.StaffName.ToString(),
-                StaffEmail = staff.StaffEmail.ToString(),
-                StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
-                StaffSpecialization = staff.StaffSpecialization.ToString(),
-                StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                //StaffType = staff.StaffType.ToString()
-            };
+            return _mapper.ToDto(staff);
         }
 
         
         
-        public async Task<StaffDto> UpdateAsync(StaffDto dto)
-        {
-            var staff = await this._repo.GetByIdAsync(new LicenseNumber(dto.Id));
+       public async Task<StaffDto> UpdateAsync(StaffDto dto)
+{
+    var staff = await this._repo.GetByIdAsync(new LicenseNumber(dto.Id));
 
-            if (staff == null)
-                return null;
+    if (staff == null)
+        return null;
 
-            var phoneNumber = staff.StaffPhoneNumber.ToString();
-            var avaiabilitySlots = staff.StaffAvaiabilitySlots.ToString();
-            var specialization = staff.StaffSpecialization.ToString();
-            
-            // change all fields
-            staff.ChangeStaffSpecialization(new StaffSpecialization());
-            staff.ChangeStaffPhoneNumber(new StaffPhoneNumber(dto.StaffPhoneNumber));
+    var phoneNumber = dto.StaffPhoneNumber.ToString();
+    staff.ChangeStaffPhoneNumber(new StaffPhoneNumber(dto.StaffPhoneNumber));
+    
+    if (Enum.TryParse(dto.StaffSpecialization, out StaffSpecialization specialization))
+    {
+        staff.ChangeStaffSpecialization(specialization);
+    }
+    else
+    {
+        throw new ArgumentException("Invalid specialization value");
+    }
+    staff.ChangeStaffSpecialization(specialization);
+    
+    var avaiabilitySlots = dto.StaffAvaiabilitySlots.Select(st => new StaffAvaiabilitySlots(st)).ToList();
+    List<StaffAvaiabilitySlots> staffAvaiabilitySlots = new List<StaffAvaiabilitySlots>();
+    for (int i = 0; i < dto.StaffAvaiabilitySlots.Count; i++)
+    { 
+        staffAvaiabilitySlots.Add(new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots[i]));
+    }
+    staff.ChangeStaffAvaiabilitySlots(staffAvaiabilitySlots);
+    
+    var smtpEmailService = new EmailService();
+    
+    var avaiabilitySlotsText = string.Join(", ", staff.StaffAvaiabilitySlots.Select(slot => slot.StaffAvaiabilitySlotsValue));
 
-            List<StaffAvaiabilitySlots> staffAvaiabilitySlots = new List<StaffAvaiabilitySlots>();
-            for (int i = 0; i < dto.StaffAvaiabilitySlots.Count; i++)
-            { 
-                staffAvaiabilitySlots.Add(new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots[i]));
-            }
-            
-            staff.ChangeStaffAvaiabilitySlots(staffAvaiabilitySlots);
-            
-            // Send set-up email to user
-            var smtpEmailService = new EmailService();
-            var emailContent = $"Hello {staff.StaffName}! \n Your  staff information was changed. Now it is : \n phone number : {phoneNumber}, \nspecialization : {specialization} \n avaiability Slots email : {avaiabilitySlots.ToList()}";
-            var email = new Email(emailContent, staff.StaffEmail.ToString() , "Changes On Your Contact Information");
-            await smtpEmailService.SendEmailAsync(email);
-            Console.WriteLine($"Successfully sent the email to {email.Destination}");
+    var emailContent = $"Hello {staff.StaffName}! \nYour staff information was updated:\n\n" +
+                       $"Phone Number: {staff.StaffPhoneNumber.ToString()}\n\n" +
+                       $"Specialization: {staff.StaffSpecialization.ToString()}\n\n" +
+                       $"Availability Slots: {avaiabilitySlotsText}";
 
-            await this._unitOfWork.CommitAsync();
+    var email = new Email(emailContent, staff.StaffEmail.ToString(), "Changes to Your Staff Information");
 
+    await smtpEmailService.SendEmailAsync(email);
+    Console.WriteLine($"Successfully sent the email to {email.Destination}");
 
-            return new StaffDto()
-            {
-                Id = staff.Id.AsString(),
-                StaffName = staff.StaffName.ToString(),
-                StaffEmail = staff.StaffEmail.ToString(),
-                StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
-                StaffSpecialization = staff.StaffSpecialization.ToString(),
-                StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                //StaffType = staff.StaffType.ToString()
-            };
-            
-            
-            
-        }
+    await this._unitOfWork.CommitAsync();
+
+    return _mapper.ToDto(staff);
+}
 
         
         public async Task<StaffDto> AddAsync(StaffDto dto)
@@ -165,7 +180,10 @@ namespace DDDNetCore.Application.Services
             {
                 throw new ArgumentException("Invalid staff type. Must be 'Doctor', 'Nurse', or 'Other'.");
             }
-            LicenseNumber licenseNumber = LicenseNumberService.GenerateLN(staffType);
+            
+            var list = await this._repo.GetAllAsync();
+
+            LicenseNumber licenseNumber = LicenseNumberService.GenerateLN( dto,staffType, list);
             
             var staff = StaffMapper.ToDomain(dto, licenseNumber , avaiabilitySlotsList);
 
@@ -173,15 +191,7 @@ namespace DDDNetCore.Application.Services
             await this._unitOfWork.CommitAsync();
             
 
-            return new StaffDto()
-            {
-                StaffName = staff.StaffName.ToString(),
-                StaffEmail = staff.StaffEmail.ToString(),
-                StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
-                StaffSpecialization = staff.StaffSpecialization.ToString(),
-                StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                StaffType = staff.StaffType.ToString()
-            };
+            return _mapper.ToDto(staff);
         }
 
         
