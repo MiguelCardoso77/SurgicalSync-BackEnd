@@ -51,7 +51,7 @@ namespace DDDNetCore.Domain.OperationRequests {
          * Flag indicating if the operation request is active or inactive.
          */
         
-        public bool IsActive { get; private set; }
+        public bool IsActive { get; set; }
         
         /**
          * Default constructor for ORM and serialization purposes.
