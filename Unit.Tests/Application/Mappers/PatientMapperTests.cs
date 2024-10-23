@@ -32,9 +32,9 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             _mockBirthDate = new Mock<BirthDate>("30 de Junho de 2004");
             _mockGender = new Mock<Gender>("Feminino");
             _mockPhoneNumber = new Mock<PhoneNumber>("938413938");
-            _mockMedicalConditions = new Mock<MedicalConditions>();
+            _mockMedicalConditions = new Mock<MedicalConditions>("Nurse");
             _mockEmergencyContact = new Mock<EmergencyContact>("933264402");
-            _mockAppointmentHistory =  new Mock<AppointmentHistory>();
+            _mockAppointmentHistory =  new Mock<AppointmentHistory>("Nurse");
             _mockUserEmail = new Mock<UserEmail>("1221194@isep.ipp.pt");
         }
         
@@ -70,7 +70,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             Assert.AreEqual(dto.MedicalConditions.First(), patient.MedicalConditions.First().MedicalConditionsValue);
             Assert.AreEqual(dto.AppointmentHistory.First(), patient.AppointmentHistory.First().AppointmentHistoryValue);
         }
-/*
+
         [Test]
         public void TestToDto()
         {
@@ -98,6 +98,6 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             Assert.AreEqual(_mockMedicalConditions.Object.MedicalConditionsValue, dto.MedicalConditions.First());
             Assert.AreEqual(_mockAppointmentHistory.Object.AppointmentHistoryValue, dto.AppointmentHistory.First());
         }
-        */
+        
     }
 }
