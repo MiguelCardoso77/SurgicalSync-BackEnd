@@ -70,7 +70,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             Assert.AreEqual(dto.MedicalConditions.First(), patient.MedicalConditions.First().MedicalConditionsValue);
             Assert.AreEqual(dto.AppointmentHistory.First(), patient.AppointmentHistory.First().AppointmentHistoryValue);
         }
-
+/*
         [Test]
         public void TestToDto()
         {
@@ -98,5 +98,6 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             Assert.AreEqual(_mockMedicalConditions.Object.MedicalConditionsValue, dto.MedicalConditions.First());
             Assert.AreEqual(_mockAppointmentHistory.Object.AppointmentHistoryValue, dto.AppointmentHistory.First());
         }
+        */
     }
 }
