@@ -1,17 +1,16 @@
 using System;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
-using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Application.Services
 {
     public class AuthenticationService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly PatientMicroService _micro;
 
-        public AuthenticationService(IUnitOfWork unitOfWork)
+        public AuthenticationService(PatientMicroService micro)
         {
-            this._unitOfWork = unitOfWork;
+            this._micro = micro;
         }
         
         public async Task<string> LoginWithEmailPasswordAsync(LoginDto dto)
@@ -21,10 +20,26 @@ namespace DDDNetCore.Application.Services
            return response;
         }
 
-        public async Task<string> LoginWithGoogle(GoogleLoginDto dto)
+        public async Task<GoogleLoginDto> LoginWithGoogle(GoogleLoginDto dto)
         {
-            var response = await FirebaseService.SignInWithGoogleAsync(dto.RequestUri, dto.Email);
-            return response;
+            await FirebaseService.GivePatientGoogleAuthAsync(dto.RequestUri, dto.Email);
+            await FirebaseService.CreateUserRecordAsync(dto.Email, "Default999###", "Patient");
+            await _micro.CreatePatientProfile(dto);
+            
+            return dto;
+        }
+        
+        public async Task<PatientDto> AuthenticatePatientToken(GoogleLoginDto dto)
+        {
+            var accessToken = await FirebaseService.ExchangeAuthorizationCodeForAccessToken(dto.AuthCode);
+            var jwtToken = await FirebaseService.ExchangeAuthorizationCodeForIdToken(dto.AuthCode);
+
+            await FirebaseService.VerifyIdTokenAsync(jwtToken);
+            var patientEmail = await FirebaseService.GetUserEmailFromGoogle(accessToken);
+            
+            await FirebaseService.CreateUserWithGoogleAsync(jwtToken, patientEmail);
+            
+            return await _micro.CreatePatientProfile(dto);
         }
     }
 }

@@ -13,29 +13,133 @@ D -> FE: requests to search for operation requests
 
     activate FE
     
-    FE -> BE : GET /operationRequests{id}
+    FE -> BE : GET /OperationRequestSearchFilters
     
-    alt the requested operation request exists
     
     activate BE
     
-    BE --> FE : required operation request \n (eg., patient name, operation type, status)
+    BE --> FE : OperationRequestSearchFilters
     
+    deactivate BE
     
-    FE --> D: shows the operation request's details \n (eg., patient name, operation type, status)
+    FE --> D : shows the different filters (id, patientName, \n medicalRecordNumber, operationType and dateRange) \n that can be applied to the search and asks to select one
     
-    else 
+    deactivate FE 
+    
+    D -> FE : chooses the filter to be applied
+    
+    alt doctor chooses to search by id
+    
+    activate FE
+        
+    FE -> BE : GET /operationRequest?operationRequestId={id}
+    
+    alt the search is successful
+        
+    activate BE
+        
+    BE --> FE : operation request with all the associated data (eg., medicalRecordNumber, \n operationType, licenseNumber, priority, deadlineDate)
+        
+    FE --> D : shows the operation request's details (eg., medicalRecordNumber, \n operationType, licenseNumber, priority, deadlineDate)
+        
+    else
     
     BE --> FE : error message
     
     deactivate BE
-    
+        
     FE --> D : shows error message
-    
-    deactivate FE 
-    
+        
     end
     
+    else doctor chooses to search by patientName filter
+    
+    FE -> BE : GET /operationRequest?patientName={patientName}
+        
+        alt the search is successful
+            
+        activate BE
+            
+        BE --> FE : list of all the operation requests associated to the specified \n patientName and all the associated data (eg., medicalRecordNumber, \n operationType, licenseNumber, priority, deadlineDate)
+            
+        FE --> D : shows the operation requests details (eg., medicalRecordNumber, \n operationType, licenseNumber, priority, deadlineDate)
+            
+        else
+        
+        BE --> FE : error message
+        
+        deactivate BE
+            
+        FE --> D : shows error message
+            
+        end
+    
+    else doctor chooses to search by medicalRecordNumber filter
+    
+    FE -> BE : GET /operationRequest?medicalRecordNumber={medicalRecordNumber}
+    
+    alt the search is successful
+        
+    activate BE
+        
+    BE --> FE : list of all the operation requests associated to the specified \n medicalRecordNumber and all the associated data (eg., medicalRecordNumber, \n operationType, licenseNumber, priority, deadlineDate)
+        
+    FE --> D : shows the operation requests details (eg., medicalRecordNumber, \n operationType, licenseNumber, priority, deadlineDate)
+        
+    else
+    
+    BE --> FE : error message
+    
+    deactivate BE
+        
+    FE --> D : shows error message
+        
+    end
+    
+    else doctor chooses the search by operationType filter
+    
+    FE -> BE : GET /operationRequest?operationTypeId={id}
+        
+        alt the search is successful
+            
+        activate BE
+            
+        BE --> FE : list of all the operation requests associated to the specified \n operationType and all the associated data (eg., medicalRecordNumber, \n operationType, licenseNumber, priority, deadlineDate)
+            
+        FE --> D : shows the operation requests details (eg., medicalRecordNumber, \n operationType, licenseNumber, priority, deadlineDate)
+            
+        else
+        
+        BE --> FE : error message
+        
+        deactivate BE
+            
+        FE --> D : shows error message
+            
+        end
+    
+    else doctor chooses to search by dateRange filter
+    
+    FE -> BE : GET /operationRequest?startDate={YYYY-mm-dd}&endDate={YYYY-mm-dd}
+        
+        alt the search is successful
+            
+        activate BE
+            
+        BE --> FE : list of all the operation requests which the deadlineDate is within the range specified and all the associated data (eg., medicalRecordNumber, \n operationType, licenseNumber, priority, deadlineDate)
+            
+        FE --> D : shows the operation requests details (eg., medicalRecordNumber, \n operationType, licenseNumber, priority, deadlineDate)
+            
+        else
+        
+        BE --> FE : error message
+        
+        deactivate BE
+            
+        FE --> D : shows error message
+            
+        end
+        
 deactivate D
 
 @enduml

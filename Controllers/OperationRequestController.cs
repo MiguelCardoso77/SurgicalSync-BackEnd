@@ -48,7 +48,7 @@ namespace DDDNetCore.Controllers
 
             if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
             {
-                var result = await _service.GetAllInsideDataRange(startDate, endDate);
+                var result = await _service.GetAllInsideDateRange(startDate, endDate);
                 return Ok(result);
             }
 
