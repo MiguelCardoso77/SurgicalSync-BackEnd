@@ -121,10 +121,11 @@ namespace DDDNetCore.Application.Services
          */
         public async Task<OperationTypeDto> AddAsync(OperationTypeDto dto)
         {
-            var existingOperationType = await GetAllByName(dto.OperationName);
-            if (existingOperationType != null)
+            var existingOperationType = await GetAllAsync();
+            foreach(OperationTypeDto ot in existingOperationType)
             {
-                throw new InvalidOperationException($"An operation type with the name '{dto.OperationName}' already exists.");
+                if (ot.OperationName.Equals(dto.OperationName, StringComparison.OrdinalIgnoreCase))
+                    throw new InvalidOperationException("An operation type with the same name already exists.");
             }
             
             var dtoId = string.IsNullOrEmpty(dto.Id) ? new OperationTypeId(Guid.NewGuid().ToString()) : new OperationTypeId(dto.Id);
