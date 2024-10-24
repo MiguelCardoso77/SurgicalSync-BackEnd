@@ -1,0 +1,46 @@
+﻿@startuml
+
+title "UC10-Log in to the system using the IAM credentials"
+
+package "Application"{
+    class FirebaseService {
+        + CreateUserRecordAsync(string email, string password, string role)
+        + GeneratePasswordResetLink(string email)
+        + PatientLogin(loginDto dto)
+    }
+
+    class AuthenticationService {
+        + PatientLogin(LoginDto dto)
+    }
+
+}
+
+package "DTOs"{
+    class AuthenticationLoginMapper{
+         + CreateLoginDto(username, password)
+    }
+    
+    class LoginDTO {
+        - Email
+        - Password
+        - ReturnSecureToken
+    }
+}
+
+package "Controllers"{
+    class AuthenticationController {
+        + LoginWithEmailPassword(LoginDto dto)
+    }
+}
+
+AuthenticationController -> AuthenticationService
+
+AuthenticationService -> AuthenticationLoginMapper : uses
+
+AuthenticationService -> FirebaseService
+
+AuthenticationLoginMapper -> LoginDTO : maps domain to
+
+
+
+@enduml
