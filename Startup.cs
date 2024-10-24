@@ -104,6 +104,7 @@ namespace DDDSample1
             services.AddTransient<PatientNameMicroService>();
 
             services.AddTransient<PatientMicroService>();
+            services.AddTransient<UserEmailMicroService>();
             services.AddTransient<AuthenticationService>();
         }
     }

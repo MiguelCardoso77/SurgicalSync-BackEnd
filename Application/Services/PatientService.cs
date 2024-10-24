@@ -6,6 +6,7 @@ using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain;
+using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Application.Services
@@ -15,12 +16,14 @@ namespace DDDNetCore.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPatientRepository _repo;
         private readonly PatientMapper _mapper;
+        private readonly UserEmailMicroService _userEmailMicroService;
 
-        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper mapper)
+        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper mapper, UserEmailMicroService userEmailMicroService)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
             this._mapper = mapper;
+            this._userEmailMicroService = userEmailMicroService;
         }
 
         public async Task<List<PatientDto>> GetAllAsync()
@@ -105,12 +108,32 @@ namespace DDDNetCore.Application.Services
 
         public async Task<PatientDto> AddAsync(PatientDto dto)
         {
+            var existingPatient = await GetAllAsync();
+            foreach(PatientDto pt in existingPatient)
+            {
+                if (pt.PhoneNumber.Equals(dto.PhoneNumber, StringComparison.OrdinalIgnoreCase))
+                    throw new InvalidOperationException("An patient with the same phone number already exists. Please try with another.");
+            }
+            
+            foreach(PatientDto pt in existingPatient)
+            {
+                if (pt.Email.Equals(dto.Email, StringComparison.OrdinalIgnoreCase))
+                    throw new InvalidOperationException("An patient with the same email already exists. Please try with another.");
+            }
+
             var medicalRecordNumber = string.IsNullOrEmpty(dto.MedicalRecordNumber)
                 ? new MedicalRecordNumber()
                 : new MedicalRecordNumber(dto.MedicalRecordNumber);
 
             var medicalConditionsList = new List<MedicalConditions>();
             var appointmentHistoryList = new List<AppointmentHistory>();
+            
+            var can = await _userEmailMicroService.VerifyEmail(dto.Email);
+            
+            if (can.Equals(false))
+            {
+                throw new InvalidOperationException("This email already exists. Please try with another.");
+            }
             
             var patient = _mapper.ToDomain(dto, medicalRecordNumber, medicalConditionsList, appointmentHistoryList);
 
@@ -123,7 +146,7 @@ namespace DDDNetCore.Application.Services
         public async Task<PatientDto> UpdateAsync(PatientDto dto)
         {
             var patient = await this._repo.GetByIdAsync(new MedicalRecordNumber(dto.MedicalRecordNumber));
-
+            
             if (patient == null)
                 return null;
 
