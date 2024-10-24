@@ -7,6 +7,7 @@ using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.Staffs;
 using DDDSample1.Domain.Shared;
 using DDDNetCore.Domain;
+using FirebaseAdmin;
 using NUnit.Framework;
 
 
@@ -94,16 +95,7 @@ namespace DDDNetCore.Application.Services
             this._repo.Remove(staff);
             await this._unitOfWork.CommitAsync();
 
-            return new StaffDto()
-            {
-                Id = staff.Id.AsString(),
-                StaffName = staff.StaffName.ToString(),
-                StaffEmail = staff.StaffEmail.ToString(),
-                StaffPhoneNumber = staff.StaffPhoneNumber.ToString(),
-                StaffSpecialization = staff.StaffSpecialization.ToString(),
-                StaffAvaiabilitySlots = staff.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
-                StaffType = staff.StaffType.ToString()
-            };
+            return _mapper.ToDto(staff);
         }
         
         public async Task<StaffDto> DeactivateAsync(LicenseNumber id)
@@ -158,6 +150,11 @@ namespace DDDNetCore.Application.Services
                        $"Phone Number: {staff.StaffPhoneNumber.ToString()}\n\n" +
                        $"Specialization: {staff.StaffSpecialization.ToString()}\n\n" +
                        $"Availability Slots: {avaiabilitySlotsText}";
+
+    if (staff.StaffType.ToString() != dto.StaffType || staff.StaffName.ToString() != dto.StaffName || staff.StaffEmail.ToString() != dto.StaffEmail)
+    {
+        throw new ArgumentException("Invalid update! You can only change staffPhoneNumber, staffAvaiabilitySlots or staffSpecialization");    
+    }
 
     var email = new Email(emailContent, staff.StaffEmail.ToString(), "Changes to Your Staff Information");
 
