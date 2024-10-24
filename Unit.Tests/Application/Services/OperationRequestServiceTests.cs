@@ -439,9 +439,187 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             Assert.AreEqual("202411000002", request2.MedicalRecordNumber);
             Assert.AreEqual("D202400002", request2.LicenseNumber);
         }
+        [Test]
+        public async Task GetAllInsideDateRange_ReturnsEmptyList_WhenDeadlineDateIsOutOfRange()
+        {
+            // Arrange
+            var start = "2025-09-01";
+            var end = "2025-09-30";
+
+            var operationRequest1 = new OperationRequest(
+                new OperationRequestId("1"),
+                Priority.ElectiveSurgery,
+                new DeadlineDate(new DateTime(2025, 10, 1)),
+                new OperationTypeId("2"),
+                new MedicalRecordNumber("202411000001"),
+                new LicenseNumber("D202400001")
+            );
+
+            var operationRequest2 = new OperationRequest(
+                new OperationRequestId("2"),
+                Priority.UrgentSurgery,
+                new DeadlineDate(new DateTime(2025, 11, 15)),
+                new OperationTypeId("3"),
+                new MedicalRecordNumber("202411000002"),
+                new LicenseNumber("D202400002")
+            );
+
+            var operationRequests = new List<OperationRequest> { operationRequest1, operationRequest2 };
+    
+            _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationRequests);
+
+            // Act
+            var result = await _operationRequestService.GetAllInsideDateRange(start, end);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count);
+        }
         
-        // TO DO: GetAllByOperationType
-        // TO DO: GetAllByMedicalRecordNumber
-        // TO DO: GetAllPatientName
+        [Test] 
+        public async Task GetAllByOperationType_ReturnsFilteredRequests_WhenOperationTypeIdExists()
+        { 
+            // Arrange
+            var operationTypeId = new OperationTypeId("2");
+
+            var operationRequest1 = new OperationRequest(
+                new OperationRequestId("1"),
+                Priority.ElectiveSurgery,
+                new DeadlineDate(new DateTime(2025, 10, 1)),
+                operationTypeId,
+                new MedicalRecordNumber("202411000001"),
+                new LicenseNumber("D202400001")
+            );
+
+            var operationRequest2 = new OperationRequest(
+                new OperationRequestId("2"),
+                Priority.UrgentSurgery,
+                new DeadlineDate(new DateTime(2025, 11, 15)),
+                operationTypeId,
+                new MedicalRecordNumber("202411000002"),
+                new LicenseNumber("D202400002")
+            );
+
+            var operationRequests = new List<OperationRequest> { operationRequest1, operationRequest2 };
+            
+            _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationRequests);
+
+            // Act
+            var result = await _operationRequestService.GetAllByOperationType(operationTypeId.AsString());
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count);
+
+            // Validate details of the first request
+            var request1 = result.First();
+            Assert.AreEqual("1", request1.OperationRequestId);
+            Assert.AreEqual(Priority.ElectiveSurgery.ToString(), request1.Priority);
+            Assert.AreEqual("2025-10-01", request1.DeadlineDate.ToString());
+            Assert.AreEqual("2", request1.OperationTypeId);
+            Assert.AreEqual("202411000001", request1.MedicalRecordNumber); 
+            Assert.AreEqual("D202400001", request1.LicenseNumber);
+
+            // Validate details of the second request
+            var request2 = result.Last();
+            Assert.AreEqual("2", request2.OperationRequestId); 
+            Assert.AreEqual(Priority.UrgentSurgery.ToString(), request2.Priority);
+            Assert.AreEqual("2025-11-15", request2.DeadlineDate.ToString());
+            Assert.AreEqual("2", request2.OperationTypeId);
+            Assert.AreEqual("202411000002", request2.MedicalRecordNumber);
+            Assert.AreEqual("D202400002", request2.LicenseNumber);
+        }
+
+
+        [Test]
+        public async Task GetAllByOperationType_ReturnsEmptyList_WhenOperationTypeIdDoesNotExist()
+        {
+            // Arrange
+            var nonExistentOperationTypeId = new OperationTypeId("999");
+            var operationRequests = new List<OperationRequest>();
+
+            _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationRequests);
+
+            // Act
+            var result = await _operationRequestService.GetAllByOperationType(nonExistentOperationTypeId.ToString());
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count);
+        }
+        
+        [Test]
+        public async Task GetAllByMedicalRecordNumber_ReturnsFilteredRequests_WhenMedicalRecordNumberExists()
+        {
+        // Arrange
+        var medicalRecordNumber = new MedicalRecordNumber("202411000001");
+
+        var operationRequest1 = new OperationRequest(
+            new OperationRequestId("1"),
+            Priority.ElectiveSurgery,
+            new DeadlineDate(new DateTime(2025, 10, 1)),
+            new OperationTypeId("2"),
+            medicalRecordNumber,
+            new LicenseNumber("D202400001")
+            );
+
+        var operationRequest2 = new OperationRequest(
+            new OperationRequestId("2"),
+            Priority.UrgentSurgery,
+            new DeadlineDate(new DateTime(2025, 11, 15)),
+            new OperationTypeId("3"),
+            new MedicalRecordNumber("202411000002"),
+            new LicenseNumber("D202400002")
+        );
+
+        var operationRequests = new List<OperationRequest> { operationRequest1, operationRequest2 };
+
+        _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationRequests);
+
+        // Act
+        var result = await _operationRequestService.GetAllByMedicalRecordNumber(medicalRecordNumber.ToString());
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(1, result.Count);
+        Assert.AreEqual(medicalRecordNumber.ToString(), result.First().MedicalRecordNumber); 
+        }
+
+        [Test]
+        public async Task GetAllByMedicalRecordNumber_ReturnsEmptyList_WhenMedicalRecordNumberDoesNotExist()
+        {
+        // Arrange
+        var medicalRecordNumber = new MedicalRecordNumber("202411000003");
+
+        var operationRequest1 = new OperationRequest(
+            new OperationRequestId("1"),
+            Priority.ElectiveSurgery,
+            new DeadlineDate(new DateTime(2025, 10, 1)),
+            new OperationTypeId("2"),
+            new MedicalRecordNumber("202411000001"),
+            new LicenseNumber("D202400001")
+        );
+
+        var operationRequest2 = new OperationRequest(
+            new OperationRequestId("2"),
+            Priority.UrgentSurgery,
+            new DeadlineDate(new DateTime(2025, 11, 15)),
+            new OperationTypeId("3"),
+            new MedicalRecordNumber("202411000002"), 
+            new LicenseNumber("D202400002")
+        );
+
+        var operationRequests = new List<OperationRequest> { operationRequest1, operationRequest2 };
+
+        _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationRequests);
+
+        // Act
+        var result = await _operationRequestService.GetAllByMedicalRecordNumber(medicalRecordNumber.ToString());
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(0, result.Count);
+    }
+
     }
 }
