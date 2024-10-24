@@ -8,8 +8,8 @@ class OperationRequest{
     - OperationRequestId
     - Priority
     - DeadlineDate
-    - PatientID
-    - LicenseNumber
+    - MedicalRecordNumber
+    - StaffId
     - OperationTypeID
     + OperationRequest(OperationRequestId id, Priority priority, DeadlineDate date, PatientID patientID, LicenseNumber LicenseNumber, OperationTypeID operationTypeID)
 }
@@ -32,12 +32,12 @@ class OperationTypeID{
     + OperationTypeID(String value)
 }
 
-class PatientID{
-    + PatientID(String value)
+class MedicalRecordNumber{
+    + MedicalRecordNumber(String value)
 }
 
-class LicenseNumber{
-    + LicenseNumber(String value)
+class StaffId{
+    + StaffId(String value)
 }
 
 }
@@ -48,8 +48,8 @@ class OperationRequestDTO{
     - Id
     - Priority
     - DeadlineDate
-    - PatientID
-    - LicenseNumber
+    - MedicalRecordNumber
+    - StaffId
     - OperationTypeID
 }
 
@@ -111,8 +111,8 @@ OperationRequestMapper <-- OperationRequest : enters
 OperationRequest --> OperationRequestID : has a
 OperationRequest --> Priority : has a
 OperationRequest --> DeadlineDate : has a
-OperationRequest --> PatientID : will be performed at a Patient with a 
-OperationRequest --> LicenseNumber : will be performed by a Doctor with a
+OperationRequest --> MedicalRecordNumber : will be performed at a Patient with a 
+OperationRequest --> StaffId : will be performed by a Doctor with a
 OperationRequest --> OperationTypeID : has a
 
 OperationRequestService --> OperationRequestRepository
