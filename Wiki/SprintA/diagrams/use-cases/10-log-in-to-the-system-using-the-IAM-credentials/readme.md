@@ -69,14 +69,17 @@ credentials.
 
 #### Process View
 
-### Level 3
+![process-view.svg](level2%2Fprocess-view.svg)
 
-#### Process View
+### Level 3
 
 ##### Backend Process View
 
+![backend-process-view.svg](level3%2Fbackend-process-view.svg)
+
 ##### Class Diagram
 
+![class-diagram.svg](class-diagram.svg)
 
 ## 4. Acceptance Criteria and Tests
 

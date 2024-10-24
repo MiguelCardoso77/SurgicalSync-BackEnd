@@ -1,7 +1,7 @@
 ﻿@startuml
 autonumber
 
-Title "UC11 - Patient Login Using External IAM Credentials"
+Title "UC10 - Patient Login Using External IAM Credentials"
 
 actor "Patient" as P
 participant "<<System>> \n SurgicalSync" as SYSTEM
@@ -13,7 +13,7 @@ P -> SYSTEM: requests login via external IAM provider
 
     activate SYSTEM
     
-    SYSTEM --> P: asks for the user´s \ncredentials (username/password)
+    SYSTEM --> P: asks for the user´s IAM credentials
     
     deactivate SYSTEM
     

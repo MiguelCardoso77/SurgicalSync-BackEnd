@@ -1,0 +1,82 @@
+﻿@startuml
+autonumber
+
+Title "UC10 - Patient Login Using External IAM Credentials"
+
+participant "FrontEnd" as FE
+participant "<<Controller>>\nAuthenticationController" as CN
+participant "<<Application>>\nAuthenticationService" as SV
+participant "<<Application>>\nFireBaseService" as FS
+participant "<<Mappers>>\nAuthenticationMapper" as MP
+participant "<<Dto>>\nLoginDto" as G
+participant "<<ExternalSystem>>\nIAM Provider" as IAM
+
+activate FE
+
+FE -> CN : credentials
+
+activate CN
+
+CN -> SV : credentials(username and password)
+
+activate SV
+
+SV -> MP : ToDto(username, password)
+
+activate MP
+
+MP -> G : CreateLoginDto(username, password)
+
+activate G
+
+G --> MP : LoginDto
+
+deactivate G
+
+MP --> SV : LoginDto
+
+deactivate MP
+
+SV -> FS : PatientLogin(LoginDto)
+
+activate FS
+
+FS --> IAM : PostAsync(SignInUrl, content)
+
+alt the given password matches the password associated with the given username
+
+activate IAM
+
+IAM --> FS : response(successStatusCode)
+
+FS --> SV : returns authentication token (success)
+
+SV -> SV : creates session for the patient
+
+SV --> CN : operation success 
+
+CN --> FE : operation success 
+
+else the given password doesn't match the password associated with the given username
+
+IAM --> FS : response(errorStatusCode)
+
+deactivate IAM
+
+FS --> SV : error: wrong credentials
+
+deactivate FS
+
+SV --> CN : error: wrong credentials
+
+deactivate SV
+
+CN --> FE : error: wrong credentials
+
+end 
+
+deactivate CN
+
+deactivate FE
+
+@enduml

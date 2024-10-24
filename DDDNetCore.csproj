@@ -31,8 +31,6 @@
     <Folder Include="Wiki\SprintA\1221194\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\11-access-my-features\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\11-access-my-features\level3\" />
-    <Folder Include="Wiki\SprintA\diagrams\use-cases\11-log-in-to-the-system-using-the-IAM-credentials\level1\" />
-    <Folder Include="Wiki\SprintA\diagrams\use-cases\12-access-my-features\level1\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\7-delete-my-account-and-all-associated-data\level2\" />
     <Folder Include="Wiki\SprintA\diagrams\use-cases\7-delete-my-account-and-all-associated-data\level3\" />
   </ItemGroup>

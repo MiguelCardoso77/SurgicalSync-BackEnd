@@ -1,0 +1,60 @@
+﻿@startuml
+autonumber
+
+Title "UC10 - Patient Login Using External IAM Credentials"
+
+actor "Patient" as P
+participant "FrontEnd" as FE
+participant "BackEnd" as BE 
+participant "<<External System>> \n IAM Provider" as IAM
+
+activate P 
+
+P -> FE: requests login via external IAM provider
+
+    activate FE
+    
+    FE --> P: asks for the user´s IAM credentials
+    
+    deactivate FE
+    
+P -> FE: submits credentials
+
+    activate FE
+    
+    FE -> BE: credentials(username/password)
+    
+    activate BE
+
+    BE -> IAM: sends credentials for authentication (username/password)
+    
+    activate IAM
+
+    alt correct credentials
+        IAM --> BE: returns authentication token (success)
+                
+        BE -> BE: creates session for the patient
+        
+        BE --> FE: shows operation success
+        
+        FE --> P : shows operation success
+
+    else wrong credentials
+        IAM --> BE: error message (invalid credentials)
+        deactivate IAM
+        
+        BE --> FE: shows error message (invalid credentials)
+        
+        deactivate BE
+
+        FE --> P: shows error message (invalid credentials)
+
+    end
+    
+    deactivate IAM
+
+    deactivate FE
+
+deactivate P
+
+@enduml
