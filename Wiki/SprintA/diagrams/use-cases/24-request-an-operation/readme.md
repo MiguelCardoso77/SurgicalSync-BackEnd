@@ -112,10 +112,9 @@ To successfully implement this use case, the following criteria must be met:
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
-This use case relies on:
+This use case relies on the following API functionalities:
 
-
-
+        POST /operationRequests
 
 </div>
 
