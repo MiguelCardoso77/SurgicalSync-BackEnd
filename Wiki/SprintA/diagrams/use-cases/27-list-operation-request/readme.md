@@ -104,7 +104,7 @@ To successfully implement this use case, the following criteria must be met:
 
 This use case relies on the following API functionalities:
 
-      GET /operationRequest
+      GET /operationRequests
 
 
 </div>
