@@ -1,40 +1,43 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Domain.Staffs
 {
-    public class Staff : Entity<LicenseNumber>, IAggregateRoot
+    public class Staff : Entity<StaffId>, IAggregateRoot
     {
-        //public StaffType StaffType{ get; private set; }
-        public LicenseNumber Id { get; private set; }
+        public StaffId Id { get; private set; }
         public StaffName StaffName { get; private set; }
-        public StaffEmail StaffEmail { get; private set; }
+        public UserEmail UserEmail { get; private set; }
         public StaffPhoneNumber StaffPhoneNumber { get; private set; }
         public StaffSpecialization StaffSpecialization { get; private set; }
         public List<StaffAvaiabilitySlots> StaffAvaiabilitySlots { get; private set; }
         public bool IsActive { get; set; }
         public StaffType StaffType { get; private set; }
+       
         private Staff()
         {
             this.Id = null;
             this.StaffName = null;
-            this.StaffEmail = null;
+            this.UserEmail = null;
             this.StaffPhoneNumber = null;
             this.StaffSpecialization = StaffSpecialization.None;
             this.StaffAvaiabilitySlots = null;
             this.StaffType = StaffType.Other;
+            this.IsActive = true;
         }
-        public Staff(LicenseNumber id ,StaffName staffName, StaffEmail staffEmail, StaffPhoneNumber staffPhoneNumber,
-            StaffSpecialization staffSpecialization, List<StaffAvaiabilitySlots > staffAvaiabilitySlots, StaffType staffType)
+        public Staff(StaffId id ,StaffName staffName, UserEmail userEmail, StaffPhoneNumber staffPhoneNumber,
+            StaffSpecialization staffSpecialization, List<StaffAvaiabilitySlots > staffAvaiabilitySlots, StaffType staffType, Boolean isActive)
         {
             this.Id = id;
             this.StaffName = staffName;
-            this.StaffEmail = staffEmail;
+            this.UserEmail = userEmail;
             this.StaffPhoneNumber = staffPhoneNumber;
             this.StaffSpecialization = staffSpecialization;
             this.StaffAvaiabilitySlots = staffAvaiabilitySlots;
-            this.IsActive = true;
             this.StaffType = staffType;
+            this.IsActive = true;
         }
         
         public void ChangeStaffSpecialization(StaffSpecialization specialization)
@@ -47,6 +50,11 @@ namespace DDDNetCore.Domain.Staffs
             this.StaffPhoneNumber = phoneNumber;
         }
         
+        public void ChangeUserEmail(UserEmail userEmail)
+        {
+            this.UserEmail = userEmail;
+        }
+
         public void ActivateStaff()
         {
             this.IsActive = true;

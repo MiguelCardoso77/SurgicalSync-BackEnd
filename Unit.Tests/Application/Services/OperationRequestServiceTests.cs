@@ -60,7 +60,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             var deadlineDate = new DeadlineDate(new DateTime(2025, 10, 1));
             var operationTypeId = new OperationTypeId("2");
             var medicalRecordNumber = new MedicalRecordNumber("202411000001");
-            var licenseNumber = new LicenseNumber("D202400001");
+            var licenseNumber = new StaffId("D202400001");
 
             var operationRequest = new OperationRequest(
                 operationRequestId,
@@ -75,7 +75,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             {
                 OperationRequestId = operationRequestId.AsString(),
                 DeadlineDate = deadlineDate.Date.ToString("yyyy-MM-dd"),
-                LicenseNumber = licenseNumber.AsString(),
+                StaffId = licenseNumber.AsString(),
                 Priority = priority.ToString(),
                 OperationTypeId = operationTypeId.AsString(),
                 MedicalRecordNumber = medicalRecordNumber.AsString()
@@ -91,7 +91,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedDto.OperationRequestId, result.OperationRequestId);
             Assert.AreEqual(expectedDto.MedicalRecordNumber, result.MedicalRecordNumber);
-            Assert.AreEqual(expectedDto.LicenseNumber, result.LicenseNumber);
+            Assert.AreEqual(expectedDto.StaffId, result.StaffId);
             Assert.AreEqual(expectedDto.OperationTypeId, result.OperationTypeId);
             Assert.AreEqual(expectedDto.Priority, result.Priority);
             Assert.AreEqual(expectedDto.DeadlineDate, result.DeadlineDate);
@@ -125,8 +125,8 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             var operationTypeId2 = new OperationTypeId("3");
             var medicalRecordNumber1 = new MedicalRecordNumber("202411000001");
             var medicalRecordNumber2 = new MedicalRecordNumber("202411000002");
-            var licenseNumber1 = new LicenseNumber("D202400001");
-            var licenseNumber2 = new LicenseNumber("D202400002");
+            var licenseNumber1 = new StaffId("D202400001");
+            var licenseNumber2 = new StaffId("D202400002");
 
             var priority1 = Priority.ElectiveSurgery;
             var priority2 = Priority.UrgentSurgery;
@@ -159,7 +159,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 {
                     OperationRequestId = operationRequestId1.AsString(),
                     DeadlineDate = deadlineDate1.Date.ToString("yyyy-MM-dd"),
-                    LicenseNumber = licenseNumber1.AsString(),
+                    StaffId = licenseNumber1.AsString(),
                     Priority = priority1.ToString(),
                     OperationTypeId = operationTypeId1.AsString(),
                     MedicalRecordNumber = medicalRecordNumber1.AsString()
@@ -168,7 +168,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 {
                     OperationRequestId = operationRequestId2.AsString(),
                     DeadlineDate = deadlineDate2.Date.ToString("yyyy-MM-dd"),
-                    LicenseNumber = licenseNumber2.AsString(),
+                    StaffId = licenseNumber2.AsString(),
                     Priority = priority2.ToString(),
                     OperationTypeId = operationTypeId2.AsString(),
                     MedicalRecordNumber = medicalRecordNumber2.AsString()
@@ -186,7 +186,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             {
                 Assert.AreEqual(expectedDto[i].OperationRequestId, result[i].OperationRequestId, $"Mismatch at index {i} for OperationRequestId.");
                 Assert.AreEqual(expectedDto[i].MedicalRecordNumber, result[i].MedicalRecordNumber, $"Mismatch at index {i} for MedicalRecordNumber.");
-                Assert.AreEqual(expectedDto[i].LicenseNumber, result[i].LicenseNumber, $"Mismatch at index {i} for LicenseNumber.");
+                Assert.AreEqual(expectedDto[i].StaffId, result[i].StaffId, $"Mismatch at index {i} for LicenseNumber.");
                 Assert.AreEqual(expectedDto[i].OperationTypeId, result[i].OperationTypeId, $"Mismatch at index {i} for OperationTypeId.");
                 Assert.AreEqual(expectedDto[i].Priority, result[i].Priority, $"Mismatch at index {i} for Priority.");
                 Assert.AreEqual(expectedDto[i].DeadlineDate, result[i].DeadlineDate, $"Mismatch at index {i} for DeadlineDate.");
@@ -220,7 +220,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             {
                 OperationRequestId = null,
                 DeadlineDate = "2025-10-01",
-                LicenseNumber = "D202400001",
+                StaffId = "D202400001",
                 Priority = Priority.ElectiveSurgery.ToString(),
                 OperationTypeId = "2",
                 MedicalRecordNumber = "202411000001"
@@ -234,7 +234,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new DeadlineDate(new DateTime(2025, 10, 1)),
                 new OperationTypeId("2"),
                 new MedicalRecordNumber("202411000001"),
-                new LicenseNumber("D202400001")
+                new StaffId("D202400001")
             );
 
             // Act
@@ -255,7 +255,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             { 
                 OperationRequestId = "1",
                 DeadlineDate = "2025-10-01",
-                LicenseNumber = "D202400001",
+                StaffId = "D202400001",
                 Priority = Priority.UrgentSurgery.ToString(),
                 OperationTypeId = "2",
                 MedicalRecordNumber = "202411000001"
@@ -267,7 +267,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new DeadlineDate(new DateTime(2025, 10, 1)),
                 new OperationTypeId("2"),
                 new MedicalRecordNumber("202411000001"),
-                new LicenseNumber("D202400001")
+                new StaffId("D202400001")
             );
 
             _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId))
@@ -308,7 +308,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new DeadlineDate(new DateTime(2025, 10, 1)),
                 new OperationTypeId("2"),
                 new MedicalRecordNumber("202411000001"),
-                new LicenseNumber("D202400001")
+                new StaffId("D202400001")
             );
             
             _repoMock.Setup(repo => repo.GetByIdAsync(operationRequestId)).ReturnsAsync(operationRequest);
@@ -321,7 +321,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             Assert.AreEqual(operationRequestId.AsString(), result.OperationRequestId);
             Assert.AreEqual(Priority.ElectiveSurgery.ToString(), result.Priority);
             Assert.AreEqual("2025-10-01", result.DeadlineDate);
-            Assert.AreEqual("D202400001", result.LicenseNumber);
+            Assert.AreEqual("D202400001", result.StaffId);
             Assert.AreEqual("2", result.OperationTypeId);
             Assert.AreEqual("202411000001", result.MedicalRecordNumber);
     
@@ -355,7 +355,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new DeadlineDate(new DateTime(2025, 10, 1)),
                 new OperationTypeId("2"),
                 new MedicalRecordNumber("202411000001"),
-                new LicenseNumber("D202400001")
+                new StaffId("D202400001")
             );
             
             var inactiveRequest = new OperationRequest(
@@ -364,7 +364,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new DeadlineDate(new DateTime(2025, 10, 2)),
                 new OperationTypeId("3"),
                 new MedicalRecordNumber("202411000002"),
-                new LicenseNumber("D202400002")
+                new StaffId("D202400002")
             );
 
             inactiveRequest.IsActive = false;
@@ -400,7 +400,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new DeadlineDate(new DateTime(2025, 10, 1)),
                 new OperationTypeId("2"),
                 new MedicalRecordNumber("202411000001"),
-                new LicenseNumber("D202400001")
+                new StaffId("D202400001")
             );
 
             var operationRequest2 = new OperationRequest(
@@ -409,7 +409,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new DeadlineDate(new DateTime(2025, 11, 15)),
                 new OperationTypeId("3"),
                 new MedicalRecordNumber("202411000002"),
-                new LicenseNumber("D202400002")
+                new StaffId("D202400002")
             );
 
             var operationRequests = new List<OperationRequest> { operationRequest1, operationRequest2 };
@@ -429,7 +429,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             Assert.AreEqual("2025-10-01", request1.DeadlineDate);
             Assert.AreEqual("2", request1.OperationTypeId);
             Assert.AreEqual("202411000001", request1.MedicalRecordNumber);
-            Assert.AreEqual("D202400001", request1.LicenseNumber);
+            Assert.AreEqual("D202400001", request1.StaffId);
 
             var request2 = result.Last();
             Assert.AreEqual("2", request2.OperationRequestId);
@@ -437,7 +437,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             Assert.AreEqual("2025-11-15", request2.DeadlineDate);
             Assert.AreEqual("3", request2.OperationTypeId);
             Assert.AreEqual("202411000002", request2.MedicalRecordNumber);
-            Assert.AreEqual("D202400002", request2.LicenseNumber);
+            Assert.AreEqual("D202400002", request2.StaffId);
         }
         [Test]
         public async Task GetAllInsideDateRange_ReturnsEmptyList_WhenDeadlineDateIsOutOfRange()
@@ -452,7 +452,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new DeadlineDate(new DateTime(2025, 10, 1)),
                 new OperationTypeId("2"),
                 new MedicalRecordNumber("202411000001"),
-                new LicenseNumber("D202400001")
+                new StaffId("D202400001")
             );
 
             var operationRequest2 = new OperationRequest(
@@ -461,7 +461,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new DeadlineDate(new DateTime(2025, 11, 15)),
                 new OperationTypeId("3"),
                 new MedicalRecordNumber("202411000002"),
-                new LicenseNumber("D202400002")
+                new StaffId("D202400002")
             );
 
             var operationRequests = new List<OperationRequest> { operationRequest1, operationRequest2 };
@@ -488,7 +488,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new DeadlineDate(new DateTime(2025, 10, 1)),
                 operationTypeId,
                 new MedicalRecordNumber("202411000001"),
-                new LicenseNumber("D202400001")
+                new StaffId("D202400001")
             );
 
             var operationRequest2 = new OperationRequest(
@@ -497,7 +497,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 new DeadlineDate(new DateTime(2025, 11, 15)),
                 operationTypeId,
                 new MedicalRecordNumber("202411000002"),
-                new LicenseNumber("D202400002")
+                new StaffId("D202400002")
             );
 
             var operationRequests = new List<OperationRequest> { operationRequest1, operationRequest2 };
@@ -518,7 +518,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             Assert.AreEqual("2025-10-01", request1.DeadlineDate.ToString());
             Assert.AreEqual("2", request1.OperationTypeId);
             Assert.AreEqual("202411000001", request1.MedicalRecordNumber); 
-            Assert.AreEqual("D202400001", request1.LicenseNumber);
+            Assert.AreEqual("D202400001", request1.StaffId);
 
             // Validate details of the second request
             var request2 = result.Last();
@@ -527,7 +527,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             Assert.AreEqual("2025-11-15", request2.DeadlineDate.ToString());
             Assert.AreEqual("2", request2.OperationTypeId);
             Assert.AreEqual("202411000002", request2.MedicalRecordNumber);
-            Assert.AreEqual("D202400002", request2.LicenseNumber);
+            Assert.AreEqual("D202400002", request2.StaffId);
         }
 
 
@@ -560,7 +560,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             new DeadlineDate(new DateTime(2025, 10, 1)),
             new OperationTypeId("2"),
             medicalRecordNumber,
-            new LicenseNumber("D202400001")
+            new StaffId("D202400001")
             );
 
         var operationRequest2 = new OperationRequest(
@@ -569,7 +569,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             new DeadlineDate(new DateTime(2025, 11, 15)),
             new OperationTypeId("3"),
             new MedicalRecordNumber("202411000002"),
-            new LicenseNumber("D202400002")
+            new StaffId("D202400002")
         );
 
         var operationRequests = new List<OperationRequest> { operationRequest1, operationRequest2 };
@@ -597,7 +597,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             new DeadlineDate(new DateTime(2025, 10, 1)),
             new OperationTypeId("2"),
             new MedicalRecordNumber("202411000001"),
-            new LicenseNumber("D202400001")
+            new StaffId("D202400001")
         );
 
         var operationRequest2 = new OperationRequest(
@@ -606,7 +606,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             new DeadlineDate(new DateTime(2025, 11, 15)),
             new OperationTypeId("3"),
             new MedicalRecordNumber("202411000002"), 
-            new LicenseNumber("D202400002")
+            new StaffId("D202400002")
         );
 
         var operationRequests = new List<OperationRequest> { operationRequest1, operationRequest2 };

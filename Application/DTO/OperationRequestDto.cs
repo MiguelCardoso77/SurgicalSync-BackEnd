@@ -31,6 +31,6 @@
         /**
          * Gets or sets the license number of the medical professional related to the request.
          */
-        public string LicenseNumber { get; set; }
+        public string StaffId { get; set; }
     }
 }

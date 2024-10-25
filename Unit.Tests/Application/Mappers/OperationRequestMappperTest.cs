@@ -17,7 +17,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
         private Mock<OperationRequestId> _mockOperationRequestId;
         private Mock<DeadlineDate> _mockDeadlineDate;
         private Mock<OperationTypeId> _mockOperationTypeId;
-        private Mock<LicenseNumber> _mockLicenseNumber;
+        private Mock<StaffId> _mockStaffId;
         private Mock<MedicalRecordNumber> _mockMedicalRecordNumber;
 
         private Priority _mockPriority;
@@ -29,7 +29,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             _mockOperationRequestId = new Mock<OperationRequestId>("1");
             _mockDeadlineDate = new Mock<DeadlineDate>(new DateTime(2025, 10, 1));
             _mockOperationTypeId = new Mock<OperationTypeId>("2");
-            _mockLicenseNumber = new Mock<LicenseNumber>("D202400001");
+            _mockStaffId = new Mock<StaffId>("D202400001");
             _mockMedicalRecordNumber = new Mock<MedicalRecordNumber>("123456");
 
             _mockPriority = Priority.ElectiveSurgery;
@@ -45,14 +45,14 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
                 _mockDeadlineDate.Object,
                 _mockOperationTypeId.Object,
                 _mockMedicalRecordNumber.Object,
-                _mockLicenseNumber.Object
+                _mockStaffId.Object
             );
 
             var dto = _mapper.ToDto(operationRequest);
 
             Assert.AreEqual(_mockOperationRequestId.Object.AsString(), dto.OperationRequestId);
             Assert.AreEqual("2025-10-01", dto.DeadlineDate);
-            Assert.AreEqual(_mockLicenseNumber.Object.AsString(), dto.LicenseNumber);
+            Assert.AreEqual(_mockStaffId.Object.AsString(), dto.StaffId);
             Assert.AreEqual(_mockPriority.ToString(), dto.Priority);
             Assert.AreEqual(_mockOperationTypeId.Object.AsString(), dto.OperationTypeId);
             Assert.AreEqual(_mockMedicalRecordNumber.Object.AsString(), dto.MedicalRecordNumber);
@@ -65,7 +65,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             {
                 OperationRequestId = "1",
                 DeadlineDate = "2025-10-01",
-                LicenseNumber = "D202400001",
+                StaffId = "D202400001",
                 Priority = _mockPriority.ToString(),
                 OperationTypeId = "2",
                 MedicalRecordNumber = "123456"
@@ -79,7 +79,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             Assert.AreEqual(new DeadlineDate(DateTime.Parse(dto.DeadlineDate)), operationRequest.DeadlineDate);
             Assert.AreEqual(new OperationTypeId(dto.OperationTypeId), operationRequest.OperationTypeId);
             Assert.AreEqual(new MedicalRecordNumber(dto.MedicalRecordNumber), operationRequest.MedicalRecordNumber);
-            Assert.AreEqual(new LicenseNumber(dto.LicenseNumber), operationRequest.LicenseNumber);
+            Assert.AreEqual(new StaffId(dto.StaffId), operationRequest.StaffId);
         }
     }
 }

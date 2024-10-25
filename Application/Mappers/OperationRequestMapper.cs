@@ -25,7 +25,7 @@ namespace DDDNetCore.Application.Mappers
             {
                 OperationRequestId = domain.Id.AsString(),
                 DeadlineDate = domain.DeadlineDate.Date.ToString("yyyy-MM-dd"),
-                LicenseNumber = domain.LicenseNumber.AsString(),
+                StaffId = domain.StaffId.AsString(),
                 Priority = domain.Priority.ToString(),
                 OperationTypeId = domain.OperationTypeId.AsString(),
                 MedicalRecordNumber = domain.MedicalRecordNumber.AsString(),
@@ -38,7 +38,7 @@ namespace DDDNetCore.Application.Mappers
         public OperationRequest ToDomain(OperationRequestDto dto, OperationRequestId operationRequestId)
         {
             var parsedDeadlineDate = DateTime.Parse(dto.DeadlineDate);
-            return new OperationRequest(operationRequestId, Enum.Parse<Priority>(dto.Priority), new DeadlineDate(parsedDeadlineDate), new OperationTypeId(dto.OperationTypeId), new MedicalRecordNumber(dto.MedicalRecordNumber), new LicenseNumber(dto.LicenseNumber));
+            return new OperationRequest(operationRequestId, Enum.Parse<Priority>(dto.Priority), new DeadlineDate(parsedDeadlineDate), new OperationTypeId(dto.OperationTypeId), new MedicalRecordNumber(dto.MedicalRecordNumber), new StaffId(dto.StaffId));
         }
         /**
          * Converts a list of domain OperationRequest objects to a list of OperationRequestDto objects.

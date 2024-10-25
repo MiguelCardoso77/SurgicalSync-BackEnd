@@ -66,7 +66,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             var priority = Priority.ElectiveSurgery;
             var deadlineDate = new DeadlineDate(new DateTime(2025, 10, 1));
             var operationTypeId = new OperationTypeId("2");
-            var licenseNumber = new LicenseNumber("D202400001");
+            var licenseNumber = new StaffId("D202400001");
 
             var operationRequest = new OperationRequest(
                 operationRequestId,
@@ -88,7 +88,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                     Priority = priority.ToString(),
                     DeadlineDate = deadlineDate.Date.ToString("yyyy-MM-dd"),
                     OperationTypeId = "2",
-                    LicenseNumber = "D202400001"
+                    StaffId = "D202400001"
                 }
             };
 
@@ -109,7 +109,7 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 Assert.AreEqual(expectedDtoList[i].Priority, result[i].Priority);
                 Assert.AreEqual(expectedDtoList[i].DeadlineDate, result[i].DeadlineDate);
                 Assert.AreEqual(expectedDtoList[i].OperationTypeId, result[i].OperationTypeId);
-                Assert.AreEqual(expectedDtoList[i].LicenseNumber, result[i].LicenseNumber);
+                Assert.AreEqual(expectedDtoList[i].StaffId, result[i].StaffId);
             }
 
             _patientRepositoryMock.Verify(repo => repo.GetAllAsync(), Times.Once);
