@@ -8,17 +8,12 @@ namespace DDDNetCore.Application.Services
 {
     public class UserEmailMicroService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
-        private readonly IPatientRepository _patientRepository;
 
 
-        public UserEmailMicroService(IUnitOfWork unitOfWork, IUserRepository userRepository,
-            IPatientRepository patientRepository)
+        public UserEmailMicroService(IUserRepository userRepository)
         {
-            this._unitOfWork = unitOfWork;
             this._userRepository = userRepository;
-            this._patientRepository = patientRepository;
         }
 
         public async Task<bool> VerifyEmail(string userEmail)

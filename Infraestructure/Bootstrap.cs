@@ -158,7 +158,7 @@ namespace DDDNetCore.Infraestructure
                     new List<MedicalConditions>(),
                     new EmergencyContact("933264402"),
                     new List<AppointmentHistory>(),
-                    new UserEmail("1221194@isep.ipp.pt")
+                    new UserEmail("1221195@isep.ipp.pt")
                 ),
 
                 new(new PatientName("Miguel"), new BirthDate("4 de Julho de 2004"), new Gender("Masculino"),
@@ -184,7 +184,7 @@ namespace DDDNetCore.Infraestructure
                     ),
                     
                 new(new LicenseNumber("N202400002"), new StaffName("Diana Neves"),
-                    new StaffEmail("1221194@isep.ipp.pt"), new StaffPhoneNumber("962749672"),
+                    new StaffEmail("1221195@isep.ipp.pt"), new StaffPhoneNumber("962749672"),
                     StaffSpecialization.Family_medicine,
                     new List<StaffAvaiabilitySlots>
                     {
