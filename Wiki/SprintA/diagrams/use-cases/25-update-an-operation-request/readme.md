@@ -50,7 +50,7 @@ access to the necessary healthcare.
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
-
+None to specify
 
 </div>
 
@@ -104,17 +104,9 @@ To successfully implement this use case, the following criteria must be met:
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
-This use case relies on:
+This use case relies on the following API functionalities:
 
-[1-register-backoffice-users](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F1-register-backoffice-users)
-
-[12-create-a-new-staff-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F12-create-a-new-staff-profile)
-
-[13-create-patient-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F13-create-patient-profile)
-
-[30-request-an-operation](..%2F30-request-an-operation)
-
-[37-add-new-operation-types](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F37-add-new-operation-types)
+      PUT /operationRequests/{id}
 
 </div>
 
