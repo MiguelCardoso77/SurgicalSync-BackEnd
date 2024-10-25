@@ -86,10 +86,11 @@ namespace DDDSample1
             services.AddTransient<PatientService>();
             services.AddTransient<PatientMapper>();
 
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<UserService>();
+            services.AddTransient<UserMapper>();
             
             services.AddTransient<IStaffRepository, StaffRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<StaffService>();
             services.AddTransient<StaffMapper>();
 
@@ -102,7 +103,6 @@ namespace DDDSample1
             services.AddTransient<OperationRequestMapper>();
             
             services.AddTransient<PatientNameMicroService>();
-
             services.AddTransient<PatientMicroService>();
             services.AddTransient<UserEmailMicroService>();
             services.AddTransient<AuthenticationService>();

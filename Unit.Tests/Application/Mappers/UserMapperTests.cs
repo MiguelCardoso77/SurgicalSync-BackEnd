@@ -8,6 +8,8 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
     [TestFixture]
     public class UserMapperTests
     {
+        private readonly UserMapper _mapper = new();
+        
         [Test]
         public void TestToDomain()
         {
@@ -15,8 +17,8 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             {
                 Id = "1", UserName = "Test", UserEmail = "emailTest@gmail.com", UserRole = "Admin"
             };
-
-            var user = UserMapper.ToDomain(dto, new UserId(dto.Id));
+            
+            var user = _mapper.ToDomain(dto, new UserId(dto.Id));
 
             Assert.AreEqual(user.Id.AsString(), dto.Id);
             Assert.AreEqual(user.Username.ToString(), dto.UserName);
@@ -30,7 +32,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             var user = new User(new UserId("1"), new Username("Test"), new UserEmail("emailTest@gmail.com"),
                 UserRole.Admin);
 
-            var dto = UserMapper.ToDto(user);
+            var dto = _mapper.ToDto(user);
 
             Assert.AreEqual(dto.Id, user.Id.AsString());
             Assert.AreEqual(dto.UserName, user.Username.ToString());
