@@ -1,4 +1,6 @@
-﻿using DDDNetCore.Domain.Users;
+﻿using System;
+using DDDNetCore.Domain.Users;
+using Moq;
 using NUnit.Framework;
 
 namespace DDDNetCore.SurgicalSyncTests.Domain.Users
@@ -6,17 +8,26 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Users
     [TestFixture]
     public class UserTests
     {
+        private Mock<UserId> _mockUserId;
+        private Mock<Username> _mockUsername;
+        private Mock<UserEmail> _mockUserEmail;
+        private UserRole _mockUserRole;
+        
+        [SetUp]
+        public void SetUp()
+        {
+            _mockUserId = new Mock<UserId>("1");
+            _mockUsername = new Mock<Username>("SEM5PI");
+            _mockUserEmail = new Mock<UserEmail>("email@gmail.com");
+            _mockUserRole = UserRole.Admin;
+        }
+        
         [Test]
         public void TestConstructor()
         {
-            var user = new User(
-                new UserId("1"),
-                new Username("test"),
-                new UserEmail("email@gmail.com"),
-                UserRole.Admin);
+            var user = new User(_mockUserId.Object, _mockUsername.Object, _mockUserEmail.Object, _mockUserRole);
             
-            Assert.AreEqual("1", user.Id.AsString());
-            Assert.AreEqual("test", user.Username.UsernameValue);
+            Assert.AreEqual("SEM5PI", user.Username.UsernameValue);
             Assert.AreEqual("email@gmail.com", user.UserEmail.UserEmailValue);
             Assert.AreEqual(UserRole.Admin, user.UserRole);
         }
@@ -24,24 +35,16 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Users
         [Test]
         public void TestChangeUserName()
         {
-            var user = new User(
-                new UserId("1"),
-                new Username("test"),
-                new UserEmail("email@gmail.com"),
-                UserRole.Admin);
+            var user = new User(_mockUserId.Object, _mockUsername.Object, _mockUserEmail.Object, _mockUserRole);
 
-            user.ChangeUserName(new Username("newtest"));
+            user.ChangeUserName(new Mock<Username>("newtest").Object);
             Assert.AreEqual("newtest", user.Username.UsernameValue);
         }
 
         [Test]
         public void TestChangeUserRole()
         {
-            var user = new User(
-                new UserId("1"),
-                new Username("test"),
-                new UserEmail("email@gmail.com"),
-                UserRole.Admin);
+            var user = new User(_mockUserId.Object, _mockUsername.Object, _mockUserEmail.Object, _mockUserRole);
 
             user.ChangeUserRole(UserRole.Technician);
             Assert.AreEqual(UserRole.Technician, user.UserRole);
@@ -50,11 +53,7 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Users
         [Test]
         public void TestActivateUser()
         {
-            var user = new User(
-                new UserId("1"),
-                new Username("test"),
-                new UserEmail("email@gmail.com"),
-                UserRole.Admin);
+            var user = new User(_mockUserId.Object, _mockUsername.Object, _mockUserEmail.Object, _mockUserRole);
 
             user.ActivateUser();
             Assert.IsTrue(user.IsActive);
@@ -63,15 +62,31 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Users
         [Test]
         public void TestDeactivateUser()
         {
-            var user = new User(
-                new UserId("1"),
-                new Username("test"),
-                new UserEmail("email@gmail.com"),
-                UserRole.Admin);
+            var user = new User(_mockUserId.Object, _mockUsername.Object, _mockUserEmail.Object, _mockUserRole);
 
             user.DeactivateUser();
             Assert.IsFalse(user.IsActive);
         }
+        
+        [Test]
+        public void TestPrivateConstructor()
+        {
+            var user = (User)Activator.CreateInstance(typeof(User), true);
 
+            Assert.NotNull(user);
+            Assert.IsNull(user.Id);
+            Assert.IsNull(user.UserEmail);
+            Assert.IsNull(user.Username);
+        }
+
+        [Test]
+        public void TestChangeUserEmail()
+        {
+            var user = new User(_mockUserId.Object, _mockUsername.Object, _mockUserEmail.Object, _mockUserRole);
+
+            user.ChangeUserEmail(new Mock<UserEmail>("email@outlook.pt").Object);
+
+            Assert.AreEqual("email@outlook.pt", user.UserEmail.UserEmailValue);
+        }
     }
 }

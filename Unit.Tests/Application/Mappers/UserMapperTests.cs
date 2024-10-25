@@ -1,6 +1,9 @@
-﻿using DDDNetCore.Application.DTO;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.Users;
+using Moq;
 using NUnit.Framework;
 
 namespace DDDNetCore.Unit.Tests.Application.Mappers
@@ -8,7 +11,21 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
     [TestFixture]
     public class UserMapperTests
     {
-        private readonly UserMapper _mapper = new();
+        private UserMapper _mapper;
+        private Mock<UserId> _mockUserId;
+        private Mock<Username> _mockUsername;
+        private Mock<UserEmail> _mockUserEmail;
+        private UserRole _mockUserRole;
+        
+        [SetUp]
+        public void Setup()
+        {
+            _mapper = new UserMapper();
+            _mockUserId = new Mock<UserId>("1");
+            _mockUsername = new Mock<Username>("Test");
+            _mockUserEmail = new Mock<UserEmail>("emailTest@gmail.com");
+            _mockUserRole = UserRole.Admin;
+        }
         
         [Test]
         public void TestToDomain()
@@ -29,8 +46,12 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
         [Test]
         public void TestToDto()
         {
-            var user = new User(new UserId("1"), new Username("Test"), new UserEmail("emailTest@gmail.com"),
-                UserRole.Admin);
+            var user = new User(
+                _mockUserId.Object, 
+                _mockUsername.Object,
+                _mockUserEmail.Object,
+                _mockUserRole
+            );
 
             var dto = _mapper.ToDto(user);
 
@@ -38,6 +59,25 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             Assert.AreEqual(dto.UserName, user.Username.ToString());
             Assert.AreEqual(dto.UserEmail, user.UserEmail.ToString());
             Assert.AreEqual(dto.UserRole, user.UserRole.ToString());
+        }
+        
+        [Test]
+        public void TestToDtoList()
+        {
+            var user = new Mock<User>(
+                _mockUserId.Object, 
+                _mockUsername.Object,
+                _mockUserEmail.Object,
+                _mockUserRole
+            );
+
+            var userList = new List<Mock<User>>() { user };
+            var dtoList = _mapper.ToDtoList(userList.Select(u => u.Object).ToList());
+            
+            Assert.AreEqual(dtoList.First().Id, user.Object.Id.AsString());
+            Assert.AreEqual(dtoList.First().UserName, user.Object.Username.ToString());
+            Assert.AreEqual(dtoList.First().UserEmail, user.Object.UserEmail.ToString());
+            Assert.AreEqual(dtoList.First().UserRole, user.Object.UserRole.ToString());
         }
     }
 }
