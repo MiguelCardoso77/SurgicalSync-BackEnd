@@ -63,6 +63,15 @@ Emergency Surgery: Needs immediate intervention to save life, limb, or function.
 
 **A:** when it is scheduled by the planning/scheduling module.
 
+**Q:** Good afternoon,
+
+In the acceptance criteria for US19 - "As a Doctor, I want to list/search operation requisitions, so that I can see the details, edit, and remove operation requisitions," one of the criteria specifies: "- The system displays a list of operation requests in a searchable and filterable view."
+
+Could you please clarify which filters the doctor can apply to the Operation Requisition search?
+
+**A:** the doctor can search and filter by operation type, patient name, patient medical record number, date range
+
+
 </div>
 
 ## 3. Diagrams
@@ -116,17 +125,13 @@ To successfully implement this use case, the following criteria must be met:
 
 This use case relies on:
 
-[1-register-backoffice-users](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F1-register-backoffice-users)
+      GET /operationRequests?choosedFilter=filter
 
-[12-create-a-new-staff-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F12-create-a-new-staff-profile)
-
-[13-create-patient-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F13-create-patient-profile)
-
-[21-add-staff-profile-hospital's-roster](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F21-add-staff-profile-hospital%27s-roster)
-
-[30-request-an-operation](..%2F30-request-an-operation)
-
-[37-add-new-operation-types](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F37-add-new-operation-types)
+The chosen filter can be:
+- operationTypeId
+- patientName
+- medicalRecordNumber
+- dateRange
 
 </div>
 
