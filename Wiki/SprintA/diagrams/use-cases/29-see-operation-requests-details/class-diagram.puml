@@ -1,6 +1,6 @@
 ﻿@startuml
 
-Title "UC29 - See details of an operation request"
+Title "UC29 - See an operation request details"
 
 package "Domain"{
 

@@ -40,11 +40,17 @@
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
-As a Doctor, I want to see operation requisitions details.
+As a Doctor, I want to see an operation request details.
 
 </div>
 
 ## 2. Customer Specifications and Clarifications
+
+<div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
+
+None to mention
+
+</div>
 
 --------------------------------------------------------------------------
 
@@ -90,6 +96,9 @@ To successfully implement this use case, the following criteria must be met:
 
 - Doctors can see all the operation requisitions details
 
+- Each entry in the list includes operation request details (e.g., patient name, operation type,
+    status).
+
 </div>
 
 ## 5. Dependencies
@@ -98,23 +107,9 @@ To successfully implement this use case, the following criteria must be met:
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
-This use case relies on:
+This use case relies on the following API functionalities:
 
-[1-register-backoffice-users](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F1-register-backoffice-users)
-
-[12-create-a-new-staff-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F12-create-a-new-staff-profile)
-
-[13-create-patient-profile](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F13-create-patient-profile)
-
-[21-add-staff-profile-hospital's-roster](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F21-add-staff-profile-hospital%27s-roster)
-
-[25-request-an-operation](..%2F30-request-an-operation)
-
-[28-list-operation-requisitions](..%2F28-list-operation-requisitions)
-
-[29-search-operation-requisitions](..%2F29-search-operation-requisitions)
-
-[37-add-new-operation-types](..%2F..%2F..%2F..%2F..%2Fdocs%2FSprintA%2F37-add-new-operation-types)
+      GET /operationRequests/{id}
 
 </div>
 
