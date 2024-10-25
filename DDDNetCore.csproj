@@ -29,8 +29,6 @@
     <Folder Include="Wiki\SprintA\1220812\" />
     <Folder Include="Wiki\SprintA\1220917\" />
     <Folder Include="Wiki\SprintA\1221194\" />
-    <Folder Include="Wiki\SprintA\diagrams\use-cases\11-access-my-features\level2\" />
-    <Folder Include="Wiki\SprintA\diagrams\use-cases\11-access-my-features\level3\" />
   </ItemGroup>
   
   <ItemGroup>
