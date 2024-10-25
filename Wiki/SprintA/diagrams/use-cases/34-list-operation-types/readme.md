@@ -88,7 +88,7 @@ This user story relies on the following API functionalities:
 
 -   To update an operation type:
     ```
-    GET /operation-types
+    GET /operationTypes
     ```
 
 ## 6. Definition of Ready (DoR)

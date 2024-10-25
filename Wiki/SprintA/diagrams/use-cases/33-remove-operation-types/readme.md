@@ -71,7 +71,7 @@ This user story relies on the following API functionalities:
 
 -   To update an operation type:
     ```
-    DELETE /operation-types
+    DELETE /operationTypes/{id}
     ```
 
 This user story relies on another user story:

@@ -30,7 +30,7 @@ namespace DDDNetCore.Application.Mappers
          */
         public List<OperationTypeDto> ToListDto(List<OperationType> domainList)
         {
-            return domainList.Select(domain => ToDto(domain)).ToList();
+            return domainList == null ? new List<OperationTypeDto>() : domainList.Select(ToDto).ToList();
         }
         
         /**
