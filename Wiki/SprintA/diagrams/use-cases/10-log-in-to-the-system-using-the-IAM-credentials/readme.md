@@ -1,4 +1,4 @@
-﻿# UC11 - Log in to the system using the IAM credentials
+﻿# UC10 - Log in to the system using the IAM credentials
 
 -----------------------------------------------------------------------
 
@@ -50,8 +50,21 @@ credentials.
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
-- **Question**: Do we always need to create an associated user when recording a patient profile in a medical facility?
-- **Answer**: No. A patient profile can be created without an associated user unless it's easier technically to create an inactive user.
+**Question**: Do we always need to create an associated user when recording a patient profile in a medical facility?
+
+**Answer**: No. A patient profile can be created without an associated user unless it's easier technically to create an inactive user.
+
+
+**Question**: In IAM external system, if a patient is signed in with a google account and later uses other external system like Facebook, and both have different credentials, what happens?
+
+**Answer**: assume the system only supports one IAM
+
+**Question**: Chapter 3.2 says that "Backoffice users are registered by the admin in the IAM through an out-of-band process.", but US 5.1.1 says that "Backoffice users are registered by an Admin via an internal process, not via self-registration.".
+Can you please clarify if backoffice users registration uses the IAM system? And if the IAM system is the out-of-band process?
+
+**Answer**: what this means is that backoffice users can not self-register in the system like the patients do. the admin must register the backoffice user. If you are using an external IAM (e.g., Google, Azzure, Linkedin, ...) the backoffice user must first create their account in the IAM provider and then pass the credential info to the admin so that the user account in the system is "linked" wit the external identity provider.
+ 
+
 
 </div>
 
@@ -93,6 +106,7 @@ To successfully implement this use case, the following criteria must be met:
   Facebook, or hospital SSO).
 - After successful authentication via the IAM, patients are redirected to the healthcare system
   with a valid session.
+- Sessions expire after a defined period of inactivity, requiring re-authentication.
 
 </div>
 
@@ -101,6 +115,10 @@ To successfully implement this use case, the following criteria must be met:
 -----------------------------------------------------------------------------
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
+
+This use case relies on the following API functionalities:
+
+        POST /authentication
 
 
 </div>

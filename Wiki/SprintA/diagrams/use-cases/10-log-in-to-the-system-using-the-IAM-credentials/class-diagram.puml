@@ -4,13 +4,11 @@ title "UC10-Log in to the system using the IAM credentials"
 
 package "Application"{
     class FirebaseService {
-        + CreateUserRecordAsync(string email, string password, string role)
-        + GeneratePasswordResetLink(string email)
-        + PatientLogin(loginDto dto)
+        + LoginWithEmailPassword(loginDto)
     }
 
     class AuthenticationService {
-        + PatientLogin(LoginDto dto)
+        + LoginWithEmailPassword(emailDto, passwordDto)
     }
 
 }

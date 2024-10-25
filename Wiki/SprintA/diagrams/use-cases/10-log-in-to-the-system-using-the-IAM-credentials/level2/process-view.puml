@@ -22,11 +22,11 @@ P -> FE: submits credentials
 
     activate FE
     
-    FE -> BE: credentials(username/password)
+    FE -> BE: credentials(emailAddress, password)
     
     activate BE
 
-    BE -> IAM: sends credentials for authentication (username/password)
+    BE -> IAM: sends credentials for authentication (emailAddress, password)
     
     activate IAM
 

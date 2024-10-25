@@ -21,7 +21,7 @@ P -> SYSTEM: submits credentials
 
     activate SYSTEM
 
-    SYSTEM -> IAM: sends credentials for authentication (username/password)
+    SYSTEM -> IAM: sends credentials for authentication (emailAddress, password)
     
     activate IAM
 
