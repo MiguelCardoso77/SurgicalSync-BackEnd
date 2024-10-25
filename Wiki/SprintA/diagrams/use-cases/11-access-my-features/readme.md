@@ -1,4 +1,4 @@
-﻿# UC12 - Access my features
+﻿# UC11 - Access my features
 
 -----------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ As a Patient, I want to access my appointments, medical records, and other featu
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
-
+None to mention
 
 </div>
 
@@ -61,9 +61,13 @@ As a Patient, I want to access my appointments, medical records, and other featu
 
 #### Process View
 
+![process-view.svg](level1%2Fprocess-view.svg)
+
 ### Level 2
 
 #### Process View
+
+![process-view.svg](level2%2Fprocess-view.svg)
 
 ### Level 3
 
@@ -71,8 +75,11 @@ As a Patient, I want to access my appointments, medical records, and other featu
 
 ##### Backend Process View
 
+![backend-process-view.svg](level3%2Fbackend-process-view.svg)
+
 ##### Class Diagram
 
+![class-diagram.svg](class-diagram.svg)
 
 ## 4. Acceptance Criteria and Tests
 
@@ -94,6 +101,9 @@ To successfully implement this use case, the following criteria must be met:
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
+This use case relies on the following API functionalities:
+
+        GET /patient/{id}
 
 </div>
 

@@ -1,0 +1,39 @@
+﻿@startuml
+'https://plantuml.com/sequence-diagram
+
+Title "UC11 - access my features"
+autonumber
+
+actor "Patient" as P
+participant "FrontEnd" as FE
+participant "BackEnd" as BE
+
+activate P
+
+P -> FE : asks to access his details
+
+activate FE
+
+FE -> BE : GET /patient/{id}
+
+activate BE 
+
+BE --> FE : patient information
+
+deactivate BE
+
+alt session valid
+
+FE --> P : displays the patient information
+
+else session expired
+
+FE --> P : session expired, prompts re-authentication
+
+deactivate FE 
+
+end 
+
+deactivate P
+
+@enduml

@@ -13,23 +13,16 @@ P -> SYSTEM: asks to access his details
     activate SYSTEM
     
     alt session valid
-
-        SYSTEM --> P: displays the list of the available \n features and asks to select one
         
-    deactivate SYSTEM
-    
-        P -> SYSTEM: selects one of the features
-        
-    activate SYSTEM
-        
-        SYSTEM --> P: displays the feature´s information
+        SYSTEM --> P: displays the patient information
 
     else session expired
+    
         SYSTEM --> P: session expired, prompts re-authentication
         
     deactivate SYSTEM
 
-    enD
+    end
 
 deactivate P
 
