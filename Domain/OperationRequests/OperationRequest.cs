@@ -45,7 +45,7 @@ namespace DDDNetCore.Domain.OperationRequests {
         /**
          * The license number of the doctor or medical professional responsible for the operation.
          */
-        public LicenseNumber LicenseNumber { get; private set; }
+        public StaffId StaffId { get; private set; }
         
         /**
          * Flag indicating if the operation request is active or inactive.
@@ -67,14 +67,14 @@ namespace DDDNetCore.Domain.OperationRequests {
          */
 
         public OperationRequest(OperationRequestId id, Priority priority, DeadlineDate deadlineDate,
-            OperationTypeId operationTypeId, MedicalRecordNumber medicalRecordNumber, LicenseNumber licenseNumber)
+            OperationTypeId operationTypeId, MedicalRecordNumber medicalRecordNumber, StaffId staffId)
         {
             this.Id = id;
             this.Priority = priority;
             this.DeadlineDate = deadlineDate;
             this.OperationTypeId = operationTypeId;
             this.MedicalRecordNumber = medicalRecordNumber;
-            this.LicenseNumber = licenseNumber;
+            this.StaffId = staffId;
             this.IsActive  = true;
         }
         /**

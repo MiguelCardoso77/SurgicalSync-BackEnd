@@ -25,7 +25,7 @@ namespace DDDNetCore.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<StaffDto>> GetById(string id)
         {
-            var sT = await _service.GetByIdAsync(new LicenseNumber(id));
+            var sT = await _service.GetByIdAsync(new StaffId(id));
             
             if (sT == null)
             {
@@ -94,14 +94,14 @@ namespace DDDNetCore.Controllers
             return ot;
         }
         
-        // DELETE: api/Staff/S6
+        /*// DELETE: api/Staff/S6
         [HttpDelete("{id}")]
         public async Task<ActionResult<StaffDto>> Delete(string id)
         {
             // Confirmation for deletion example, can't be obtained without UI.
             Console.WriteLine("Do you really wish to erase this operation type from the system?");
             
-            var oT = await _service.DeleteAsync(new LicenseNumber(id));
+            var oT = await _service.DeleteAsync(new StaffId(id));
 
             if (oT == null)
             {
@@ -110,16 +110,14 @@ namespace DDDNetCore.Controllers
 
             return Ok(oT);
         }
-        
+        */
         /// DEACTIVATE: api/Staff/Deactivate/S6
-        [HttpPut("Deactivate/{id}")]
+        [HttpDelete("{id}")]        
         public async Task<ActionResult<StaffDto>> Deactivate(string id)
         {
-            // Confirmando desativação, não pode ser obtido sem interface.
-            Console.WriteLine("Deseja realmente desativar este usuário do sistema?");
     
             // Chamando o serviço para desativar o usuário, assumindo que a lógica de desativação seja implementada no serviço.
-            var result = await _service.DeactivateAsync(new LicenseNumber(id));
+            var result = await _service.DeactivateAsync(new StaffId(id));
 
             if (result == null)
             {

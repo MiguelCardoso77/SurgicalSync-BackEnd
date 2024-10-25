@@ -53,7 +53,7 @@ namespace DDDNetCore.Infraestructure.OperationRequests
             // Configure the foreign key relationship for Staff (via LicenseNumber)
             builder.HasOne<Domain.Staffs.Staff>()  // Assuming Staff entity handles LicenseNumber
                 .WithMany()
-                .HasForeignKey(b => b.LicenseNumber)
+                .HasForeignKey(b => b.StaffId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Configure the IsActive property

@@ -16,10 +16,10 @@ namespace DDDNetCore.Infraestructure.Staff
                     .HasColumnName("StaffName");
             });
             
-            builder.OwnsOne(b => b.StaffEmail, emailBuilder =>
+            builder.OwnsOne(b => b.UserEmail, emailBuilder =>
             {
-                emailBuilder.Property(p => p.StaffEmailValue)
-                    .HasColumnName("StaffEmail");
+                emailBuilder.Property(p => p.UserEmailValue)
+                    .HasColumnName("UserEmail");
             });
             
             builder.OwnsOne(b => b.StaffPhoneNumber, phoneNumberBuilder =>

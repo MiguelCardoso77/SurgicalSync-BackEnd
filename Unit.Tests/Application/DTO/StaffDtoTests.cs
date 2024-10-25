@@ -28,7 +28,7 @@ namespace DDDNetCore.Unit.Tests.Application.DTO
             {
                 Id = "N202400001",
                 StaffName = "Tomás Gonçalves",
-                StaffEmail = "tomasgoncalves@gmail.com",
+                UserEmail = "tomasgoncalves@gmail.com",
                 StaffPhoneNumber = "931465819",
                 StaffAvaiabilitySlots = new List<string>() {"2024-09-25:14h00-18h00", "2024-09-25:19h00"},
                 StaffSpecialization = StaffSpecialization.Anesthesiology.ToString()
@@ -36,7 +36,7 @@ namespace DDDNetCore.Unit.Tests.Application.DTO
 
             Assert.AreEqual(dto.Id, "N202400001");
             Assert.AreEqual(dto.StaffName, "Tomás Gonçalves");
-            Assert.AreEqual(dto.StaffEmail, "tomasgoncalves@gmail.com");
+            Assert.AreEqual(dto.UserEmail, "tomasgoncalves@gmail.com");
             Assert.AreEqual(dto.StaffPhoneNumber, "931465819");
             Assert.AreEqual(dto.StaffAvaiabilitySlots,
                 new List<string>() { "2024-09-25:14h00-18h00", "2024-09-25:19h00" }); 

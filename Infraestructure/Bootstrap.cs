@@ -172,32 +172,38 @@ namespace DDDNetCore.Infraestructure
 
             var staffs = new List<Domain.Staffs.Staff>
             {
-                new(new LicenseNumber("D202400001"), new StaffName("Tomás Gonçalves"),
-                    new StaffEmail("1220917@isep.ipp.pt"), new StaffPhoneNumber("962754971"),
+                new(new StaffId("D202400001"), new StaffName("Tomás Gonçalves"),
+                    new UserEmail("1220917@isep.ipp.pt"), new StaffPhoneNumber("962754971"),
                     StaffSpecialization.Family_medicine,
                     new List<StaffAvaiabilitySlots>
                     {
                         new StaffAvaiabilitySlots("2024-09-25:14h00-18h00"),
                         new StaffAvaiabilitySlots("2024-09-25:19h00/2024-09-26:02h00")
                     }
-                    , StaffType.Doctor
+                    , StaffType.Doctor,
+                    isActive:true
+
                     ),
                     
-                new(new LicenseNumber("N202400002"), new StaffName("Diana Neves"),
-                    new StaffEmail("1221195@isep.ipp.pt"), new StaffPhoneNumber("962749672"),
+              
+                new(new StaffId("N202400002"), new StaffName("Diana Neves"),
+                    new UserEmail("1221194@isep.ipp.pt"), new StaffPhoneNumber("962749672"),
                     StaffSpecialization.Family_medicine,
                     new List<StaffAvaiabilitySlots>
                     {
                         new StaffAvaiabilitySlots("2024-09-25:14h00-18h00"),
                         new StaffAvaiabilitySlots("2024-09-25:19h00/2024-09-26:02h00")
-                    }                    ,StaffType.Nurse
+                    }                    ,StaffType.Nurse,
+                    isActive:true
+
                     ),
                 
-                new(new LicenseNumber("N202400003"), new StaffName("Gonçalo Sousa"),
-                new StaffEmail("1221331@isep.ipp.pt"), new StaffPhoneNumber("962749673"),
+                new(new StaffId("N202400003"), new StaffName("Gonçalo Sousa"),
+                new UserEmail("1221331@isep.ipp.pt"), new StaffPhoneNumber("962749673"),
                 StaffSpecialization.Cardiology,
                 new List<StaffAvaiabilitySlots>()
-                ,StaffType.Nurse
+                ,StaffType.Nurse,
+                isActive:true
                 )
             };
 
@@ -208,19 +214,19 @@ namespace DDDNetCore.Infraestructure
 
             var request = new List<OperationRequest>
             {
-                new(new OperationRequestId("1"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01,07)), new OperationTypeId("5"), new MedicalRecordNumber("202409000001"), new LicenseNumber("N202400001")),
+                new(new OperationRequestId("1"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01,07)), new OperationTypeId("5"), new MedicalRecordNumber("202409000001"), new StaffId("N202400001")),
                 
-                new(new OperationRequestId("2"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2025, 11,10)), new OperationTypeId("1"), new MedicalRecordNumber("202409000002"), new LicenseNumber("N202400001")),
+                new(new OperationRequestId("2"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2025, 11,10)), new OperationTypeId("1"), new MedicalRecordNumber("202409000002"), new StaffId("N202400001")),
     
-                new(new OperationRequestId("3"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2024, 12, 15)), new OperationTypeId("2"), new MedicalRecordNumber("202409000003"), new LicenseNumber("N202400002")),
+                new(new OperationRequestId("3"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2024, 12, 15)), new OperationTypeId("2"), new MedicalRecordNumber("202409000003"), new StaffId("N202400002")),
     
-                new(new OperationRequestId("4"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01, 20)), new OperationTypeId("2"), new MedicalRecordNumber("202409000001"), new LicenseNumber("N202400001")),
+                new(new OperationRequestId("4"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01, 20)), new OperationTypeId("2"), new MedicalRecordNumber("202409000001"), new StaffId("N202400001")),
     
-                new(new OperationRequestId("5"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2026, 02, 25)), new OperationTypeId("3"), new MedicalRecordNumber("202409000002"), new LicenseNumber("N202400003")),
+                new(new OperationRequestId("5"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2026, 02, 25)), new OperationTypeId("3"), new MedicalRecordNumber("202409000002"), new StaffId("N202400003")),
     
-                new(new OperationRequestId("6"), Priority.EmergencySurgery, new DeadlineDate(new DateTime(2025, 03, 30)), new OperationTypeId("1"), new MedicalRecordNumber("202409000002"), new LicenseNumber("N202400004")),
+                new(new OperationRequestId("6"), Priority.EmergencySurgery, new DeadlineDate(new DateTime(2025, 03, 30)), new OperationTypeId("1"), new MedicalRecordNumber("202409000002"), new StaffId("N202400004")),
 
-                new(new OperationRequestId("7"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 04, 05)), new OperationTypeId("4"), new MedicalRecordNumber("202409000003"), new LicenseNumber("N202400005")),
+                new(new OperationRequestId("7"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 04, 05)), new OperationTypeId("4"), new MedicalRecordNumber("202409000003"), new StaffId("N202400005")),
 
             };
             

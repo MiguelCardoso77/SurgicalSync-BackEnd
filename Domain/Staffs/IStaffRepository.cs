@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DDDNetCore.Domain.Staffs
 {
-    public interface IStaffRepository:IRepository<Staff,LicenseNumber>
+    public interface IStaffRepository:IRepository<Staff,StaffId>
     {
 
         
