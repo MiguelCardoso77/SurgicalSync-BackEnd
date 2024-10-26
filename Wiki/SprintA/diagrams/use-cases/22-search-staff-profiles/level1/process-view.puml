@@ -6,40 +6,17 @@ participant "<<System>>\n SurgicalSync" as SYSTEM
 
 activate USER
 
-    USER -> SYSTEM: wants to search staff profiles
-    activate SYSTEM
-
-        SYSTEM --> USER : asks attributes( name/email/specialization)
-    deactivate SYSTEM
-        
-    USER -> SYSTEM : selects and write the attribute
+    
+    USER -> SYSTEM : selects and write attributes\n( name/email/specialization) to search
     activate SYSTEM
     
    alt staff profiles with this attributes
             USER <-- SYSTEM : success: list of staff profiles that fit the attributes
-        else none staff profile fit the attributes 
-            USER <-- SYSTEM : error: none staff profile fit the attributes 
+        else none staff profile fit  attributes 
+            USER <-- SYSTEM : error: none staff profile fit  attributes 
         end
     deactivate SYSTEM
     
-   alt view a staff profile 
-        
-        USER -> SYSTEM : asks to view the select staff profile
-        activate SYSTEM
-        
-        SYSTEM --> USER : show staff profile 's data
-       
-       else edit a staff profile 
-        USER -> SYSTEM : asks to edit the select staff profile
-                
-        SYSTEM --> USER : edit staff profile 's data
-
-       else deactivate a staff profile 
-       USER -> SYSTEM : asks to deactivate the select staff profile
-         
-       SYSTEM --> USER : deactivate staff profile 
-deactivate SYSTEM
-   end     
-    
+     
 deactivate USER
 @enduml
