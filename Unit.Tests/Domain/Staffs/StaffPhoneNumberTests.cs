@@ -1,63 +1,72 @@
-using DDDNetCore.Domain.Patients;
+using System;
+using DDDNetCore.Domain.Staffs;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
+namespace DDDNetCore.Unit.Tests.Domain.Staffs
 {
     [TestFixture]
-
     public class StaffPhoneNumberTests
     {
-            [Test]
-            public void TestConstructor()
-            {
-                var phoneNumber = new PhoneNumber("934568742");
-                Assert.AreEqual("934568742", phoneNumber.PhoneNumberValue);
-            }
-        
-            [Test]
-            public void TestToString()
-            {
-                var phoneNumber = new PhoneNumber("934568742");
-                Assert.AreEqual("934568742", phoneNumber.ToString());
-            }
-        
-            [Test]
-            public void TestEquals()
-            {
-                var phoneNumber1 = new PhoneNumber("934568742");
-                var phoneNumber2 = new PhoneNumber("934568742");
-                Assert.AreEqual(phoneNumber1, phoneNumber2);
-            }
-        
-            [Test]
-            public void TestEqualHashCodes()
-            {
-                // Arrange
-                var phoneNumber1 = new PhoneNumber("934568742");
-                var phoneNumber2 = new PhoneNumber("934568742");
-            
-                // Act
-                var hashCode1 = phoneNumber1.GetHashCode();
-                var hashCode2 = phoneNumber2.GetHashCode();
+        [Test]
+        public void TestConstructor()
+        {
+            var staffPhoneNumber = new StaffPhoneNumber("934568742");
+            Assert.AreEqual("934568742", staffPhoneNumber.StaffPhoneNumberValue);
+        }
 
-                // Assert
-                Assert.AreEqual(hashCode1, hashCode2, "Equal instances should have the same hash code");
-            }
-        
-            [Test]
-            public void TestDifferentHashCodes()
-            {
-                // Arrange
-                var phoneNumber1 = new PhoneNumber("934568742");
-                var phoneNumber2 = new PhoneNumber("931111111");
-            
-                // Act
-                var hashCode1 = phoneNumber1.GetHashCode();
-                var hashCode2 = phoneNumber2.GetHashCode();
+        [Test]
+        public void TestToString()
+        {
+            var staffPhoneNumber = new StaffPhoneNumber("934568742");
+            Assert.AreEqual("934568742", staffPhoneNumber.ToString());
+        }
+
+        [Test]
+        public void TestEquals()
+        {
+            var staffPhoneNumber1 = new StaffPhoneNumber("934568742");
+            var staffPhoneNumber2 = new StaffPhoneNumber("934568742");
+            Assert.AreEqual(staffPhoneNumber1, staffPhoneNumber2);
+        }
+
+        [Test]
+        public void TestEqualHashCodes()
+        {
+            // Arrange
+            var staffPhoneNumber1 = new StaffPhoneNumber("934568742");
+            var staffPhoneNumber2 = new StaffPhoneNumber("934568742");
+
+            // Act
+            var hashCode1 = staffPhoneNumber1.GetHashCode();
+            var hashCode2 = staffPhoneNumber2.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCode1, hashCode2, "Equal instances should have the same hash code");
+        }
+
+        [Test]
+        public void TestDifferentHashCodes()
+        {
+            // Arrange
+            var staffPhoneNumber1 = new StaffPhoneNumber("934568742");
+            var staffPhoneNumber2 = new StaffPhoneNumber("931111111");
+
+            // Act
+            var hashCode1 = staffPhoneNumber1.GetHashCode();
+            var hashCode2 = staffPhoneNumber2.GetHashCode();
 
 
-                // Assert
-                Assert.AreNotEqual(hashCode1, hashCode2, "Different instances should have different hash codes");
-            }
+            // Assert
+            Assert.AreNotEqual(hashCode1, hashCode2, "Different instances should have different hash codes");
+        }
+
+        [Test]
+        public void TestPrivateConstructor()
+        {
+            var staffPhoneNumber = (StaffPhoneNumber)Activator.CreateInstance(typeof(StaffPhoneNumber), true);
+
+            Assert.NotNull(staffPhoneNumber);
+            Assert.IsNull(staffPhoneNumber.StaffPhoneNumberValue);
+        }
     }
 }

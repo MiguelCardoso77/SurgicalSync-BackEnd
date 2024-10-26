@@ -1,8 +1,8 @@
-using DDDNetCore.Domain.Patients;
+using System;
 using DDDNetCore.Domain.Staffs;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
+namespace DDDNetCore.Unit.Tests.Domain.Staffs
 {
     public class StaffIdTests
     {
@@ -43,6 +43,5 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
             // Assert
             Assert.AreNotEqual(hashCode1, hashCode2, "Different instances should have different hash codes");
         }
-
     }
 }

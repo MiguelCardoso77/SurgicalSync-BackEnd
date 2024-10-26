@@ -1,8 +1,8 @@
-using DDDNetCore.Domain.Patients;
+using System;
 using DDDNetCore.Domain.Staffs;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
+namespace DDDNetCore.Unit.Tests.Domain.Staffs
 {
     public class StaffNameTests
     {
@@ -53,6 +53,15 @@ namespace DDDNetCore.SurgicalSyncTests.Domain.Staffs
 
             // Assert
             Assert.AreNotEqual(hashCode1, hashCode2, "Different instances should have different hash codes");
+        }
+        
+        [Test]
+        public void TestPrivateConstructor()
+        {
+            var staffName = (StaffName)Activator.CreateInstance(typeof(StaffName), true);
+
+            Assert.NotNull(staffName);
+            Assert.IsNull(staffName.StaffNameValue);
         }
 
     }

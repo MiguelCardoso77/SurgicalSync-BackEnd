@@ -22,7 +22,7 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
         private Mock<EmergencyContact> _mockEmergencyContact;
         private Mock<AppointmentHistory> _mockAppointmentHistory;
         private Mock<UserEmail> _mockUserEmail;
-        
+
         [SetUp]
         public void Setup()
         {
@@ -34,10 +34,10 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             _mockPhoneNumber = new Mock<PhoneNumber>("938413938");
             _mockMedicalConditions = new Mock<MedicalConditions>("Nurse");
             _mockEmergencyContact = new Mock<EmergencyContact>("933264402");
-            _mockAppointmentHistory =  new Mock<AppointmentHistory>("Nurse");
+            _mockAppointmentHistory = new Mock<AppointmentHistory>("Nurse");
             _mockUserEmail = new Mock<UserEmail>("1221194@isep.ipp.pt");
         }
-        
+
         [Test]
         public void TestToDomain()
         {
@@ -53,13 +53,13 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
                 AppointmentHistory = new List<string>() { "Nurse" },
                 Email = "1221194@isep.ipp.pt"
             };
-            
+
             var medicalRecordNumber = new MedicalRecordNumber(dto.MedicalRecordNumber);
             var medicalConditions = dto.MedicalConditions.Select(rs => new MedicalConditions(rs)).ToList();
             var appointmentHistory = dto.AppointmentHistory.Select(rs => new AppointmentHistory(rs)).ToList();
-            
+
             var patient = _mapper.ToDomain(dto, medicalRecordNumber, medicalConditions, appointmentHistory);
-            
+
             Assert.AreEqual(dto.MedicalRecordNumber, patient.Id.AsString());
             Assert.AreEqual(dto.PatientName, patient.PatientName.ToString());
             Assert.AreEqual(dto.BirthDate, patient.BirthDate.ToString());
@@ -80,14 +80,14 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                new List<MedicalConditions> {_mockMedicalConditions.Object},
+                new List<MedicalConditions> { _mockMedicalConditions.Object },
                 _mockEmergencyContact.Object,
-                new List<AppointmentHistory> {_mockAppointmentHistory.Object},
+                new List<AppointmentHistory> { _mockAppointmentHistory.Object },
                 _mockUserEmail.Object
             );
-            
+
             var dto = _mapper.ToDto(patient);
-            
+
             Assert.AreEqual(_mockMedicalRecordNumber.Object.AsString(), dto.MedicalRecordNumber);
             Assert.AreEqual(_mockPatientName.Object.ToString(), dto.PatientName);
             Assert.AreEqual(_mockBirthDate.Object.ToString(), dto.BirthDate);
@@ -98,6 +98,64 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             Assert.AreEqual(_mockMedicalConditions.Object.MedicalConditionsValue, dto.MedicalConditions.First());
             Assert.AreEqual(_mockAppointmentHistory.Object.AppointmentHistoryValue, dto.AppointmentHistory.First());
         }
-        
+
+        [Test]
+        public void TestToDtoList()
+        {
+            var patient = new Patient(
+                _mockPatientName.Object,
+                _mockBirthDate.Object,
+                _mockGender.Object,
+                _mockMedicalRecordNumber.Object,
+                _mockPhoneNumber.Object,
+                new List<MedicalConditions> { _mockMedicalConditions.Object },
+                _mockEmergencyContact.Object,
+                new List<AppointmentHistory> { _mockAppointmentHistory.Object },
+                _mockUserEmail.Object
+            );
+
+            var dto = _mapper.ToDtoList(patient);
+
+            Assert.AreEqual(_mockMedicalRecordNumber.Object.AsString(), dto.MedicalRecordNumber);
+            Assert.AreEqual(_mockPatientName.Object.ToString(), dto.PatientName);
+            Assert.AreEqual(_mockBirthDate.Object.ToString(), dto.BirthDate);
+            Assert.AreEqual(_mockUserEmail.Object.ToString(), dto.Email);
+        }
+
+        [Test]
+        public void TestToListDto()
+        {
+            var patient1 = new Patient(
+                _mockPatientName.Object,
+                _mockBirthDate.Object,
+                _mockGender.Object,
+                _mockMedicalRecordNumber.Object,
+                _mockPhoneNumber.Object,
+                new List<MedicalConditions> { _mockMedicalConditions.Object },
+                _mockEmergencyContact.Object,
+                new List<AppointmentHistory> { _mockAppointmentHistory.Object },
+                _mockUserEmail.Object
+            );
+
+            var patient2 = new Patient(
+                _mockPatientName.Object,
+                _mockBirthDate.Object,
+                _mockGender.Object,
+                _mockMedicalRecordNumber.Object,
+                _mockPhoneNumber.Object,
+                new List<MedicalConditions> { _mockMedicalConditions.Object },
+                _mockEmergencyContact.Object,
+                new List<AppointmentHistory> { _mockAppointmentHistory.Object },
+                _mockUserEmail.Object
+            );
+
+            var listPatients = new List<Patient>();
+            listPatients.Add(patient1);
+            listPatients.Add(patient2);
+
+            var dto = _mapper.ToListDto(listPatients);
+
+            Assert.AreEqual(2, dto.Count);
+        }
     }
 }
