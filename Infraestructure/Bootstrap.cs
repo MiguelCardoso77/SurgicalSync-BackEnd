@@ -189,7 +189,8 @@ namespace DDDNetCore.Infraestructure
                         new StaffAvaiabilitySlots("2024-09-25:19h00/2024-09-26:02h00")
                     }
                     , StaffType.Doctor,
-                    isActive:true
+                    isActive:true,
+                    new StaffLicenseNumber("00001")
 
                     ),
                     
@@ -202,7 +203,9 @@ namespace DDDNetCore.Infraestructure
                         new StaffAvaiabilitySlots("2024-09-25:14h00-18h00"),
                         new StaffAvaiabilitySlots("2024-09-25:19h00/2024-09-26:02h00")
                     }                    ,StaffType.Nurse,
-                    isActive:true
+                    isActive:true,
+                    new StaffLicenseNumber("00002")
+
 
                     ),
                 
@@ -211,7 +214,8 @@ namespace DDDNetCore.Infraestructure
                 StaffSpecialization.Cardiology,
                 new List<StaffAvaiabilitySlots>()
                 ,StaffType.Nurse,
-                isActive:true
+                isActive:true,
+                new StaffLicenseNumber("00003")
                 )
             };
 

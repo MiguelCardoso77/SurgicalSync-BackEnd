@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
+using NUnit.Framework.Internal.Execution;
 
 namespace DDDNetCore.Domain.Staffs
 {
@@ -15,6 +16,7 @@ namespace DDDNetCore.Domain.Staffs
         public List<StaffAvaiabilitySlots> StaffAvaiabilitySlots { get; private set; }
         public bool IsActive { get; set; }
         public StaffType StaffType { get; private set; }
+        public StaffLicenseNumber StaffLicenseNumber{ get; private set; }
        
         private Staff()
         {
@@ -26,9 +28,11 @@ namespace DDDNetCore.Domain.Staffs
             this.StaffAvaiabilitySlots = null;
             this.StaffType = StaffType.Other;
             this.IsActive = true;
+            this.StaffLicenseNumber = null;
         }
         public Staff(StaffId id ,StaffName staffName, UserEmail userEmail, StaffPhoneNumber staffPhoneNumber,
-            StaffSpecialization staffSpecialization, List<StaffAvaiabilitySlots > staffAvaiabilitySlots, StaffType staffType, Boolean isActive)
+            StaffSpecialization staffSpecialization, List<StaffAvaiabilitySlots > staffAvaiabilitySlots, StaffType staffType, Boolean isActive,
+            StaffLicenseNumber staffLicenseNumber)
         {
             this.Id = id;
             this.StaffName = staffName;
@@ -37,7 +41,8 @@ namespace DDDNetCore.Domain.Staffs
             this.StaffSpecialization = staffSpecialization;
             this.StaffAvaiabilitySlots = staffAvaiabilitySlots;
             this.StaffType = staffType;
-            this.IsActive = true;
+            this.IsActive = isActive;
+            this.StaffLicenseNumber = staffLicenseNumber;
         }
         
         public void ChangeStaffSpecialization(StaffSpecialization specialization)

@@ -14,10 +14,12 @@ namespace DDDNetCore.Application.DTO
         public List<string> StaffAvaiabilitySlots { get;  set; }
         public string StaffType { get;  set; }
         public Boolean isActive{ get;  set; }
+        public string StaffLicenseNumber{ get;  set; }
     }
     
     public class StaffDto2
     {
+        public string  Id { get;  set; }
         public string StaffName { get;  set; }
         public string UserEmail { get;  set; }
         public string StaffSpecialization { get;  set; }
