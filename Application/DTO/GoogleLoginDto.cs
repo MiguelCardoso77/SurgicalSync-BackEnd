@@ -2,6 +2,9 @@
 
 namespace DDDNetCore.Application.DTO
 {
+    /**
+     * Data Transfer Object (DTO) for handling Google login requests.
+     */
     public class GoogleLoginDto
     {
         public string Email { get; set; }
