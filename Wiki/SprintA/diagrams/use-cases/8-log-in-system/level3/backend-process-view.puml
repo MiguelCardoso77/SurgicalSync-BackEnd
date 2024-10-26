@@ -11,7 +11,7 @@ participant "SMTP API" as EMAIL
 
 activate FE
     
-    FE -> CN: PUT /Authentication (with given data)
+    FE -> CN: POST /Authentication (with given data)
     activate CN
         
         CN -> SV : LoginWithEmailPassword(LoginDto)

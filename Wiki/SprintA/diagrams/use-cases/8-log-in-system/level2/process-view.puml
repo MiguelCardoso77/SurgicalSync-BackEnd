@@ -11,7 +11,7 @@ activate USER
     USER -> FE: wants to log in system
     activate FE
 
-        FE --> USER : requests data (email, password)
+        FE --> USER : requests data 
     deactivate FE
         
     USER -> FE : provides data

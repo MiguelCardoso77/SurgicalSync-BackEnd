@@ -9,7 +9,7 @@ activate USER
     USER -> SYSTEM: wants to log in system
     activate SYSTEM
 
-        SYSTEM --> USER : requests data (email, password)
+        SYSTEM --> USER : requests data
     deactivate SYSTEM
         
     USER -> SYSTEM : provides data

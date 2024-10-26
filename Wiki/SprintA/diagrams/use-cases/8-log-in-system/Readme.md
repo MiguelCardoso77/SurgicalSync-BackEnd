@@ -2,28 +2,13 @@
 
 ## 1. Use Case Description
 
-As an Admin, I want to create a new patient profile, 
-so that I can register their personal details and medical history
+As a (non-authenticated) Backoffice User, I want to log in to the system using my credentials, 
+so that I can access the backoffice features according to my assigned role.
 
 ## 2. Customer Specifications and Clarifications
 
-The client has outlined that the Admin Role should possess the functionality to add new patient profiles.
-
-The patient's email, phone number and medical record number must be unique.
-
-The profile is stored securely in the system, and access is governed by role-based permissions.
-
-Attributes are :
-
-- Patient Name
-- Birth Date
-- Gender
-- Medical Record Number
-- Phone Number
-- Medical Conditions
-- Emergency Contact
-- Appointment History
-- Email
+The client has outlined that the (non-authenticated) Backoffice User Role should possess the 
+functionality to log in.
 
 ## 3. Diagrams
 
@@ -31,7 +16,7 @@ Attributes are :
 
 - Logical View
 
-![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level1/logical-view/logical-view.svg)
+![logical-view.svg](/Wiki/SprintA/diagrams/views/level1/logical-view/logical-view.png)
 ###
 - Process View
 
@@ -41,23 +26,13 @@ Attributes are :
 
 - Logical View
 
-![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
+![logical-view.svg](/Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
 ###
 - Process View
 
 ![process-view.svg](./level2/process-view.svg)
 
 ### Level 3
-
-#### Logical Views
-
--   [MDR Logical View](../general-purpose/level3/mdr-logical-view.svg)
--   [UI Logical View](../general-purpose/level3/ui-logical-view.svg)
-
-#### Implementation Views
-
--   [MDR Implementation View](./level3/mdr-implementation-view.svg)
--   [UI Implementation View](../general-purpose/level3/ui-implementation-view.svg)
 
 #### Process Views
 
@@ -68,33 +43,26 @@ Attributes are :
 ###
 - Class Diagram View
 
-![class-diagram-view.svg](./class-diagram.svg)
+![class-diagram-view.svg](./class-diagram-view.svg)
 
 ## 4. Acceptance Criteria and Tests
 
 To successfully complete this user story, the following criteria must be met:
 
-- Admins can add new patient profiles with attributes like:
-- Patient Name
-- Birth Date
-- Gender
-- Medical Record Number
-- Phone Number
-- Medical Conditions
-- Emergency Contact
-- Appointment History
-- Email
-- A unique patient ID (Medical Record Number) is generated upon profile creation.
-- The system validates that the patient’s email and phone number are unique.
-- The profile is stored securely in the system, and access is governed by role-based permissions.
+- Backoffice users log in using their username and password.
+- Role-based access control ensures that users only have access to features appropriate to their
+  role (e.g., doctors can manage appointments, admins can manage users and settings).
+- After five failed login attempts, the user account is temporarily locked, and a notification is
+  sent to the admin.
+- Login sessions expire after a period of inactivity to ensure security.
 
 ## 5. Dependencies
 
 This user story relies on the following API functionalities:
 
--   To create patient profile
+-   To log in system 
     ```
-    POST /Patients
+    POST /Authentication
     ```
 
 ## 6. Definition of Ready (DoR)
@@ -102,9 +70,8 @@ This user story relies on the following API functionalities:
 ### 6.1 Clear and Detailed Description
 
 The user story is deemed ready when the requirements are clearly outlined, providing a comprehensive
-understanding of the functionality to be implemented. Specifically, the Administrator role is expected to
-possess the ability to register new patient profiles, designating their respective roles and
-details such as their name and phone number.
+understanding of the functionality to be implemented. Specifically, the (non-authenticated) Backoffice 
+User role is expected to possess the ability to log in system.
 
 ### 6.2 Acceptance Criteria
 
@@ -114,7 +81,7 @@ defined. These criteria serve as the benchmark for determining the successful co
 ### 6.3 Dependencies and Resources
 
 The user story is considered ready when all dependencies and resources required for its implementation
-are identified. This includes the API functionalities necessary for the creation of patient profiles.
+are identified. This includes the API functionalities necessary for the authentication
 
 ### 6.4 Estimation and Sizing
 

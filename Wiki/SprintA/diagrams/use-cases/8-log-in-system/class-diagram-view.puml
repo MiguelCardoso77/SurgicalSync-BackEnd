@@ -13,6 +13,17 @@ class LoginDTO {
     - ReturnSecureToken
 }
 
+class LoginResponse {
+    - Kind 
+    - LocalId
+    - Email
+    - DisplayName
+    - IdToken
+    - Registered
+    - RefreshToken
+    - ExpiresIn
+}
+
 class AuthenticationController {
     + LoginWithEmailPassword(LoginDto dto)
 }
@@ -27,5 +38,6 @@ AuthenticationService --> FirebaseService
 
 AuthenticationService --> LoginDTO : creates
 
+FirebaseService --> LoginResponse
 
 @enduml
