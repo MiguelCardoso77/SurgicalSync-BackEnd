@@ -1,0 +1,64 @@
+﻿@startuml
+
+title Class Diagram
+
+class AuthenticationController {
+    + GetAll()
+    + GetGetById(String id)
+    + FilterOperationTypes(List<OperationTypeDto> operationTypes)
+    + Create(OperationTypeDto dto)
+    + Update(String id, OperationTypeDto dto)
+    + SoftDelete(String id)
+    + HardDelete(String id)
+}
+
+class AuthenticationService {
+    + GetAllAsync()
+    + GetAllByStatus(bool status)
+    + GetAllByName(string name)
+    + GetAllBySpecialization(string specialization)
+    + GetByIdAsync(OperationTypeId id)
+    + FilterAsync(List<OperationTypeDto> operationTypes)
+    + AddAsync(OperationTypeDto dto)
+    + UpdateAsync(OperationTypeDto dto)
+    + InactivateAsync(OperationTypeId id)
+    + DeleteAsync(OperationTypeId id)
+}
+
+class FirebaseService {
+    + CreateUserRecordAsync(email, password, role)
+    + CreateUserWithGoogleAsync(uid, email)
+    + GivePatientGoogleAuthAsync(URI, destination)
+    + VerifyIdTokenAsync(token)
+    + GetUserEmailFromGoogle(token)
+    + GeneratePasswordResetLink(email)
+    + LoginWithEmailPassword(email, password)
+    + ExchangeAuthorizationCodeForAccessToken(code)
+    + ExchangeAuthorizationCodeForIdToken(code) 
+}
+
+class GoogleLoginDTO {
+    + Email
+    + RequestUri
+    + AuthCode
+    + PatientName
+    + BirthDate
+    + PhoneNumber
+    + MedicalRecordNumber
+    + MedicalConditions
+    + EmergencyContact
+    + AppointmentHistory
+}
+
+class EmailService {
+    + SendEmailAsync(emailObj) 
+}
+
+
+
+AuthenticationController -> AuthenticationService
+AuthenticationService --> GoogleLoginDTO : uses
+AuthenticationService --> FirebaseService : uses
+AuthenticationService --> EmailService : uses
+
+@enduml
