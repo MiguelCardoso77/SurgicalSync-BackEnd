@@ -30,8 +30,11 @@ namespace DDDNetCore.Unit.Tests.Application.DTO
                 StaffName = "Tomás Gonçalves",
                 UserEmail = "tomasgoncalves@gmail.com",
                 StaffPhoneNumber = "931465819",
+                StaffSpecialization = StaffSpecialization.Anesthesiology.ToString(),
                 StaffAvaiabilitySlots = new List<string>() {"2024-09-25:14h00-18h00", "2024-09-25:19h00"},
-                StaffSpecialization = StaffSpecialization.Anesthesiology.ToString()
+                StaffType = StaffType.Doctor.ToString(),
+                isActive = true,
+                StaffLicenseNumber = "N202400001"
             };
 
             Assert.AreEqual(dto.Id, "N202400001");
@@ -40,6 +43,39 @@ namespace DDDNetCore.Unit.Tests.Application.DTO
             Assert.AreEqual(dto.StaffPhoneNumber, "931465819");
             Assert.AreEqual(dto.StaffAvaiabilitySlots,
                 new List<string>() { "2024-09-25:14h00-18h00", "2024-09-25:19h00" }); 
+            Assert.AreEqual(dto.StaffSpecialization, StaffSpecialization.Anesthesiology.ToString());
+            Assert.AreEqual(dto.StaffType, StaffType.Doctor.ToString());
+            Assert.AreEqual(dto.isActive, true);
+            Assert.AreEqual(dto.StaffLicenseNumber, "N202400001");
+        }
+        
+        [Test]
+        public void TestCreateIncompleteStaffDto2()
+        {
+            var dto = new StaffDto2()
+            {
+                Id = "1",
+                StaffName = "Tomás Gonçalves",
+            };
+
+            Assert.AreEqual(dto.Id, "1");
+            Assert.AreEqual(dto.StaffName, "Tomás Gonçalves");
+        }
+        
+        [Test]
+        public void TestCreateCompleteStaffDto2()
+        {
+            var dto = new StaffDto2()
+            {
+                Id = "N202400001",
+                StaffName = "Tomás Gonçalves",
+                UserEmail = "tomasgoncalves@gmail.com",
+                StaffSpecialization = StaffSpecialization.Anesthesiology.ToString()
+            };
+
+            Assert.AreEqual(dto.Id, "N202400001");
+            Assert.AreEqual(dto.StaffName, "Tomás Gonçalves");
+            Assert.AreEqual(dto.UserEmail, "tomasgoncalves@gmail.com");
             Assert.AreEqual(dto.StaffSpecialization, StaffSpecialization.Anesthesiology.ToString());
         }
     }

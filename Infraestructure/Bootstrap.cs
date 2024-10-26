@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Domain.Staffs;
-using DDDNetCore.SurgicalSyncTests.Domain.Staffs;
 using DDDSample1.Infrastructure;
-using NUnit.Framework;
 
 namespace DDDNetCore.Infraestructure
 {
