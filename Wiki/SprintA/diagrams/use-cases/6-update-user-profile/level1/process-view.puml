@@ -10,7 +10,7 @@ activate USER
     USER -> SYSTEM: wants to edit user profile
     activate SYSTEM
 
-        SYSTEM --> USER : requests data (id,name, email)
+        SYSTEM --> USER : requests data
     deactivate SYSTEM
         
     USER -> SYSTEM : provides data

@@ -25,7 +25,7 @@ The client has outlined that the Patient Role should possess the functionality t
 
 - Logical View
 
-![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
+![logical-view.svg](/Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
 ###
 - Process View
 

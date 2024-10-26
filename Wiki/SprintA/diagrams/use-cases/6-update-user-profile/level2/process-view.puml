@@ -13,7 +13,7 @@ activate USER
     USER -> FE: wants to edit user profile
     activate FE
 
-        FE --> USER : requests data (id, name, email)
+        FE --> USER : requests data
     deactivate FE
         
     USER -> FE : provides data
