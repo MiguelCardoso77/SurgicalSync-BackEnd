@@ -8,21 +8,26 @@ participant "BackEnd" as BE
 
 activate USER
 
-    USER -> FE : wants to deactivate a staff profile
+    USER -> FE : wants to deactivate a staff 
     activate FE
     
     FE -> BE : GET /staff
     activate BE
     
-    BE --> FE : return list of staff profile in hospital's roster
+    note left of SV
+      Process documented on use case 21
+   end note
+    
+    BE --> FE : return List<StaffDto>
     deactivate BE
     
-    FE --> USER : shows list of staff profiles in hospital's roster
+    FE --> USER : shows list of staff
     deactivate FE
 
-    USER -> FE : selects a staff profile 
+    USER -> FE : selects a staff to remove 
     activate FE
     
+    alt 
     FE -> BE : DEACTIVATE /staff/(id)
     activate BE
     
@@ -30,8 +35,21 @@ activate USER
     deactivate BE
     
     FE --> USER: operation success
-    deactivate FE
+
     
+    else 
+    FE -> BE : DEACTIVATE /staff/(id)
+        activate BE
+        
+        BE --> FE : error:  couldn't find staff
+        deactivate BE
+        
+        FE --> USER: informs error with suggestion
+        deactivate FE
+        
+    end 
+    
+   
 deactivate USER
 
 @enduml

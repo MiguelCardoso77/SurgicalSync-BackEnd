@@ -44,7 +44,11 @@ namespace DDDNetCore.Infraestructure.Staff
                 .HasColumnName("StaffType")
                 .HasConversion<string>();
 
-
+            builder.OwnsOne(b => b.StaffLicenseNumber, licenseNumberBuilder =>
+            {
+                licenseNumberBuilder.Property(p => p.StaffLicenseNumberValue)
+                    .HasColumnName("StaffLicenseNumber");
+            });
 
 
 

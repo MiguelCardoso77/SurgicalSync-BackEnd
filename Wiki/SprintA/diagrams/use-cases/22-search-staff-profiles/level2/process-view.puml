@@ -8,36 +8,80 @@ participant "BackEnd" as BE
 
 activate USER
 
-    USER -> FE : wants to edit a staff profile 
+  
+    USER -> FE : chooses the filter to be applied
     activate FE
     
-    FE -> BE : GET /staff
+    alt search by id
+    
+    FE -> BE : GET/staff/id 
     activate BE
     
-    BE --> FE : return list of staff profiles 
+    alt the search is successfull
+    BE --> FE : staff with key staff information (name, email,specialization) and staffID
+    
+    FE --> USER: shows staff with key staff information (name, email,specialization) and staffID
+    else error
+    
+    BE --> FE: error message
     deactivate BE
     
-    FE --> USER : shows list of staff profiles and asks to selects one
-    deactivate FE
+    FE--> USER: shows error message
 
-    USER -> FE : selects a staff profile 
-    activate FE
+end 
+    else admin chooses to search by staffName filter
     
-    FE --> USER : asks the information to change  \n(contact information, availability slots and specialization)
-    deactivate FE
+    FE -> BE : GET/staff?staffName={staffName}
+        activate BE
+        
+        alt the search is successfull
+            BE --> FE : list of staffs associated to the specified staffSpecialization \n and key staff information (name, email,specialization) and staffID
+        
+            FE --> USER : shows list of staffs associated to the specified staffSpecialization \n and key staff information (name, email,specialization) and staffID
+        else error
+        
+        BE --> FE: error message
+        deactivate BE
+        
+        FE--> USER: shows error message
     
-    loop  
-    USER -> FE : selects and write the information to change
-    activate FE
+    end
     
-    FE -> BE : PUT /staff/(staff-profile-information) 
-    activate BE
+    else admin chooses to search by userEmail filter
+       
+        FE -> BE : GET/staff?userEmail={userEmail}
+            activate BE
+            
+            alt the search is successfull
+            BE --> FE : staff with key staff information (name, email,specialization) and staffID
+            
+            FE --> USER: shows staff with key staff information (name, email,specialization) and staffID
+            else error
+            
+            BE --> FE: error message
+            deactivate BE
+            
+            FE--> USER: shows error message
+    end
     
-    BE --> FE : return operation success
-    deactivate BE
+    else admin chooses to search by staffSpecialization filter
+        
+        FE -> BE : GET/staff?staffSpecialization={staffSpecialization}
+            activate BE
+            
+            alt the search is successfull
+            BE --> FE : list of staffs associated to the specified staffSpecialization \n and key staff information (name, email,specialization) and staffID
+            
+            FE --> USER: shows list of staffs associated to the specified staffSpecialization \n and key staff information (name, email,specialization) and staffID
+            else error
+            
+            BE --> FE: error message
+            deactivate BE
+            
+            FE--> USER: shows error message
+            deactivate FE
     
-    FE --> USER: operation success
-    deactivate FE
+    end
     end 
 deactivate USER
 

@@ -9,6 +9,7 @@ As an Admin, I want to list staff profiles.
 
 The client has outlined that the Admin Role should possess the functionality to lists staff profiles.
 
+Admins can search staff profiles by attributes such as name, email, or specialization.
 
 ## 3. Diagrams
 
@@ -57,7 +58,6 @@ The client has outlined that the Admin Role should possess the functionality to 
 
 To successfully complete this user story, the following criteria must be met:
 
-    - Admins can search staff profiles by attributes such as name, email, or specialization.
     - The system displays search results in a list view with key staff information (name, email,
         specialization).
     - Admins can select a profile from the list to view, edit, or deactivate.
@@ -77,7 +77,7 @@ This user story relies on the following API functionalities:
 
 The user story is deemed ready when the requirements are clearly outlined, providing a comprehensive
 understanding of the functionality to be implemented. Specifically, the Administrator role is expected to
-possess the capability to edit a staff profile, updating details such as their availability slots and specialization.
+possess the capability to list a staff profile,to see key staff information (name, email, specialization).
 
 ### 6.2 Acceptance Criteria
 
@@ -87,7 +87,7 @@ defined. These criteria serve as the benchmark for determining the successful co
 ### 6.3 Dependencies and Resources
 
 The user story is considered ready when all dependencies and resources required for its implementation
-are identified. This includes the API functionalities necessary for lists staff profiles.
+are identified. This includes the API functionalities necessary for list staff profiles.
 
 ### 6.4 Estimation and Sizing
 

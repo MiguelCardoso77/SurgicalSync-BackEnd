@@ -13,69 +13,52 @@ participant "Repositories" as REPO
 database "SQL Database" as SQL
 
 activate FE
-    FE -> CN: GET /staff (with given data)
-    activate CN
     
-        CN -> SV : GetAllAsync()
-        activate SV
-        
-        SV --> CN : returns List<StaffProfileDTO>
-        deactivate SV
-        
-        CN --> FE : returns List<StaffProfileDTO>
-        deactivate CN
-        
         FE -> CN : PUT /staff (with given data)
         activate CN
         
-        CN -> SV: Create(StaffProfileDTO)
+        CN -> SV: Create(StaffDto)
         activate SV
         
-        SV -> DTO: Create(StaffProfileDTO) 
+        SV -> DTO: Create(StaffDto) 
         activate DTO
                         
-                DTO --> SV : returns StaffProfileDTO
+                DTO --> SV : returns StaffDto
             deactivate DTO
             
-            SV -> MP : MapToDomain(StaffProfileDTO)
+            SV -> MP : MapToDomain(StaffDto)
             activate MP
             
-                MP -> DM : Create(StaffProfile)
+                MP -> DM : Create(Staff)
                 activate DM
                      
-                    DM --> MP : returns StaffProfile
+                    DM --> MP : returns staff
                 deactivate DM
             
-                MP --> SV : returns StaffProfile
+                MP --> SV : returns staff
             deactivate MP
                 
-            SV -> REPO : UpdateAsync(StaffProfile)
+            SV -> REPO : UpdateAsync(staff)
             activate REPO
             
-            alt Staff Profile data is valid
+            alt Staff  data is valid and staff exist
 
-                REPO -> SQL : PUT /staff (StaffProfile)
+                REPO -> SQL : PUT /staff (with given data)))
                 activate SQL
                 
                     SQL --> REPO : success: edited staff profile 
                 deactivate SQL
                 
                 REPO --> SV : success: added staff profile 
-            
+                deactivate REPO
 
             SV --> CN : success: edited staff profile 
         FE <-- CN: success: edited staff profile 
 
-else Wrong format of parameters
+else Staff  data isn't valid or staff doesn't exist
 
-                REPO -> SQL : PUT /staff (StaffProfile)
-                activate SQL
-                
-                    SQL --> REPO : error: Wrong format of parameters
-                deactivate SQL
-                
-        REPO --> SV : error: Wrong format of parameters
-            deactivate REPO
+               
+        
             SV --> CN : error: Wrong format of parameters
         deactivate SV
         FE <-- CN: error: Wrong format of parameters

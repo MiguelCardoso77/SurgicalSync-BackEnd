@@ -9,6 +9,7 @@ As an Admin, I want to deactivate a staff profile.
 
 The client has outlined that the Admin Role should possess the functionality to deactivate a staff profile.
 
+Deactivating a staff profile removes them from the active roster, but their historical data (e.g., appointments) remains accessible.
 
 ## 3. Diagrams
 
@@ -60,6 +61,7 @@ To successfully complete this user story, the following criteria must be met:
     - Deactivating a staff profile removes them from the active roster, but their historical data (e.g.,
     appointments) remains accessible.
     - The system confirms deactivation and records the action for audit purposes.
+
 ## 5. Dependencies
 
 This user story relies on the following API functionalities:
@@ -75,7 +77,7 @@ This user story relies on the following API functionalities:
 
 The user story is deemed ready when the requirements are clearly outlined, providing a comprehensive
 understanding of the functionality to be implemented. Specifically, the Administrator role is expected to
-possess the capability to edit a staff profile, updating details such as their availability slots and specialization.
+possess the capability to deactivate a staff profile.
 
 ### 6.2 Acceptance Criteria
 

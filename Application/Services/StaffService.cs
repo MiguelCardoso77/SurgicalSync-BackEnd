@@ -199,11 +199,11 @@ namespace DDDNetCore.Application.Services
         {
             bool exists = list.Any(s =>
                 s.StaffPhoneNumber.ToString() == staffDto.StaffPhoneNumber ||
-                s.UserEmail.ToString() == staffDto.UserEmail);
+                s.UserEmail.ToString() == staffDto.UserEmail || s.StaffLicenseNumber.ToString() == staffDto.StaffLicenseNumber);
 
             if (exists)
             {
-                throw new InvalidOperationException("Já existe um registro com o mesmo phone number ou email.");
+                throw new InvalidOperationException("Já existe um registro com o mesmo phone number ou email ou licenseNumber.");
             }
 
 

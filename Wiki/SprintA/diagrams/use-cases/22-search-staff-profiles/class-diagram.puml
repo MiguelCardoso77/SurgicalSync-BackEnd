@@ -2,6 +2,22 @@
 
 title Class Diagram
 
+
+
+package "Controller"{
+
+class StaffController {
+    + GetAll([FromQuery] string staffName = null, [FromQuery] string staffEmail = null, [FromQuery] string  StaffSpecialization = null)
+    + GetById(String id)
+    + Add(StaffDto dto)
+    + Update(String id, StaffDto dto)
+    + Delete(String id)
+    + Deactivate(String id)
+    
+}
+}
+
+package Domain  {
 class Staff {
     - StaffName
     - LicenseNumber
@@ -9,31 +25,15 @@ class Staff {
     - PhoneNumber
     - Specialization
     - List<AvailabilitySlots>
-    + Staff(StaffName staffName, LicenseNumber licenseNumber, Email email,PhoneNumber phoneNumber, Specialization Specialization , List<AvailabilitySlots> availabilitySlots)
+    - StaffType
+    + Staff(StaffName staffName, LicenseNumber licenseNumber, Email email,PhoneNumber phoneNumber, Specialization Specialization , List<AvailabilitySlots> availabilitySlots, Stafftype stafftype)
     + ChangeSpecialization(Specialization specialization)
     + ChangeAvailabilitySlots(AvailabilitySlots availabilitySlots)
- 
-}
-
-class StaffDTO {
-    - StaffName
-    - License Number
-    - Email
-    - PhoneNumber
-    - Specialization
-    - List<AvailabilitySlots>    
-}
-
-class StaffProfileController {
-    + GetAll()
-    + GetById(String id)
-    + Create(StaffProfileDTO dto)
-    + Update(String id, StaffProfileDTO dto)
-    + SoftDelete(String id)
-    + HardDelete(String id)
+    + ChangePhoneNumber (StaffPhoneNumber staffPhoneNumber)
+    + ActivateStaff()
+    - DeactivateStaff()
     
 }
-
 class StaffName {
     + StaffName(string operationName)
 }
@@ -42,15 +42,15 @@ class LicenseNumber {
     + LicenseNumber(string licenseNumber)
 }
 
-class Email {
+class StaffEmail {
     + Email(string email)
 }
 
-class PhoneNumber {
+class StaffPhoneNumber {
     + PhoneNumber(string phoneNumber)
 }
 
-class Specialization {
+class StaffSpecialization {
                 - cardiology
                 - orthopedics
                 - neurology
@@ -82,51 +82,82 @@ class Specialization {
 class AvailabilitySlots {
     + AvailabilitySlots(list<AvailabilitySlots> availabilitySlots)
 }
+class StaffType {
+    - Doctor
+    - Nurse
+    - Other
+  }
+}
 
+package "Service"{
 
-
-class StaffProfileService {
+class StaffService {
     + GetAllAsync()
-    + GetByIdAsync(StaffProfileId id)
-    + AddAsync(StaffProfileDto dto)
-    + UpdateAsync(StaffProfileDto dto)
-    + InactivateAsync(StaffProfileId id)
-    + DeleteAsync(StaffProfileId id)
+    + GetByIdAsync(LicenseNumber id)
+    + GetAllByName(string staffName)
+    + GetAllByEmail(string staffEmail)
+    + GetAllBySpecialization(string StaffSpecialization)
+    + DeleteAsync(LicenseNumber id)
+    + DeactivateAsync(LicenseNumber id)
+    + UpdateAsync(StaffDto dto)
+    + AddAsync(StaffDto dto)
 }
 
-interface IStaffProfileRepository {
+class LicenseNumberService {
+    + GenerateLN(StaffDto staffDto,StaffType staffType, List<Staff> list)
 }
 
-interface StaffProfileRepository {
+}
+package Repositories{
+interface IStaffRepository {
+}
+
+interface StaffRepository {
 }
 
 class BaseRepository {
     ====
-    Classe do projeto base
+    Base project class
     ====
 }
+}
+package "DTO"{
 
-class StaffProfileMapper {
+class StaffMapper {
     + ToDomain(StaffProfileDto dto, StaffProfileId StaffProfileId)
-    + ToDto(StaffProfile StaffProfile)
+    + ToDto(Staff domain)
+    + ToListDto(List<Staff> domainList)
 }
 
-StaffProfileController -> StaffProfileService
-StaffProfileService --> StaffProfileMapper : uses
-StaffProfileService -> StaffDTO : creates
+class StaffDTO {
+    - StaffName
+    - License Number
+    - Email
+    - PhoneNumber
+    - Specialization
+    - List<AvailabilitySlots>  
+    - StaffType  
+}
+}
 
-StaffProfileMapper <-- StaffDTO : enters
-StaffProfileMapper --> Staff : creates
+
+StaffController -> StaffService
+StaffService ---> StaffMapper : uses
+StaffService -> StaffDTO : creates
+
+StaffMapper <-- StaffDTO : enters
+StaffMapper ---> Staff : creates
 
 Staff ---> StaffName : has a
 Staff ---> LicenseNumber : has a
-Staff ---> Email : has a
-Staff ---> PhoneNumber : has a
-Staff ---> Specialization : has a
+Staff ---> StaffEmail : has a
+Staff ---> StaffPhoneNumber : has a
+Staff ---> StaffSpecialization : has a
 Staff ---> AvailabilitySlots : has a
+Staff --> StaffType
 
-StaffProfileService --> StaffProfileRepository
-StaffProfileRepository --|> BaseRepository
-StaffProfileRepository -|> IStaffProfileRepository
-
+StaffService --> StaffRepository
+StaffRepository --|> BaseRepository
+StaffRepository -|> IStaffRepository
+StaffService --> LicenseNumberService :  uses
 @enduml

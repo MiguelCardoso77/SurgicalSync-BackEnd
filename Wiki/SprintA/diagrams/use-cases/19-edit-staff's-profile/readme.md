@@ -9,6 +9,8 @@ As an Admin, I want to edit a staff’s profile, so that I can update their info
 
 The client has outlined that the Admin Role should possess the functionality to edit s staff profile.
 
+The editable fields include contact information, availability slots, and specialization.
+
 
 ## 3. Diagrams
 

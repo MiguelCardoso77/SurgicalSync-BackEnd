@@ -18,7 +18,8 @@ namespace DDDNetCore.Application.Mappers
                 Enum.Parse<StaffSpecialization>(dto.StaffSpecialization),
                 staffAvaiabilitySlotsList
                 ,Enum.Parse<StaffType>(dto.StaffType),
-                dto.isActive
+                dto.isActive,
+                new StaffLicenseNumber(dto.StaffLicenseNumber)
                 );
         }
 
@@ -35,7 +36,8 @@ namespace DDDNetCore.Application.Mappers
                 StaffSpecialization = domain.StaffSpecialization.ToString(),  
                 StaffAvaiabilitySlots = domain.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
                 StaffType = domain.StaffType.ToString(),
-                isActive = domain.IsActive
+                isActive = domain.IsActive,
+                StaffLicenseNumber = domain.StaffLicenseNumber.ToString()
             };
         }
 
@@ -43,6 +45,7 @@ namespace DDDNetCore.Application.Mappers
         {
             return new StaffDto2
             {
+                Id = domain.Id.AsString(),
                 StaffName = domain.StaffName.ToString(),
                 UserEmail = domain.UserEmail.ToString(),
                 StaffSpecialization = domain.StaffSpecialization.ToString(),

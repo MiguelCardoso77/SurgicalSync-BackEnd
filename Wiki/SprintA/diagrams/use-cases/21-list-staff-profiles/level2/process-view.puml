@@ -8,16 +8,16 @@ participant "BackEnd" as BE
 
 activate USER
 
-    USER -> FE : wants to list staff profiles
+    USER -> FE : wants to list staff 
     activate FE
     
     FE -> BE : GET /staff
     activate BE
     
-    BE --> FE : return list of staff profiles 
+    BE --> FE : return list of staff  
     deactivate BE
     
-    FE --> USER : lists staff profiles 
+    FE --> USER : lists staff  
     deactivate FE
 
     

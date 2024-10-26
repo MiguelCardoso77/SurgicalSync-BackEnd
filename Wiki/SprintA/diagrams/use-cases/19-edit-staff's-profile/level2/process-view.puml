@@ -7,37 +7,31 @@ participant "FrontEnd" as FE
 participant "BackEnd" as BE
 
 activate USER
+    
+    
+     USER -> SYSTEM: wants to edit a staff profile
+  
+        activate SYSTEM
+    
+            SYSTEM --> USER : asks to select a profile and request data
+        deactivate SYSTEM
+    USER -> FE : provides staffID and information to change
+    activate FE
+    
+    alt staff and data are valid
 
-    USER -> FE : wants to edit a staff profile 
-    activate FE
-    
-    FE -> BE : GET /staff
-    activate BE
-    
-    BE --> FE : return list of staff profiles 
-    deactivate BE
-    
-    FE --> USER : shows list of staff profiles and asks to select one
-    deactivate FE
-
-    USER -> FE : selects a staff profile 
-    activate FE
-    
-    FE --> USER : asks the information to change  \n(contact information, availability slots and specialization)
-    deactivate FE
-    
-    alt   
-    USER -> FE : provides new staff details
-    activate FE
-    
-    FE -> BE : PUT /staffProfile/id ( with staff profile information)
+    FE -> BE : PUT /staff/id ( with staff profile information)
     activate BE
     
     BE --> FE : return operation success
     deactivate BE
     
     FE --> USER: operation success
-    deactivate FE
+    
+    else staff doesn't exist or data is not correct
+    
+    FE --> USER: error: staff doesn't exist or data is not correct
+    
     end 
 deactivate USER
 
