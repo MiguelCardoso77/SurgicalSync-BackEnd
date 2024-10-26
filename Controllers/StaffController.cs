@@ -11,33 +11,52 @@ namespace DDDNetCore.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class StaffController : ControllerBase
-    { 
-    
+    {
         private readonly StaffService _service;
-        
+
+        /**
+         * Initializes a new instance of the StaffController class.
+         *
+         * @param service The StaffService to handle staff-related operations.
+         */
         public StaffController(StaffService service)
         {
             _service = service;
         }
-        
-        
+
+
         // GET: api/staff/st1
+        /**
+         * Retrieves a staff member by their unique identifier.
+         *
+         * @param id The unique identifier of the staff member.
+         * @return An ActionResult containing the StaffDto if found, or a NotFound result if not found.
+         */
         [HttpGet("{id}")]
         public async Task<ActionResult<StaffDto>> GetById(string id)
         {
             var sT = await _service.GetByIdAsync(new StaffId(id));
-            
+
             if (sT == null)
             {
                 return NotFound();
             }
-            
+
             return sT;
         }
-        
+
         // GET: api/OperationTypes
+        /**
+        * Retrieves all staff members, optionally filtered by name, email, or specialization.
+        *
+        * @param staffName Optional staff name to filter the results.
+        * @param staffEmail Optional staff email to filter the results.
+        * @param StaffSpecialization Optional specialization to filter the results.
+        * @return An ActionResult containing a list of StaffDto objects that match the filter criteria.
+        */
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StaffDto>>> GetAll([FromQuery] string staffName = null, [FromQuery] string staffEmail = null, [FromQuery] string  StaffSpecialization = null)
+        public async Task<ActionResult<IEnumerable<StaffDto>>> GetAll([FromQuery] string staffName = null,
+            [FromQuery] string staffEmail = null, [FromQuery] string StaffSpecialization = null)
         {
             if (!string.IsNullOrEmpty(StaffSpecialization))
             {
@@ -56,7 +75,9 @@ namespace DDDNetCore.Controllers
                 var result = await _service.GetAllByEmail(staffEmail);
                 return Ok(result);
             }
-            if(string.IsNullOrEmpty(StaffSpecialization)&& string.IsNullOrEmpty(staffName) && string.IsNullOrEmpty(staffEmail))
+
+            if (string.IsNullOrEmpty(StaffSpecialization) && string.IsNullOrEmpty(staffName) &&
+                string.IsNullOrEmpty(staffEmail))
             {
                 var allStaff = await _service.GetAllAsync();
                 return Ok(allStaff);
@@ -64,18 +85,31 @@ namespace DDDNetCore.Controllers
 
             return null;
         }
-        
 
-        // POST: api/Stff
+
+        // POST: api/Staff
+        /**
+         * Adds a new staff member.
+         *
+         * @param dto The StaffDto containing the staff member's information.
+         * @return An ActionResult containing the created StaffDto and a location header for the new resource.
+         */
         [HttpPost]
         public async Task<ActionResult<StaffDto>> AddAsync(StaffDto dto)
         {
             var staff = await _service.AddAsync(dto);
-            
+
             return CreatedAtAction(nameof(GetById), new { id = staff.Id }, staff);
         }
-        
+
         // PUT: api/Staff/S5
+        /**
+         * Updates an existing staff member's information.
+         *
+         * @param id The unique identifier of the staff member to update.
+         * @param dto The StaffDto containing the updated staff member's information.
+         * @return An ActionResult containing the updated StaffDto if successful, or a NotFound result if the staff member does not exist.
+         */
         [HttpPut("{id}")]
         public async Task<ActionResult<StaffDto>> Update(String id, StaffDto dto)
         {
@@ -83,39 +117,28 @@ namespace DDDNetCore.Controllers
             {
                 return BadRequest();
             }
-            
+
             var ot = await _service.UpdateAsync(dto);
-            
+
             if (ot == null)
             {
                 return NotFound();
             }
-            
+
             return ot;
         }
-        
-        /*// DELETE: api/Staff/S6
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<StaffDto>> Delete(string id)
-        {
-            // Confirmation for deletion example, can't be obtained without UI.
-            Console.WriteLine("Do you really wish to erase this operation type from the system?");
-            
-            var oT = await _service.DeleteAsync(new StaffId(id));
 
-            if (oT == null)
-            {
-                return NotFound();
-            }
 
-            return Ok(oT);
-        }
+        // DEACTIVATE: api/Staff/Deactivate/S6
+        /**
+        * Deactivates a staff member by their unique identifier.
+        *
+        * @param id The unique identifier of the staff member to deactivate.
+        * @return An ActionResult containing the deactivated StaffDto if successful, or a NotFound result if the staff member does not exist.
         */
-        /// DEACTIVATE: api/Staff/Deactivate/S6
-        [HttpDelete("{id}")]        
+        [HttpDelete("{id}")]
         public async Task<ActionResult<StaffDto>> Deactivate(string id)
         {
-    
             // Chamando o serviço para desativar o usuário, assumindo que a lógica de desativação seja implementada no serviço.
             var result = await _service.DeactivateAsync(new StaffId(id));
 
@@ -126,7 +149,5 @@ namespace DDDNetCore.Controllers
 
             return Ok(result);
         }
-            
-        }   
-        
     }
+}
