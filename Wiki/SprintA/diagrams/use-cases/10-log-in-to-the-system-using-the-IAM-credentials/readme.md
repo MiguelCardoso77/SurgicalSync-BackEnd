@@ -118,8 +118,7 @@ To successfully implement this use case, the following criteria must be met:
 
 This use case relies on the following API functionalities:
 
-        POST /authentication
-
+        DELETE /Patients/GDPR/{id}
 
 </div>
 
@@ -197,5 +196,71 @@ validated against the acceptance criteria outlined in section 4.
 The use case is considered finalized when the documentation is updated to reflect the changes
 introduced by the implementation. This includes updating the relevant diagrams, README files, and any
 other documentation to ensure it accurately represents the current state of the system.
+
+</div>
+
+## 8. GDPR Compliance
+
+-----------------------------------------------------------------------
+
+<div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
+
+This section outlines the relevant GDPR articles pertaining to the patient's right to delete their account and associated data, as well as the specific implementation requirements to ensure compliance with these regulations.
+
+</div>
+
+### 8.1. Relevant GDPR Articles
+
+<div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
+
+**Article 17:** Right to Erasure ("Right to be Forgotten")
+
+        Patients have the right to request the deletion of their personal data when it is no longer necessary for the purposes for which it was collected, or when they withdraw consent.
+
+**Article 7:** Conditions for Consent
+
+         Patients must be informed about their right to withdraw consent at any time and how it affects their personal data, including the account deletion process.
+
+**Article 12:** Transparent Information, Communication, and Modalities for the Exercise of the Rights of the Data Subject
+
+         Patients must be provided with clear and transparent information regarding the procedures for account deletion and the time frame within which their data will be erased.
+
+**Article 15:** Right of Access by the Data Subject
+
+        Patients can request access to their personal data and receive information about how it is processed before requesting deletion.
+
+**Article 30:** Records of Processing Activities
+
+The system must maintain records of processing activities, including actions taken regarding account deletion, to demonstrate compliance.
+
+</div>
+
+### 8.2. Implementation Requirements
+
+<div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
+
+To ensure compliance with the GDPR requirements regarding account deletion, the following criteria must be met:
+
+- **Account Deletion Request:** Patients can request to delete their account through the profile settings.
+
+- **Confirmation Email:** The system must send a confirmation email to the patient before proceeding with account deletion. This email should clearly explain the consequences of account deletion and confirm the patient's intention.
+
+- **Deletion Time Frame:** Upon confirmation of the deletion request, all personal data must be permanently deleted from the system within the legally required time frame (e.g., 30 days).
+
+- **Notification of Completion:** Patients should be notified once the deletion process is complete. This notification should also inform them of any data that may be retained in an anonymized format.
+
+- **Retention of Anonymized Data:** Certain anonymized data may be retained for legal or research purposes, but all identifiable information must be erased. The anonymized data should be as follows:
+
+      Patient Name: "Anonymous"
+      Birth Date: "1900-01-01"
+      Gender: "Unspecified"
+      Patient ID: patient.Id
+      Phone Number: "000-000-0000"
+      Medical Conditions: new List<MedicalConditions>()
+      Emergency Contact: "000-000-0000"
+      Appointment History: patient.AppointmentHistory
+      User Email: "anonymous@domain.com"
+    
+- **Logging of Deletion Action:** The system must log the deletion action for GDPR compliance, including details about the request and the completed action.
 
 </div>
