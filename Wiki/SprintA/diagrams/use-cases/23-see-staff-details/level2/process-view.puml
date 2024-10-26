@@ -8,28 +8,17 @@ participant "BackEnd" as BE
 
 activate USER
 
-    USER -> FE : wants to see staff profile details
-    activate FE
-    
-    FE -> BE : GET /staff
-    activate BE
-    
-    BE --> FE : return list of staff profiles 
-    deactivate BE
-    
-    FE --> USER : shows list of staff profiles and asks to select one
-    deactivate FE
 
-    USER -> FE : selects a staff profile 
+    USER -> FE : selects a staff  to see staff's  details
     activate FE
     
-    FE -> BE  : GET /staff(id)
+    FE -> BE  : GET /staff/id
     activate BE
     
-   BE --> FE : return staff profile information
+   BE --> FE : return staff's details
    deactivate BE
    
-   FE --> USER : shows staff details
+   FE --> USER : shows staff's details
 deactivate USER
 
 @enduml

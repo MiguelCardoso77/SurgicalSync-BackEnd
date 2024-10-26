@@ -7,7 +7,7 @@ As an Admin, I want to see a staff’s profile details.
 ## 2. Customer Specifications and Clarifications
 
 
-The client has outlined that the Admin Role should possess the functionality to see a staff profile's details.
+The client has outlined that the Admin Role should possess the functionality to see a staff's details.
 
 
 ## 3. Diagrams
