@@ -1,0 +1,59 @@
+﻿@startuml
+
+title Class Diagram
+
+class AuthenticationController {
+    + GetAll()
+    + GetGetById(String id)
+    + FilterOperationTypes(List<OperationTypeDto> operationTypes)
+    + Create(OperationTypeDto dto)
+    + Update(String id, OperationTypeDto dto)
+    + SoftDelete(String id)
+    + HardDelete(String id)
+}
+
+class AuthenticationService {
+    + GetAllAsync()
+    + GetAllByStatus(bool status)
+    + GetAllByName(string name)
+    + GetAllBySpecialization(string specialization)
+    + GetByIdAsync(OperationTypeId id)
+    + FilterAsync(List<OperationTypeDto> operationTypes)
+    + AddAsync(OperationTypeDto dto)
+    + UpdateAsync(OperationTypeDto dto)
+    + InactivateAsync(OperationTypeId id)
+    + DeleteAsync(OperationTypeId id)
+}
+
+class GoogleLoginDTO {
+    + Email
+    + RequestUri
+    + AuthCode
+    + PatientName
+    + BirthDate
+    + PhoneNumber
+    + MedicalRecordNumber
+    + MedicalConditions
+    + EmergencyContact
+    + AppointmentHistory
+}
+
+class PatientMicroService {
+    + CreatePatientProfile(GoogleLoginDTO googleLoginDTO)
+}
+
+class PatientService {
+===
+Patient Service interactions
+can be found in other diagrams 
+===
+}
+
+
+
+AuthenticationController -> AuthenticationService
+AuthenticationService --> GoogleLoginDTO : uses
+AuthenticationService --> PatientMicroService : uses
+PatientMicroService --> PatientService : uses
+
+@enduml

@@ -15,10 +15,15 @@ This use case only happens after the IAM account of patient is set-up.
 
 #### To Use in Postman:
 {
-"id": "1",
-"userName": "TestUsername",
-"userEmail": "defaultEmail@isep.ipp.pt",
-"userRole": "Admin"
+"email": "1220772@isep.ipp.pt",
+"requestUri": "https://localhost:5001/api/operationTypes",
+"patientName": "Miguel",
+"birthDate": "30 de Junho de 2004",
+"gender": "Masculino",
+"phoneNumber": "987263462",
+"medicalConditions": [],
+"emergencyContact": "88977313",
+"appointmentHistory": []
 }
 
 ## 3. Diagrams
@@ -27,7 +32,7 @@ This use case only happens after the IAM account of patient is set-up.
 
 - Logical View
 
-![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level1/logical-view/logical-view.svg)
+![logical-view.svg](../../views/level1/logical-view/logical-view.png)
 ###
 - Process View
 
@@ -37,7 +42,7 @@ This use case only happens after the IAM account of patient is set-up.
 
 - Logical View
 
-![logical-view.svg](../../../Wiki/SprintA/diagrams/views/level2/logical-view/logical-view.png)
+![logical-view.svg](../../views/level2/logical-view/logical-view.png)
 ###
 - Process View
 
@@ -47,13 +52,8 @@ This use case only happens after the IAM account of patient is set-up.
 
 #### Logical Views
 
--   [MDR Logical View](../general-purpose/level3/mdr-logical-view.svg)
--   [UI Logical View](../general-purpose/level3/ui-logical-view.svg)
-
-#### Implementation Views
-
--   [MDR Implementation View](./level3/mdr-implementation-view.svg)
--   [UI Implementation View](../general-purpose/level3/ui-implementation-view.svg)
+- BackEnd Logical View
+![backend-logical-view.svg](../../views/level3/backend/logical-view/logical-view.png)
 
 #### Process Views
 
