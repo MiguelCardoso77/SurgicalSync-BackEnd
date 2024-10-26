@@ -6,10 +6,10 @@ participant "<<System>>\n SurgicalSync" as SYSTEM
 
 activate USER
 
-    USER -> SYSTEM: wants to deactivate a staff profile
+    USER -> SYSTEM: wants to deactivate a staff 
     activate SYSTEM
 
-        SYSTEM --> USER : show list of staff profiles
+        SYSTEM --> USER : request the staff to deactivate
     deactivate SYSTEM
         
     USER -> SYSTEM : selects a staff profile

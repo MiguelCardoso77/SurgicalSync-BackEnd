@@ -10,35 +10,24 @@ participant "Domain" as DM
 
 
 activate FE
-    FE -> CN: GET /staff (with given data)
-    activate CN
-    
-        CN -> SV : GetAllActiveAsync()
-        activate SV
         
-        SV --> CN : returns List<StaffProfileDTO>
-        deactivate SV
-        
-        CN --> FE : returns List<StaffProfileDTO>
-        deactivate CN
-        
-        FE -> CN : INACTIVATE /staff/id
+        FE -> CN : DELETE /staff/id
         activate CN
         
-        CN -> SV: INACTIVATE /staff/id
+        CN -> SV: DELETE /staff/id
         activate SV
         
-        SV -> DM: Deactivate(StaffProfile) 
+        SV -> DM: Deactivate(staff) 
         activate DM
                         
-                DM --> SV : returns updated staff profile and hospital's roster
+                DM --> SV : returns deactivated staff 
             deactivate DM
             
-        SV --> CN : success: updated staff profile and hospital's roster
+        SV --> CN : success: deactivated staff 
         deactivate SV
            
        
-       CN --> FE : success: updated staff profile and hospital's roster 
+       CN --> FE : success: deactivated staff 
        deactivate CN   
                
 deactivate FE
