@@ -23,8 +23,6 @@ namespace DDDNetCore.Application.Services
         private readonly UserService _userService;
         private readonly PatientMapper _patientMapper;
         private readonly ILogger<DeletePatientMicroService> _logger;
-        private readonly EmailService _emailService;
-
         /**
          * Initializes a new instance of the DeletePatientMicroService, providing functionality
          * to anonymize patient data in compliance with GDPR and delete the associated account.
@@ -38,14 +36,13 @@ namespace DDDNetCore.Application.Services
          */
         public DeletePatientMicroService(IUnitOfWork unitOfWork, IPatientRepository patientRepository,
             PatientMapper patientMapper, UserService userService,
-            ILogger<DeletePatientMicroService> logger, EmailService emailService)
+            ILogger<DeletePatientMicroService> logger)
         {
             _unitOfWork = unitOfWork;
             _patientRepository = patientRepository;
             _patientMapper = patientMapper;
             _userService = userService;
             _logger = logger;
-            _emailService = emailService;
         }
 
         /**
@@ -131,6 +128,7 @@ namespace DDDNetCore.Application.Services
             // Send email notification
             try
             {
+                EmailService emailService = new EmailService();
                 var emailContent = $"Hello,\n\n" +
                                    "We are reaching out to inform you that your personal data and account have been permanently deleted from the SurgicalSync System, as per your request.\n\n" +
                                    "Your account information, including any identifiable medical records, appointment history, and other personal data, has been securely erased in compliance with GDPR regulations. Some anonymized data may be retained for legal or research purposes; however, this data cannot be linked back to you.\n\n" +
@@ -140,7 +138,7 @@ namespace DDDNetCore.Application.Services
 
                 var email = new Email(emailContent, userEmail.ToString(),
                     "Your Account and Data Have Been Successfully Deleted");
-                await _emailService.SendEmailAsync(email);
+                await emailService.SendEmailAsync(email);
 
                 _logger.LogInformation("Successfully deleted account and associated data.");
             }

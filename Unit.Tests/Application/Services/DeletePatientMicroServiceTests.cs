@@ -19,7 +19,6 @@ namespace DDDNetCore.Unit.Tests.Application.Services
         private UserMapper _mapper;
         private UserService _userService;
         private Mock<ILogger<DeletePatientMicroService>> _loggerMock;
-        private Mock<EmailService> _emailServiceMock;
         private PatientMapper _patientMapper;
         private DeletePatientMicroService _service;
 
@@ -29,7 +28,6 @@ namespace DDDNetCore.Unit.Tests.Application.Services
             _unitOfWorkMock = new Mock<IUnitOfWork>();
             _patientRepositoryMock = new Mock<IPatientRepository>();
             _loggerMock = new Mock<ILogger<DeletePatientMicroService>>();
-            _emailServiceMock = new Mock<EmailService>();
             _repoMock = new Mock<IUserRepository>();
             _mapper = new UserMapper();
 
@@ -46,9 +44,8 @@ namespace DDDNetCore.Unit.Tests.Application.Services
                 _patientRepositoryMock.Object,
                 _patientMapper,
                 _userService,
-                _loggerMock.Object,
-                _emailServiceMock.Object
-            );
+                _loggerMock.Object
+                );
         }
 
         [Test]
