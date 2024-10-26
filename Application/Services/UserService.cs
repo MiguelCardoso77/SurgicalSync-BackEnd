@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
@@ -43,7 +45,7 @@ namespace DDDNetCore.Application.Services
         /**
          * Asynchronously retrieves a user by its id.
          * <param name="id"> The id of the user </param>
-         * Return: A task representing the asynchronous operation, containing a <UserDto/> object.
+         * Return: A task representing the asynchronous operation, containing an <UserDto/> object.
          */
         public async Task<UserDto> GetByIdAsync(UserId id)
         {
@@ -55,6 +57,35 @@ namespace DDDNetCore.Application.Services
             var dto = _mapper.ToDto(user);
 
             return dto;
+        }
+        
+        /**
+         * Asynchronously retrieves a user by their email address.
+         * <param name="userEmail"> The email address of the user to retrieve. </param>
+         * Fetches all users from the repository, finds the user with the matching email,
+         * and returns a corresponding <UserDto/> if a match is found.
+         * The email comparison is case-insensitive.
+         * <returns> A task representing the asynchronous operation, containing a <UserDto/> if found; otherwise, <c>null</c>. </returns>
+         */
+        public async Task<UserDto> GetUserByEmail(UserEmail userEmail)
+        {
+            if (userEmail == null)
+            {
+                return null;
+            }
+
+            var list = await this._repo.GetAllAsync();
+
+            var user = list.FirstOrDefault(pt => pt.UserEmail.ToString().Equals(userEmail.ToString(), StringComparison.OrdinalIgnoreCase));
+            
+            if (user == null)
+            {
+                return null;
+            }
+            
+            var userDto = _mapper.ToDto(user);
+
+            return userDto;
         }
         
         /**

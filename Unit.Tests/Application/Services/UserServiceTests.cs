@@ -162,5 +162,52 @@ namespace DDDNetCore.Unit.Tests.Application.Services
 
             _repoMock.Verify(x => x.GetByIdAsync(It.IsAny<UserId>()), Times.Once);
         }
+        [Test]
+        public async Task GetUserByEmail_NullEmail_ReturnsNull()
+        {
+            // Act
+            var result = await _userService.GetUserByEmail(null);
+
+            // Assert
+            Assert.That(result, Is.Null);
+            _repoMock.Verify(x => x.GetAllAsync(), Times.Never);
+        }
+
+        [Test]
+        public async Task GetUserByEmail_UserFound_ReturnsUserDto()
+        {
+            // Arrange
+            var userEmail = new UserEmail("email@email.com");
+            var user = new User(new UserId("1"), new Username("Test1"), userEmail, UserRole.Technician);
+
+            _repoMock.Setup(x => x.GetAllAsync()).ReturnsAsync(new List<User> { user });
+
+            // Act
+            var result = await _userService.GetUserByEmail(userEmail);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Test1", result.UserName);
+            Assert.AreEqual(userEmail.ToString(), result.UserEmail);
+            Assert.AreEqual(UserRole.Technician.ToString(), result.UserRole);
+
+            _repoMock.Verify(x => x.GetAllAsync(), Times.Once);
+        }
+
+        [Test]
+        public async Task GetUserByEmail_UserNotFound_ReturnsNull()
+        {
+            // Arrange
+            var userEmail = new UserEmail("nonexistent@email.com");
+            _repoMock.Setup(x => x.GetAllAsync()).ReturnsAsync(new List<User>());
+
+            // Act
+            var result = await _userService.GetUserByEmail(userEmail);
+
+            // Assert
+            Assert.That(result, Is.Null);
+            _repoMock.Verify(x => x.GetAllAsync(), Times.Once);
+        }
     }
+    
 }

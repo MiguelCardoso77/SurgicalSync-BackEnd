@@ -8,6 +8,7 @@ using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain;
 using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
+using Microsoft.Extensions.Logging;
 
 namespace DDDNetCore.Application.Services
 {
@@ -17,13 +18,17 @@ namespace DDDNetCore.Application.Services
         private readonly IPatientRepository _repo;
         private readonly PatientMapper _mapper;
         private readonly UserEmailMicroService _userEmailMicroService;
+        private readonly DeletePatientMicroService _deletePatientMicroservice;
+        private readonly ILogger<PatientService> _logger;
 
-        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper mapper, UserEmailMicroService userEmailMicroService)
+        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper mapper, UserEmailMicroService userEmailMicroService, DeletePatientMicroService deletePatientMicroservice, ILogger<PatientService> logger)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
             this._mapper = mapper;
             this._userEmailMicroService = userEmailMicroService;
+            this._deletePatientMicroservice = deletePatientMicroservice;
+            this._logger = logger;
         }
 
         public async Task<List<PatientDto>> GetAllAsync()
@@ -184,6 +189,18 @@ namespace DDDNetCore.Application.Services
             await this._unitOfWork.CommitAsync();
 
             return _mapper.ToDto(patient);
+        }
+        /**
+        * Deletes patient data and account in compliance with GDPR.
+        *
+        * @param id The medical record number of the patient.
+        * @return The anonymized PatientDto, or null if not found.
+        */
+        public async Task<PatientDto> DeletePatientDataAndAccount(MedicalRecordNumber id)
+        {
+            var patient = await _deletePatientMicroservice.DeletePatientDataByGDPRAndAccount(id);
+            
+            return patient;
         }
     }
 }

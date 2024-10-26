@@ -1,4 +1,5 @@
-﻿using DDDNetCore.Domain.OperationType;
+﻿using System;
+using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Staffs;
 using DDDSample1.Domain.Shared;
@@ -18,7 +19,7 @@ namespace DDDNetCore.Domain.OperationRequests {
          * The unique identifier for the operation request.
          */
 
-        public OperationRequestId Id { get; private set; }
+        public new OperationRequestId Id { get; private set; }
       
         /**
          * The priority of the operation request (e.g., High, Medium, Low).
@@ -69,12 +70,12 @@ namespace DDDNetCore.Domain.OperationRequests {
         public OperationRequest(OperationRequestId id, Priority priority, DeadlineDate deadlineDate,
             OperationTypeId operationTypeId, MedicalRecordNumber medicalRecordNumber, StaffId staffId)
         {
-            this.Id = id;
+            this.Id = id ?? throw new ArgumentException(nameof(id), "OperationRequestId cannot be null.");
             this.Priority = priority;
-            this.DeadlineDate = deadlineDate;
-            this.OperationTypeId = operationTypeId;
-            this.MedicalRecordNumber = medicalRecordNumber;
-            this.StaffId = staffId;
+            this.DeadlineDate = deadlineDate ?? throw new ArgumentException(nameof(deadlineDate), "DeadlineDate cannot be null.");
+            this.OperationTypeId = operationTypeId ?? throw new ArgumentException(nameof(operationTypeId), "OperationTypeId cannot be null.");
+            this.MedicalRecordNumber = medicalRecordNumber ?? throw new ArgumentException(nameof(medicalRecordNumber), "MedicalRecordNumber cannot be null.");
+            this.StaffId = staffId ?? throw new ArgumentException(nameof(staffId), "StaffId cannot be null.");
             this.IsActive  = true;
         }
         /**

@@ -127,5 +127,19 @@ namespace DDDNetCore.Controllers
 
             return Ok(pat);
         }
+        
+        // DELETE: api/Patients/GDPR/P5
+        [HttpDelete("GDPR/{id}")]
+        public async Task<ActionResult<PatientDto>> DeletePatientDataAndAccount(string id)
+        {
+            var pat = await _service.DeletePatientDataAndAccount(new MedicalRecordNumber(id));
+
+            if (pat == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(pat);
+        }
     }
 }
