@@ -133,9 +133,9 @@ namespace DDDNetCore.Application.Services
             // List of estimated durations (Preparation, Surgery, Cleaning)
             var estimatedDurations = new List<EstimatedDuration>
             {
-                new(dto.EstimatedDuration[0]),
-                new(dto.EstimatedDuration[1]),
-                new(dto.EstimatedDuration[2])
+                new(dto.EstimatedDuration.ElementAtOrDefault(0) ?? "0"),
+                new(dto.EstimatedDuration.ElementAtOrDefault(1) ?? "0"),
+                new(dto.EstimatedDuration.ElementAtOrDefault(2) ?? "0") 
             };
 
             var requiredStaffList = new List<RequiredStaff>();

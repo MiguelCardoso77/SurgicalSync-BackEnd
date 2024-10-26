@@ -11,7 +11,7 @@ participant "Repositories" as REPO
 database "SQL Database" as SQL
 
 activate FE
-    FE -> CN : GET /operation-types
+    FE -> CN : GET /operationTypes
     activate CN
         
         CN -> SV : GetAllAsync()
@@ -26,15 +26,15 @@ activate FE
         CN --> FE : returns List<OperationTypeDTO>
     deactivate CN
 
-    FE -> CN: INACTIVATE /operationTypes/id
+    FE -> CN: DELETE /operationTypes/id
     activate CN
     
-        CN -> SV : INACTIVATE /operationTypes/id
+        CN -> SV : DELETE /operationTypes/id
         activate SV
         
 alt Operation Type Removed Successfully
 
-            SV -> DM : Deactivate(OperationType)
+            SV -> DM : Inactivate(OperationType)
             activate DM
             
                 DM --> SV : returns updated OperationType
@@ -43,7 +43,7 @@ alt Operation Type Removed Successfully
             SV -> REPO : InactivateAsync(OperationType)
             activate REPO
             
-                REPO -> SQL : INACTIVATE /operationTypes/id
+                REPO -> SQL : DELETE /operationTypes/id
                 activate SQL
                 
                     SQL --> REPO : success: removed operation type successfully

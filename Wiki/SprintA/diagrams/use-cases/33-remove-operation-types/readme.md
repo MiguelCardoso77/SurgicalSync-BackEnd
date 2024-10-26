@@ -18,7 +18,7 @@ A confirmation prompt must be shown before deactivating an operation type.
 
 - Logical View
 
-![logical-view.svg](../../views/level1/logical-view/logical-view.svg)
+![logical-view.svg](../../views/level1/logical-view/logical-view.png)
 ###
 - Process View
 
