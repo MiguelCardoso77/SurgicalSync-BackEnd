@@ -1,4 +1,4 @@
-﻿# UC08 - Delete my account and all associated data
+﻿# UC07 - Delete my account and all associated data
 
 -----------------------------------------------------------------------
 
@@ -54,7 +54,17 @@ exercise my right to be forgotten as per GDPR.
 
 **A:** Patient data must be retained for a legally mandated period before being anonymized or deleted.
 
+**Q:** The document states "Some anonymized data may be retained for legal or research purposes, but all identifiable information is erased". Which information should be retained?
 
+**A:** it is part of the team's responsibility in the scope of the GDPR module to define the policy
+
+**Q:** As I understand it, a patient's profile has plenty of information about the user, such as name, contact information (phone and email), preferences, appointment history, medical records, etc.
+
+What data do you consider to be identifiable? Are medical and appointment records deemed identifiable from your perspective? What data from the user's profile can be retained in the system after the legal time frame related to the GDPR has passed?
+
+Also, how much time do you want to be set as the time frame for deletion and retention of data in the system? Is the user informed on how many days are left for the deletion of its data? Like by email or somewhere in the UI of their account?
+
+**A:** it is part of the team's work for the GDPR module to define the policy
 
 </div>
 
@@ -72,13 +82,19 @@ exercise my right to be forgotten as per GDPR.
 
 #### Process View
 
+![process-view.svg](level2%2Fprocess-view.svg)
+
 ### Level 3
 
 #### Process View
 
 ##### Backend Process View
 
+![backend-process-view.svg](level3%2Fbackend-process-view.svg)
+
 ##### Class Diagram
+
+![class-diagram.svg](class-diagram.svg)
 
 
 ## 4. Acceptance Criteria and Tests
@@ -106,7 +122,9 @@ To successfully implement this use case, the following criteria must be met:
 
 <div style="padding-left: 10px; margin-bottom: 20px; font-size: 15px;">
 
-This use case relies on:
+This use case relies on the following API functionalities:
+
+
 
 
 
