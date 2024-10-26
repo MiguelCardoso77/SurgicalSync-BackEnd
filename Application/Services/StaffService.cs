@@ -14,6 +14,10 @@ using NUnit.Framework;
 
 namespace DDDNetCore.Application.Services
 {
+    /**
+     * Service class responsible for managing staff members, including retrieving, adding,
+     * updating, and deactivating staff information.
+     */
     public class StaffService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -22,6 +26,13 @@ namespace DDDNetCore.Application.Services
         private static int _lastGeneratedNumber = 00003;
 
 
+        /**
+         * Initializes a new instance of the StaffService class.
+         *
+         * @param unitOfWork The unit of work for database operations.
+         * @param repo The repository for staff data access.
+         * @param mapper The mapper for converting between domain entities and DTOs.
+         */
         public StaffService(IUnitOfWork unitOfWork, IStaffRepository repo, StaffMapper mapper)
         {
             this._unitOfWork = unitOfWork;
@@ -29,6 +40,12 @@ namespace DDDNetCore.Application.Services
             this._mapper = mapper;
         }
 
+        /**
+         * Retrieves all staff members as a list of StaffDto2.
+         *
+         * @return A task that represents the asynchronous operation,
+         *         containing a list of StaffDto2 objects.
+         */
         public async Task<List<StaffDto2>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
@@ -38,6 +55,13 @@ namespace DDDNetCore.Application.Services
         }
 
 
+        /**
+         * Retrieves a staff member by their ID.
+         *
+         * @param id The unique identifier for the staff member.
+         * @return A task that represents the asynchronous operation,
+         *         containing the StaffDto for the specified ID, or null if not found.
+         */
         public async Task<StaffDto> GetByIdAsync(StaffId id)
         {
             var staff = await this._repo.GetByIdAsync(id);
@@ -53,28 +77,51 @@ namespace DDDNetCore.Application.Services
         }
 
 
+        /**
+         * Retrieves all staff members whose names contain the specified string.
+         *
+         * @param staffName The name string to filter staff members by.
+         * @return A task that represents the asynchronous operation,
+         *         containing a list of StaffDto2 objects that match the specified name.
+         */
         public async Task<List<StaffDto2>> GetAllByName(string staffName)
         {
             var list = await this._repo.GetAllAsync();
 
             // Filter list by Name
-            var filteredList = list.Where(staff => staff.StaffName.ToString().Contains(staffName, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredList = list.Where(staff =>
+                staff.StaffName.ToString().Contains(staffName, StringComparison.OrdinalIgnoreCase)).ToList();
 
             //Console.WriteLine(filteredList);
             var lists = _mapper.ToListDto(filteredList);
             return lists;
         }
 
+        /**
+         * Retrieves all staff members whose email addresses contain the specified string.
+         *
+         * @param staffEmail The email string to filter staff members by.
+         * @return A task that represents the asynchronous operation,
+         *         containing a list of StaffDto2 objects that match the specified email.
+         */
         public async Task<List<StaffDto2>> GetAllByEmail(string staffEmail)
         {
             var list = await this._repo.GetAllAsync();
 
-            var filteredList = list.Where(staff => staff.UserEmail.ToString().Contains(staffEmail, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredList = list.Where(staff =>
+                staff.UserEmail.ToString().Contains(staffEmail, StringComparison.OrdinalIgnoreCase)).ToList();
             var lists = _mapper.ToListDto(filteredList);
 
             return lists;
         }
 
+        /**
+         * Retrieves all staff members with the specified specialization.
+         *
+         * @param staffSpecialization The specialization string to filter staff members by.
+         * @return A task that represents the asynchronous operation,
+         *         containing a list of StaffDto2 objects that match the specified specialization.
+         */
         public async Task<List<StaffDto2>> GetAllBySpecialization(string staffSpecialization)
         {
             var list = await this._repo.GetAllAsync();
@@ -89,7 +136,13 @@ namespace DDDNetCore.Application.Services
             return lists;
         }
 
-        
+        /**
+         * Deactivates a staff member identified by their ID.
+         *
+         * @param id The unique identifier for the staff member to deactivate.
+         * @return A task that represents the asynchronous operation,
+         *         containing the StaffDto for the deactivated staff member, or null if not found.
+         */
         public async Task<StaffDto> DeactivateAsync(StaffId id)
         {
             var staff = await this._repo.GetByIdAsync(id);
@@ -105,6 +158,13 @@ namespace DDDNetCore.Application.Services
         }
 
 
+        /**
+        * Updates the information of an existing staff member.
+        *
+        * @param dto The StaffDto containing updated staff information.
+        * @return A task that represents the asynchronous operation,
+        *         containing the updated StaffDto, or null if the staff member was not found.
+        */
         public async Task<StaffDto> UpdateAsync(StaffDto dto)
         {
             var staff = await this._repo.GetByIdAsync(new StaffId(dto.Id));
@@ -114,8 +174,9 @@ namespace DDDNetCore.Application.Services
 
             var list = await this._repo.GetAllAsync();
 
-            
-            bool exists = list.Any(s => (s.StaffPhoneNumber.ToString() == dto.StaffPhoneNumber || s.UserEmail.ToString() == dto.UserEmail) );
+
+            bool exists = list.Any(s =>
+                (s.StaffPhoneNumber.ToString() == dto.StaffPhoneNumber || s.UserEmail.ToString() == dto.UserEmail));
 
             bool exist2 = list.Any(s => s.Id.AsString() != dto.Id);
 
@@ -174,7 +235,13 @@ namespace DDDNetCore.Application.Services
             return _mapper.ToDto(staff);
         }
 
-
+        /**
+         * Adds a new staff member.
+         *
+         * @param dto The StaffDto containing information for the new staff member.
+         * @return A task that represents the asynchronous operation,
+         *         containing the newly created StaffDto.
+         */
         public async Task<StaffDto> AddAsync(StaffDto dto)
         {
             var staffTypeString = dto.StaffType;
@@ -187,7 +254,8 @@ namespace DDDNetCore.Application.Services
             var list = await this._repo.GetAllAsync();
 
             var staffId = GenerateLN(dto, staffType, list);
-            var staff = _mapper.ToDomain(dto, staffId,dto.StaffAvaiabilitySlots.Select(st => new StaffAvaiabilitySlots(st)).ToList());
+            var staff = _mapper.ToDomain(dto, staffId,
+                dto.StaffAvaiabilitySlots.Select(st => new StaffAvaiabilitySlots(st)).ToList());
 
             await this._repo.AddAsync(staff);
             await this._unitOfWork.CommitAsync();
@@ -195,15 +263,25 @@ namespace DDDNetCore.Application.Services
             return _mapper.ToDto(staff);
         }
 
+        /**
+         * Generates a unique StaffId for a new staff member.
+         *
+         * @param staffDto The StaffDto containing the information for the new staff member.
+         * @param staffType The type of the staff member (Doctor, Nurse, Other).
+         * @param list The list of existing staff members to check for duplicate phone numbers, emails, and license numbers.
+         * @return A unique StaffId for the new staff member.
+         */
         public static StaffId GenerateLN(StaffDto staffDto, StaffType staffType, List<Staff> list)
         {
             bool exists = list.Any(s =>
                 s.StaffPhoneNumber.ToString() == staffDto.StaffPhoneNumber ||
-                s.UserEmail.ToString() == staffDto.UserEmail || s.StaffLicenseNumber.ToString() == staffDto.StaffLicenseNumber);
+                s.UserEmail.ToString() == staffDto.UserEmail ||
+                s.StaffLicenseNumber.ToString() == staffDto.StaffLicenseNumber);
 
             if (exists)
             {
-                throw new InvalidOperationException("Já existe um registro com o mesmo phone number ou email ou licenseNumber.");
+                throw new InvalidOperationException(
+                    "Já existe um registro com o mesmo phone number ou email ou licenseNumber.");
             }
 
 
