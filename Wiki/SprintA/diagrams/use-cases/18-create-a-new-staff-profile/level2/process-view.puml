@@ -19,11 +19,6 @@ activate USER
     
             alt Staff Profile Already Exists
                
-                FE -> BE : PUT /staff/id (with staff data)
-                activate BE
-                
-                    BE --> FE : error: staff profile already exists
-                deactivate BE
                 
                 FE --> USER : informs error with suggestion
             else Staff Profile Created Successfully
