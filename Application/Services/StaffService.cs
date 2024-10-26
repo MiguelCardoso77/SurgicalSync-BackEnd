@@ -176,11 +176,10 @@ namespace DDDNetCore.Application.Services
 
 
             bool exists = list.Any(s =>
-                (s.StaffPhoneNumber.ToString() == dto.StaffPhoneNumber || s.UserEmail.ToString() == dto.UserEmail));
+                (s.StaffPhoneNumber.ToString() == dto.StaffPhoneNumber || s.UserEmail.ToString() == dto.UserEmail) &&  s.Id.AsString() != dto.Id);
 
-            bool exist2 = list.Any(s => s.Id.AsString() != dto.Id);
 
-            if (exists && exist2)
+            if (exists )
             {
                 throw new InvalidOperationException("Já existe um registro com o mesmo phone number ou email.");
             }
