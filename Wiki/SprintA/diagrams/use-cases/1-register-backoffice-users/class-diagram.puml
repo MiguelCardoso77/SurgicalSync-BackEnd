@@ -85,12 +85,17 @@ class UserMapper {
     + ToDto(User user)
 }
 
+class FirebaseService {
+    + CreateUserRecordAsync(email, password, role)
+}
+
 UsersController -> UserService
 UserService ---> UserMapper : uses
 UserService --> UserDTO : creates
 
 UserService --> PasswordService : uses
 UserService -> EmailService : uses
+UserService --> FirebaseService : uses
 
 UserMapper <-- UserDTO : receives
 UserMapper --> User : creates
