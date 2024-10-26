@@ -6,12 +6,15 @@ using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain;
-using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
 using Microsoft.Extensions.Logging;
 
 namespace DDDNetCore.Application.Services
 {
+    /**
+     * Service class for managing Patient entities.
+     * Provides methods to perform CRUD operations and various search/filtering functionalities.
+     */
     public class PatientService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -21,7 +24,25 @@ namespace DDDNetCore.Application.Services
         private readonly DeletePatientMicroService _deletePatientMicroservice;
         private readonly ILogger<PatientService> _logger;
 
-        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper mapper, UserEmailMicroService userEmailMicroService, DeletePatientMicroService deletePatientMicroservice, ILogger<PatientService> logger)
+        /**
+         * Initializes a new instance of the PatientService class.
+         *
+         * @param unitOfWork The unit of work implementation used for managing
+         *                   transactional operations across multiple repositories.
+         * @param repo The patient repository implementation used to access
+         *             patient data in the data store.
+         * @param mapper The mapper instance used for converting between
+         *               domain entities and Data Transfer Objects (DTOs).
+         * @param userEmailMicroService The microservice for handling user email
+         *                              related operations.
+         * @param deletePatientMicroservice The microservice for handling patient
+         *                                   deletion operations.
+         * @param logger The logger instance for logging information, warnings,
+         *               and errors during the execution of the service.
+         */
+        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper mapper,
+            UserEmailMicroService userEmailMicroService, DeletePatientMicroService deletePatientMicroservice,
+            ILogger<PatientService> logger)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
@@ -31,6 +52,11 @@ namespace DDDNetCore.Application.Services
             this._logger = logger;
         }
 
+        /**
+         * Retrieves all patients as a list of PatientDto.
+         *
+         * @return A list of PatientDto representing all patients.
+         */
         public async Task<List<PatientDto>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
@@ -39,66 +65,105 @@ namespace DDDNetCore.Application.Services
 
             return listDto;
         }
-        
-        public async Task<List<PatientDto>> GetAllByPatientName(string patientName)
+
+        /**
+         * Retrieves all patients by the specified patient name.
+         *
+         * @param patientName The name of the patient to filter by.
+         * @return A list of PatientListDto representing patients with the specified name.
+         */
+        public async Task<List<PatientListDto>> GetAllByPatientName(string patientName)
         {
             var patientsList = await this._repo.GetAllAsync();
-            var patient = patientsList.FirstOrDefault(p => p.PatientName.ToString().Equals(patientName, StringComparison.OrdinalIgnoreCase));
-            var medicalRecordNumber = patient.Id;
+
             var filteredPatientsList = patientsList
-                .Where(pt => pt.Id.Equals(medicalRecordNumber))
+                .Where(pt => pt.PatientName.ToString().Equals(patientName, StringComparison.OrdinalIgnoreCase))
                 .ToList();
-            
-            var patientsListDtos = _mapper.ToListDto(filteredPatientsList);
-            
-            return patientsListDtos;
+
+            return _mapper.ToListDto(filteredPatientsList);
         }
 
-        public async Task<List<PatientDto>> GetAllByBirthDate(string birthDate)
+        /**
+         * Retrieves all patients by the specified birth date.
+         *
+         * @param birthDate The birth date to filter by.
+         * @return A list of PatientListDto representing patients with the specified birth date.
+         */
+        public async Task<List<PatientListDto>> GetAllByBirthDate(string birthDate)
         {
             var patientsList = await _repo.GetAllAsync();
-    
+
             var filteredList = patientsList.Where(pt => pt.BirthDate.ToString().Equals(birthDate)).ToList();
-    
+
             return _mapper.ToListDto(filteredList);
         }
-        
-        public async Task<List<PatientDto>> GetAllByMedicalRecordNumber(string medicalRecordNumber)
+
+        /**
+         * Retrieves all patients by the specified medical record number.
+         *
+         * @param medicalRecordNumber The medical record number to filter by.
+         * @return A list of PatientListDto representing patients with the specified medical record number.
+         */
+        public async Task<List<PatientListDto>> GetAllByMedicalRecordNumber(string medicalRecordNumber)
         {
             var patientsList = await _repo.GetAllAsync();
-    
+
             var filteredList = patientsList.Where(pt => pt.Id.AsString().Equals(medicalRecordNumber)).ToList();
-    
+
             return _mapper.ToListDto(filteredList);
         }
-        
-        public async Task<List<PatientDto>> GetAllByEmail(string email)
+
+        /**
+         * Retrieves all patients by the specified email.
+         *
+         * @param email The email to filter by.
+         * @return A list of PatientListDto representing patients with the specified email.
+         */
+        public async Task<List<PatientListDto>> GetAllByEmail(string email)
         {
             var patientsList = await _repo.GetAllAsync();
-    
+
             var filteredList = patientsList.Where(or => or.UserEmail.ToString().Equals(email)).ToList();
-    
+
             return _mapper.ToListDto(filteredList);
         }
-        
-        public async Task<List<PatientDto>> GetAllByPhoneNumber(string phoneNumber)
+
+        /**
+         * Retrieves all patients by the specified phone number.
+         *
+         * @param phoneNumber The phone number to filter by.
+         * @return A list of PatientListDto representing patients with the specified phone number.
+         */
+        public async Task<List<PatientListDto>> GetAllByPhoneNumber(string phoneNumber)
         {
             var patientsList = await _repo.GetAllAsync();
-    
+
             var filteredList = patientsList.Where(pt => pt.PhoneNumber.ToString().Equals(phoneNumber)).ToList();
-    
+
             return _mapper.ToListDto(filteredList);
         }
-        
-        public async Task<List<PatientDto>> GetAllByGender(string gender)
+
+        /**
+         * Retrieves all patients by the specified gender.
+         *
+         * @param gender The gender to filter by.
+         * @return A list of PatientListDto representing patients with the specified gender.
+         */
+        public async Task<List<PatientListDto>> GetAllByGender(string gender)
         {
             var patientsList = await _repo.GetAllAsync();
-    
+
             var filteredList = patientsList.Where(pt => pt.Gender.ToString().Equals(gender)).ToList();
-    
+
             return _mapper.ToListDto(filteredList);
         }
-        
+
+        /**
+         * Retrieves a patient by the specified medical record number.
+         *
+         * @param id The medical record number of the patient.
+         * @return The PatientDto representing the patient with the specified ID, or null if not found.
+         */
         public async Task<PatientDto> GetByIdAsync(MedicalRecordNumber id)
         {
             var patient = await this._repo.GetByIdAsync(id);
@@ -111,19 +176,28 @@ namespace DDDNetCore.Application.Services
             return _mapper.ToDto(patient);
         }
 
+        /**
+         * Adds a new patient to the repository after verifying the email and phone number uniqueness.
+         *
+         * @param dto The PatientDto with patient details to add.
+         * @return The PatientDto representing the newly added patient.
+         * @throws InvalidOperationException if the phone number or email already exists.
+         */
         public async Task<PatientDto> AddAsync(PatientDto dto)
         {
             var existingPatient = await GetAllAsync();
-            foreach(PatientDto pt in existingPatient)
+            foreach (PatientDto pt in existingPatient)
             {
                 if (pt.PhoneNumber.Equals(dto.PhoneNumber, StringComparison.OrdinalIgnoreCase))
-                    throw new InvalidOperationException("An patient with the same phone number already exists. Please try with another.");
+                    throw new InvalidOperationException(
+                        "An patient with the same phone number already exists. Please try with another.");
             }
-            
-            foreach(PatientDto pt in existingPatient)
+
+            foreach (PatientDto pt in existingPatient)
             {
                 if (pt.Email.Equals(dto.Email, StringComparison.OrdinalIgnoreCase))
-                    throw new InvalidOperationException("An patient with the same email already exists. Please try with another.");
+                    throw new InvalidOperationException(
+                        "An patient with the same email already exists. Please try with another.");
             }
 
             var medicalRecordNumber = string.IsNullOrEmpty(dto.MedicalRecordNumber)
@@ -132,14 +206,14 @@ namespace DDDNetCore.Application.Services
 
             var medicalConditionsList = new List<MedicalConditions>();
             var appointmentHistoryList = new List<AppointmentHistory>();
-            
+
             var can = await _userEmailMicroService.VerifyEmail(dto.Email);
-            
+
             if (can.Equals(false))
             {
                 throw new InvalidOperationException("This email already exists. Please try with another.");
             }
-            
+
             var patient = _mapper.ToDomain(dto, medicalRecordNumber, medicalConditionsList, appointmentHistoryList);
 
             await this._repo.AddAsync(patient);
@@ -148,27 +222,34 @@ namespace DDDNetCore.Application.Services
             return _mapper.ToDto(patient);
         }
 
+        /**
+         * Updates an existing patient's details in the repository and sends a notification email.
+         *
+         * @param dto The PatientDto with updated patient details.
+         * @return The PatientDto representing the updated patient, or null if the patient was not found.
+         */
         public async Task<PatientDto> UpdateAsync(PatientDto dto)
         {
             var patient = await this._repo.GetByIdAsync(new MedicalRecordNumber(dto.MedicalRecordNumber));
-            
+
             if (patient == null)
                 return null;
 
             var phoneNumber = patient.PhoneNumber.ToString();
             var emergencyContact = patient.EmergencyContact.ToString();
             var patientEmail = patient.UserEmail.ToString();
-            
+
             // change all fields
             patient.ChangePatientName(new PatientName(dto.PatientName));
             patient.ChangePhoneNumber(new PhoneNumber(dto.PhoneNumber));
             patient.ChangeGender(new Gender(dto.Gender));
-            patient.ChangeBirthDate(new BirthDate(dto.BirthDate)); 
+            patient.ChangeBirthDate(new BirthDate(dto.BirthDate));
             patient.ChangeEmergencyContact(new EmergencyContact(dto.EmergencyContact));
-            
+
             // Send set-up email to user
             var smtpEmailService = new EmailService();
-            var emailContent = $"Hello {patient.PatientName}! \n Your  contact information was changed. Now it is : phone number : {phoneNumber}, emergency contact : {emergencyContact} and email : {patientEmail}";
+            var emailContent =
+                $"Hello {patient.PatientName}! \n Your  contact information was changed. Now it is : phone number : {phoneNumber}, emergency contact : {emergencyContact} and email : {patientEmail}";
             var email = new Email(emailContent, patient.UserEmail.ToString(), "Changes On Your Contact Information");
             await smtpEmailService.SendEmailAsync(email);
             Console.WriteLine($"Successfully sent the email to {email.Destination}");
@@ -178,6 +259,12 @@ namespace DDDNetCore.Application.Services
             return _mapper.ToDto(patient);
         }
 
+        /**
+         * Deletes an existing patient from the repository.
+         *
+         * @param id The medical record number of the patient to delete.
+         * @return The PatientDto representing the deleted patient, or null if the patient was not found.
+         */
         public async Task<PatientDto> DeleteAsync(MedicalRecordNumber id)
         {
             var patient = await this._repo.GetByIdAsync(id);
@@ -190,6 +277,7 @@ namespace DDDNetCore.Application.Services
 
             return _mapper.ToDto(patient);
         }
+
         /**
         * Deletes patient data and account in compliance with GDPR.
         *
@@ -199,7 +287,7 @@ namespace DDDNetCore.Application.Services
         public async Task<PatientDto> DeletePatientDataAndAccount(MedicalRecordNumber id)
         {
             var patient = await _deletePatientMicroservice.DeletePatientDataByGDPRAndAccount(id);
-            
+
             return patient;
         }
     }
