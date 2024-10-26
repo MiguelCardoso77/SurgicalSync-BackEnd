@@ -58,7 +58,7 @@ namespace DDDNetCore.Application.DTO
      * Data Transfer Object (DTO) for basic staff member details.
      * This class is used to transfer a simplified set of staff information.
      */
-    public class StaffDto2
+    public class StaffDtoList
     {
         /**
          * Gets or sets the unique identifier for the staff member.

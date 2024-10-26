@@ -52,7 +52,7 @@ namespace DDDNetCore.Unit.Tests.Application.DTO
         [Test]
         public void TestCreateIncompleteStaffDto2()
         {
-            var dto = new StaffDto2()
+            var dto = new StaffDtoList()
             {
                 Id = "1",
                 StaffName = "Tomás Gonçalves",
@@ -65,7 +65,7 @@ namespace DDDNetCore.Unit.Tests.Application.DTO
         [Test]
         public void TestCreateCompleteStaffDto2()
         {
-            var dto = new StaffDto2()
+            var dto = new StaffDtoList()
             {
                 Id = "N202400001",
                 StaffName = "Tomás Gonçalves",

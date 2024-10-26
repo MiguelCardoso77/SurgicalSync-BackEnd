@@ -103,5 +103,64 @@ namespace DDDNetCore.Unit.Tests.Application.Mappers
             Assert.AreEqual(_mockIsActive, dto.isActive);
             Assert.AreEqual(_mockLicenseNumber.Object.ToString(), dto.StaffLicenseNumber);
         }
+        
+        [Test]
+        public void TestToDtoList()
+        {
+            var staff = new Staff(
+                _mockStaffId.Object,
+                _mockStaffName.Object,
+                _mockEmail.Object,
+                _mockPhoneNumber.Object,
+                _mockSpecialization,
+                _mockAvailabilitySlots,
+                _mockType,
+                _mockIsActive,
+                _mockLicenseNumber.Object
+            );
+           
+            var dto = _mapper.ToDtoList(staff);
+            
+            Assert.AreEqual(staff.Id.AsString(), dto.Id);
+            Assert.AreEqual(staff.StaffName.ToString(), dto.StaffName);
+            Assert.AreEqual(staff.UserEmail.ToString(), dto.UserEmail);
+            Assert.AreEqual(staff.StaffSpecialization.ToString(), dto.StaffSpecialization);
+        }
+
+        [Test]
+        public void TestToListDto()
+        {
+            var staff1 = new Staff(
+                _mockStaffId.Object,
+                _mockStaffName.Object,
+                _mockEmail.Object,
+                _mockPhoneNumber.Object,
+                _mockSpecialization,
+                _mockAvailabilitySlots,
+                _mockType,
+                _mockIsActive,
+                _mockLicenseNumber.Object
+            );
+            
+            var staff2 = new Staff(
+                _mockStaffId.Object,
+                _mockStaffName.Object,
+                _mockEmail.Object,
+                _mockPhoneNumber.Object,
+                _mockSpecialization,
+                _mockAvailabilitySlots,
+                _mockType,
+                _mockIsActive,
+                _mockLicenseNumber.Object
+            );
+
+            var staffList = new List<Staff>();
+            staffList.Add(staff1);
+            staffList.Add(staff2);
+
+            var dto = _mapper.ToListDto(staffList);
+            
+            Assert.AreEqual(2, dto.Count);
+        }
     }
 }

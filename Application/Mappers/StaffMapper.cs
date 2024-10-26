@@ -62,9 +62,9 @@ namespace DDDNetCore.Application.Mappers
          * @param domain The Staff domain entity to be converted.
          * @return A StaffDto2 containing the basic staff data from the provided Staff domain entity.
          */
-        public StaffDto2 ToDto2(Staff domain)
+        public StaffDtoList ToDtoList(Staff domain)
         {
-            return new StaffDto2
+            return new StaffDtoList
             {
                 Id = domain.Id.AsString(),
                 StaffName = domain.StaffName.ToString(),
@@ -79,9 +79,9 @@ namespace DDDNetCore.Application.Mappers
          * @param domainList The list of Staff domain entities to be converted.
          * @return A list of StaffDto2 objects representing the provided Staff domain entities.
          */
-        public List<StaffDto2> ToListDto(List<Staff> domainList)
+        public List<StaffDtoList> ToListDto(List<Staff> domainList)
         {
-            return domainList.Select(domain => ToDto2(domain)).ToList();
+            return domainList.Select(domain => ToDtoList(domain)).ToList();
         }
     }
 }

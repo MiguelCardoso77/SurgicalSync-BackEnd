@@ -46,7 +46,7 @@ namespace DDDNetCore.Application.Services
          * @return A task that represents the asynchronous operation,
          *         containing a list of StaffDto2 objects.
          */
-        public async Task<List<StaffDto2>> GetAllAsync()
+        public async Task<List<StaffDtoList>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
 
@@ -84,7 +84,7 @@ namespace DDDNetCore.Application.Services
          * @return A task that represents the asynchronous operation,
          *         containing a list of StaffDto2 objects that match the specified name.
          */
-        public async Task<List<StaffDto2>> GetAllByName(string staffName)
+        public async Task<List<StaffDtoList>> GetAllByName(string staffName)
         {
             var list = await this._repo.GetAllAsync();
 
@@ -104,7 +104,7 @@ namespace DDDNetCore.Application.Services
          * @return A task that represents the asynchronous operation,
          *         containing a list of StaffDto2 objects that match the specified email.
          */
-        public async Task<List<StaffDto2>> GetAllByEmail(string staffEmail)
+        public async Task<List<StaffDtoList>> GetAllByEmail(string staffEmail)
         {
             var list = await this._repo.GetAllAsync();
 
@@ -122,7 +122,7 @@ namespace DDDNetCore.Application.Services
          * @return A task that represents the asynchronous operation,
          *         containing a list of StaffDto2 objects that match the specified specialization.
          */
-        public async Task<List<StaffDto2>> GetAllBySpecialization(string staffSpecialization)
+        public async Task<List<StaffDtoList>> GetAllBySpecialization(string staffSpecialization)
         {
             var list = await this._repo.GetAllAsync();
 
