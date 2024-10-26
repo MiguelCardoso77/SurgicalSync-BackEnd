@@ -9,28 +9,17 @@ activate USER
     USER -> SYSTEM: wants to edit a staff profile
     activate SYSTEM
 
-        SYSTEM --> USER : shows the list of staff profiles
+        SYSTEM --> USER : asks to select a profile and request data
     deactivate SYSTEM
+    
+    USER -> SYSTEM: select the profile and data
         
-    USER -> SYSTEM : selects the staff profile
-    activate SYSTEM
-    
-    SYSTEM --> USER : show staff profile's data
-    deactivate SYSTEM
-    
-    loop 
-    USER-> SYSTEM : selects the data to edit
-    activate SYSTEM
-    
-    SYSTEM --> USER: request data
-    
-        alt diferent data
+        alt valid data 
             USER <-- SYSTEM : success: staff profile edited
-        else same data
-            USER <-- SYSTEM : error: date edited same as previous
+        else staff doesn't exist or data is not correct
+            USER <-- SYSTEM : error: staff doesn't exist or data is not correct
         end
     deactivate SYSTEM
     
-    end 
 deactivate USER
 @enduml
