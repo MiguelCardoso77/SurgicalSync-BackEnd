@@ -1,0 +1,198 @@
+﻿@startuml
+autonumber
+
+Title "UC7 - Delete my account and all associated data"
+
+participant "FrontEnd" as FE
+participant "<<Controller>>\nUsersController" as UC
+participant "<<Controller>>\nPatientController" as CP
+participant "<<Application>>\nPatientService" as PS
+participant "<<Microservice>>\nDeletePatientDataMicroService" as MC
+participant "<<Application>>\nUserService" as US
+participant "<<Application>>\nEmailService" as ES
+participant "<<Mapper>>\nPatientMapper" as PM
+participant "<<DTO>>\nPatientDto" as PDTO
+participant "<<External Service>>\nSMTP API" as SMTP
+participant "<<Repositories>>\nPatientRepository" as PR
+participant "<<Repositories>>\nUserRepository" as UR
+participant "<<Domain>>\nPatient" as DM
+participant "<<Domain>>\nUser" as U
+participant "<<Domain>>\nEmail" as E
+database "SQL Database" as SQL
+
+activate FE
+
+FE -> UC : send email to the patient to ask confirmation for the \n deletion of his account and all his associated data
+
+activate UC
+
+UC -> SMTP : send email asking for confirmation
+
+activate SMTP
+
+SMTP --> UC : email sent
+
+deactivate SMTP
+
+UC --> FE : confirmation email
+
+deactivate UC
+
+alt patient confirmed deletion
+
+FE -> CP : DELETE /Patients/GDPR/{Id}
+
+activate CP
+
+CP -> PS : DeletePatientDataAccount(Id)
+
+activate PS
+
+PS -> MC: DeletePatientDataAccount(Id)
+
+activate MC
+
+MC -> PR : GetByIdAsync(Id)
+
+activate PR
+
+PR -> SQL : SELECT * FROM Patients WHERE ID = Id
+
+activate SQL
+
+SQL --> PR : Patient
+
+deactivate SQL
+
+PR --> MC : Patient
+
+deactivate PR
+
+MC -> DM : new Patient (with anonymized data)
+
+activate DM
+
+DM --> MC : anonymized Patient 
+
+deactivate DM
+
+MC -> PR : Remove(Patient)
+
+activate PR
+
+PR -> SQL : DELETE * FROM Patients WHERE ID = Id
+
+activate SQL
+
+SQL --> PR : operation success
+
+deactivate SQL 
+
+PR --> MC : operation success
+
+deactivate PR
+
+MC -> PR : AddAsync(anonymized Patient)
+
+activate PR
+
+PR -> SQL : CREATE Patient(anonymized Patient)
+
+activate SQL
+
+SQL --> PR : operation success
+
+deactivate SQL 
+
+PR --> MC : operation success
+
+deactivate PR
+
+MC -> US : GetUserByEmail(userEmail)
+
+activate US
+
+US -> UR : GetByEmail(userEmail)
+
+activate UR
+
+UR -> SQL : SELECT * FROM Users WHERE Email = userEmail
+
+activate SQL
+
+SQL --> UR : User 
+
+deactivate SQL
+
+UR --> US : User
+
+deactivate UR
+
+US --> MC : User
+
+deactivate US
+
+MC -> US : DeleteAsync(User.UserId)
+
+activate US
+
+US -> UR : DeleteAsync(User.UserId)
+
+activate UR
+
+UR -> SQL : DELETE * FROM Users WHERE UserID = userId
+
+activate SQL
+
+SQL --> UR : operation success
+
+deactivate SQL 
+
+UR --> US : operation success
+
+deactivate UR
+
+US --> MC : operation success
+
+deactivate US
+
+MC -> E : new Email(emailContent, userEmail)
+
+activate E
+
+E --> MC : Email
+
+deactivate E
+
+MC -> ES : SendEmailAsync(Email)
+
+activate ES 
+
+ES -> SMTP : SendEmail(Email)
+
+activate SMTP
+
+SMTP --> ES : operation success
+
+deactivate SMTP
+
+ES --> MC : operation success
+
+deactivate ES
+
+MC --> PS : operation success
+
+deactivate MC
+
+PS --> CP : operation success
+
+deactivate PS 
+
+CP --> FE : operation success
+
+deactivate CP
+
+deactivate FE
+
+end
+@enduml

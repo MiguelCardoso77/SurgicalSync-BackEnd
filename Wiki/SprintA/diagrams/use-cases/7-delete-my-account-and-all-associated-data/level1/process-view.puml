@@ -1,0 +1,52 @@
+﻿@startuml
+autonumber
+
+Title "UC07 - Delete my account and all associated data"
+
+actor "Patient" as P
+participant "<<System>> \n SurgicalSync" as SYSTEM
+participant "<<External System>> \n SMTP API" as SMTP
+
+activate P
+
+    P -> SYSTEM: Asks to delete his account \n and all his associated data
+    
+    activate SYSTEM
+    
+    SYSTEM -> SMTP : asks to send confirmation via email
+    
+    activate SMTP
+    
+    SMTP --> SYSTEM : confirmation email
+    
+    deactivate SMTP 
+    
+    SYSTEM --> P: asks for confirmation via email
+    
+    deactivate SYSTEM
+  
+    P -> SYSTEM: confirms the deletion
+    
+    alt confirmed deletion
+    
+    activate SYSTEM
+    
+    SYSTEM -> SYSTEM : Remove the patient data \n following the GDPR specifications
+    
+    SYSTEM -> SMTP : asks to send email informing \n of the patient data deletion
+    
+    activate SMTP 
+    
+    SMTP --> SYSTEM : email
+    
+    deactivate SMTP
+    
+    SYSTEM --> P : operation success email
+    
+    SYSTEM -> SYSTEM : deletes the patient account
+    
+deactivate P
+
+end
+    
+@enduml
