@@ -166,7 +166,7 @@ namespace DDDNetCore.Application.Services
         public static async Task<string> GeneratePasswordResetLink(string email)
         {
             var link = await FirebaseAuth.DefaultInstance.GeneratePasswordResetLinkAsync(email);
-            Console.WriteLine("Successfully generated password reset link for {email}");
+            Console.WriteLine("Successfully generated password reset link for " + email +".");
             return link;
         }
 
