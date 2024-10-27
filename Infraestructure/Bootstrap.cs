@@ -219,7 +219,9 @@ namespace DDDNetCore.Infraestructure
             var users = new List<User>
             {
                 new(new UserId("1"), new Username("Diogo"), new UserEmail("1220772@isep.ipp.pt"), UserRole.Doctor),
-                new(new UserId("2"), new Username("DiogoR"), new UserEmail("1220812@isep.ipp.pt"), UserRole.Patient)
+                new(new UserId("2"), new Username("DiogoR"), new UserEmail("1220812@isep.ipp.pt"), UserRole.Patient),
+                new(new UserId("3"), new Username("Tomás"), new UserEmail("1220917@isep.ipp.pt"), UserRole.Patient)
+
             };
 
             var request = new List<OperationRequest>
