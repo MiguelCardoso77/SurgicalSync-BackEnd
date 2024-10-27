@@ -490,14 +490,14 @@ The tests are implemented using the NUnit framework, focusing on the creation of
 
 ## Description
 
-| **Scenario** | **Test Method** | **Expected Result** |
-|--------------|-----------------|---------------------|
-| Verify proper construction of Staff Availability Slots | `TestConstructor` | Object should be constructed with the correct value. |
-| Verify string representation of Staff Availability Slots | `TestToString` | `ToString()` should return the correct value. |
-| Check equality between two instances with same value | `TestEquals` | Instances with the same availability slots value should be equal. |
-| Check equal hash codes for instances with same value | `TestEqualHashCodes` | Instances with the same value should have the same hash code. |
-| Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different values should have different hash codes. |
-| Test private constructor creation | `TestPrivateConstructor` | Private constructor should create an instance, but without initializing the value. |
+| **Scenario**                                                   | **Test Method**          | **Expected Result**                                                                |
+|----------------------------------------------------------------|--------------------------|------------------------------------------------------------------------------------|
+| Verify proper construction of Staff Availability Slots         | `TestConstructor`        | Object should be constructed with the correct value.                               |
+| Verify string representation of Staff Availability Slots       | `TestToString`           | `ToString()` should return the correct value.                                      |
+| Check equality between two instances with same value           | `TestEquals`             | Instances with the same availability slots value should be equal.                  |
+| Check equal hash codes for instances with same value           | `TestEqualHashCodes`     | Instances with the same value should have the same hash code.                      |
+| Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different values should have different hash codes.                  |
+| Test private constructor creation                              | `TestPrivateConstructor` | Private constructor should create an instance, but without initializing the value. |
 
 # 26 -  StaffId Tests
 
@@ -511,11 +511,11 @@ The tests are implemented using the NUnit framework, focusing on the creation of
 
 ## Description
 
-| **Scenario** | **Test Method** | **Expected Result** |
-|--------------|-----------------|---------------------|
-| Verify proper construction of `StaffId` | `TestConstructor` | Object should be constructed with the correct value. |
-| Verify string representation of `StaffId` | `TestToString` | `ToString()` should return the correct value. |
-| Check equality between two instances with the same value | `TestEquals` | Instances with the same `StaffId` value should be equal. |
+| **Scenario**                                                   | **Test Method**          | **Expected Result**                                                         |
+|----------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------|
+| Verify proper construction of `StaffId`                        | `TestConstructor`        | Object should be constructed with the correct value.                        |
+| Verify string representation of `StaffId`                      | `TestToString`           | `ToString()` should return the correct value.                               |
+| Check equality between two instances with the same value       | `TestEquals`             | Instances with the same `StaffId` value should be equal.                    |
 | Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different `StaffId` values should have different hash codes. |
 
 
@@ -531,14 +531,14 @@ The tests are implemented using the NUnit framework, focusing on object creation
 
 ## Description
 
-| **Scenario** | **Test Method** | **Expected Result** |
-|--------------|-----------------|---------------------|
-| Verify proper construction of `StaffLicenseNumber` | `TestConstructor` | Object should be constructed with the correct value. |
-| Verify string representation of `StaffLicenseNumber` | `TestToString` | `ToString()` should return the correct value. |
-| Check equality between two instances with the same value | `TestEquals` | Instances with the same `StaffLicenseNumber` value should be equal. |
-| Check equal hash codes for instances with the same value | `TestEqualHashCodes` | Instances with the same `StaffLicenseNumber` value should have the same hash code. |
+| **Scenario**                                                   | **Test Method**          | **Expected Result**                                                                    |
+|----------------------------------------------------------------|--------------------------|----------------------------------------------------------------------------------------|
+| Verify proper construction of `StaffLicenseNumber`             | `TestConstructor`        | Object should be constructed with the correct value.                                   |
+| Verify string representation of `StaffLicenseNumber`           | `TestToString`           | `ToString()` should return the correct value.                                          |
+| Check equality between two instances with the same value       | `TestEquals`             | Instances with the same `StaffLicenseNumber` value should be equal.                    |
+| Check equal hash codes for instances with the same value       | `TestEqualHashCodes`     | Instances with the same `StaffLicenseNumber` value should have the same hash code.     |
 | Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different `StaffLicenseNumber` values should have different hash codes. |
-| Test private constructor creation | `TestPrivateConstructor` | Private constructor should create an instance without initializing the value. |
+| Test private constructor creation                              | `TestPrivateConstructor` | Private constructor should create an instance without initializing the value.          |
 
 # 28 - StaffName Tests
 
@@ -552,14 +552,14 @@ The tests are implemented using the NUnit framework, focusing on object creation
 
 ## Description
 
-| **Scenario** | **Test Method** | **Expected Result** |
-|--------------|-----------------|---------------------|
-| Verify proper construction of `StaffName` | `TestConstructor` | Object should be constructed with the correct value. |
-| Verify string representation of `StaffName` | `TestToString` | `ToString()` should return the correct value. |
-| Check equality between two instances with the same value | `TestEquals` | Instances with the same `StaffName` value should be equal. |
-| Check equal hash codes for instances with the same value | `TestEqualHashCodes` | Instances with the same `StaffName` value should have the same hash code. |
+| **Scenario**                                                   | **Test Method**          | **Expected Result**                                                           |
+|----------------------------------------------------------------|--------------------------|-------------------------------------------------------------------------------|
+| Verify proper construction of `StaffName`                      | `TestConstructor`        | Object should be constructed with the correct value.                          |
+| Verify string representation of `StaffName`                    | `TestToString`           | `ToString()` should return the correct value.                                 |
+| Check equality between two instances with the same value       | `TestEquals`             | Instances with the same `StaffName` value should be equal.                    |
+| Check equal hash codes for instances with the same value       | `TestEqualHashCodes`     | Instances with the same `StaffName` value should have the same hash code.     |
 | Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different `StaffName` values should have different hash codes. |
-| Test private constructor creation | `TestPrivateConstructor` | Private constructor should create an instance without initializing the value. |
+| Test private constructor creation                              | `TestPrivateConstructor` | Private constructor should create an instance without initializing the value. |
 
 # 29 - StaffPhoneNumber Tests
 
@@ -573,14 +573,14 @@ The tests are implemented using the NUnit framework, focusing on object creation
 
 ## Description
 
-| **Scenario** | **Test Method** | **Expected Result** |
-|--------------|-----------------|---------------------|
-| Verify proper construction of `StaffPhoneNumber` | `TestConstructor` | Object should be constructed with the correct value. |
-| Verify string representation of `StaffPhoneNumber` | `TestToString` | `ToString()` should return the correct value. |
-| Check equality between two instances with the same value | `TestEquals` | Instances with the same `StaffPhoneNumber` value should be equal. |
-| Check equal hash codes for instances with the same value | `TestEqualHashCodes` | Instances with the same `StaffPhoneNumber` value should have the same hash code. |
+| **Scenario**                                                   | **Test Method**          | **Expected Result**                                                                  |
+|----------------------------------------------------------------|--------------------------|--------------------------------------------------------------------------------------|
+| Verify proper construction of `StaffPhoneNumber`               | `TestConstructor`        | Object should be constructed with the correct value.                                 |
+| Verify string representation of `StaffPhoneNumber`             | `TestToString`           | `ToString()` should return the correct value.                                        |
+| Check equality between two instances with the same value       | `TestEquals`             | Instances with the same `StaffPhoneNumber` value should be equal.                    |
+| Check equal hash codes for instances with the same value       | `TestEqualHashCodes`     | Instances with the same `StaffPhoneNumber` value should have the same hash code.     |
 | Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different `StaffPhoneNumber` values should have different hash codes. |
-| Test private constructor creation | `TestPrivateConstructor` | Private constructor should create an instance without initializing the value. |
+| Test private constructor creation                              | `TestPrivateConstructor` | Private constructor should create an instance without initializing the value.        |
 
 # 30-  StaffSpecialization Tests
 
@@ -594,14 +594,14 @@ The tests are implemented using the NUnit framework, focusing on enum instantiat
 
 ## Description
 
-| **Scenario** | **Test Method** | **Expected Result** |
-|--------------|-----------------|---------------------|
-| Verify proper construction of `StaffSpecialization` | `TestConstructor` | Enum should be constructed with the correct value. |
-| Verify string representation of `StaffSpecialization` | `TestToString` | `ToString()` should return the correct enum string representation. |
-| Check equality between two instances with the same value | `TestEquals` | Instances with the same `StaffSpecialization` value should be equal. |
-| Check equal hash codes for instances with the same value | `TestEqualHashCodes` | Instances with the same `StaffSpecialization` value should have the same hash code. |
+| **Scenario**                                                   | **Test Method**          | **Expected Result**                                                                     |
+|----------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------------------|
+| Verify proper construction of `StaffSpecialization`            | `TestConstructor`        | Enum should be constructed with the correct value.                                      |
+| Verify string representation of `StaffSpecialization`          | `TestToString`           | `ToString()` should return the correct enum string representation.                      |
+| Check equality between two instances with the same value       | `TestEquals`             | Instances with the same `StaffSpecialization` value should be equal.                    |
+| Check equal hash codes for instances with the same value       | `TestEqualHashCodes`     | Instances with the same `StaffSpecialization` value should have the same hash code.     |
 | Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different `StaffSpecialization` values should have different hash codes. |
-| Test private constructor | `TestPrivateConstructor` | Enum instance `None` should be initialized properly. |
+| Test private constructor                                       | `TestPrivateConstructor` | Enum instance `None` should be initialized properly.                                    |
 
 # 31 - Staff Tests
 
@@ -615,16 +615,16 @@ These tests utilize the NUnit framework, in combination with Moq to mock depende
 
 ## Test Descriptions
 
-| **Scenario** | **Test Method** | **Expected Result** |
-|--------------|-----------------|---------------------|
-| Validate proper construction of a `Staff` object | `TestConstructor` | The `Staff` object should be initialized with correct values for name, email, phone number, specialization, availability slots, staff type, activation status, and license number. |
-| Change staff specialization | `TestChangeStaffSpecialization` | Specialization should be changed to a new value and correctly reflected. |
-| Change staff phone number | `TestChangeStaffPhoneNumber` | Phone number should be updated to a new value. |
-| Change user email | `TestChangeUserEmail` | Email should be updated to a new value. |
-| Change availability slots | `TestChangeStaffAvaiabilitySlots` | Availability slots should be updated to a new list of slots. |
-| Activate staff | `TestActivateStaff` | Staff activation status should be changed to `true`. |
-| Deactivate staff | `TestDeactivateStaff` | Staff activation status should be changed to `false`. |
-| Validate private constructor | `TestPrivateConstructor` | A `Staff` object created using the private constructor should be non-null but have its properties unset (`null`). |
+| **Scenario**                                     | **Test Method**                   | **Expected Result**                                                                                                                                                                |
+|--------------------------------------------------|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Validate proper construction of a `Staff` object | `TestConstructor`                 | The `Staff` object should be initialized with correct values for name, email, phone number, specialization, availability slots, staff type, activation status, and license number. |
+| Change staff specialization                      | `TestChangeStaffSpecialization`   | Specialization should be changed to a new value and correctly reflected.                                                                                                           |
+| Change staff phone number                        | `TestChangeStaffPhoneNumber`      | Phone number should be updated to a new value.                                                                                                                                     |
+| Change user email                                | `TestChangeUserEmail`             | Email should be updated to a new value.                                                                                                                                            |
+| Change availability slots                        | `TestChangeStaffAvaiabilitySlots` | Availability slots should be updated to a new list of slots.                                                                                                                       |
+| Activate staff                                   | `TestActivateStaff`               | Staff activation status should be changed to `true`.                                                                                                                               |
+| Deactivate staff                                 | `TestDeactivateStaff`             | Staff activation status should be changed to `false`.                                                                                                                              |
+| Validate private constructor                     | `TestPrivateConstructor`          | A `Staff` object created using the private constructor should be non-null but have its properties unset (`null`).                                                                  |
 
 # 32 - StaffType Unit Tests
 
@@ -638,8 +638,8 @@ These tests utilize the NUnit framework to validate the functionality of the `St
 
 ## Test Descriptions
 
-| **Scenario**                   | **Test Method**          | **Expected Result**                           |
-|--------------------------------|--------------------------|-----------------------------------------------|
+| **Scenario**                          | **Test Method**          | **Expected Result**                                           |
+|---------------------------------------|--------------------------|---------------------------------------------------------------|
 | Validate instantiation of `StaffType` | `TestPrivateConstructor` | The `StaffType` enum value should be accessible and not null. |
 
 # 33 - StaffController Tests
@@ -654,16 +654,16 @@ These tests utilize the NUnit framework, alongside Moq to mock dependencies, all
 
 ## Test Descriptions
 
-| **Scenario**                                | **Test Method**                          | **Expected Result**                                           |
-|---------------------------------------------|------------------------------------------|---------------------------------------------------------------|
-| Retrieve all staff profiles                 | `GetAll_ReturnsAllStaffProfiles`       | Should return a list of staff profiles without null values.   |
-| Retrieve staff profile by valid ID          | `GetById_ValidId_ReturnsStaff`         | Should return the staff profile matching the provided ID.     |
-| Retrieve staff profile by invalid ID        | `GetById_InValidId_ReturnsNotFound`    | Should return a `NotFoundResult`.                             |
-| Create a valid staff profile                | `Create_ValidStaffProfile_ReturnsCreatedAtAction` | Should return `CreatedAtActionResult`.                       |
-| Update a valid staff profile                | `Update_ValidStaffProfile_ReturnsCreatedAtAction` | Should return an updated staff profile.                       |
-| Update an invalid staff profile             | `Update_InValidStaffProfile_ReturnsBadRequest` | Should return a `BadRequestResult`.                          |
-| Deactivate a staff profile with a valid ID  | `Deactivate_ValidId_ReturnsOk`         | Should return `OkObjectResult`.                               |
-| Deactivate a staff profile with an invalid ID | `Deactivate_InvalidId_ReturnsNotFound`  | Should return a `NotFoundResult`.                             |
+| **Scenario**                                  | **Test Method**                                   | **Expected Result**                                         |
+|-----------------------------------------------|---------------------------------------------------|-------------------------------------------------------------|
+| Retrieve all staff profiles                   | `GetAll_ReturnsAllStaffProfiles`                  | Should return a list of staff profiles without null values. |
+| Retrieve staff profile by valid ID            | `GetById_ValidId_ReturnsStaff`                    | Should return the staff profile matching the provided ID.   |
+| Retrieve staff profile by invalid ID          | `GetById_InValidId_ReturnsNotFound`               | Should return a `NotFoundResult`.                           |
+| Create a valid staff profile                  | `Create_ValidStaffProfile_ReturnsCreatedAtAction` | Should return `CreatedAtActionResult`.                      |
+| Update a valid staff profile                  | `Update_ValidStaffProfile_ReturnsCreatedAtAction` | Should return an updated staff profile.                     |
+| Update an invalid staff profile               | `Update_InValidStaffProfile_ReturnsBadRequest`    | Should return a `BadRequestResult`.                         |
+| Deactivate a staff profile with a valid ID    | `Deactivate_ValidId_ReturnsOk`                    | Should return `OkObjectResult`.                             |
+| Deactivate a staff profile with an invalid ID | `Deactivate_InvalidId_ReturnsNotFound`            | Should return a `NotFoundResult`.                           |
 
 # 34 - StaffService Tests
 
@@ -677,20 +677,20 @@ These tests utilize the NUnit framework, alongside Moq to mock dependencies, all
 
 ## Test Descriptions
 
-| **Scenario**                                | **Test Method**                          | **Expected Result**                                           |
-|---------------------------------------------|------------------------------------------|---------------------------------------------------------------|
-| Retrieve all staff profiles                 | `GetAllAsync_ReturnsListOfStaffDto_WhenRequestsExist`       | Should return a list of DTOs of staff without null values.   |
-| Retrieve all staff profiles when none exist | `GetAllAsync_ReturnsEmptyList_WhenNoStaffProfileExist`      | Should return an empty list.                                  |
-| Add a new valid staff profile               | `AddAsync_CreatesNewStaffProfile_WhenValidDtoIsProvided`    | Should create and return the new staff profile.              |
-| Update an existing staff profile            | `UpdateAsync_UpdatesExistingStaffProfile_WhenValidDtoIsProvided` | Should return the updated staff profile.                     |
-| Update a non-existent staff profile         | `UpdateAsync_ReturnsNull_WhenStaffProfileDoesNotExist`       | Should return null.                                          |
-| Retrieve staff profiles by name             | `GetAllByStaffNameAsync_ReturnsListOfStaffDtoList_WhenStaffProfileExist` | Should return a filtered list of DTOs by staff name.        |
-| Retrieve staff profiles by specialization    | `GetAllBySpecializationAsync_ReturnsListOfStaffDtoList_WhenStaffProfileExist` | Should return a filtered list of DTOs by specialization.     |
-| Retrieve staff profiles by email            | `GetAllByEmailAsync_ReturnsListOfStaffDtoList_WhenStaffProfileExist` | Should return a filtered list of DTOs by email.             |
-| Retrieve a staff profile by valid ID        | `GetByIdAsync_ReturnsListOfStaffDto_WhenRequestsExist`       | Should return the staff DTO matching the provided ID.       |
-| Retrieve a staff profile by invalid ID      | `GetByIdAsync_ReturnsNull_WhenStaffProfileDoesNotExist`     | Should return null.                                          |
-| Generate a license number                   | `GenerateLN_ReturnsStaffId_WhenValidDtoIsProvided`           | Should return a valid license number.                        |
-| Deactivate a staff profile                  | `DeactivateAsync_ReturnsListOfStaffDto_WhenValidStaffIdIsProvided` | Should return the deactivated staff profile.                |
+| **Scenario**                                | **Test Method**                                                               | **Expected Result**                                        |
+|---------------------------------------------|-------------------------------------------------------------------------------|------------------------------------------------------------|
+| Retrieve all staff profiles                 | `GetAllAsync_ReturnsListOfStaffDto_WhenRequestsExist`                         | Should return a list of DTOs of staff without null values. |
+| Retrieve all staff profiles when none exist | `GetAllAsync_ReturnsEmptyList_WhenNoStaffProfileExist`                        | Should return an empty list.                               |
+| Add a new valid staff profile               | `AddAsync_CreatesNewStaffProfile_WhenValidDtoIsProvided`                      | Should create and return the new staff profile.            |
+| Update an existing staff profile            | `UpdateAsync_UpdatesExistingStaffProfile_WhenValidDtoIsProvided`              | Should return the updated staff profile.                   |
+| Update a non-existent staff profile         | `UpdateAsync_ReturnsNull_WhenStaffProfileDoesNotExist`                        | Should return null.                                        |
+| Retrieve staff profiles by name             | `GetAllByStaffNameAsync_ReturnsListOfStaffDtoList_WhenStaffProfileExist`      | Should return a filtered list of DTOs by staff name.       |
+| Retrieve staff profiles by specialization   | `GetAllBySpecializationAsync_ReturnsListOfStaffDtoList_WhenStaffProfileExist` | Should return a filtered list of DTOs by specialization.   |
+| Retrieve staff profiles by email            | `GetAllByEmailAsync_ReturnsListOfStaffDtoList_WhenStaffProfileExist`          | Should return a filtered list of DTOs by email.            |
+| Retrieve a staff profile by valid ID        | `GetByIdAsync_ReturnsListOfStaffDto_WhenRequestsExist`                        | Should return the staff DTO matching the provided ID.      |
+| Retrieve a staff profile by invalid ID      | `GetByIdAsync_ReturnsNull_WhenStaffProfileDoesNotExist`                       | Should return null.                                        |
+| Generate a license number                   | `GenerateLN_ReturnsStaffId_WhenValidDtoIsProvided`                            | Should return a valid license number.                      |
+| Deactivate a staff profile                  | `DeactivateAsync_ReturnsListOfStaffDto_WhenValidStaffIdIsProvided`            | Should return the deactivated staff profile.               |
 
 # 35 - StaffMapper Tests
 
@@ -704,12 +704,12 @@ These tests utilize the NUnit framework, alongside Moq to mock dependencies, all
 
 ## Test Descriptions
 
-| **Scenario**                                      | **Test Method**                                        | **Expected Result**                                            |
-|---------------------------------------------------|--------------------------------------------------------|--------------------------------------------------------------|
-| Convert DTO to Domain Model                        | `TestToDomain`                                        | Should map properties from the DTO to the domain model correctly. |
-| Convert Domain Model to DTO                        | `TestToDto`                                          | Should map properties from the domain model to the DTO correctly. |
-| Convert Domain Model to DTO List                  | `TestToDtoList`                                      | Should map properties correctly for a single staff domain model to a DTO. |
-| Convert List of Domain Models to DTOs             | `TestToListDto`                                      | Should return a list of DTOs matching the number of domain models. |
+| **Scenario**                          | **Test Method** | **Expected Result**                                                       |
+|---------------------------------------|-----------------|---------------------------------------------------------------------------|
+| Convert DTO to Domain Model           | `TestToDomain`  | Should map properties from the DTO to the domain model correctly.         |
+| Convert Domain Model to DTO           | `TestToDto`     | Should map properties from the domain model to the DTO correctly.         |
+| Convert Domain Model to DTO List      | `TestToDtoList` | Should map properties correctly for a single staff domain model to a DTO. |
+| Convert List of Domain Models to DTOs | `TestToListDto` | Should return a list of DTOs matching the number of domain models.        |
 
 # 36 - StaffDto Tests
 
@@ -723,9 +723,324 @@ These tests utilize the NUnit framework to verify the correct creation of DTO in
 
 ## Test Descriptions
 
-| **Scenario**                                  | **Test Method**                                 | **Expected Result**                                        |
-|-----------------------------------------------|-------------------------------------------------|----------------------------------------------------------|
-| Create an incomplete StaffDto                 | `TestCreateIncompleteStaffDto`                  | Should correctly instantiate the DTO with only the ID and StaffName. |
-| Create a complete StaffDto                    | `TestCreateCompleteStaffDto`                    | Should correctly instantiate the DTO with all properties set. |
-| Create an incomplete StaffDtoList             | `TestCreateIncompleteStaffDto2`                 | Should correctly instantiate the StaffDtoList with only the ID and StaffName. |
-| Create a complete StaffDtoList                | `TestCreateCompleteStaffDto2`                   | Should correctly instantiate the StaffDtoList with all relevant properties. |
+| **Scenario**                      | **Test Method**                 | **Expected Result**                                                           |
+|-----------------------------------|---------------------------------|-------------------------------------------------------------------------------|
+| Create an incomplete StaffDto     | `TestCreateIncompleteStaffDto`  | Should correctly instantiate the DTO with only the ID and StaffName.          |
+| Create a complete StaffDto        | `TestCreateCompleteStaffDto`    | Should correctly instantiate the DTO with all properties set.                 |
+| Create an incomplete StaffDtoList | `TestCreateIncompleteStaffDto2` | Should correctly instantiate the StaffDtoList with only the ID and StaffName. |
+| Create a complete StaffDtoList    | `TestCreateCompleteStaffDto2`   | Should correctly instantiate the StaffDtoList with all relevant properties.   |
+
+# 37 - Patient Tests
+
+## Objective
+
+To test the behavior of the `Patient` class in the `DDDNetCore.Domain.Patients` namespace,
+ensuring that the class is correctly instantiated and that its attributes can be modified as expected.
+
+## Test Framework
+
+These tests utilize the NUnit framework alongside Moq to mock dependencies, verifying that the `Patient` class behaves as intended when properties are initialized and updated.
+
+## Test Descriptions
+
+| **Scenario**                                | **Test Method**                | **Expected Result**                                                                          |
+|---------------------------------------------|--------------------------------|----------------------------------------------------------------------------------------------|
+| Create a Patient with valid attributes      | `TestConstructor`              | Should correctly instantiate the Patient object with the provided attributes.                |
+| Change the phone number of a patient        | `TestChangePhoneNumber`        | Should successfully update the patient's phone number.                                       |
+| Change the name of a patient                | `TestChangePatientName`        | Should successfully update the patient's name.                                               |
+| Change the emergency contact of a patient   | `TestChangeEmergencyContact`   | Should successfully update the patient's emergency contact.                                  |
+| Change the birth date of a patient          | `TestChangeBirthDate`          | Should successfully update the patient's birth date.                                         |
+| Change the gender of a patient              | `TestChangeGender`             | Should successfully update the patient's gender.                                             |
+| Change the appointment history of a patient | `TestChangeAppointmentHistory` | Should successfully update the patient's appointment history.                                |
+| Change the medical conditions of a patient  | `TestChangeMedicalConditions`  | Should successfully update the patient's medical conditions.                                 |
+| Verify behavior of the private constructor  | `TestPrivateConstructor`       | Should create an instance of `Patient` with null medical conditions and appointment history. |
+
+# 38 - Appointment History Tests
+
+## Objective
+
+To test the behavior of the `AppointmentHistory` class in the `DDDNetCore.Domain.Patients` namespace, ensuring that the class is correctly instantiated and that its methods function as expected.
+
+## Test Framework
+
+These tests utilize the NUnit framework to verify the correct creation and comparison of `AppointmentHistory` instances, ensuring that properties are set and compared correctly.
+
+## Test Descriptions
+
+| **Scenario**                                     | **Test Method**          | **Expected Result**                                                                    |
+|--------------------------------------------------|--------------------------|----------------------------------------------------------------------------------------|
+| Create an AppointmentHistory with a value        | `TestConstructor`        | Should correctly instantiate the AppointmentHistory object with the specified value.   |
+| Convert AppointmentHistory to string             | `TestToString`           | Should return the string representation of the AppointmentHistory value.               |
+| Compare two equal AppointmentHistory instances   | `TestEquals`             | Should confirm that two instances with the same value are considered equal.            |
+| Check hash codes of equal AppointmentHistory     | `TestEqualHashCodes`     | Should ensure that equal instances have the same hash code.                            |
+| Check hash codes of different AppointmentHistory | `TestDifferentHashCodes` | Should ensure that instances with different values have different hash codes.          |
+| Verify behavior of the private constructor       | `TestPrivateConstructor` | Should create an instance of `AppointmentHistory` with a null AppointmentHistoryValue. |
+
+# 39 - Birth Date Tests
+
+## Objective
+
+To test the behavior of the `BirthDate` class in the `DDDNetCore.Domain.Patients` namespace, ensuring that the class is correctly instantiated and that its methods function as expected.
+
+## Test Framework
+
+These tests utilize the NUnit framework to verify the correct creation and comparison of `BirthDate` instances, ensuring that properties are set and compared correctly.
+
+## Test Descriptions
+
+| **Scenario**                               | **Test Method**          | **Expected Result**                                                           |
+|--------------------------------------------|--------------------------|-------------------------------------------------------------------------------|
+| Create a BirthDate with a specific value   | `TestConstructor`        | Should correctly instantiate the BirthDate object with the specified value.   |
+| Convert BirthDate to string                | `TestToString`           | Should return the string representation of the BirthDate value.               |
+| Compare two equal BirthDate instances      | `TestEquals`             | Should confirm that two instances with the same value are considered equal.   |
+| Check hash codes of equal BirthDate        | `TestEqualHashCodes`     | Should ensure that equal instances have the same hash code.                   |
+| Check hash codes of different BirthDate    | `TestDifferentHashCodes` | Should ensure that instances with different values have different hash codes. |
+| Verify behavior of the private constructor | `TestPrivateConstructor` | Should create an instance of `BirthDate` with a null BirthDateValue.          |
+
+# 40 - Emergency Contact Tests
+
+## Objective
+
+To test the behavior of the `EmergencyContact` class in the `DDDNetCore.Domain.Patients` namespace, ensuring that the class is correctly instantiated and that its methods function as expected.
+
+## Test Framework
+
+These tests utilize the NUnit framework to verify the correct creation and comparison of `EmergencyContact` instances, ensuring that properties are set and compared correctly.
+
+## Test Descriptions
+
+| **Scenario**                                     | **Test Method**          | **Expected Result**                                                                |
+|--------------------------------------------------|--------------------------|------------------------------------------------------------------------------------|
+| Create an EmergencyContact with a specific value | `TestConstructor`        | Should correctly instantiate the EmergencyContact object with the specified value. |
+| Convert EmergencyContact to string               | `TestToString`           | Should return the string representation of the EmergencyContact value.             |
+| Compare two equal EmergencyContact instances     | `TestEquals`             | Should confirm that two instances with the same value are considered equal.        |
+| Check hash codes of equal EmergencyContact       | `TestEqualHashCodes`     | Should ensure that equal instances have the same hash code.                        |
+| Check hash codes of different EmergencyContact   | `TestDifferentHashCodes` | Should ensure that instances with different values have different hash codes.      |
+| Verify behavior of the private constructor       | `TestPrivateConstructor` | Should create an instance of `EmergencyContact` with a null EmergencyContactValue. |
+
+# 41 - Gender Tests
+
+## Objective
+
+To test the behavior of the `Gender` class in the `DDDNetCore.Domain.Patients` namespace, ensuring that the class is correctly instantiated and that its methods function as expected.
+
+## Test Framework
+
+These tests utilize the NUnit framework to verify the correct creation and comparison of `Gender` instances, ensuring that properties are set and compared correctly.
+
+## Test Descriptions
+
+| **Scenario**                               | **Test Method**          | **Expected Result**                                                           |
+|--------------------------------------------|--------------------------|-------------------------------------------------------------------------------|
+| Create a Gender with a specific value      | `TestConstructor`        | Should correctly instantiate the Gender object with the specified value.      |
+| Convert Gender to string                   | `TestToString`           | Should return the string representation of the Gender value.                  |
+| Compare two equal Gender instances         | `TestEquals`             | Should confirm that two instances with the same value are considered equal.   |
+| Check hash codes of equal Gender           | `TestEqualHashCodes`     | Should ensure that equal instances have the same hash code.                   |
+| Check hash codes of different Gender       | `TestDifferentHashCodes` | Should ensure that instances with different values have different hash codes. |
+| Verify behavior of the private constructor | `TestPrivateConstructor` | Should create an instance of `Gender` with a null GenderValue.                |
+
+# 42 - Medical Conditions Tests
+
+## Objective
+
+To test the behavior of the `MedicalConditions` class in the `DDDNetCore.Domain.Patients` namespace, ensuring that the class is correctly instantiated and that its methods function as expected.
+
+## Test Framework
+
+These tests utilize the NUnit framework to verify the correct creation and comparison of `MedicalConditions` instances, ensuring that properties are set and compared correctly.
+
+## Test Descriptions
+
+| **Scenario**                                    | **Test Method**          | **Expected Result**                                                                  |
+|-------------------------------------------------|--------------------------|--------------------------------------------------------------------------------------|
+| Create MedicalConditions with a specific value  | `TestConstructor`        | Should correctly instantiate the MedicalConditions object with the specified value.  |
+| Convert MedicalConditions to string             | `TestToString`           | Should return the string representation of the MedicalConditions value.              |
+| Compare two equal MedicalConditions instances   | `TestEquals`             | Should confirm that two instances with the same value are considered equal.          |
+| Check hash codes of equal MedicalConditions     | `TestEqualHashCodes`     | Should ensure that equal instances have the same hash code.                          |
+| Check hash codes of different MedicalConditions | `TestDifferentHashCodes` | Should ensure that instances with different values have different hash codes.        |
+| Verify behavior of the private constructor      | `TestPrivateConstructor` | Should create an instance of `MedicalConditions` with a null MedicalConditionsValue. |
+
+# 43 - Medical Record Number Tests
+
+## Objective
+
+To test the behavior of the `MedicalRecordNumber` class in the `DDDNetCore.Domain.Patients` namespace, ensuring that the class is correctly instantiated and that its methods function as expected.
+
+## Test Framework
+
+These tests utilize the NUnit framework to verify the correct creation and comparison of `MedicalRecordNumber` instances, ensuring that properties are set and compared correctly.
+
+## Test Descriptions
+
+| **Scenario**                                      | **Test Method**          | **Expected Result**                                                                                                            |
+|---------------------------------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Create MedicalRecordNumber with a specific value  | `TestConstructor`        | Should correctly instantiate the MedicalRecordNumber object with the specified value.                                          |
+| Convert MedicalRecordNumber to string             | `TestToString`           | Should return the string representation of the MedicalRecordNumber value.                                                      |
+| Compare two equal MedicalRecordNumber instances   | `TestEquals`             | Should confirm that two instances with the same value are considered equal.                                                    |
+| Check hash codes of equal MedicalRecordNumber     | `TestEqualHashCodes`     | Should ensure that equal instances have the same hash code.                                                                    |
+| Check hash codes of different MedicalRecordNumber | `TestDifferentHashCodes` | Should ensure that instances with different values have different hash codes.                                                  |
+| Verify behavior of the private constructor        | `TestPrivateConstructor` | Should create an instance of `MedicalRecordNumber` with a default value and confirm that its string representation is correct. |
+
+# 44 - Patient Name Tests
+
+## Objective
+
+To test the behavior of the `PatientName` class in the `DDDNetCore.Domain.Patients` namespace, ensuring that the class is correctly instantiated and that its methods function as expected.
+
+## Test Framework
+
+These tests utilize the NUnit framework to verify the correct creation and comparison of `PatientName` instances, ensuring that properties are set and compared correctly.
+
+## Test Descriptions
+
+| **Scenario**                               | **Test Method**          | **Expected Result**                                                                                    |
+|--------------------------------------------|--------------------------|--------------------------------------------------------------------------------------------------------|
+| Create PatientName with a specific value   | `TestConstructor`        | Should correctly instantiate the PatientName object with the specified value.                          |
+| Convert PatientName to string              | `TestToString`           | Should return the string representation of the PatientName value.                                      |
+| Compare two equal PatientName instances    | `TestEquals`             | Should confirm that two instances with the same value are considered equal.                            |
+| Check hash codes of equal PatientName      | `TestEqualHashCodes`     | Should ensure that equal instances have the same hash code.                                            |
+| Check hash codes of different PatientName  | `TestDifferentHashCodes` | Should ensure that instances with different values have different hash codes.                          |
+| Verify behavior of the private constructor | `TestPrivateConstructor` | Should create an instance of `PatientName` and confirm that it is not null and that its value is null. |
+
+# 45 - Phone Number Tests
+
+## Objective
+
+To test the behavior of the `PhoneNumber` class in the `DDDNetCore.Domain.Patients` namespace, ensuring that the class is correctly instantiated and that its methods function as expected for managing phone number data.
+
+## Test Framework
+
+These tests utilize the NUnit framework to verify the correct creation and comparison of `PhoneNumber` instances, ensuring that properties are set and compared correctly.
+
+## Test Descriptions
+
+| **Scenario**                               | **Test Method**          | **Expected Result**                                                                                    |
+|--------------------------------------------|--------------------------|--------------------------------------------------------------------------------------------------------|
+| Create PhoneNumber with a specific value   | `TestConstructor`        | Should correctly instantiate the PhoneNumber object with the specified value.                          |
+| Convert PhoneNumber to string              | `TestToString`           | Should return the string representation of the PhoneNumber value.                                      |
+| Compare two equal PhoneNumber instances    | `TestEquals`             | Should confirm that two instances with the same value are considered equal.                            |
+| Check hash codes of equal PhoneNumber      | `TestEqualHashCodes`     | Should ensure that equal instances have the same hash code.                                            |
+| Check hash codes of different PhoneNumber  | `TestDifferentHashCodes` | Should ensure that instances with different values have different hash codes.                          |
+| Verify behavior of the private constructor | `TestPrivateConstructor` | Should create an instance of `PhoneNumber` and confirm that it is not null and that its value is null. |
+
+# 46 - Patient Service Tests
+
+## Objective
+
+To test the behavior of the `PatientService` class, ensuring that methods for retrieving, adding, and updating patient profiles operate correctly, especially under various scenarios.
+
+## Test Framework
+
+These tests utilize the NUnit framework to verify the functionality of the `PatientService`, including fetching, adding, and updating patient records while ensuring that the interactions with the repository and unit of work are appropriately validated.
+
+## Test Descriptions
+
+| **Scenario**                                                     | **Test Method**                                                                              | **Expected Result**                                                                                                                   |
+|------------------------------------------------------------------|----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| Retrieve all patients when profiles exist                        | `GetAllAsync_ReturnsListOfPatientDto_WhenRequestsExist`                                      | Should return a list of `PatientDto` objects that matches the expected data when patient profiles exist.                              |
+| Retrieve patients when no profiles exist                         | `GetAllAsync_ReturnsEmptyList_WhenNoPatientProfileExist`                                     | Should return an empty list when there are no patient profiles in the repository.                                                     |
+| Add a new patient profile with valid data                        | `AddAsync_CreatesNewPatientProfile_WhenValidDtoIsProvided`                                   | Should create a new patient profile and return the corresponding `PatientDto`, ensuring that repository methods are called correctly. |
+| Update an existing patient profile with valid data               | `UpdateAsync_UpdatesExistingPatientProfile_WhenValidDtoIsProvided`                           | Should update the existing patient profile and return the updated `PatientDto`, ensuring the unit of work commits.                    |
+| Update a patient profile that does not exist                     | `UpdateAsync_ReturnsNull_WhenPatientProfileDoesNotExist`                                     | Should return null when attempting to update a non-existent patient profile and not commit the unit of work.                          |
+| Retrieve patients by name when profiles exist                    | `GetAllByPatientNameAsync_ReturnsListOfPatientListDto_WhenPatientProfileExist`               | Should return a list of `PatientListDto` objects that match the provided patient name.                                                |
+| Retrieve patients by birth date when profiles exist              | `GetAllByBirthDateAsync_ReturnsListOfPatientListDto_WhenPatientProfileExist`                 | Should return a list of `PatientListDto` objects that match the provided birth date.                                                  |
+| Retrieve patients by email when profiles exist                   | `GetAllByEmailAsync_ReturnsListOfPatientListDto_WhenPatientProfileExist`                     | Should return a list of `PatientListDto` objects that match the provided email.                                                       |
+| Retrieve patients by phone number when profiles exist            | `GetAllByPhoneNumberAsync_ReturnsListOfPatientListDto_WhenPatientProfileExist`               | Should return a list of `PatientListDto` objects that match the provided phone number.                                                |
+| Retrieve patients by gender when profiles exist                  | `GetAllByGenderAsync_ReturnsListOfPatientListDto_WhenPatientProfileExist`                    | Should return a list of `PatientListDto` objects that match the provided gender.                                                      |
+| Retrieve patient by ID when profiles exist                       | `GetByIdAsyncAsync_ReturnsListOfPatientDto_WhenRequestsExist`                                | Should return the corresponding `PatientDto` when a valid medical record number is provided.                                          |
+| Retrieve patient by ID that does not exist                       | `GetByIdAsync_ReturnsNull_WhenPatientProfileDoesNotExist`                                    | Should return null when a non-existent medical record number is provided.                                                             |
+| Delete patient profile with valid medical record number          | `DeleteAsync_ReturnsListOfPatientDto_WhenValidMedicalRecordNumberIsProvided`                 | Should delete the patient profile and return null if the deletion is successful.                                                      |
+| Delete patient data and account with valid medical record number | `DeletePatientDataAndAccount_ReturnsListOfPatientDto_WhenValidMedicalRecordNumberIsProvided` | Should delete the patient data and account, returning null if the deletion is successful.                                             |
+
+# 47 - Patient Controller Tests
+
+## Objective
+
+To verify the behavior of the `PatientsController` class in the `DDDNetCore.Controllers` namespace, ensuring correct handling of requests for patient data, creation, update, and deletion, with proper responses for valid and invalid cases.
+
+## Test Framework
+
+These tests use the NUnit framework alongside Moq to mock dependencies, isolating the controller and service methods to verify that they function as expected.
+
+## Test Descriptions
+
+| **Scenario**                                | **Test Method**                                     | **Expected Result**                                                                   |
+|---------------------------------------------|-----------------------------------------------------|---------------------------------------------------------------------------------------|
+| Retrieve all patient profiles               | `GetAll_ReturnsAllPatientProfiles`                  | Should return a list of all patient profiles.                                         |
+| Retrieve a patient profile by valid ID      | `GetById_ValidId_ReturnsPatient`                    | Should return a single patient profile matching the ID.                               |
+| Retrieve a patient profile by invalid ID    | `GetById_InValidId_ReturnsNotFound`                 | Should return a `NotFound` response.                                                  |
+| Create a valid patient profile              | `Create_ValidPatientProfile_ReturnsCreatedAtAction` | Should return `CreatedAtAction` result indicating successful creation.                |
+| Update a valid patient profile              | `Update_ValidPatientProfile_ReturnsCreatedAtAction` | Should return a `CreatedAtAction` result after successful update.                     |
+| Update an invalid patient profile           | `Update_InValidPatientProfile_ReturnsBadRequest`    | Should return a `BadRequest` result for invalid profile update.                       |
+| Delete a patient profile by valid ID        | `Delete_ValidId_ReturnsOk`                          | Should return `Ok` result after successfully deleting the patient.                    |
+| Delete a patient profile by invalid ID      | `Delete_InvalidId_ReturnsNotFound`                  | Should return a `NotFound` result if the ID does not match any patient.               |
+| Delete patient data and account by valid ID | `DeletePatientDataAndAccount_ValidId_ReturnsOk`     | Should return `Ok` result after successfully deleting the patient's data and account. |
+
+# 48 - Patient Dto Tests
+
+## Objective
+
+To validate the creation and initialization of `PatientDto` and `PatientListDto` objects in the `DDDNetCore.Application.DTO` namespace, ensuring that all properties are correctly assigned and that the object state matches expected values in both complete and incomplete scenarios.
+
+## Test Framework
+
+These tests utilize the NUnit framework to verify that the data transfer objects (DTOs) are created with the expected attributes and that each attribute is assigned correctly according to the input values.
+
+## Test Descriptions
+
+| **Scenario**                       | **Test Method**                      | **Expected Result**                                                                                                              |
+|------------------------------------|--------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Create Incomplete Patient DTO      | `TestCreateIncompletePatientDto`     | Initializes `PatientDto` with partial data; properties `MedicalRecordNumber` and `PatientName` should match expected values.     |
+| Create Complete Patient DTO        | `TestCreateCompletePatientDto`       | Initializes `PatientDto` with full data; all properties should match the provided values, including lists.                       |
+| Create Incomplete Patient List DTO | `TestCreateIncompletePatientListDto` | Initializes `PatientListDto` with partial data; properties `MedicalRecordNumber` and `PatientName` should match expected values. |
+| Create Complete Patient List DTO   | `TestCreateCompletePatientListDto`   | Initializes `PatientListDto` with full data; all properties should match the provided values.                                    |
+
+# 49 - Login Dto Tests
+
+## Objective
+
+To verify the functionality and correctness of the `LoginDto` class, ensuring that it can be instantiated properly with the necessary properties.
+
+## Test Framework
+
+These tests utilize the NUnit framework to validate the creation and properties of the `LoginDto` object.
+
+## Test Descriptions
+
+| **Scenario**                    | **Test Method**                | **Expected Result**                                                                                             |
+|---------------------------------|--------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| Create an incomplete `LoginDto` | `TestCreateIncompleteLoginDto` | Should create a `LoginDto` object with the specified email and password properties set.                         |
+| Create a complete `LoginDto`    | `TestCreateCompleteLoginDto`   | Should create a `LoginDto` object with all properties (`Email`, `Password`, `ReturnSecureToken`) set correctly. |
+
+# 50 - Login Response Tests
+
+## Objective
+
+To verify the functionality and correctness of the `LoginResponse` class, ensuring that it can be instantiated properly with the necessary properties.
+
+## Test Framework
+
+These tests utilize the NUnit framework to validate the creation and properties of the `LoginResponse` object.
+
+## Test Descriptions
+
+| **Scenario**                         | **Test Method**                     | **Expected Result**                                                                                                                                                         |
+|--------------------------------------|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Create an incomplete `LoginResponse` | `TestCreateIncompleteLoginResponse` | Should create a `LoginResponse` object with the specified email and registered status properties set.                                                                       |
+| Create a complete `LoginResponse`    | `TestCreateCompleteLoginResponse`   | Should create a `LoginResponse` object with all properties (`Kind`, `LocalId`, `Email`, `DisplayName`, `IdToken`, `Registered`, `RefreshToken`, `ExpiresIn`) set correctly. |
+
+# 51 - User Email Micro Service Tests
+
+## Objective
+
+To verify the functionality and correctness of the `UserEmailMicroService` class, ensuring that it can correctly handle user email verification.
+
+## Test Framework
+
+These tests utilize the NUnit framework and Moq for mocking dependencies to validate the behavior of the `UserEmailMicroService`.
+
+## Test Descriptions
+
+| **Scenario**                          | **Test Method**                                            | **Expected Result**                                                                                     |
+|---------------------------------------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| Verify email using a valid user email | `AddAsync_CreatesNewPatientProfile_WhenValidDtoIsProvided` | Should return a non-null result indicating that the email verification was successful (returns `true`). |
