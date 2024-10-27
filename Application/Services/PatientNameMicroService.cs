@@ -6,7 +6,7 @@ using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.Patients;
-using DDDSample1.Domain.Shared;
+using DDDNetCore.Domain.Shared;
 
 namespace DDDNetCore.Application.Services
 {

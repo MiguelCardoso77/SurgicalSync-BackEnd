@@ -5,7 +5,7 @@ using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.OperationType;
-using DDDSample1.Domain.Shared;
+using DDDNetCore.Domain.Shared;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;

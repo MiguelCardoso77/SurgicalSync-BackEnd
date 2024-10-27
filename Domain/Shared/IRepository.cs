@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DDDNetCore.Domain.Staffs;
 
-namespace DDDSample1.Domain.Shared
+namespace DDDNetCore.Domain.Shared
 {
     public interface IRepository<TEntity, TEntityId>
     {

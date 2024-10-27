@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
-using DDDSample1.Domain.Shared;
 using NUnit.Framework.Internal.Execution;
 
 namespace DDDNetCore.Domain.Staffs

@@ -4,28 +4,27 @@ using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure;
 using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
+using DDDNetCore.Infraestructure.Shared;
 using DDDNetCore.Infraestructure.Staff;
 using DDDNetCore.Infraestructure.Users;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using DDDSample1.Infrastructure;
-using DDDSample1.Infrastructure.Shared;
-using DDDSample1.Domain.Shared;
-using FirebaseAdmin;
-using Google.Apis.Auth.OAuth2;
 
-namespace DDDSample1
+namespace DDDNetCore
 {
     public class Startup
     {

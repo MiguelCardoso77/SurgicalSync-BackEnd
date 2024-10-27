@@ -6,7 +6,6 @@ using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain;
 using DDDNetCore.Domain.Users;
-using DDDSample1.Domain.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDDNetCore.Controllers
@@ -95,7 +94,7 @@ namespace DDDNetCore.Controllers
 
                 return Ok(fam);
             }
-            catch(BusinessRuleValidationException ex)
+            catch(Exception ex)
             {
                return BadRequest(new {Message = ex.Message});
             }

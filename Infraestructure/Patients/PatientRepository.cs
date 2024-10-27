@@ -1,6 +1,5 @@
 ﻿using DDDNetCore.Domain.Patients;
-using DDDSample1.Infrastructure;
-using DDDSample1.Infrastructure.Shared;
+using DDDNetCore.Infraestructure.Shared;
 
 namespace DDDNetCore.Infraestructure.Patients
 {

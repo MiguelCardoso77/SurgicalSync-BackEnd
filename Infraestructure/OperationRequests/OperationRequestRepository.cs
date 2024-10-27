@@ -1,6 +1,5 @@
 ﻿using DDDNetCore.Domain.OperationRequests;
-using DDDSample1.Infrastructure;
-using DDDSample1.Infrastructure.Shared;
+using DDDNetCore.Infraestructure.Shared;
 
 namespace DDDNetCore.Infraestructure.OperationRequests
 {

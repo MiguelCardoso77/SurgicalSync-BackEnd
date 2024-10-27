@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain;
+using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
-using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Application.Services
 {

@@ -5,7 +5,6 @@ using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.Patients;
-using DDDSample1.Domain.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDDNetCore.Controllers

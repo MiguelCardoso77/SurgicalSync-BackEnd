@@ -1,6 +1,5 @@
 ﻿using DDDNetCore.Domain.Users;
-using DDDSample1.Infrastructure;
-using DDDSample1.Infrastructure.Shared;
+using DDDNetCore.Infraestructure.Shared;
 
 namespace DDDNetCore.Infraestructure.Users
 {

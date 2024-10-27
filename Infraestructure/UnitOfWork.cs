@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using DDDSample1.Domain.Shared;
+using DDDNetCore.Domain.Shared;
 
-namespace DDDSample1.Infrastructure
+namespace DDDNetCore.Infraestructure
 {
     public class UnitOfWork : IUnitOfWork
     {

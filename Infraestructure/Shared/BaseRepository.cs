@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DDDNetCore.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
-using DDDSample1.Domain.Shared;
 
-namespace DDDSample1.Infrastructure.Shared
+namespace DDDNetCore.Infraestructure.Shared
 {
     public class BaseRepository<TEntity,TEntityId> : IRepository<TEntity,TEntityId>
     where TEntity : Entity<TEntityId>

@@ -1,8 +1,8 @@
 ﻿using System;
 using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Staffs;
-using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Domain.OperationRequests {
     

@@ -6,9 +6,9 @@ using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain.Users;
-using DDDSample1.Domain.Shared;
 using Moq;
 using NUnit.Framework;
 

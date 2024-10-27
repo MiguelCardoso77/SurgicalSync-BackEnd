@@ -1,7 +1,6 @@
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
-using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
@@ -10,7 +9,7 @@ using DDDNetCore.Infraestructure.Staff;
 using DDDNetCore.Infraestructure.Users;
 using Microsoft.EntityFrameworkCore;
 
-namespace DDDSample1.Infrastructure
+namespace DDDNetCore.Infraestructure
 {
     public class DDDSample1DbContext : DbContext
     {
@@ -21,7 +20,7 @@ namespace DDDSample1.Infrastructure
         
         public DbSet<OperationType> OperationTypes { get; set; }
 
-        public DbSet<Staff> Staffs { get; set; }
+        public DbSet<Domain.Staffs.Staff> Staffs { get; set; }
         
         public DbSet<OperationRequest> OperationRequests { get; set; }
 

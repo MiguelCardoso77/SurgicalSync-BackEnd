@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.OperationType;
-using DDDSample1.Domain.Shared;
+using DDDNetCore.Domain.Shared;
 using Microsoft.Extensions.Logging;
 
 namespace DDDNetCore.Application.Services

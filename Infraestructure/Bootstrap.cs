@@ -5,7 +5,6 @@ using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Domain.Staffs;
-using DDDSample1.Infrastructure;
 
 namespace DDDNetCore.Infraestructure
 {

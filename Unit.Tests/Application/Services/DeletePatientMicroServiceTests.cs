@@ -2,8 +2,8 @@
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
-using DDDSample1.Domain.Shared;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;

@@ -1,5 +1,4 @@
-﻿using DDDSample1;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace DDDNetCore

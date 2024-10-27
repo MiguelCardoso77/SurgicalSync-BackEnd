@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
-using DDDSample1.Domain.Shared;
 
 namespace DDDNetCore.Domain.Patients
 {

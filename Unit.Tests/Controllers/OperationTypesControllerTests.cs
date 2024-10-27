@@ -5,7 +5,7 @@ using DDDNetCore.Application.Mappers;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Controllers;
 using DDDNetCore.Domain.OperationType;
-using DDDSample1.Domain.Shared;
+using DDDNetCore.Domain.Shared;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

@@ -5,8 +5,8 @@ using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain;
 using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
-using DDDSample1.Domain.Shared;
 using Microsoft.Extensions.Logging;
 
 namespace DDDNetCore.Application.Services
