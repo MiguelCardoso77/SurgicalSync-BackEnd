@@ -477,3 +477,255 @@ Unit testing using NUnit to verify that the `GoogleLoginDto` behaves as expected
 | Creating an incomplete Google login DTO with missing fields  | TestCreateIncompleteGoogleLoginDto | DTO should retain the specified values and have null for missing fields. |
 | Creating a complete Google login DTO with all fields present |  TestCreateCompleteGoogleLoginDto  |     DTO should contain the correct values for all specified fields.      |
 
+
+## 25 -  Staff Availability Slots Tests
+
+## Objective
+
+To ensure the correct behavior of the `StaffAvaiabilitySlots` class in the `DDDNetCore.Domain.Staffs` namespace, validating its construction, equality checks, string representation, and handling of private constructors.
+
+## Test Framework
+
+The tests are implemented using the NUnit framework, focusing on the creation of instances, equality comparisons, hash code generation, and private constructor access.
+
+## Description
+
+| **Scenario** | **Test Method** | **Expected Result** |
+|--------------|-----------------|---------------------|
+| Verify proper construction of Staff Availability Slots | `TestConstructor` | Object should be constructed with the correct value. |
+| Verify string representation of Staff Availability Slots | `TestToString` | `ToString()` should return the correct value. |
+| Check equality between two instances with same value | `TestEquals` | Instances with the same availability slots value should be equal. |
+| Check equal hash codes for instances with same value | `TestEqualHashCodes` | Instances with the same value should have the same hash code. |
+| Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different values should have different hash codes. |
+| Test private constructor creation | `TestPrivateConstructor` | Private constructor should create an instance, but without initializing the value. |
+
+# 26 -  StaffId Tests
+
+## Objective
+
+To ensure the correct behavior of the `StaffId` class in the `DDDNetCore.Domain.Staffs` namespace, validating its construction, string representation, equality, and hash code generation.
+
+## Test Framework
+
+The tests are implemented using the NUnit framework, focusing on the creation of instances, string conversion, equality comparisons, and ensuring that different instances generate different hash codes.
+
+## Description
+
+| **Scenario** | **Test Method** | **Expected Result** |
+|--------------|-----------------|---------------------|
+| Verify proper construction of `StaffId` | `TestConstructor` | Object should be constructed with the correct value. |
+| Verify string representation of `StaffId` | `TestToString` | `ToString()` should return the correct value. |
+| Check equality between two instances with the same value | `TestEquals` | Instances with the same `StaffId` value should be equal. |
+| Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different `StaffId` values should have different hash codes. |
+
+
+# 27 - StaffLicenseNumber Tests
+
+## Objective
+
+To ensure the correct behavior of the `StaffLicenseNumber` class in the `DDDNetCore.Domain.Staffs` namespace, validating its construction, string representation, equality checks, and hash code generation, along with handling private constructor instantiation.
+
+## Test Framework
+
+The tests are implemented using the NUnit framework, focusing on object creation, string conversion, equality comparisons, hash code generation, and private constructor access.
+
+## Description
+
+| **Scenario** | **Test Method** | **Expected Result** |
+|--------------|-----------------|---------------------|
+| Verify proper construction of `StaffLicenseNumber` | `TestConstructor` | Object should be constructed with the correct value. |
+| Verify string representation of `StaffLicenseNumber` | `TestToString` | `ToString()` should return the correct value. |
+| Check equality between two instances with the same value | `TestEquals` | Instances with the same `StaffLicenseNumber` value should be equal. |
+| Check equal hash codes for instances with the same value | `TestEqualHashCodes` | Instances with the same `StaffLicenseNumber` value should have the same hash code. |
+| Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different `StaffLicenseNumber` values should have different hash codes. |
+| Test private constructor creation | `TestPrivateConstructor` | Private constructor should create an instance without initializing the value. |
+
+# 28 - StaffName Tests
+
+## Objective
+
+To ensure the correct behavior of the `StaffName` class in the `DDDNetCore.Domain.Staffs` namespace, validating its construction, string representation, equality checks, and hash code generation, along with testing private constructor instantiation.
+
+## Test Framework
+
+The tests are implemented using the NUnit framework, focusing on object creation, string conversion, equality comparisons, hash code generation, and private constructor access.
+
+## Description
+
+| **Scenario** | **Test Method** | **Expected Result** |
+|--------------|-----------------|---------------------|
+| Verify proper construction of `StaffName` | `TestConstructor` | Object should be constructed with the correct value. |
+| Verify string representation of `StaffName` | `TestToString` | `ToString()` should return the correct value. |
+| Check equality between two instances with the same value | `TestEquals` | Instances with the same `StaffName` value should be equal. |
+| Check equal hash codes for instances with the same value | `TestEqualHashCodes` | Instances with the same `StaffName` value should have the same hash code. |
+| Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different `StaffName` values should have different hash codes. |
+| Test private constructor creation | `TestPrivateConstructor` | Private constructor should create an instance without initializing the value. |
+
+# 29 - StaffPhoneNumber Tests
+
+## Objective
+
+To ensure the correct behavior of the `StaffPhoneNumber` class in the `DDDNetCore.Domain.Staffs` namespace, validating its construction, string representation, equality checks, and hash code generation, along with testing private constructor instantiation.
+
+## Test Framework
+
+The tests are implemented using the NUnit framework, focusing on object creation, string conversion, equality comparisons, hash code generation, and private constructor access.
+
+## Description
+
+| **Scenario** | **Test Method** | **Expected Result** |
+|--------------|-----------------|---------------------|
+| Verify proper construction of `StaffPhoneNumber` | `TestConstructor` | Object should be constructed with the correct value. |
+| Verify string representation of `StaffPhoneNumber` | `TestToString` | `ToString()` should return the correct value. |
+| Check equality between two instances with the same value | `TestEquals` | Instances with the same `StaffPhoneNumber` value should be equal. |
+| Check equal hash codes for instances with the same value | `TestEqualHashCodes` | Instances with the same `StaffPhoneNumber` value should have the same hash code. |
+| Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different `StaffPhoneNumber` values should have different hash codes. |
+| Test private constructor creation | `TestPrivateConstructor` | Private constructor should create an instance without initializing the value. |
+
+# 30-  StaffSpecialization Tests
+
+### Objective
+
+To ensure the correct behavior of the `StaffSpecialization` enum in the `DDDNetCore.Domain.Staffs` namespace, validating its construction, string representation, equality checks, and hash code generation.
+
+### Test Framework
+
+The tests are implemented using the NUnit framework, focusing on enum instantiation, string conversion, equality comparisons, hash code generation, and private constructor testing.
+
+## Description
+
+| **Scenario** | **Test Method** | **Expected Result** |
+|--------------|-----------------|---------------------|
+| Verify proper construction of `StaffSpecialization` | `TestConstructor` | Enum should be constructed with the correct value. |
+| Verify string representation of `StaffSpecialization` | `TestToString` | `ToString()` should return the correct enum string representation. |
+| Check equality between two instances with the same value | `TestEquals` | Instances with the same `StaffSpecialization` value should be equal. |
+| Check equal hash codes for instances with the same value | `TestEqualHashCodes` | Instances with the same `StaffSpecialization` value should have the same hash code. |
+| Check different hash codes for instances with different values | `TestDifferentHashCodes` | Instances with different `StaffSpecialization` values should have different hash codes. |
+| Test private constructor | `TestPrivateConstructor` | Enum instance `None` should be initialized properly. |
+
+# 31 - Staff Tests
+
+## Objective
+
+To test the behavior of the `Staff` class in the `DDDNetCore.Domain.Staffs` namespace, validating its construction, property modification methods, and overall functionality, including private constructor access.
+
+## Test Framework
+
+These tests utilize the NUnit framework, in combination with Moq to mock dependencies, ensuring the `Staff` class behaves as expected during instantiation and when invoking methods for changing specialization, phone number, email, availability slots, and activation status.
+
+## Test Descriptions
+
+| **Scenario** | **Test Method** | **Expected Result** |
+|--------------|-----------------|---------------------|
+| Validate proper construction of a `Staff` object | `TestConstructor` | The `Staff` object should be initialized with correct values for name, email, phone number, specialization, availability slots, staff type, activation status, and license number. |
+| Change staff specialization | `TestChangeStaffSpecialization` | Specialization should be changed to a new value and correctly reflected. |
+| Change staff phone number | `TestChangeStaffPhoneNumber` | Phone number should be updated to a new value. |
+| Change user email | `TestChangeUserEmail` | Email should be updated to a new value. |
+| Change availability slots | `TestChangeStaffAvaiabilitySlots` | Availability slots should be updated to a new list of slots. |
+| Activate staff | `TestActivateStaff` | Staff activation status should be changed to `true`. |
+| Deactivate staff | `TestDeactivateStaff` | Staff activation status should be changed to `false`. |
+| Validate private constructor | `TestPrivateConstructor` | A `Staff` object created using the private constructor should be non-null but have its properties unset (`null`). |
+
+# 32 - StaffType Unit Tests
+
+## Objective
+
+To test the behavior of the `StaffType` enum in the `DDDNetCore.Domain.Staffs` namespace, ensuring that the enum can be instantiated and that its values are accessible.
+
+## Test Framework
+
+These tests utilize the NUnit framework to validate the functionality of the `StaffType` enum.
+
+## Test Descriptions
+
+| **Scenario**                   | **Test Method**          | **Expected Result**                           |
+|--------------------------------|--------------------------|-----------------------------------------------|
+| Validate instantiation of `StaffType` | `TestPrivateConstructor` | The `StaffType` enum value should be accessible and not null. |
+
+# 33 - StaffController Tests
+
+## Objective
+
+To test the behavior of the `StaffController` class in the `DDDNetCore.Controllers` namespace, ensuring that the controller methods correctly interact with the service and repository layers and return the expected results for various operations.
+
+## Test Framework
+
+These tests utilize the NUnit framework, alongside Moq to mock dependencies, allowing for isolated testing of controller actions such as retrieving, creating, updating, and deactivating staff profiles.
+
+## Test Descriptions
+
+| **Scenario**                                | **Test Method**                          | **Expected Result**                                           |
+|---------------------------------------------|------------------------------------------|---------------------------------------------------------------|
+| Retrieve all staff profiles                 | `GetAll_ReturnsAllStaffProfiles`       | Should return a list of staff profiles without null values.   |
+| Retrieve staff profile by valid ID          | `GetById_ValidId_ReturnsStaff`         | Should return the staff profile matching the provided ID.     |
+| Retrieve staff profile by invalid ID        | `GetById_InValidId_ReturnsNotFound`    | Should return a `NotFoundResult`.                             |
+| Create a valid staff profile                | `Create_ValidStaffProfile_ReturnsCreatedAtAction` | Should return `CreatedAtActionResult`.                       |
+| Update a valid staff profile                | `Update_ValidStaffProfile_ReturnsCreatedAtAction` | Should return an updated staff profile.                       |
+| Update an invalid staff profile             | `Update_InValidStaffProfile_ReturnsBadRequest` | Should return a `BadRequestResult`.                          |
+| Deactivate a staff profile with a valid ID  | `Deactivate_ValidId_ReturnsOk`         | Should return `OkObjectResult`.                               |
+| Deactivate a staff profile with an invalid ID | `Deactivate_InvalidId_ReturnsNotFound`  | Should return a `NotFoundResult`.                             |
+
+# 34 - StaffService Tests
+
+## Objective
+
+To test the behavior of the `StaffService` class in the `DDDNetCore.Services` namespace, ensuring that the service methods correctly manage staff profiles and return the expected results for various operations.
+
+## Test Framework
+
+These tests utilize the NUnit framework, alongside Moq to mock dependencies, allowing for isolated testing of service methods such as retrieving, creating, updating, and deactivating staff profiles.
+
+## Test Descriptions
+
+| **Scenario**                                | **Test Method**                          | **Expected Result**                                           |
+|---------------------------------------------|------------------------------------------|---------------------------------------------------------------|
+| Retrieve all staff profiles                 | `GetAllAsync_ReturnsListOfStaffDto_WhenRequestsExist`       | Should return a list of DTOs of staff without null values.   |
+| Retrieve all staff profiles when none exist | `GetAllAsync_ReturnsEmptyList_WhenNoStaffProfileExist`      | Should return an empty list.                                  |
+| Add a new valid staff profile               | `AddAsync_CreatesNewStaffProfile_WhenValidDtoIsProvided`    | Should create and return the new staff profile.              |
+| Update an existing staff profile            | `UpdateAsync_UpdatesExistingStaffProfile_WhenValidDtoIsProvided` | Should return the updated staff profile.                     |
+| Update a non-existent staff profile         | `UpdateAsync_ReturnsNull_WhenStaffProfileDoesNotExist`       | Should return null.                                          |
+| Retrieve staff profiles by name             | `GetAllByStaffNameAsync_ReturnsListOfStaffDtoList_WhenStaffProfileExist` | Should return a filtered list of DTOs by staff name.        |
+| Retrieve staff profiles by specialization    | `GetAllBySpecializationAsync_ReturnsListOfStaffDtoList_WhenStaffProfileExist` | Should return a filtered list of DTOs by specialization.     |
+| Retrieve staff profiles by email            | `GetAllByEmailAsync_ReturnsListOfStaffDtoList_WhenStaffProfileExist` | Should return a filtered list of DTOs by email.             |
+| Retrieve a staff profile by valid ID        | `GetByIdAsync_ReturnsListOfStaffDto_WhenRequestsExist`       | Should return the staff DTO matching the provided ID.       |
+| Retrieve a staff profile by invalid ID      | `GetByIdAsync_ReturnsNull_WhenStaffProfileDoesNotExist`     | Should return null.                                          |
+| Generate a license number                   | `GenerateLN_ReturnsStaffId_WhenValidDtoIsProvided`           | Should return a valid license number.                        |
+| Deactivate a staff profile                  | `DeactivateAsync_ReturnsListOfStaffDto_WhenValidStaffIdIsProvided` | Should return the deactivated staff profile.                |
+
+# 35 - StaffMapper Tests
+
+## Objective
+
+To test the behavior of the `StaffMapper` class in the `DDDNetCore.Application.Mappers` namespace, ensuring that the mapping methods correctly convert between domain models and data transfer objects (DTOs) for staff profiles.
+
+## Test Framework
+
+These tests utilize the NUnit framework, alongside Moq to mock dependencies, allowing for isolated testing of mapping methods such as converting to and from domain models and DTOs.
+
+## Test Descriptions
+
+| **Scenario**                                      | **Test Method**                                        | **Expected Result**                                            |
+|---------------------------------------------------|--------------------------------------------------------|--------------------------------------------------------------|
+| Convert DTO to Domain Model                        | `TestToDomain`                                        | Should map properties from the DTO to the domain model correctly. |
+| Convert Domain Model to DTO                        | `TestToDto`                                          | Should map properties from the domain model to the DTO correctly. |
+| Convert Domain Model to DTO List                  | `TestToDtoList`                                      | Should map properties correctly for a single staff domain model to a DTO. |
+| Convert List of Domain Models to DTOs             | `TestToListDto`                                      | Should return a list of DTOs matching the number of domain models. |
+
+# 36 - StaffDto Tests
+
+## Objective
+
+To test the behavior of the `StaffDto` and `StaffDtoList` classes in the `DDDNetCore.Application.DTO` namespace, ensuring that the DTOs are correctly instantiated with both complete and incomplete data.
+
+## Test Framework
+
+These tests utilize the NUnit framework to verify the correct creation of DTO instances, ensuring that properties are set as expected.
+
+## Test Descriptions
+
+| **Scenario**                                  | **Test Method**                                 | **Expected Result**                                        |
+|-----------------------------------------------|-------------------------------------------------|----------------------------------------------------------|
+| Create an incomplete StaffDto                 | `TestCreateIncompleteStaffDto`                  | Should correctly instantiate the DTO with only the ID and StaffName. |
+| Create a complete StaffDto                    | `TestCreateCompleteStaffDto`                    | Should correctly instantiate the DTO with all properties set. |
+| Create an incomplete StaffDtoList             | `TestCreateIncompleteStaffDto2`                 | Should correctly instantiate the StaffDtoList with only the ID and StaffName. |
+| Create a complete StaffDtoList                | `TestCreateCompleteStaffDto2`                   | Should correctly instantiate the StaffDtoList with all relevant properties. |
