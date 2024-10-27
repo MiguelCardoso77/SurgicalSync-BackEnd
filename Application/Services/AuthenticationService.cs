@@ -27,10 +27,9 @@ namespace DDDNetCore.Application.Services
          * @param dto The LoginDto containing email and password.
          * @return A Task representing the asynchronous operation, with a login response string.
          */
-        public async Task<string> LoginWithEmailPasswordAsync(LoginDto dto)
+        public async Task<LoginResponse> LoginWithEmailPasswordAsync(LoginDto dto)
         {
             var response = await FirebaseService.LoginWithEmailPassword(dto.Email, dto.Password);
-            Console.WriteLine(response);
             return response;
         }
 
