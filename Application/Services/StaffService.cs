@@ -100,12 +100,12 @@ namespace DDDNetCore.Application.Services
          * @return A task that represents the asynchronous operation,
          *         containing a list of StaffDtoList objects that match the specified email.
          */
-        public async Task<List<StaffDtoList>> GetAllByEmail(string staffEmail)
+        public async Task<List<StaffDtoList>> GetAllByEmail(string userEmail)
         {
             var list = await this._repo.GetAllAsync();
 
             var filteredList = list.Where(staff =>
-                staff.UserEmail.ToString().Contains(staffEmail, StringComparison.OrdinalIgnoreCase)).ToList();
+                staff.UserEmail.ToString().Contains(userEmail, StringComparison.OrdinalIgnoreCase)).ToList();
             var lists = _mapper.ToListDto(filteredList);
 
             return lists;
@@ -224,7 +224,6 @@ namespace DDDNetCore.Application.Services
             var email = new Email(emailContent, staff.UserEmail.ToString(), "Changes to Your Staff Information");
 
             await smtpEmailService.SendEmailAsync(email);
-            Console.WriteLine($"Successfully sent the email to {email.Destination}");
 
             await this._unitOfWork.CommitAsync();
 

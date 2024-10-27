@@ -56,7 +56,7 @@ namespace DDDNetCore.Controllers
         */
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StaffDto>>> GetAll([FromQuery] string staffName = null,
-            [FromQuery] string staffEmail = null, [FromQuery] string StaffSpecialization = null)
+            [FromQuery] string userEmail = null, [FromQuery] string StaffSpecialization = null)
         {
             if (!string.IsNullOrEmpty(StaffSpecialization))
             {
@@ -70,14 +70,14 @@ namespace DDDNetCore.Controllers
                 return Ok(result);
             }
 
-            if (!string.IsNullOrEmpty(staffEmail))
+            if (!string.IsNullOrEmpty(userEmail))
             {
-                var result = await _service.GetAllByEmail(staffEmail);
+                var result = await _service.GetAllByEmail(userEmail);
                 return Ok(result);
             }
 
             if (string.IsNullOrEmpty(StaffSpecialization) && string.IsNullOrEmpty(staffName) &&
-                string.IsNullOrEmpty(staffEmail))
+                string.IsNullOrEmpty(userEmail))
             {
                 var allStaff = await _service.GetAllAsync();
                 return Ok(allStaff);
