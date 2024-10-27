@@ -162,7 +162,7 @@ namespace DDDNetCore.Infraestructure
                     new List<MedicalConditions>(),
                     new EmergencyContact("930923458"),
                     new List<AppointmentHistory>(),
-                    new UserEmail("1220772@isep.ipp.pt")
+                    new UserEmail("1220000@isep.ipp.pt")
                 ),
                 
                 new(new PatientName("Diogo"), new BirthDate("8 de Janeiro de 2004"), new Gender("Masculino"),
@@ -217,7 +217,7 @@ namespace DDDNetCore.Infraestructure
 
             var users = new List<User>
             {
-                new(new UserId("1"), new Username("Diogo"), new UserEmail("1220772@isep.ipp.pt"), UserRole.Doctor),
+                new(new UserId("1"), new Username("Diogo"), new UserEmail("1220000@isep.ipp.pt"), UserRole.Doctor),
                 new(new UserId("2"), new Username("DiogoR"), new UserEmail("1220812@isep.ipp.pt"), UserRole.Patient),
                 new(new UserId("3"), new Username("Tomás"), new UserEmail("1220917@isep.ipp.pt"), UserRole.Patient)
 
