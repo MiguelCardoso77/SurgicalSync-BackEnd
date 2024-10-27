@@ -124,10 +124,7 @@ To successfully implement this use case, the following criteria must be met:
 
 This use case relies on the following API functionalities:
 
-
-
-
-
+        DELETE Patients/GDPR/{medicalRecordNumber}
 
 </div>
 
