@@ -1,0 +1,316 @@
+{
+	"info": {
+		"_postman_id": "af383f8b-2b9c-4934-b61a-cca6fd093c97",
+		"name": "Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38589816",
+		"_collection_link": "https://lapr5-g019.postman.co/workspace/LAPR5-G019~122e429a-25a8-4075-bee8-377b67e80e07/collection/38589816-af383f8b-2b9c-4934-b61a-cca6fd093c97?action=share&source=collection_link&creator=38589816"
+	},
+	"item": [
+		{
+			"name": "GET all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(response)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response array is not empty\", function () {\r",
+							"    pm.expect(response.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"response.forEach((operation, index) => {\r",
+							"    pm.test(`User ${index + 1} has all required fields`, function () {\r",
+							"        pm.expect(operation).to.have.property(\"id\");\r",
+							"        pm.expect(operation).to.have.property(\"userName\");\r",
+							"        pm.expect(operation).to.have.property(\"userEmail\");\r",
+							"        pm.expect(operation).to.have.property(\"userRole\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"1\",\r\n    \"Username\": \"Migueli77\",\r\n    \"UserEmail\": \"1220808@isep.ipp.pt\",\r\n    \"UserRole\": \"Admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET an user by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Check if the response is an object (not an array)\r",
+							"pm.test(\"Response is an object\", function () {\r",
+							"    pm.expect(response).to.be.an(\"object\");\r",
+							"});\r",
+							"\r",
+							"// Verify the user has the required fields\r",
+							"pm.test(\"User has all required fields\", function () {\r",
+							"    pm.expect(response).to.have.property(\"id\");\r",
+							"    pm.expect(response).to.have.property(\"userName\").that.is.a(\"string\");\r",
+							"    pm.expect(response).to.have.property(\"userEmail\").that.is.a(\"string\");\r",
+							"    pm.expect(response).to.have.property(\"userRole\").that.is.a(\"string\");\r",
+							"}); "
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST an user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 201\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// Parse the response JSON\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Log the response and status for debugging\r",
+							"console.log(response);\r",
+							"console.log(response.status);\r",
+							"\r",
+							"// Check if the response has required fields\r",
+							"pm.test(\"Response contains the created user data\", function () {\r",
+							"    pm.expect(response).to.have.property(\"id\");\r",
+							"    pm.expect(response).to.have.property(\"userName\");\r",
+							"    pm.expect(response).to.have.property(\"userEmail\");\r",
+							"    pm.expect(response).to.have.property(\"userRole\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"5\",\r\n    \"userName\": \"YuriM\",\r\n    \"userEmail\": \"1220000@isep.ipp.pt\",\r\n    \"userRole\": \"Doctor\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT an user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parse the response JSON\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"User has all required fields\", function () {\r",
+							"    pm.expect(response).to.have.property(\"id\");\r",
+							"    pm.expect(response).to.have.property(\"userName\").that.is.a(\"string\");\r",
+							"    pm.expect(response).to.have.property(\"userEmail\").that.is.a(\"string\");\r",
+							"    pm.expect(response).to.have.property(\"userRole\").that.is.a(\"string\");\r",
+							"}); \r",
+							"\r",
+							"const updatedData = {\r",
+							"    id: \"1\",\r",
+							"    userName: \"Louco\",\r",
+							"    userEmail: \"1220772@isep.ipp.pt\",\r",
+							"    userRole: \"Doctor\"\r",
+							"};\r",
+							"\r",
+							"// Validate updated fields\r",
+							"pm.test(\"ID remains the same\", function () {\r",
+							"    pm.expect(response.id).to.eql(updatedData.id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Username is updated correctly\", function () {\r",
+							"    pm.expect(response.userName).to.eql(updatedData.userName);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"1\",\r\n    \"userName\": \"Louco\",\r\n    \"userEmail\": \"1220772@isep.ipp.pt\",\r\n    \"userRole\": \"Doctor\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE an user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Verify the user has the required fields\r",
+							"pm.test(\"User has all required fields\", function () {\r",
+							"    pm.expect(response).to.have.property(\"id\");\r",
+							"    pm.expect(response).to.have.property(\"userName\").that.is.a(\"string\");\r",
+							"    pm.expect(response).to.have.property(\"userEmail\").that.is.a(\"string\");\r",
+							"    pm.expect(response).to.have.property(\"userRole\").that.is.a(\"string\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5001/api",
+			"type": "string"
+		}
+	]
+}
