@@ -33,7 +33,6 @@ namespace DDDNetCore.Controllers
          *
          * @param patientName Optional; the name of the patient to filter by.
          * @param birthDate Optional; the birth date of the patient to filter by.
-         * @param medicalRecordNumber Optional; the medical record number to filter by.
          * @param userEmail Optional; the email address to filter by.
          * @param phoneNumber Optional; the phone number to filter by.
          * @param gender Optional; the gender to filter by.
@@ -42,43 +41,36 @@ namespace DDDNetCore.Controllers
         // GET: api/Patients
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PatientDto>>> GetAll([FromQuery] string patientName = null,
-            [FromQuery] string birthDate = null, [FromQuery] string medicalRecordNumber = null,
-            [FromQuery] string userEmail = null, [FromQuery] string phoneNumber = null,
-            [FromQuery] string gender = null)
+            [FromQuery] string birthDate = null, [FromQuery] string userEmail = null,
+            [FromQuery] string phoneNumber = null, [FromQuery] string gender = null)
         {
             if (!string.IsNullOrEmpty(patientName))
             {
-                var result = await _service.GetAllByPatientName(patientName);
+                var result = await _service.GetAllByPatientNameAsync(patientName);
                 return Ok(result);
             }
 
             if (!string.IsNullOrEmpty(birthDate))
             {
-                var result = await _service.GetAllByBirthDate(birthDate);
-                return Ok(result);
-            }
-
-            if (!string.IsNullOrEmpty(medicalRecordNumber))
-            {
-                var result = await _service.GetAllByMedicalRecordNumber(medicalRecordNumber);
+                var result = await _service.GetAllByBirthDateAsync(birthDate);
                 return Ok(result);
             }
 
             if (!string.IsNullOrEmpty(userEmail))
             {
-                var result = await _service.GetAllByEmail(userEmail);
+                var result = await _service.GetAllByEmailAsync(userEmail);
                 return Ok(result);
             }
 
             if (!string.IsNullOrEmpty(phoneNumber))
             {
-                var result = await _service.GetAllByPhoneNumber(phoneNumber);
+                var result = await _service.GetAllByPhoneNumberAsync(phoneNumber);
                 return Ok(result);
             }
 
             if (!string.IsNullOrEmpty(gender))
             {
-                var result = await _service.GetAllByGender(gender);
+                var result = await _service.GetAllByGenderAsync(gender);
                 return Ok(result);
             }
 
@@ -173,7 +165,7 @@ namespace DDDNetCore.Controllers
 
             return Ok(pat);
         }
-        
+
         // DELETE: api/Patients/GDPR/P5
         [HttpDelete("GDPR/{id}")]
         public async Task<ActionResult<PatientDto>> DeletePatientDataAndAccount(string id)

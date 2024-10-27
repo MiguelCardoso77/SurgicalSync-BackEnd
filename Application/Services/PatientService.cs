@@ -22,7 +22,6 @@ namespace DDDNetCore.Application.Services
         private readonly PatientMapper _mapper;
         private readonly UserEmailMicroService _userEmailMicroService;
         private readonly DeletePatientMicroService _deletePatientMicroservice;
-        private readonly ILogger<PatientService> _logger;
 
         /**
          * Initializes a new instance of the PatientService class.
@@ -41,15 +40,13 @@ namespace DDDNetCore.Application.Services
          *               and errors during the execution of the service.
          */
         public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper mapper,
-            UserEmailMicroService userEmailMicroService, DeletePatientMicroService deletePatientMicroservice,
-            ILogger<PatientService> logger)
+            UserEmailMicroService userEmailMicroService, DeletePatientMicroService deletePatientMicroservice)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
             this._mapper = mapper;
             this._userEmailMicroService = userEmailMicroService;
             this._deletePatientMicroservice = deletePatientMicroservice;
-            this._logger = logger;
         }
 
         /**
@@ -72,7 +69,7 @@ namespace DDDNetCore.Application.Services
          * @param patientName The name of the patient to filter by.
          * @return A list of PatientListDto representing patients with the specified name.
          */
-        public async Task<List<PatientListDto>> GetAllByPatientName(string patientName)
+        public async Task<List<PatientListDto>> GetAllByPatientNameAsync(string patientName)
         {
             var patientsList = await this._repo.GetAllAsync();
 
@@ -89,26 +86,11 @@ namespace DDDNetCore.Application.Services
          * @param birthDate The birth date to filter by.
          * @return A list of PatientListDto representing patients with the specified birth date.
          */
-        public async Task<List<PatientListDto>> GetAllByBirthDate(string birthDate)
+        public async Task<List<PatientListDto>> GetAllByBirthDateAsync(string birthDate)
         {
             var patientsList = await _repo.GetAllAsync();
 
             var filteredList = patientsList.Where(pt => pt.BirthDate.ToString().Equals(birthDate)).ToList();
-
-            return _mapper.ToListDto(filteredList);
-        }
-
-        /**
-         * Retrieves all patients by the specified medical record number.
-         *
-         * @param medicalRecordNumber The medical record number to filter by.
-         * @return A list of PatientListDto representing patients with the specified medical record number.
-         */
-        public async Task<List<PatientListDto>> GetAllByMedicalRecordNumber(string medicalRecordNumber)
-        {
-            var patientsList = await _repo.GetAllAsync();
-
-            var filteredList = patientsList.Where(pt => pt.Id.AsString().Equals(medicalRecordNumber)).ToList();
 
             return _mapper.ToListDto(filteredList);
         }
@@ -119,7 +101,7 @@ namespace DDDNetCore.Application.Services
          * @param email The email to filter by.
          * @return A list of PatientListDto representing patients with the specified email.
          */
-        public async Task<List<PatientListDto>> GetAllByEmail(string email)
+        public async Task<List<PatientListDto>> GetAllByEmailAsync(string email)
         {
             var patientsList = await _repo.GetAllAsync();
 
@@ -134,7 +116,7 @@ namespace DDDNetCore.Application.Services
          * @param phoneNumber The phone number to filter by.
          * @return A list of PatientListDto representing patients with the specified phone number.
          */
-        public async Task<List<PatientListDto>> GetAllByPhoneNumber(string phoneNumber)
+        public async Task<List<PatientListDto>> GetAllByPhoneNumberAsync(string phoneNumber)
         {
             var patientsList = await _repo.GetAllAsync();
 
@@ -149,7 +131,7 @@ namespace DDDNetCore.Application.Services
          * @param gender The gender to filter by.
          * @return A list of PatientListDto representing patients with the specified gender.
          */
-        public async Task<List<PatientListDto>> GetAllByGender(string gender)
+        public async Task<List<PatientListDto>> GetAllByGenderAsync(string gender)
         {
             var patientsList = await _repo.GetAllAsync();
 
@@ -186,6 +168,7 @@ namespace DDDNetCore.Application.Services
         public async Task<PatientDto> AddAsync(PatientDto dto)
         {
             var existingPatient = await GetAllAsync();
+            
             foreach (PatientDto pt in existingPatient)
             {
                 if (pt.PhoneNumber.Equals(dto.PhoneNumber, StringComparison.OrdinalIgnoreCase))
