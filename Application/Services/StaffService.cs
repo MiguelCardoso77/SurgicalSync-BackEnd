@@ -8,9 +8,6 @@ using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
-using FirebaseAdmin;
-using NUnit.Framework;
-
 
 namespace DDDNetCore.Application.Services
 {
@@ -24,7 +21,6 @@ namespace DDDNetCore.Application.Services
         private readonly IStaffRepository _repo;
         private readonly StaffMapper _mapper;
         private static int _lastGeneratedNumber = 00003;
-
 
         /**
          * Initializes a new instance of the StaffService class.
@@ -41,10 +37,10 @@ namespace DDDNetCore.Application.Services
         }
 
         /**
-         * Retrieves all staff members as a list of StaffDto2.
+         * Retrieves all staff members as a list of StaffDtoList.
          *
          * @return A task that represents the asynchronous operation,
-         *         containing a list of StaffDto2 objects.
+         *         containing a list of StaffDtoList objects.
          */
         public async Task<List<StaffDtoList>> GetAllAsync()
         {
@@ -82,7 +78,7 @@ namespace DDDNetCore.Application.Services
          *
          * @param staffName The name string to filter staff members by.
          * @return A task that represents the asynchronous operation,
-         *         containing a list of StaffDto2 objects that match the specified name.
+         *         containing a list of StaffDtoList objects that match the specified name.
          */
         public async Task<List<StaffDtoList>> GetAllByName(string staffName)
         {
@@ -102,7 +98,7 @@ namespace DDDNetCore.Application.Services
          *
          * @param staffEmail The email string to filter staff members by.
          * @return A task that represents the asynchronous operation,
-         *         containing a list of StaffDto2 objects that match the specified email.
+         *         containing a list of StaffDtoList objects that match the specified email.
          */
         public async Task<List<StaffDtoList>> GetAllByEmail(string staffEmail)
         {
@@ -120,7 +116,7 @@ namespace DDDNetCore.Application.Services
          *
          * @param staffSpecialization The specialization string to filter staff members by.
          * @return A task that represents the asynchronous operation,
-         *         containing a list of StaffDto2 objects that match the specified specialization.
+         *         containing a list of StaffDtoList objects that match the specified specialization.
          */
         public async Task<List<StaffDtoList>> GetAllBySpecialization(string staffSpecialization)
         {
@@ -176,10 +172,11 @@ namespace DDDNetCore.Application.Services
 
 
             bool exists = list.Any(s =>
-                (s.StaffPhoneNumber.ToString() == dto.StaffPhoneNumber || s.UserEmail.ToString() == dto.UserEmail) &&  s.Id.AsString() != dto.Id);
+                (s.StaffPhoneNumber.ToString() == dto.StaffPhoneNumber || s.UserEmail.ToString() == dto.UserEmail) &&
+                s.Id.AsString() != dto.Id);
 
 
-            if (exists )
+            if (exists)
             {
                 throw new InvalidOperationException("Já existe um registro com o mesmo phone number ou email.");
             }
@@ -270,7 +267,7 @@ namespace DDDNetCore.Application.Services
          * @param list The list of existing staff members to check for duplicate phone numbers, emails, and license numbers.
          * @return A unique StaffId for the new staff member.
          */
-        public static StaffId GenerateLN(StaffDto staffDto, StaffType staffType, List<Staff> list)
+        public StaffId GenerateLN(StaffDto staffDto, StaffType staffType, List<Staff> list)
         {
             bool exists = list.Any(s =>
                 s.StaffPhoneNumber.ToString() == staffDto.StaffPhoneNumber ||
