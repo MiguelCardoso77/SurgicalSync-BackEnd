@@ -24,14 +24,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Integration.Tests\" />
-    <Folder Include="Wiki\SprintA\1220772\" />
-    <Folder Include="Wiki\SprintA\1220812\" />
-    <Folder Include="Wiki\SprintA\1220917\" />
-    <Folder Include="Wiki\SprintA\1221194\" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <None Remove="Wiki\SprintA\diagrams\use-cases\28-search-operation-requisitions\level2\process-view.puml" />
   </ItemGroup>
 
