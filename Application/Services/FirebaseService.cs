@@ -189,7 +189,6 @@ namespace DDDNetCore.Application.Services
                 };
 
                 var jsonContent = JsonConvert.SerializeObject(loginData);
-                Console.WriteLine(jsonContent);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
                 var response = await client.PostAsync(SignInUrl, content);

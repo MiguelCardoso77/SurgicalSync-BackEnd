@@ -29,8 +29,7 @@ namespace DDDNetCore.Application.Services
          */
         public async Task<LoginResponse> LoginWithEmailPasswordAsync(LoginDto dto)
         {
-            var response = await FirebaseService.LoginWithEmailPassword(dto.Email, dto.Password);
-            return response;
+            return await FirebaseService.LoginWithEmailPassword(dto.Email, dto.Password);
         }
 
         /**
