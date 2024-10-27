@@ -1,0 +1,517 @@
+{
+	"info": {
+		"_postman_id": "d604188c-6365-46e1-8af5-0f862e0687c1",
+		"name": "Operation Types",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38589816",
+		"_collection_link": "https://lapr5-g019.postman.co/workspace/LAPR5-G019~122e429a-25a8-4075-bee8-377b67e80e07/collection/38589816-d604188c-6365-46e1-8af5-0f862e0687c1?action=share&source=collection_link&creator=38589816"
+	},
+	"item": [
+		{
+			"name": "GET all operation types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(response)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response array is not empty\", function () {\r",
+							"    pm.expect(response.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"response.forEach((operation, index) => {\r",
+							"    pm.test(`Operation ${index + 1} has all required fields`, function () {\r",
+							"        pm.expect(operation).to.have.property(\"id\");\r",
+							"        pm.expect(operation).to.have.property(\"operationName\");\r",
+							"        pm.expect(operation).to.have.property(\"requiredStaff\");\r",
+							"        pm.expect(operation).to.have.property(\"estimatedDuration\");\r",
+							"    });\r",
+							"\r",
+							"    // Verify requiredStaff is an array and has values\r",
+							"    pm.test(`Operation ${index + 1} requiredStaff is a non-empty array`, function () {\r",
+							"        pm.expect(Array.isArray(operation.requiredStaff)).to.be.true;\r",
+							"        pm.expect(operation.requiredStaff.length).to.be.above(0);\r",
+							"    });\r",
+							"\r",
+							"    // Verify estimatedDuration is an array and has values\r",
+							"    pm.test(`Operation ${index + 1} estimatedDuration is a non-empty array`, function () {\r",
+							"        pm.expect(Array.isArray(operation.estimatedDuration)).to.be.true;\r",
+							"        pm.expect(operation.estimatedDuration.length).to.be.above(0);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/operationTypes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"operationTypes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET an operation type by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assuming the ID is passed as a query parameter or set in the environment\r",
+							"const operationTypeId = pm.environment.get(\"operationTypeId\") || \"1\"; // Replace \"1\" with a default ID if needed\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Check if the response is an object (not an array)\r",
+							"pm.test(\"Response is an object\", function () {\r",
+							"    pm.expect(response).to.be.an(\"object\");\r",
+							"});\r",
+							"\r",
+							"// Verify the operation type has the required fields\r",
+							"pm.test(\"Operation type has all required fields\", function () {\r",
+							"    pm.expect(response).to.have.property(\"id\", operationTypeId);\r",
+							"    pm.expect(response).to.have.property(\"operationName\").that.is.a(\"string\");\r",
+							"    pm.expect(response).to.have.property(\"requiredStaff\").that.is.an(\"array\").and.is.not.empty;\r",
+							"    pm.expect(response).to.have.property(\"estimatedDuration\").that.is.an(\"array\").and.is.not.empty;\r",
+							"});\r",
+							"\r",
+							"// Check if requiredStaff contains specific roles (optional based on requirements)\r",
+							"pm.test(\"requiredStaff contains necessary roles\", function () {\r",
+							"    const requiredRoles = [\"Orthopaedist\", \"Anaesthetist\", \"Instrumenting Nurse\"];\r",
+							"    requiredRoles.forEach(role => {\r",
+							"        const hasRole = response.requiredStaff.some(staff => staff.includes(role));\r",
+							"        pm.expect(hasRole).to.be.true;\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Verify estimatedDuration values are strings representing numbers\r",
+							"pm.test(\"estimatedDuration contains valid duration values\", function () {\r",
+							"    response.estimatedDuration.forEach(duration => {\r",
+							"        pm.expect(duration).to.match(/^\\d+$/); // Checks if each duration is a numeric string\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/operationTypes/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"operationTypes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST an operation type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 201\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// Parse the response JSON\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Log the response and status for debugging\r",
+							"console.log(response);\r",
+							"console.log(response.status);\r",
+							"\r",
+							"// Check if the response has required fields\r",
+							"pm.test(\"Response contains the created operation type data\", function () {\r",
+							"    pm.expect(response).to.have.property(\"id\");\r",
+							"    pm.expect(response).to.have.property(\"operationName\");\r",
+							"    pm.expect(response).to.have.property(\"requiredStaff\").that.is.an(\"array\");\r",
+							"    pm.expect(response).to.have.property(\"estimatedDuration\").that.is.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each estimated duration is a string representing an integer\", function () {\r",
+							"    response.estimatedDuration.forEach(duration => {\r",
+							"        pm.expect(duration).to.be.a(\"string\");\r",
+							"        pm.expect(duration).to.match(/^\\d+$/);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"11\",  \r\n    \"operationName\": \"Elbow Replacement Surgery\",  \r\n    \"requiredStaff\": [\r\n        \"1 Experienced Surgeon\",\r\n        \"1 Intern Doctor\"\r\n    ],\r\n    \"estimatedDuration\": [\"30\", \"60\", \"30\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/operationTypes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"operationTypes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT an operation type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parse the response JSON\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Check if the response has required fields\r",
+							"pm.test(\"Response contains updated operation type data\", function () {\r",
+							"    pm.expect(response).to.have.property(\"id\");\r",
+							"    pm.expect(response).to.have.property(\"operationName\");\r",
+							"    pm.expect(response).to.have.property(\"requiredStaff\").that.is.an(\"array\");\r",
+							"    pm.expect(response).to.have.property(\"estimatedDuration\").that.is.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"// Define the expected data for validation\r",
+							"const updatedData = {\r",
+							"    id: \"1\",\r",
+							"    operationName: \"ACL Reconstruction Surgery\",\r",
+							"    requiredStaff: [\r",
+							"        \"1 Experienced Surgeon\",\r",
+							"        \"1 Intern Doctor\"\r",
+							"    ],\r",
+							"    estimatedDuration: [\"30\", \"60\", \"30\"]\r",
+							"};\r",
+							"\r",
+							"// Validate updated fields\r",
+							"pm.test(\"ID remains the same\", function () {\r",
+							"    pm.expect(response.id).to.eql(updatedData.id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Operation Name is updated correctly\", function () {\r",
+							"    pm.expect(response.operationName).to.eql(updatedData.operationName);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Required Staff is updated correctly\", function () {\r",
+							"    pm.expect(response.requiredStaff).to.eql(updatedData.requiredStaff);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Estimated Duration is updated correctly\", function () {\r",
+							"    pm.expect(response.estimatedDuration).to.eql(updatedData.estimatedDuration);\r",
+							"});\r",
+							"\r",
+							"// Check if each estimated duration is in correct format (string representing integer)\r",
+							"pm.test(\"Each estimated duration is a string representing an integer\", function () {\r",
+							"    response.estimatedDuration.forEach(duration => {\r",
+							"        pm.expect(duration).to.be.a(\"string\");\r",
+							"        pm.expect(duration).to.match(/^\\d+$/);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"1\",  \r\n    \"operationName\": \"ACL Reconstruction Surgery\",  \r\n    \"requiredStaff\": [\r\n        \"1 Experienced Surgeon\",\r\n        \"1 Intern Doctor\"\r\n    ],\r\n    \"estimatedDuration\": [\"30\", \"60\", \"30\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/operationTypes/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"operationTypes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE an operation type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Verify the operation type has the required fields\r",
+							"pm.test(\"Operation type has all required fields\", function () {\r",
+							"    pm.expect(response).to.have.property(\"id\");\r",
+							"    pm.expect(response).to.have.property(\"operationName\").that.is.a(\"string\");\r",
+							"    pm.expect(response).to.have.property(\"requiredStaff\").that.is.an(\"array\").and.is.not.empty;\r",
+							"    pm.expect(response).to.have.property(\"estimatedDuration\").that.is.an(\"array\").and.is.not.empty;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/operationTypes/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"operationTypes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET operation type by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parse the response JSON\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Check that the response contains exactly one item\r",
+							"pm.test(\"Response has exactly one operation type\", function () {\r",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(1);\r",
+							"});\r",
+							"\r",
+							"// Check that the operation name matches \"Carpal Tunnel Syndrome\"\r",
+							"pm.test(\"Operation name is 'Carpal Tunnel Syndrome'\", function () {\r",
+							"    pm.expect(response[0]).to.have.property(\"operationName\", \"Carpal Tunnel Syndrome\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/operationTypes?operationname=Carpal Tunnel Syndrome",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"operationTypes"
+					],
+					"query": [
+						{
+							"key": "operationname",
+							"value": "Carpal Tunnel Syndrome"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET operation types by specialization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parse the response JSON\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Check that the response has exactly 3 items\r",
+							"pm.test(\"Response contains exactly 3 operation types\", function () {\r",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(3);\r",
+							"});\r",
+							"\r",
+							"// Check that the response contains only operation types with IDs 2, 3, and 4\r",
+							"pm.test(\"Response contains operation types with IDs 2, 3, and 4\", function () {\r",
+							"    const expectedIds = [\"2\", \"3\", \"4\"];\r",
+							"    const actualIds = response.map(item => item.id);\r",
+							"    pm.expect(actualIds).to.have.members(expectedIds);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/operationTypes?specialization=Prosthetics",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"operationTypes"
+					],
+					"query": [
+						{
+							"key": "specialization",
+							"value": "Prosthetics"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET operation types by status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(response)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response array is not empty\", function () {\r",
+							"    pm.expect(response.length).to.be.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/operationTypes?status=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"operationTypes"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5001/api",
+			"type": "string"
+		}
+	]
+}
