@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "6a4a6a6f-ba23-4fb3-9b59-7a7bc26a19ca",
+		"name": "Authentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38589967",
+		"_collection_link": "https://lapr5-g019.postman.co/workspace/122e429a-25a8-4075-bee8-377b67e80e07/collection/38589816-6a4a6a6f-ba23-4fb3-9b59-7a7bc26a19ca?action=share&source=collection_link&creator=38589967"
+	},
+	"item": [
+		{
+			"name": "POST Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parsing JSON response",
+							"let response = pm.response.json();",
+							"",
+							"// Test if the response was successful (HTTP Status 200)",
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Test if the response contains the required fields",
+							"pm.test(\"Response has required fields\", function () {",
+							"    pm.expect(response).to.have.property(\"kind\", \"identitytoolkit#VerifyPasswordResponse\");",
+							"    pm.expect(response).to.have.property(\"localId\");",
+							"    pm.expect(response).to.have.property(\"email\", \"1220917@isep.ipp.pt\");",
+							"    pm.expect(response).to.have.property(\"idToken\");",
+							"    pm.expect(response).to.have.property(\"registered\", true);",
+							"    pm.expect(response).to.have.property(\"refreshToken\");",
+							"    pm.expect(response).to.have.property(\"expiresIn\");",
+							"});",
+							"",
+							"// Verify the email format",
+							"pm.test(\"Email format is valid\", function () {",
+							"    pm.expect(response.email).to.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/);",
+							"});",
+							"",
+							"// Save the idToken and refreshToken to environment variables (for later requests)",
+							"pm.environment.set(\"idToken\", response.idToken);",
+							"pm.environment.set(\"refreshToken\", response.refreshToken);",
+							"",
+							"// Test if the idToken is a valid JWT format",
+							"pm.test(\"idToken is a valid JWT format\", function () {",
+							"    pm.expect(response.idToken).to.match(/^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$/);",
+							"});",
+							"",
+							"// Check if the token expires in one hour",
+							"pm.test(\"Token expires in one hour\", function () {",
+							"    pm.expect(response.expiresIn).to.eql(\"3600\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"1220917@isep.ipp.pt\",\n    \"password\" : \"57+&Kt9X(J\",\n    \"returnSecureToken\" : true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Authentication",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Authentication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT GoogleLogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parse the response JSON\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Check if the response has required fields\r",
+							"pm.test(\"Response contains the created operation type data\", function () {\r",
+							"    pm.expect(response).to.have.property(\"email\");\r",
+							"    pm.expect(response).to.have.property(\"requestUri\");\r",
+							"    pm.expect(response).to.have.property(\"patientName\");\r",
+							"    pm.expect(response).to.have.property(\"birthDate\");\r",
+							"    pm.expect(response).to.have.property(\"phoneNumber\");\r",
+							"    pm.expect(response).to.have.property(\"medicalConditions\");\r",
+							"    pm.expect(response).to.have.property(\"emergencyContact\");\r",
+							"    pm.expect(response).to.have.property(\"appointmentHistory\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"1220772@isep.ipp.pt\",\r\n    \"requestUri\": \"https://localhost:5001/api/operationTypes\",\r\n    \"patientName\": \"Diana\",\r\n    \"birthDate\": \"30 de Junho de 2004\",\r\n    \"phoneNumber\": \"987263462\",\r\n    \"medicalConditions\": [],\r\n    \"emergencyContact\": \"88977313\",\r\n    \"appointmentHistory\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/authentication",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"authentication"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5001/api",
+			"type": "string"
+		}
+	]
+}

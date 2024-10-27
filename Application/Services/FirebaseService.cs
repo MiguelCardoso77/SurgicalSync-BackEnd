@@ -166,7 +166,7 @@ namespace DDDNetCore.Application.Services
         public static async Task<string> GeneratePasswordResetLink(string email)
         {
             var link = await FirebaseAuth.DefaultInstance.GeneratePasswordResetLinkAsync(email);
-            Console.WriteLine("Successfully generated password reset link for {email}");
+            Console.WriteLine("Successfully generated password reset link for " + email +".");
             return link;
         }
 
@@ -177,7 +177,7 @@ namespace DDDNetCore.Application.Services
          * @param passwordDto The user's password.
          * @return A Task representing the asynchronous operation, with the access token string if successful.
          */
-        public static async Task<string> LoginWithEmailPassword(string emailDto, string passwordDto)
+        public static async Task<LoginResponse> LoginWithEmailPassword(string emailDto, string passwordDto)
         {
             using (var client = new HttpClient())
             {
@@ -189,7 +189,6 @@ namespace DDDNetCore.Application.Services
                 };
 
                 var jsonContent = JsonConvert.SerializeObject(loginData);
-                Console.WriteLine(jsonContent);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
                 var response = await client.PostAsync(SignInUrl, content);
@@ -198,10 +197,8 @@ namespace DDDNetCore.Application.Services
                 {
                     var responseData = await response.Content.ReadAsStringAsync();
                     var loginResponse = JsonConvert.DeserializeObject<LoginResponse>(responseData);
-
-                    Console.WriteLine($"Access Token: {loginResponse.IdToken}");
-
-                    return loginResponse.IdToken;
+                    
+                    return loginResponse;
                 }
 
                 var errorResponse = await response.Content.ReadAsStringAsync();

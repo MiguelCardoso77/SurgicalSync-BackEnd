@@ -1,0 +1,624 @@
+{
+	"info": {
+		"_postman_id": "dbb86231-ea2c-427a-b78e-58c136b19fef",
+		"name": "Patients",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38589967",
+		"_collection_link": "https://lapr5-g019.postman.co/workspace/122e429a-25a8-4075-bee8-377b67e80e07/collection/38589860-dbb86231-ea2c-427a-b78e-58c136b19fef?action=share&source=collection_link&creator=38589967"
+	},
+	"item": [
+		{
+			"name": "GET all patients",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Response is an array\", function () {",
+							"    pm.expect(Array.isArray(response)).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Response array is not empty\", function () {",
+							"    pm.expect(response.length).to.be.above(0);",
+							"});",
+							"",
+							"response.forEach((patient, index) => {",
+							"    pm.test(`Patient ${index + 1} has all required fields`, function () {",
+							"        pm.expect(patient).to.have.property(\"patientName\");",
+							"        pm.expect(patient).to.have.property(\"birthDate\");",
+							"        pm.expect(patient).to.have.property(\"gender\");",
+							"        pm.expect(patient).to.have.property(\"medicalRecordNumber\");",
+							"        pm.expect(patient).to.have.property(\"phoneNumber\");",
+							"        pm.expect(patient).to.have.property(\"medicalConditions\");",
+							"        pm.expect(patient).to.have.property(\"emergencyContact\");",
+							"        pm.expect(patient).to.have.property(\"appointmentHistory\");",
+							"        pm.expect(patient).to.have.property(\"email\");",
+							"",
+							"",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Patients",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST a Patient ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200 (or 201 if created successfully)\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// Parse the response JSON\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Define expected values diretamente no teste\r",
+							"const expectedPatient = {\r",
+							"    patientName: \"Tomás\",\r",
+							"    birthDate: \"30 de Junho de 2004\",\r",
+							"    gender: \"Feminino\",\r",
+							"    medicalRecordNumber: \"202409000015\",\r",
+							"    phoneNumber: \"938000111\",\r",
+							"    medicalConditions: [],\r",
+							"    emergencyContact: \"933264408\",\r",
+							"    appointmentHistory: [],\r",
+							"    email: \"1221190@isep.ipp.pt\",\r",
+							"};\r",
+							"\r",
+							"// Test to check if response has all required fields and matches expected values\r",
+							"pm.test(\"Response matches expected patient values\", function () {\r",
+							"    pm.expect(response).to.deep.equal(expectedPatient);\r",
+							"});\r",
+							"\r",
+							"// Additional field checks\r",
+							"pm.test(\"Response has all required fields\", function () {\r",
+							"    pm.expect(response).to.have.all.keys([\r",
+							"        \"patientName\",\r",
+							"        \"birthDate\",\r",
+							"        \"gender\",\r",
+							"        \"medicalRecordNumber\",\r",
+							"        \"phoneNumber\",\r",
+							"        \"medicalConditions\",\r",
+							"        \"emergencyContact\",\r",
+							"        \"appointmentHistory\",\r",
+							"        \"email\"\r",
+							"    ]);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"patientName\": \"Tomás\",\r\n        \"birthDate\": \"30 de Junho de 2004\",\r\n        \"gender\": \"Feminino\",\r\n        \"medicalRecordNumber\": \"202409000015\",\r\n        \"phoneNumber\": \"938000111\",\r\n        \"medicalConditions\": [],\r\n        \"emergencyContact\": \"933264408\",\r\n        \"appointmentHistory\": [],\r\n        \"email\": \"1221190@isep.ipp.pt\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Patients",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE patient",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parse the response JSON\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Define expected values directly in the test\r",
+							"const expectedPatient = {\r",
+							"    patientName: \"Diana\",\r",
+							"    birthDate: \"30 de Junho de 2004\",\r",
+							"    gender: \"Feminino\",\r",
+							"    medicalRecordNumber: \"202409000001\",\r",
+							"    phoneNumber: \"938413938\",\r",
+							"    medicalConditions: [],\r",
+							"    emergencyContact: \"933264402\",\r",
+							"    appointmentHistory: [],\r",
+							"    email: \"1221195@isep.ipp.pt\"\r",
+							"};\r",
+							"\r",
+							"// Test to check if response matches expected patient values\r",
+							"pm.test(\"Response matches expected patient values\", function () {\r",
+							"    pm.expect(response).to.deep.equal(expectedPatient);\r",
+							"});\r",
+							"\r",
+							"// Additional field checks\r",
+							"pm.test(\"Response has all required fields\", function () {\r",
+							"    pm.expect(response).to.have.all.keys([\r",
+							"        \"patientName\",\r",
+							"        \"birthDate\",\r",
+							"        \"gender\",\r",
+							"        \"medicalRecordNumber\",\r",
+							"        \"phoneNumber\",\r",
+							"        \"medicalConditions\",\r",
+							"        \"emergencyContact\",\r",
+							"        \"appointmentHistory\",\r",
+							"        \"email\"\r",
+							"    ]);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// Test if the medicalConditions is an array\r",
+							"pm.test(\"Medical conditions is an array\", function () {\r",
+							"    pm.expect(response.medicalConditions).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"// Test if appointmentHistory is an array\r",
+							"pm.test(\"Appointment history is an array\", function () {\r",
+							"    pm.expect(response.appointmentHistory).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"// Test for non-empty emergency contact\r",
+							"pm.test(\"Emergency contact is not empty\", function () {\r",
+							"    pm.expect(response.emergencyContact).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"// Test for phone number format (basic validation)\r",
+							"pm.test(\"Phone number is in correct format\", function () {\r",
+							"    const phoneRegex = /^\\d{9}$/; // Regex para 9 dígitos seguidos\r",
+							"    pm.expect(response.phoneNumber).to.match(phoneRegex);\r",
+							"});\r",
+							"\r",
+							"// Test for email format\r",
+							"pm.test(\"Email is in correct format\", function () {\r",
+							"    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/; // Regex para validar email\r",
+							"    pm.expect(response.email).to.match(emailRegex);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Patients/202409000001",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients",
+						"202409000001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT a patient",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Staff has all required fields\", function () {",
+							"    pm.expect(response).to.have.property(\"patientName\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"birthDate\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"gender\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"medicalRecordNumber\");",
+							"    pm.expect(response).to.have.property(\"phoneNumber\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"medicalConditions\").that.is.an(\"array\");",
+							"    pm.expect(response).to.have.property(\"emergencyContact\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"appointmentHistory\").that.is.an(\"array\");",
+							"    pm.expect(response).to.have.property(\"email\").that.is.a(\"string\");",
+							"}); ",
+							"",
+							"",
+							"// Validate updated fields",
+							"pm.test(\"ID remains the same\", function () {",
+							"    pm.expect(response.medicalRecordNumber).to.eql(\"202409000015\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"patientName\": \"Tomás\",\n        \"birthDate\": \"30 de Junho de 2004\",\n        \"gender\": \"Feminino\",\n        \"medicalRecordNumber\": \"202409000015\",\n        \"phoneNumber\": \"938413998\",\n        \"medicalConditions\": [],\n        \"emergencyContact\": \"933264408\",\n        \"appointmentHistory\": [],\n        \"email\": \"1221196@isep.ipp.pt\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Patients/202409000015",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients",
+						"202409000015"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET patient by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"",
+							"// Check if the response is an object (not an array)",
+							"pm.test(\"Response is an object\", function () {",
+							"    pm.expect(response).to.be.an(\"object\");",
+							"});",
+							"",
+							"pm.test(\"Patient has all required fields\", function () {",
+							"        pm.expect(response).to.have.property(\"patientName\");",
+							"        pm.expect(response).to.have.property(\"birthDate\");",
+							"        pm.expect(response).to.have.property(\"gender\");",
+							"        pm.expect(response).to.have.property(\"medicalRecordNumber\");",
+							"        pm.expect(response).to.have.property(\"phoneNumber\");",
+							"        pm.expect(response).to.have.property(\"medicalConditions\");",
+							"        pm.expect(response).to.have.property(\"emergencyContact\");",
+							"        pm.expect(response).to.have.property(\"appointmentHistory\");",
+							"        pm.expect(response).to.have.property(\"email\");",
+							"       ",
+							"}); "
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Patients/202409000015",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients",
+						"202409000015"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET patient by birthDate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"// Check that the response contains exactly one item",
+							"pm.test(\"Response has exactly one patient \", function () {",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(1);",
+							"});",
+							"",
+							"pm.test(\"birthDate  is '30 de Junho de 2004'\", function () {",
+							"    const response = pm.response.json(); // Obtenha a resposta JSON",
+							"    pm.expect(response[0]).to.have.property(\"birthDate\", \"30 de Junho de 2004\"); ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Patients?birthDate=30 de Junho de 2004",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients"
+					],
+					"query": [
+						{
+							"key": "birthDate",
+							"value": "30 de Junho de 2004"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET patient by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"// Check that the response contains exactly one item",
+							"pm.test(\"Response has exactly one patient \", function () {",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(1);",
+							"});",
+							"",
+							"pm.test(\"Patient name is 'Tomás'\", function () {",
+							"    const response = pm.response.json(); // Obtenha a resposta JSON",
+							"    pm.expect(response[0]).to.have.property(\"patientName\", \"Tomás\"); ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Patients?patientName=Tomás",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients"
+					],
+					"query": [
+						{
+							"key": "patientName",
+							"value": "Tomás"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET patient by gender",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"// Check that the response contains exactly one item",
+							"pm.test(\"Response has exactly two patients \", function () {",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(2);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Patients?gender=Masculino",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "Masculino"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET patient by phoneNUmber",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"// Check that the response contains exactly one item",
+							"pm.test(\"Response has exactly one patients \", function () {",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(1);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Patients?phoneNumber=938745065",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients"
+					],
+					"query": [
+						{
+							"key": "phoneNumber",
+							"value": "938745065"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET patient by email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"// Check that the response contains exactly one item",
+							"pm.test(\"Response has exactly two patients \", function () {",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(1);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Patients?userEmail=1221190@isep.ipp.pt",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients"
+					],
+					"query": [
+						{
+							"key": "userEmail",
+							"value": "1221190@isep.ipp.pt"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5001/api"
+		}
+	]
+}

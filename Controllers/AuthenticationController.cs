@@ -33,7 +33,7 @@ namespace DDDNetCore.Controllers
          */
         // POST: api/Authentication
         [HttpPost]
-        public async Task<ActionResult<string>> LoginWithEmailPassword(LoginDto dto)
+        public async Task<ActionResult<LoginResponse>> LoginWithEmailPassword(LoginDto dto)
         {
             return await _service.LoginWithEmailPasswordAsync(dto);
         }
