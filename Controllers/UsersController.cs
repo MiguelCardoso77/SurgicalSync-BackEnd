@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
+using DDDNetCore.Domain;
 using DDDNetCore.Domain.Users;
 using DDDSample1.Domain.Shared;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +13,8 @@ namespace DDDNetCore.Controllers
 { 
     [Route("api/[controller]")]
     [ApiController]
+    
+   
     public class UsersController : ControllerBase
     {
         private readonly UserService _service;
@@ -96,5 +100,58 @@ namespace DDDNetCore.Controllers
                return BadRequest(new {Message = ex.Message});
             }
         }
+        
+        
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
+        {
+            if (ModelState.IsValid)
+                
+            {
+                var user = await _service.GetUserByEmail(new UserEmail(dto.UserEmail));
+
+                if (user == null)
+                {
+                    return BadRequest(new { message = "User not found." });
+                }
+                
+                
+
+                // Gera o link de redefinição de senha no Firebase
+                var resetLink = await FirebaseService.GeneratePasswordResetLink(user.UserEmail);
+
+                // Envia o e-mail de redefinição de senha
+                var smtpEmailService = new EmailService();
+                var emailContent = $"Hello {user.UserEmail}! \n Here is the link to reset your password: {resetLink} \n ";
+                var email = new Email(emailContent, user.UserEmail.ToString(), "Change your password");
+                await smtpEmailService.SendEmailAsync(email);
+
+                return Ok(new { message = "Password reset link sent successfully." });
+            }
+
+            return BadRequest(new { message = "Invalid request." });
+        }
+
+       
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto user)
+        {
+            if (string.IsNullOrEmpty(user.UserEmail) || string.IsNullOrEmpty(user.NewPassword) || string.IsNullOrEmpty(user.Token))
+            {
+                return BadRequest(new { message = "Email, new password, and token are required." });
+            }
+
+            try
+            {
+                await FirebaseService.ResetUserPasswordAsync(user.UserEmail.ToString(), user.NewPassword, user.Token);
+                return Ok(new { message = "Password successfully reset." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Error resetting password: {ex.Message}" });
+            }
+        }
+
+        
     }
 }

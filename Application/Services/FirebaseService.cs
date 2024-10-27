@@ -301,5 +301,37 @@ namespace DDDNetCore.Application.Services
                 }
             }
         }
+        
+        public static async Task ResetUserPasswordAsync(string email, string newPassword, string oobCode)
+        {
+            var url = $"https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key={ApiKey}";
+
+            using (var client = new HttpClient())
+            {
+                var requestData = new
+                {
+                    oobCode = oobCode,         // Token do link de redefinição
+                    newPassword = newPassword  // Nova senha fornecida pelo usuário
+                };
+
+                var jsonContent = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Password reset successfully.");
+                }
+                else
+                {
+                    var errorResponse = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error resetting password: {errorResponse}");
+                    throw new Exception($"Failed to reset password: {errorResponse}");
+                }
+            }
+        }
+
+
     }
 }
