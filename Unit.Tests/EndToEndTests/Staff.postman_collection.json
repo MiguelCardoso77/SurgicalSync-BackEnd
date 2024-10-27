@@ -1,0 +1,483 @@
+{
+	"info": {
+		"_postman_id": "0c4531ef-8eea-4229-a3b7-2dba45fc6f55",
+		"name": "Staff",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38589967",
+		"_collection_link": "https://lapr5-g019.postman.co/workspace/LAPR5-G019~122e429a-25a8-4075-bee8-377b67e80e07/collection/38589967-0c4531ef-8eea-4229-a3b7-2dba45fc6f55?action=share&source=collection_link&creator=38589967"
+	},
+	"item": [
+		{
+			"name": "GET all staff",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Response is an array\", function () {",
+							"    pm.expect(Array.isArray(response)).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Response array is not empty\", function () {",
+							"    pm.expect(response.length).to.be.above(0);",
+							"});",
+							"",
+							"response.forEach((staff, index) => {",
+							"    pm.test(`Staff ${index + 1} has all required fields`, function () {",
+							"        pm.expect(staff).to.have.property(\"id\");",
+							"        pm.expect(staff).to.have.property(\"staffName\");",
+							"        pm.expect(staff).to.have.property(\"userEmail\");",
+							"        pm.expect(staff).to.have.property(\"staffSpecialization\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/staff",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"staff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET a staff by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"",
+							"// Check if the response is an object (not an array)",
+							"pm.test(\"Response is an object\", function () {",
+							"    pm.expect(response).to.be.an(\"object\");",
+							"});",
+							"",
+							"pm.test(\"Staff has all required fields\", function () {",
+							"    pm.expect(response).to.have.property(\"id\");",
+							"    pm.expect(response).to.have.property(\"staffName\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"userEmail\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffPhoneNumber\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffSpecialization\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffAvaiabilitySlots\").that.is.an(\"array\").and.is.not.empty;",
+							"    pm.expect(response).to.have.property(\"staffType\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"isActive\").that.is.a(\"boolean\");",
+							"    pm.expect(response).to.have.property(\"staffLicenseNumber\").that.is.a(\"string\");",
+							"       ",
+							"",
+							"",
+							"",
+							"",
+							"}); "
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/staff/D202400001",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"staff",
+						"D202400001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST a staff",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 201",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"// Log the response and status for debugging",
+							"console.log(response);",
+							"console.log(response.status);",
+							"",
+							"// Check if the response has required fields",
+							"pm.test(\"Response contains the created staff data\", function () {",
+							"    pm.expect(response).to.have.property(\"staffName\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"userEmail\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffPhoneNumber\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffSpecialization\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffAvaiabilitySlots\").that.is.an(\"array\");",
+							"    pm.expect(response).to.have.property(\"staffType\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"isActive\").that.is.a(\"boolean\");",
+							"    pm.expect(response).to.have.property(\"staffLicenseNumber\").that.is.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"staffName\": \"Diana Neves\",\n        \"userEmail\": \"12100005isep.ipp.pt\",\n        \"staffPhoneNumber\": \"966000120\",\n        \"staffSpecialization\": \"Cardiology\",\n        \"staffAvaiabilitySlots\": [],\n        \"staffType\": \"Nurse\",\n        \"isActive\": true,\n        \"staffLicenseNumber\": \"00007\"\n    }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/staff",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"staff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT a staff",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Staff has all required fields\", function () {",
+							"    pm.expect(response).to.have.property(\"id\");",
+							"    pm.expect(response).to.have.property(\"staffName\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"userEmail\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffPhoneNumber\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffSpecialization\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffAvaiabilitySlots\").that.is.an(\"array\");",
+							"    pm.expect(response).to.have.property(\"staffType\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"isActive\").that.is.a(\"boolean\");",
+							"    pm.expect(response).to.have.property(\"staffLicenseNumber\").that.is.a(\"string\");",
+							"}); ",
+							"",
+							"",
+							"// Validate updated fields",
+							"pm.test(\"ID remains the same\", function () {",
+							"    pm.expect(response.id).to.eql(\"D202400001\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"D202400001\",\n    \"staffName\": \"Tomás Gonçalves\",\n    \"userEmail\": \"1220913@isep.ipp.pt\",\n    \"staffPhoneNumber\": \"960000000\",\n    \"staffSpecialization\": \"Family_medicine\",\n    \"staffAvaiabilitySlots\": [\n        \"2024-09-25:14h00-18h00\",\n        \"2024-09-25:19h00/2024-09-26:02h00\"\n    ],\n    \"staffType\": \"Doctor\",\n    \"isActive\": true,\n    \"staffLicenseNumber\": \"00001\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/staff/D202400001",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"staff",
+						"D202400001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE a staff",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Staff has all required fields\", function () {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response).to.have.property(\"id\");",
+							"    pm.expect(response).to.have.property(\"staffName\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"userEmail\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffPhoneNumber\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffSpecialization\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"staffAvaiabilitySlots\").that.is.an(\"array\").and.is.not.empty;",
+							"    pm.expect(response).to.have.property(\"staffType\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"isActive\").that.is.a(\"boolean\");",
+							"    pm.expect(response).to.have.property(\"staffLicenseNumber\").that.is.a(\"string\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"isActive is false\", function () {",
+							"     var responseObject = pm.response.json();",
+							"     pm.expect(responseObject.isActive).to.be.false;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/staff/N202400002",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"staff",
+						"N202400002"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET staff by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"// Check that the response contains exactly one item",
+							"pm.test(\"Response has exactly one staff \", function () {",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(1);",
+							"});",
+							"",
+							"pm.test(\"Staff name is 'Tomás Gonçalves'\", function () {",
+							"    const response = pm.response.json(); // Obtenha a resposta JSON",
+							"    pm.expect(response[0]).to.have.property(\"staffName\", \"Tomás Gonçalves\"); // Verifica se a propriedade staffName do primeiro objeto é 'Tomás Gonçalves'",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/staff?staffName=Tomás",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"staff"
+					],
+					"query": [
+						{
+							"key": "staffName",
+							"value": "Tomás"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET staff by specialization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"// Check that the response contains exactly one item",
+							"pm.test(\"Response has exactly two staff \", function () {",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(2);",
+							"});",
+							"",
+							"pm.test(\"Staff Specialization is 'Family_medicine'\", function () {",
+							"    const response = pm.response.json(); // Obtenha a resposta JSON",
+							"    pm.expect(response[0]).to.have.property(\"staffSpecialization\", \"Family_medicine\"); ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/staff?staffSpecialization=Family_medicine",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"staff"
+					],
+					"query": [
+						{
+							"key": "staffSpecialization",
+							"value": "Family_medicine"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET staff by userEmail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"// Check that the response contains exactly one item",
+							"pm.test(\"Response has exactly one staff \", function () {",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(1);",
+							"});",
+							"",
+							"pm.test(\"User email is '1221331@isep.ipp.pt'\", function () {",
+							"    const response = pm.response.json(); // Obtenha a resposta JSON",
+							"    pm.expect(response[0]).to.have.property(\"userEmail\", \"1221331@isep.ipp.pt\"); ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/staff?userEmail=1221331@isep.ipp.pt",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"staff"
+					],
+					"query": [
+						{
+							"key": "userEmail",
+							"value": "1221331@isep.ipp.pt"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "variable_key",
+			"value": ""
+		},
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5001",
+			"type": "default"
+		}
+	]
+}
