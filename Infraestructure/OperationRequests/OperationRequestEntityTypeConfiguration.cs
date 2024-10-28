@@ -1,4 +1,5 @@
-﻿using DDDNetCore.Domain.OperationRequests;
+﻿using System;
+using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Staffs;
@@ -25,8 +26,17 @@ namespace DDDNetCore.Infraestructure.OperationRequests
             // Primary key configuration
             builder.HasKey(b => b.Id);
 
+            builder.Property(b => b.Id).HasConversion(
+                b => b.ToString(),
+                b => new OperationRequestId(b)).
+                IsRequired().
+                ValueGeneratedOnAdd();
+
             // Configure owned Priority value object
             builder.Property(b => b.Priority)
+                .HasConversion(
+                    b => b.ToString(),
+                    b => (Priority)Enum.Parse(typeof(Priority), b))
                 .HasColumnName("Priority")
                 .IsRequired();
             
@@ -34,6 +44,9 @@ namespace DDDNetCore.Infraestructure.OperationRequests
             builder.OwnsOne(b => b.DeadlineDate, deadlineDateBuilder =>
             {
                 deadlineDateBuilder.Property(p => p.Value)
+                    .HasConversion(
+                        v => v,
+                        v => v)
                     .HasColumnName("DeadlineDate")
                     .IsRequired();
             });
@@ -42,19 +55,19 @@ namespace DDDNetCore.Infraestructure.OperationRequests
             builder.HasOne<OperationType>()
                 .WithMany()
                 .HasForeignKey(b => b.OperationTypeId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configure the foreign key relationship for Patient (via MedicalRecordNumber)
             builder.HasOne<Patient>()
                 .WithMany()
                 .HasForeignKey(b => b.MedicalRecordNumber)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configure the foreign key relationship for Staff (via LicenseNumber)
             builder.HasOne<Domain.Staffs.Staff>()  // Assuming Staff entity handles LicenseNumber
                 .WithMany()
                 .HasForeignKey(b => b.StaffId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configure the IsActive property
             builder.Property(b => b.IsActive)

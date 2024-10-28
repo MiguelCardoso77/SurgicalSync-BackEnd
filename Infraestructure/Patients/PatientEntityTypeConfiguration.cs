@@ -27,51 +27,80 @@ namespace DDDNetCore.Infraestructure.Patients
         {
             builder.HasKey(b => b.Id);
 
+            builder.Property(b => b.Id).HasConversion(
+                    b => b.ToString(),
+                    b => new MedicalRecordNumber(b))
+                .IsRequired();
+            
             builder.OwnsOne(b => b.PatientName, nameBuilder =>
             {
                 nameBuilder.Property(p => p.Value)
+                    .HasConversion(
+                        v => v,
+                        v => v)
                     .HasColumnName("PatientName");
             });
 
             builder.OwnsOne(b => b.BirthDate, birthDateBuilder =>
             {
                 birthDateBuilder.Property(p => p.Value)
+                    .HasConversion(
+                        v => v,
+                        v => v)
                     .HasColumnName("BirthDate");
             });
 
             builder.OwnsOne(b => b.Gender, genderBuilder =>
             {
                 genderBuilder.Property(p => p.Value)
+                    .HasConversion(
+                        v => v,
+                        v => v)
                     .HasColumnName("Gender");
             });
 
             builder.OwnsOne(b => b.PhoneNumber, phoneNumberBuilder =>
             {
                 phoneNumberBuilder.Property(p => p.Value)
+                    .HasConversion(
+                        v => v,
+                        v => v)
                     .HasColumnName("PhoneNumber");
             });
 
             builder.OwnsOne(b => b.EmergencyContact, emergencyContactBuilder =>
             {
                 emergencyContactBuilder.Property(p => p.Value)
+                    .HasConversion(
+                        v => v,
+                        v => v)
                     .HasColumnName("EmergencyContact");
             });
 
             builder.OwnsOne(b => b.UserEmail, emailBuilder =>
             {
                 emailBuilder.Property(p => p.Value)
+                    .HasConversion(
+                        v => v,
+                        v => v)
                     .HasColumnName("Email");
             });
 
             builder.OwnsMany(b => b.MedicalConditions, medicalConditionsBuilder =>
             {
                 medicalConditionsBuilder.Property(p => p.Value)
+                    .HasConversion(
+                        v => v,
+                        v => v)
                     .HasColumnName("MedicalConditions");
             });
 
             builder.OwnsMany(b => b.AppointmentHistory, appointmentHistoryBuilder =>
             {
                 appointmentHistoryBuilder.Property(p => p.Value)
+                    .HasConversion(
+                        v => v,
+                        v => v)
                     .HasColumnName("AppointmentHistory");
             });
         }

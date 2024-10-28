@@ -4157,19 +4157,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\migue\\.nuget\\packages\\": {}
+    "C:\\Users\\Utilizador\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\migue\\RiderProjects\\dddnetcore\\DDDNetCore.csproj",
+      "projectUniqueName": "C:\\Users\\Utilizador\\OneDrive\\Ambiente de Trabalho\\Faculdade\\3º Ano\\LAPR5\\DDDNetCore.csproj",
       "projectName": "DDDNetCore",
-      "projectPath": "C:\\Users\\migue\\RiderProjects\\dddnetcore\\DDDNetCore.csproj",
-      "packagesPath": "C:\\Users\\migue\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\migue\\RiderProjects\\dddnetcore\\obj\\",
+      "projectPath": "C:\\Users\\Utilizador\\OneDrive\\Ambiente de Trabalho\\Faculdade\\3º Ano\\LAPR5\\DDDNetCore.csproj",
+      "packagesPath": "C:\\Users\\Utilizador\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Utilizador\\OneDrive\\Ambiente de Trabalho\\Faculdade\\3º Ano\\LAPR5\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\migue\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Utilizador\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"

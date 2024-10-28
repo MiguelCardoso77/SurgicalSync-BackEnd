@@ -21,25 +21,45 @@ namespace DDDNetCore.Infraestructure.OperationTypes
             // Primary key configuration
             builder.HasKey(b => b.Id);
 
-            // Configure owned Name value object
+            // Use HasConversion for Id
+            builder.Property(b => b.Id)
+                .HasConversion(
+                    b => b.ToString(),
+                    b => new OperationTypeId(b))
+                .IsRequired()
+                .ValueGeneratedOnAdd();
+
+            // Configure owned Name value object with HasConversion
             builder.OwnsOne(b => b.Name, nameBuilder =>
             {
                 nameBuilder.Property(p => p.Value)
-                    .HasColumnName("Name");
+                    .HasConversion(
+                        v => v,
+                        v => v)
+                    .HasColumnName("OperationTypeName")
+                    .IsRequired();
             });
 
-            // Configure the multiple owned RequiredStaff value objects
+            // Configure the multiple owned RequiredStaff value objects with HasConversion
             builder.OwnsMany(b => b.RequiredStaff, staffBuilder =>
             {
                 staffBuilder.Property(p => p.Value)
-                    .HasColumnName("RequiredStaff");
+                    .HasConversion(
+                        v => v,
+                        v => v)
+                    .HasColumnName("RequiredStaff")
+                    .IsRequired();
             });
 
-            // Configure the multiple owned EstimatedDuration value objects
+            // Configure the multiple owned EstimatedDuration value objects with HasConversion
             builder.OwnsMany(b => b.EstimatedDuration, durationBuilder =>
             {
                 durationBuilder.Property(p => p.Value)
-                    .HasColumnName("EstimatedDuration");
+                    .HasConversion(
+                        v => v,
+                        v => v)
+                    .HasColumnName("EstimatedDuration")
+                    .IsRequired();
             });
         }
     }
