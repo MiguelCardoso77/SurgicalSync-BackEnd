@@ -10,34 +10,54 @@ namespace DDDNetCore.Infraestructure.Staff
         {
             builder.HasKey(b => b.Id);
             
+            builder.Property(b => b.Id).HasConversion(
+                b => b.ToString(),
+                b => new StaffId(b))
+                .IsRequired()
+                .ValueGeneratedOnAdd();
+
+            builder.Property(b => b.StaffName)
+                .HasConversion(
+                    v => v,
+                    v => v)
+                .HasColumnName("StaffName")
+                .IsRequired();
+            
             builder.OwnsOne(b => b.StaffName, nameBuilder =>
             {
-                nameBuilder.Property(p => p.Value)
-                    .HasColumnName("StaffName");
+                builder.Property(b => b.StaffName)
+                    .HasConversion(
+                        v => v,
+                        v => v)
+                    .HasColumnName("StaffName")
+                    .IsRequired();
             });
             
             builder.OwnsOne(b => b.UserEmail, emailBuilder =>
             {
                 emailBuilder.Property(p => p.Value)
-                    .HasColumnName("UserEmail");
+                    .HasConversion(
+                        v => v,
+                        v => v)
+                    .HasColumnName("UserEmail")
+                    .IsRequired();
             });
             
             builder.OwnsOne(b => b.StaffPhoneNumber, phoneNumberBuilder =>
             {
                 phoneNumberBuilder.Property(p => p.Value)
-                    .HasColumnName("PhoneNumber");
+                    .HasConversion(
+                        v => v,
+                        v => v)
+                    .HasColumnName("PhoneNumber")
+                    .IsRequired();
             });
 
-            builder.Property(b => b.StaffSpecialization)
-                .HasColumnName("StaffSpecialization")
-                .HasConversion<string>();
-            
-
-
-            builder.OwnsMany(b => b.StaffAvaiabilitySlots, avaiabilitySlotsBuilder =>
+            builder.OwnsMany(b => b.StaffAvaiabilitySlots, StaffAvaiabilitySlots =>
             {
-                avaiabilitySlotsBuilder.Property(p => p.Value)
-                    .HasColumnName("StaffAvaiabilitySlots");
+                builder.Property(b => b.StaffAvaiabilitySlots)
+                    .HasColumnName("StaffSpecialization")
+                    .HasConversion<string>();
             });
             
             builder.Property(b => b.StaffType)
@@ -47,10 +67,9 @@ namespace DDDNetCore.Infraestructure.Staff
             builder.OwnsOne(b => b.StaffLicenseNumber, licenseNumberBuilder =>
             {
                 licenseNumberBuilder.Property(p => p.Value)
-                    .HasColumnName("StaffLicenseNumber");
+                    .HasColumnName("StaffLicenseNumber")
+                    .HasConversion<string>();
             });
-
-
 
         }
         
