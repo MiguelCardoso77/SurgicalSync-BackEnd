@@ -18,8 +18,8 @@ namespace DDDNetCore.Application.Mappers
             return new OperationTypeDto { 
                 Id = domain.Id.AsString(), 
                 OperationName = domain.Name.ToString(), 
-                RequiredStaff = domain.RequiredStaff.Select(rs => rs.Value).ToList(), 
-                EstimatedDuration = domain.EstimatedDuration.Select(rs => rs.Value.ToString()).ToList()
+                //RequiredStaff = domain.RequiredStaff.Select(rs => rs.Value).ToList(), 
+                //EstimatedDuration = domain.EstimatedDuration.Select(rs => rs.Value.ToString()).ToList()
             };
         }
 

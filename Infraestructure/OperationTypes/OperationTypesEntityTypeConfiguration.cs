@@ -41,26 +41,27 @@ namespace DDDNetCore.Infraestructure.OperationTypes
             });
 
             // Configure the multiple owned RequiredStaff value objects with HasConversion
-            builder.OwnsMany(b => b.RequiredStaff, staffBuilder =>
+            builder.OwnsOne(b => b.RequiredStaff, nameBuilder =>
             {
-                staffBuilder.Property(p => p.Value)
+                nameBuilder.Property(p => p.Value)
                     .HasConversion(
                         v => v,
                         v => v)
                     .HasColumnName("RequiredStaff")
                     .IsRequired();
             });
-
+            
             // Configure the multiple owned EstimatedDuration value objects with HasConversion
-            builder.OwnsMany(b => b.EstimatedDuration, durationBuilder =>
+            builder.OwnsOne(b => b.EstimatedDuration, nameBuilder =>
             {
-                durationBuilder.Property(p => p.Value)
+                nameBuilder.Property(p => p.Value)
                     .HasConversion(
                         v => v,
                         v => v)
                     .HasColumnName("EstimatedDuration")
                     .IsRequired();
             });
+            
         }
     }
 }

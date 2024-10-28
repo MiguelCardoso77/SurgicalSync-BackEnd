@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Nodes;
 using DDDNetCore.Domain.Shared;
 
 namespace DDDNetCore.Domain.OperationType
@@ -33,7 +34,7 @@ namespace DDDNetCore.Domain.OperationType
          */
         public override string ToString()
         {
-            return Value;
+            return (string)Value;
         }
 
         /**

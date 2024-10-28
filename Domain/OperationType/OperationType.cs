@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text.Json.Nodes;
 using DDDNetCore.Domain.Shared;
 
 namespace DDDNetCore.Domain.OperationType
@@ -14,8 +17,8 @@ namespace DDDNetCore.Domain.OperationType
     {
         public new OperationTypeId Id { get; private set; }
         public OperationName Name { get; private set; }
-        public List<RequiredStaff> RequiredStaff { get; private set; }
-        public List<EstimatedDuration> EstimatedDuration { get; private set; }
+        public RequiredStaff RequiredStaff { get; private set; }
+        public EstimatedDuration EstimatedDuration { get; private set; }
         public bool IsActive { get; private set; }
 
         // Private constructor for EF
@@ -37,8 +40,10 @@ namespace DDDNetCore.Domain.OperationType
         {
             this.Id = id ?? throw new ArgumentNullException(nameof(id), "OperationTypeId cannot be null.");
             this.Name = name ?? throw new ArgumentNullException(nameof(name), "OperationName cannot be null.");
-            this.RequiredStaff = requiredStaff ?? throw new ArgumentNullException(nameof(requiredStaff), "RequiredStaff cannot be null.");
-            this.EstimatedDuration = estimatedDuration ?? throw new ArgumentNullException(nameof(estimatedDuration), "EstimatedDuration cannot be null.");
+            //this.RequiredStaff = requiredStaff ?? throw new ArgumentNullException(nameof(requiredStaff), "RequiredStaff cannot be null.");
+            //this.EstimatedDuration = estimatedDuration ?? throw new ArgumentNullException(nameof(estimatedDuration), "EstimatedDuration cannot be null.");
+            this.RequiredStaff = requiredStaff.First();
+            this.EstimatedDuration = estimatedDuration.First();
             this.IsActive = true;
         }
 
@@ -55,7 +60,7 @@ namespace DDDNetCore.Domain.OperationType
          */
         public void ChangeRequiredStaff(List<RequiredStaff> requiredStaff)
         {
-            this.RequiredStaff = requiredStaff;
+            this.RequiredStaff = requiredStaff.First();
         }
 
         /**
@@ -63,7 +68,7 @@ namespace DDDNetCore.Domain.OperationType
          */
         public void ChangeEstimatedDuration(List<EstimatedDuration> estimatedDuration)
         {
-            this.EstimatedDuration = estimatedDuration;
+            this.EstimatedDuration = estimatedDuration.First();
         }
 
         /**
