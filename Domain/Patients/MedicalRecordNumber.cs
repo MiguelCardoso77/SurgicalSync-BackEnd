@@ -12,21 +12,24 @@ namespace DDDNetCore.Domain.Patients
     public class MedicalRecordNumber : EntityId
     {
         private static int _sequentialNumber;
-
-        /**
-         * Initializes a new instance of the MedicalRecordNumber class with a generated
-         * medical record number based on the current date and a sequential number.
-         */
-        public MedicalRecordNumber() : base(GenerateMedicalRecordNumber())
-        {
-        }
-
+        
         /**
          * Initializes a new instance of the MedicalRecordNumber class with a specified value.
          *
          * @param value The medical record number as a string.
          */
         public MedicalRecordNumber(string value) : base(value)
+        {
+            Value = value;
+        }
+
+        /**
+         * Initializes a new instance of the MedicalRecordNumber class with a generated
+         * medical record number based on the current date and a sequential number.
+         */
+        
+        // public MedicalRecordNumber() : base(GenerateMedicalRecordNumber())
+        public MedicalRecordNumber() : base("1")
         {
         }
 
@@ -36,6 +39,7 @@ namespace DDDNetCore.Domain.Patients
          *
          * @return A string representing the generated medical record number.
          */
+        /**
         private static string GenerateMedicalRecordNumber()
         {
             // Get the current year and month
@@ -46,7 +50,7 @@ namespace DDDNetCore.Domain.Patients
             string seqNumber = _sequentialNumber.ToString("D6");
 
             return $"{year}{month}{seqNumber}";
-        }
+        }*/
 
         /**
          * Creates an instance of MedicalRecordNumber from the specified string representation.
@@ -54,8 +58,7 @@ namespace DDDNetCore.Domain.Patients
          * @param text The string representation of the medical record number.
          * @return The medical record number as an object.
          */
-        override
-            protected Object createFromString(String text)
+        protected override Object createFromString(String text)
         {
             return text;
         }
@@ -65,8 +68,7 @@ namespace DDDNetCore.Domain.Patients
          *
          * @return The medical record number as a string.
          */
-        override
-            public string AsString()
+        public override string AsString()
         {
             return Value;
         }

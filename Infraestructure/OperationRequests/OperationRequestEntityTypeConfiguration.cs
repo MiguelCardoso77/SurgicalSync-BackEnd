@@ -1,8 +1,6 @@
 ﻿using System;
 using DDDNetCore.Domain.OperationRequests;
-using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
-using DDDNetCore.Domain.Staffs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -23,6 +21,11 @@ namespace DDDNetCore.Infraestructure.OperationRequests
          */
         public void Configure(EntityTypeBuilder<OperationRequest> builder)
         {
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder), "The builder cannot be null.");
+            }
+            
             // Primary key configuration
             builder.HasKey(b => b.Id);
 
@@ -43,31 +46,44 @@ namespace DDDNetCore.Infraestructure.OperationRequests
             // Configure owned DeadlineDate value object
             builder.OwnsOne(b => b.DeadlineDate, deadlineDateBuilder =>
             {
-                deadlineDateBuilder.Property(p => p.Value)
+                deadlineDateBuilder.Property(p => p.DateTime)
+                    .HasColumnName("DeadlineDate")
+                    .HasConversion<string>()
+                    .IsRequired();
+            });
+
+            builder.OwnsOne(b => b.MedicalRecordNumber, medicalRecordBuilder =>
+            {
+                medicalRecordBuilder.Property(p => p.Value)
+                    .HasColumnName("MedicalRecordNumber")
                     .HasConversion(
                         v => v,
                         v => v)
-                    .HasColumnName("DeadlineDate")
+                    .IsRequired();
+            });
+            
+            builder.OwnsOne(b => b.OperationTypeId, operationTypeBuilder =>
+            {
+                operationTypeBuilder.Property(p => p.Value)
+                    .HasColumnName("OperationTypeId")
+                    .HasConversion(
+                        v => v,
+                        v => v)
+                    .IsRequired();
+            });
+            
+            builder.OwnsOne(b => b.StaffId, staffBuilder =>
+            {
+                staffBuilder.Property(p => p.Value)
+                    .HasColumnName("StaffId")
+                    .HasConversion(
+                        v => v,
+                        v => v)
                     .IsRequired();
             });
 
             // Configure the foreign key relationship for OperationType
-            builder.HasOne<OperationTypeId>()
-                .WithMany()
-                .HasForeignKey(b => b.OperationTypeId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // Configure the foreign key relationship for Patient (via MedicalRecordNumber)
-            builder.HasOne<MedicalRecordNumber>()
-                .WithMany()
-                .HasForeignKey(b => b.MedicalRecordNumber)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // Configure the foreign key relationship for Staff (via LicenseNumber)
-            builder.HasOne<StaffId>()  // Assuming Staff entity handles LicenseNumber
-                .WithMany()
-                .HasForeignKey(b => b.StaffId)
-                .OnDelete(DeleteBehavior.Cascade);
+            
 
             // Configure the IsActive property
             builder.Property(b => b.IsActive)

@@ -15,20 +15,11 @@ namespace DDDNetCore.Infraestructure.Staff
                 b => new StaffId(b))
                 .IsRequired()
                 .ValueGeneratedOnAdd();
-
-            builder.Property(b => b.StaffName)
-                .HasConversion(
-                    v => v,
-                    v => v)
-                .HasColumnName("StaffName")
-                .IsRequired();
             
             builder.OwnsOne(b => b.StaffName, nameBuilder =>
             {
-                builder.Property(b => b.StaffName)
-                    .HasConversion(
-                        v => v,
-                        v => v)
+                nameBuilder.Property(b => b.Value)
+                    .HasConversion<string>()
                     .HasColumnName("StaffName")
                     .IsRequired();
             });
@@ -53,9 +44,9 @@ namespace DDDNetCore.Infraestructure.Staff
                     .IsRequired();
             });
 
-            builder.OwnsMany(b => b.StaffAvaiabilitySlots, StaffAvaiabilitySlots =>
+            builder.OwnsMany(b => b.StaffAvaiabilitySlots, avalabilityBuilder =>
             {
-                builder.Property(b => b.StaffAvaiabilitySlots)
+                avalabilityBuilder.Property(b => b.Value)
                     .HasColumnName("StaffSpecialization")
                     .HasConversion<string>();
             });

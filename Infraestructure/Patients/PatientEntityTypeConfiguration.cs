@@ -27,7 +27,8 @@ namespace DDDNetCore.Infraestructure.Patients
         {
             builder.HasKey(b => b.Id);
 
-            builder.Property(b => b.Id).HasConversion(
+            builder.Property(b => b.Id)
+                .HasConversion(
                     b => b.ToString(),
                     b => new MedicalRecordNumber(b))
                 .IsRequired();

@@ -7,14 +7,20 @@ namespace DDDNetCore.Domain.Shared
     /// </summary>
     public abstract class EntityId: IEquatable<EntityId>, IComparable<EntityId>
     {
-        protected Object ObjValue {get;}
+        protected Object ObjValue {get; private set; }
 
         public String Value { 
             get { 
                     if (this.ObjValue.GetType() == typeof(String))
                         return (String) this.ObjValue;
                     return AsString();
-                } 
+                }
+            set { 
+                if (value.GetType() == typeof(String))
+                    this.ObjValue = createFromString((String)value);
+                else
+                    this.ObjValue = value;
+            }
         }
 
         protected EntityId(Object value)

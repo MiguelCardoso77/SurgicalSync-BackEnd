@@ -69,7 +69,7 @@ namespace DDDNetCore
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
-            Bootstrap.BootstrapData(context);
+            //Bootstrap.BootstrapData(context);
             Console.WriteLine("Bootstrap data loaded.");
         }
 
