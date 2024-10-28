@@ -1,4 +1,5 @@
 ﻿using DDDNetCore.Domain.Users;
+using DDDNetCore.Infraestructure.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,25 +21,24 @@ namespace DDDNetCore.Infraestructure.Users
         {
             // Primary key configuration
             builder.HasKey(b => b.Id);
+            builder.Property(e=> e.Id).HasConversion(new EntityIdValueConverter<UserId>());
             
             // Configure owned Email value object
             builder.OwnsOne(b => b.UserEmail, emailBuilder =>
             {
-                emailBuilder.Property(p => p.Value)
-                    .HasColumnName("Email");
+                emailBuilder.Property(p => p.Value).HasColumnName("Email");
+                emailBuilder.Property(p => p.Value).HasConversion<string>();
             });
             
             // Configure owned Username value object
             builder.OwnsOne(b => b.Username, nameBuilder =>
             {
-                nameBuilder.Property(p => p.Value)
-                    .HasColumnName("Name");
+                nameBuilder.Property(p => p.Value).HasColumnName("Name");
+                nameBuilder.Property(p => p.Value).HasConversion<string>();
             });
             
             // Configure owned Role value object
-            builder.Property(b => b.UserRole)
-                .HasColumnName("Role")
-                .HasConversion<string>();
+            builder.Property(b => b.UserRole).HasColumnName("Role").HasConversion<string>();
         }
     }
 }

@@ -27,10 +27,6 @@ namespace DDDNetCore.Infraestructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<OperationRequest>()
-                .Property(e => e.Id)
-                .HasConversion(new EntityIdValueConverter<OperationRequestId>());
-            
             modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OperationTypesEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PatientEntityTypeConfiguration());
