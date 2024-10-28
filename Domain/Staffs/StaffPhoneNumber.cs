@@ -6,12 +6,12 @@ namespace DDDNetCore.Domain.Staffs
      * Represents the value object for a staff member's phone number.
      * This class ensures immutability and value comparison for the staff phone number.
      */
-    public class StaffPhoneNumber : IValueObject
+    public class StaffPhoneNumber : IValueObject<string>
     {
         /**
          * The value of the staff member's phone number.
          */
-        public string StaffPhoneNumberValue { get; private set; }
+        public string Value { get; private set; }
 
         /**
          * Private constructor used for ORM or serialization purposes.
@@ -28,7 +28,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public StaffPhoneNumber(string staffPhoneNumber)
         {
-            this.StaffPhoneNumberValue = staffPhoneNumber;
+            this.Value = staffPhoneNumber;
         }
 
         /**
@@ -38,7 +38,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public override string ToString()
         {
-            return StaffPhoneNumberValue;
+            return Value;
         }
 
         /**
@@ -51,7 +51,7 @@ namespace DDDNetCore.Domain.Staffs
         {
             if (obj is StaffPhoneNumber other)
             {
-                return StaffPhoneNumberValue == other.StaffPhoneNumberValue;
+                return Value == other.Value;
             }
 
             return false;
@@ -64,7 +64,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public override int GetHashCode()
         {
-            return StaffPhoneNumberValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

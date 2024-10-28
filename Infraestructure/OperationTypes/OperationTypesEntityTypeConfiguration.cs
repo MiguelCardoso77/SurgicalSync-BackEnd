@@ -24,21 +24,21 @@ namespace DDDNetCore.Infraestructure.OperationTypes
             // Configure owned Name value object
             builder.OwnsOne(b => b.Name, nameBuilder =>
             {
-                nameBuilder.Property(p => p.OperationNameValue)
+                nameBuilder.Property(p => p.Value)
                     .HasColumnName("Name");
             });
 
             // Configure the multiple owned RequiredStaff value objects
             builder.OwnsMany(b => b.RequiredStaff, staffBuilder =>
             {
-                staffBuilder.Property(p => p.RequiredStaffValue)
+                staffBuilder.Property(p => p.Value)
                     .HasColumnName("RequiredStaff");
             });
 
             // Configure the multiple owned EstimatedDuration value objects
             builder.OwnsMany(b => b.EstimatedDuration, durationBuilder =>
             {
-                durationBuilder.Property(p => p.EstimatedDurationValue)
+                durationBuilder.Property(p => p.Value)
                     .HasColumnName("EstimatedDuration");
             });
         }

@@ -84,7 +84,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                     OperationRequestId = "1",
                     MedicalRecordNumber = "202411000001",
                     Priority = priority.ToString(),
-                    DeadlineDate = deadlineDate.Date.ToString("yyyy-MM-dd"),
+                    DeadlineDate = deadlineDate.DateTime.ToString("yyyy-MM-dd"),
                     OperationTypeId = "2",
                     StaffId = "D202400001"
                 }

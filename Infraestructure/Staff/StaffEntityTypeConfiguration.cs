@@ -12,19 +12,19 @@ namespace DDDNetCore.Infraestructure.Staff
             
             builder.OwnsOne(b => b.StaffName, nameBuilder =>
             {
-                nameBuilder.Property(p => p.StaffNameValue)
+                nameBuilder.Property(p => p.Value)
                     .HasColumnName("StaffName");
             });
             
             builder.OwnsOne(b => b.UserEmail, emailBuilder =>
             {
-                emailBuilder.Property(p => p.UserEmailValue)
+                emailBuilder.Property(p => p.Value)
                     .HasColumnName("UserEmail");
             });
             
             builder.OwnsOne(b => b.StaffPhoneNumber, phoneNumberBuilder =>
             {
-                phoneNumberBuilder.Property(p => p.StaffPhoneNumberValue)
+                phoneNumberBuilder.Property(p => p.Value)
                     .HasColumnName("PhoneNumber");
             });
 
@@ -36,7 +36,7 @@ namespace DDDNetCore.Infraestructure.Staff
 
             builder.OwnsMany(b => b.StaffAvaiabilitySlots, avaiabilitySlotsBuilder =>
             {
-                avaiabilitySlotsBuilder.Property(p => p.StaffAvaiabilitySlotsValue)
+                avaiabilitySlotsBuilder.Property(p => p.Value)
                     .HasColumnName("StaffAvaiabilitySlots");
             });
             
@@ -46,7 +46,7 @@ namespace DDDNetCore.Infraestructure.Staff
 
             builder.OwnsOne(b => b.StaffLicenseNumber, licenseNumberBuilder =>
             {
-                licenseNumberBuilder.Property(p => p.StaffLicenseNumberValue)
+                licenseNumberBuilder.Property(p => p.Value)
                     .HasColumnName("StaffLicenseNumber");
             });
 

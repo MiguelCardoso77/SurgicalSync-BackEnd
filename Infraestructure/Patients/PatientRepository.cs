@@ -21,7 +21,7 @@ namespace DDDNetCore.Infraestructure.Patients
          *                by the Entity Framework Core and is used to
          *                perform CRUD operations on the Patient entities.
          */
-        public PatientRepository(DDDSample1DbContext context) : base(context.Patients)
+        public PatientRepository(SurgicalSyncContext context) : base(context.Patients)
         {
         }
     }

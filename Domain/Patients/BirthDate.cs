@@ -6,9 +6,9 @@ namespace DDDNetCore.Domain.Patients
      * Represents a value object that encapsulates a patient's birth date.
      * This class holds the birth date as a string value.
      */
-    public class BirthDate : IValueObject
+    public class BirthDate : IValueObject<string>
     {
-        public string BirthDateValue { get; private set; }
+        public string Value { get; private set; }
 
         private BirthDate()
         {
@@ -21,7 +21,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public BirthDate(string birthDate)
         {
-            this.BirthDateValue = birthDate;
+            this.Value = birthDate;
         }
 
         /**
@@ -31,7 +31,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override string ToString()
         {
-            return BirthDateValue;
+            return Value;
         }
 
         /**
@@ -44,7 +44,7 @@ namespace DDDNetCore.Domain.Patients
         {
             if (obj is BirthDate other)
             {
-                return BirthDateValue == other.BirthDateValue;
+                return Value == other.Value;
             }
 
             return false;
@@ -57,7 +57,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override int GetHashCode()
         {
-            return BirthDateValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

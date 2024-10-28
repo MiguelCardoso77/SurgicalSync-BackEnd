@@ -74,7 +74,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             var expectedDto = new OperationRequestDto
             {
                 OperationRequestId = operationRequestId.AsString(),
-                DeadlineDate = deadlineDate.Date.ToString("yyyy-MM-dd"),
+                DeadlineDate = deadlineDate.DateTime.ToString("yyyy-MM-dd"),
                 StaffId = licenseNumber.AsString(),
                 Priority = priority.ToString(),
                 OperationTypeId = operationTypeId.AsString(),
@@ -158,7 +158,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new OperationRequestDto
                 {
                     OperationRequestId = operationRequestId1.AsString(),
-                    DeadlineDate = deadlineDate1.Date.ToString("yyyy-MM-dd"),
+                    DeadlineDate = deadlineDate1.DateTime.ToString("yyyy-MM-dd"),
                     StaffId = licenseNumber1.AsString(),
                     Priority = priority1.ToString(),
                     OperationTypeId = operationTypeId1.AsString(),
@@ -167,7 +167,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new OperationRequestDto
                 {
                     OperationRequestId = operationRequestId2.AsString(),
-                    DeadlineDate = deadlineDate2.Date.ToString("yyyy-MM-dd"),
+                    DeadlineDate = deadlineDate2.DateTime.ToString("yyyy-MM-dd"),
                     StaffId = licenseNumber2.AsString(),
                     Priority = priority2.ToString(),
                     OperationTypeId = operationTypeId2.AsString(),

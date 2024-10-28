@@ -8,12 +8,19 @@ namespace DDDNetCore.Domain.OperationRequests
      * This class encapsulates the logic and validation associated with a deadline date,
      * ensuring that it adheres to the rules of not being set in the past.
      */
-    public class DeadlineDate : IValueObject
+    public class DeadlineDate : IValueObject<string>
     {
         /**
          * Stores the deadline date as a DateTime value.
          */
-        public DateTime Date { get; private set; }
+        public DateTime DateTime { get; private set; }
+        public string Value  => DateTime.ToString("yyyy-MM-dd");
+
+        // Private constructor for EF 
+        private DeadlineDate()
+        {
+            
+        }
         
         /**
          * Constructor that initializes the DeadlineDate with a specific date.
@@ -24,14 +31,14 @@ namespace DDDNetCore.Domain.OperationRequests
             {
                 throw new ArgumentException("Deadline date cannot be in the past");
             }
-            Date = date;
+            DateTime = date;
         }
         /**
          * Method to get the date as a formatted string.
          */
         public override string ToString()
         {
-            return Date.ToString("yyyy-MM-dd");
+            return DateTime.ToString("yyyy-MM-dd");
         }
         /**
          * Method to compare two DeadlineDate instances.
@@ -40,7 +47,7 @@ namespace DDDNetCore.Domain.OperationRequests
         {
             if (obj is DeadlineDate other)
             {
-                return Date.Equals(other.Date);
+                return DateTime.Equals(other.DateTime);
             }
             return false;
         }
@@ -49,7 +56,7 @@ namespace DDDNetCore.Domain.OperationRequests
          */
         public override int GetHashCode()
         {
-            return Date.GetHashCode();
+            return DateTime.GetHashCode();
         }
     }
 }

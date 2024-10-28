@@ -10,7 +10,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         public void TestConstructor()
         {
             var staffName = new StaffName("Raquel Gonçalves");
-            Assert.AreEqual("Raquel Gonçalves", staffName.StaffNameValue);
+            Assert.AreEqual("Raquel Gonçalves", staffName.Value);
         }
         
         [Test]
@@ -61,7 +61,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
             var staffName = (StaffName)Activator.CreateInstance(typeof(StaffName), true);
 
             Assert.NotNull(staffName);
-            Assert.IsNull(staffName.StaffNameValue);
+            Assert.IsNull(staffName.Value);
         }
 
     }

@@ -49,7 +49,7 @@ namespace DDDNetCore.Application.Mappers
                 StaffPhoneNumber = domain.StaffPhoneNumber.ToString(),
                 StaffSpecialization = domain.StaffSpecialization.ToString(),
                 StaffAvaiabilitySlots =
-                    domain.StaffAvaiabilitySlots.Select(rs => rs.StaffAvaiabilitySlotsValue).ToList(),
+                    domain.StaffAvaiabilitySlots.Select(rs => rs.Value).ToList(),
                 StaffType = domain.StaffType.ToString(),
                 isActive = domain.IsActive,
                 StaffLicenseNumber = domain.StaffLicenseNumber.ToString()

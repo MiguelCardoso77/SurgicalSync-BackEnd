@@ -6,9 +6,9 @@ namespace DDDNetCore.Domain.Users
     /**
      * The UserEmail class represents the email of a user.
      */
-    public class UserEmail : IValueObject
+    public class UserEmail : IValueObject<string>
     {
-        public string UserEmailValue { get; private set; }
+        public string Value { get; private set; }
         
         // Private constructor for EF Core
         private UserEmail() { }
@@ -25,7 +25,7 @@ namespace DDDNetCore.Domain.Users
                 throw new FormatException("User email must be a non-empty string with less than 99 characters.");
             }
             
-            this.UserEmailValue = email;
+            this.Value = email;
         }
 
         /**
@@ -33,7 +33,7 @@ namespace DDDNetCore.Domain.Users
          */
         public override string ToString()
         {
-            return UserEmailValue;
+            return Value;
         }
 
         /**
@@ -45,7 +45,7 @@ namespace DDDNetCore.Domain.Users
         {
             if (obj is UserEmail other)
             {
-                return UserEmailValue == other.UserEmailValue;
+                return Value == other.Value;
             }
             return false;
         }
@@ -55,7 +55,7 @@ namespace DDDNetCore.Domain.Users
          */
         public override int GetHashCode()
         {
-            return UserEmailValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

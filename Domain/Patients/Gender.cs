@@ -2,13 +2,13 @@ using DDDNetCore.Domain.Shared;
 
 namespace DDDNetCore.Domain.Patients
 {
-    public class Gender : IValueObject
+    public class Gender : IValueObject<string>
     {
         /**
-     * Represents a value object that encapsulates a patient's gender information.
-     * This class holds the gender as a string value.
-     */
-        public string GenderValue { get; private set; }
+         * Represents a value object that encapsulates a patient's gender information.
+         * This class holds the gender as a string value.
+         */
+        public string Value { get; private set; }
 
         private Gender()
         {
@@ -21,7 +21,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public Gender(string gender)
         {
-            this.GenderValue = gender;
+            this.Value = gender;
         }
 
         /**
@@ -31,7 +31,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override string ToString()
         {
-            return GenderValue;
+            return Value;
         }
 
         /**
@@ -44,7 +44,7 @@ namespace DDDNetCore.Domain.Patients
         {
             if (obj is Gender other)
             {
-                return GenderValue == other.GenderValue;
+                return Value == other.Value;
             }
 
             return false;
@@ -57,7 +57,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override int GetHashCode()
         {
-            return GenderValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

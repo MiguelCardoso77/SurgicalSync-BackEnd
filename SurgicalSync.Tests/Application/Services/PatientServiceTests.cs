@@ -121,9 +121,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 Gender = pt.Gender.ToString(),
                 MedicalRecordNumber = pt.Id.AsString(),
                 PhoneNumber = pt.PhoneNumber.ToString(),
-                MedicalConditions = pt.MedicalConditions.Select(md => md.MedicalConditionsValue).ToList(),
+                MedicalConditions = pt.MedicalConditions.Select(md => md.Value).ToList(),
                 EmergencyContact = pt.EmergencyContact.ToString(),
-                AppointmentHistory = pt.AppointmentHistory.Select(ap => ap.AppointmentHistoryValue).ToList(),
+                AppointmentHistory = pt.AppointmentHistory.Select(ap => ap.Value).ToList(),
                 Email = pt.UserEmail.ToString()
             }).ToList();
 

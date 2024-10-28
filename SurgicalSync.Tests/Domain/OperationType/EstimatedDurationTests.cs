@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
         public void TestConstructor()
         {
             var estimatedDuration = new EstimatedDuration("50");
-            Assert.AreEqual(50, estimatedDuration.EstimatedDurationValue);
+            Assert.AreEqual(50, estimatedDuration.Value);
         }
         
         [Test]
@@ -83,7 +83,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
             var estimatedDuration = (EstimatedDuration)Activator.CreateInstance(typeof(EstimatedDuration), true);
 
             Assert.NotNull(estimatedDuration);
-            Assert.AreEqual(0, estimatedDuration.EstimatedDurationValue);
+            Assert.AreEqual(0, estimatedDuration.Value);
         }
         
     }

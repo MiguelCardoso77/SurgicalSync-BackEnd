@@ -24,14 +24,14 @@ namespace DDDNetCore.Infraestructure.Users
             // Configure owned Email value object
             builder.OwnsOne(b => b.UserEmail, emailBuilder =>
             {
-                emailBuilder.Property(p => p.UserEmailValue)
+                emailBuilder.Property(p => p.Value)
                     .HasColumnName("Email");
             });
             
             // Configure owned Username value object
             builder.OwnsOne(b => b.Username, nameBuilder =>
             {
-                nameBuilder.Property(p => p.UsernameValue)
+                nameBuilder.Property(p => p.Value)
                     .HasColumnName("Name");
             });
             

@@ -10,7 +10,7 @@ namespace DDDNetCore.Infraestructure
 {
     public static class Bootstrap
     {
-        public static void BootstrapData(DDDSample1DbContext context)
+        public static void BootstrapData(SurgicalSyncContext context)
         {
             var operationTypes = new List<OperationType>
             {

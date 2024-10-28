@@ -70,7 +70,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             Assert.AreEqual(staff.UserEmail.ToString(), dto.UserEmail);
             Assert.AreEqual(staff.StaffPhoneNumber.ToString(), dto.StaffPhoneNumber);
             Assert.AreEqual(staff.StaffSpecialization.ToString(), dto.StaffSpecialization);
-            Assert.AreEqual(staff.StaffAvaiabilitySlots.First().StaffAvaiabilitySlotsValue, dto.StaffAvaiabilitySlots.First());
+            Assert.AreEqual(staff.StaffAvaiabilitySlots.First().Value, dto.StaffAvaiabilitySlots.First());
             Assert.AreEqual(staff.StaffType.ToString(), dto.StaffType);
             Assert.AreEqual(staff.IsActive, dto.isActive);
             Assert.AreEqual(staff.StaffLicenseNumber.ToString(), dto.StaffLicenseNumber);
@@ -98,7 +98,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             Assert.AreEqual(_mockEmail.Object.ToString(), dto.UserEmail);
             Assert.AreEqual(_mockPhoneNumber.Object.ToString(), dto.StaffPhoneNumber);
             Assert.AreEqual(StaffSpecialization.Dermatology.ToString(), dto.StaffSpecialization);
-            Assert.AreEqual(_mockAvailabilitySlots.First().StaffAvaiabilitySlotsValue, dto.StaffAvaiabilitySlots.First());
+            Assert.AreEqual(_mockAvailabilitySlots.First().Value, dto.StaffAvaiabilitySlots.First());
             Assert.AreEqual(_mockType.ToString(), dto.StaffType);
             Assert.AreEqual(_mockIsActive, dto.isActive);
             Assert.AreEqual(_mockLicenseNumber.Object.ToString(), dto.StaffLicenseNumber);

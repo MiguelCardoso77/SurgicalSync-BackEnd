@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
         public void TestConstructor()
         {
             var emergencyContact = new EmergencyContact("934118398");
-            Assert.AreEqual("934118398", emergencyContact.EmergencyContactValue);
+            Assert.AreEqual("934118398", emergencyContact.Value);
         }
         
         [Test]
@@ -65,7 +65,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
             var emergencyContact = (EmergencyContact)Activator.CreateInstance(typeof(EmergencyContact), true);
 
             Assert.NotNull(emergencyContact);
-            Assert.IsNull(emergencyContact.EmergencyContactValue);
+            Assert.IsNull(emergencyContact.Value);
         }
     }
 }

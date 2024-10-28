@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Users
         public void TestConstructor()
         {
             var username = new Username("johndoe");
-            Assert.AreEqual("johndoe", username.UsernameValue);
+            Assert.AreEqual("johndoe", username.Value);
         }
         
         [Test]
@@ -26,7 +26,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Users
             var user = (Username)Activator.CreateInstance(typeof(Username), true);
 
             Assert.NotNull(user);
-            Assert.IsNull(user.UsernameValue);
+            Assert.IsNull(user.Value);
         }
         
         [Test]

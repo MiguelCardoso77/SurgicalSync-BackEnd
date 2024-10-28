@@ -6,13 +6,13 @@ namespace DDDNetCore.Domain.Staffs
      * Represents the value object for staff availability slots.
      * This class encapsulates the available time slots for a staff member and ensures immutability.
      */
-    public class StaffAvaiabilitySlots : IValueObject
+    public class StaffAvaiabilitySlots : IValueObject<string>
     {
         /**
          * The value representing the staff availability slots.
          * This could represent time ranges or dates when the staff member is available.
          */
-        public string StaffAvaiabilitySlotsValue { get; private set; }
+        public string Value { get; private set; }
 
 
         private StaffAvaiabilitySlots()
@@ -26,7 +26,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public StaffAvaiabilitySlots(string staffAvaiabilitySlots)
         {
-            this.StaffAvaiabilitySlotsValue = staffAvaiabilitySlots;
+            this.Value = staffAvaiabilitySlots;
         }
 
         /**
@@ -36,7 +36,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public override string ToString()
         {
-            return StaffAvaiabilitySlotsValue;
+            return Value;
         }
 
         /**
@@ -49,7 +49,7 @@ namespace DDDNetCore.Domain.Staffs
         {
             if (obj is StaffAvaiabilitySlots other)
             {
-                return StaffAvaiabilitySlotsValue == other.StaffAvaiabilitySlotsValue;
+                return Value == other.Value;
             }
 
             return false;
@@ -62,7 +62,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public override int GetHashCode()
         {
-            return StaffAvaiabilitySlotsValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

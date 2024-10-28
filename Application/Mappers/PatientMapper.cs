@@ -26,9 +26,9 @@ namespace DDDNetCore.Application.Mappers
                 Gender = domain.Gender.ToString(),
                 MedicalRecordNumber = domain.Id.AsString(),
                 PhoneNumber = domain.PhoneNumber.ToString(),
-                MedicalConditions = domain.MedicalConditions.Select(rs => rs.MedicalConditionsValue).ToList(),
+                MedicalConditions = domain.MedicalConditions.Select(rs => rs.Value).ToList(),
                 EmergencyContact = domain.EmergencyContact.ToString(),
-                AppointmentHistory = domain.AppointmentHistory.Select(rs => rs.AppointmentHistoryValue).ToList(),
+                AppointmentHistory = domain.AppointmentHistory.Select(rs => rs.Value).ToList(),
                 Email = domain.UserEmail.ToString()
             };
         }

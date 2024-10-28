@@ -5,37 +5,39 @@ using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
+using DDDNetCore.Infraestructure.Shared;
 using DDDNetCore.Infraestructure.Staff;
 using DDDNetCore.Infraestructure.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace DDDNetCore.Infraestructure
 {
-    public class DDDSample1DbContext : DbContext
+    public class SurgicalSyncContext : DbContext
     {
-        
         public DbSet<Patient> Patients { get; set; }
-        
         public DbSet<User> Users { get; set; }
-        
         public DbSet<OperationType> OperationTypes { get; set; }
-
         public DbSet<Domain.Staffs.Staff> Staffs { get; set; }
-        
         public DbSet<OperationRequest> OperationRequests { get; set; }
 
-        public DDDSample1DbContext(DbContextOptions options) : base(options)
+        public SurgicalSyncContext(DbContextOptions options) : base(options)
         {
 
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<OperationRequest>()
+                .Property(e => e.Id)
+                .HasConversion(new EntityIdValueConverter<OperationRequestId>());
+            
             modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OperationTypesEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PatientEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StaffEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OperationRequestEntityTypeConfiguration());
+            
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         public void TestConstructor()
         {
             var staffPhoneNumber = new StaffPhoneNumber("934568742");
-            Assert.AreEqual("934568742", staffPhoneNumber.StaffPhoneNumberValue);
+            Assert.AreEqual("934568742", staffPhoneNumber.Value);
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
             var staffPhoneNumber = (StaffPhoneNumber)Activator.CreateInstance(typeof(StaffPhoneNumber), true);
 
             Assert.NotNull(staffPhoneNumber);
-            Assert.IsNull(staffPhoneNumber.StaffPhoneNumberValue);
+            Assert.IsNull(staffPhoneNumber.Value);
         }
     }
 }

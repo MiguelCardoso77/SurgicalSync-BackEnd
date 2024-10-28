@@ -59,8 +59,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             {
                 Id = operationTypeId.AsString(),
                 OperationName = operationName.ToString(),
-                RequiredStaff = requiredStaffList.Select(rs => rs.RequiredStaffValue).ToList(),
-                EstimatedDuration = estimatedDurationList.Select(ed => ed.EstimatedDurationValue.ToString()).ToList()
+                RequiredStaff = requiredStaffList.Select(rs => rs.Value).ToList(),
+                EstimatedDuration = estimatedDurationList.Select(ed => ed.Value.ToString()).ToList()
 
             };
 
@@ -118,8 +118,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             {
                 Id = op.Id.AsString(),
                 OperationName = op.Name.ToString(),
-                RequiredStaff = op.RequiredStaff.Select(rs => rs.RequiredStaffValue).ToList(),
-                EstimatedDuration = op.EstimatedDuration.Select(ed => ed.EstimatedDurationValue.ToString()).ToList()
+                RequiredStaff = op.RequiredStaff.Select(rs => rs.Value).ToList(),
+                EstimatedDuration = op.EstimatedDuration.Select(ed => ed.Value.ToString()).ToList()
             }).ToList();
 
             _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationTypes);

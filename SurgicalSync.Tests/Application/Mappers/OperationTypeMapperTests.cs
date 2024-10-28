@@ -46,8 +46,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             
             Assert.AreEqual(dto.Id, operationType.Id.AsString());
             Assert.AreEqual(dto.OperationName, operationType.Name.ToString());
-            Assert.AreEqual(dto.RequiredStaff.First(), operationType.RequiredStaff.First().RequiredStaffValue);
-            Assert.AreEqual(dto.EstimatedDuration.First(), operationType.EstimatedDuration.First().EstimatedDurationValue.ToString());
+            Assert.AreEqual(dto.RequiredStaff.First(), operationType.RequiredStaff.First().Value);
+            Assert.AreEqual(dto.EstimatedDuration.First(), operationType.EstimatedDuration.First().Value.ToString());
         }
 
         [Test]
@@ -64,8 +64,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             
             Assert.AreEqual(_mockOperationTypeId.Object.AsString(), dto.Id);
             Assert.AreEqual(_mockOperationName.Object.ToString(), dto.OperationName);
-            Assert.AreEqual(_mockRequiredStaff.Object.RequiredStaffValue, dto.RequiredStaff.First());
-            Assert.AreEqual(_mockDuration.Object.EstimatedDurationValue.ToString(), dto.EstimatedDuration.First());
+            Assert.AreEqual(_mockRequiredStaff.Object.Value, dto.RequiredStaff.First());
+            Assert.AreEqual(_mockDuration.Object.Value.ToString(), dto.EstimatedDuration.First());
         }
     }
 }

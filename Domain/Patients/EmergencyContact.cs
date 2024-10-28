@@ -6,9 +6,9 @@ namespace DDDNetCore.Domain.Patients
      * Represents a value object that encapsulates a patient's emergency contact information.
      * This class holds the emergency contact as a string value.
      */
-    public class EmergencyContact : IValueObject
+    public class EmergencyContact : IValueObject<string>
     {
-        public string EmergencyContactValue { get; private set; }
+        public string Value { get; private set; }
 
         private EmergencyContact()
         {
@@ -21,7 +21,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public EmergencyContact(string emergencyContact)
         {
-            this.EmergencyContactValue = emergencyContact;
+            this.Value = emergencyContact;
         }
 
         /**
@@ -31,7 +31,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override string ToString()
         {
-            return EmergencyContactValue;
+            return Value;
         }
 
         /**
@@ -44,7 +44,7 @@ namespace DDDNetCore.Domain.Patients
         {
             if (obj is EmergencyContact other)
             {
-                return EmergencyContactValue == other.EmergencyContactValue;
+                return Value == other.Value;
             }
 
             return false;
@@ -57,7 +57,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override int GetHashCode()
         {
-            return EmergencyContactValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         public void TestConstructor()
         {
             var avaiabilitySlots = new StaffAvaiabilitySlots("2024-09-25:14h00-18h00");
-            Assert.AreEqual("2024-09-25:14h00-18h00", avaiabilitySlots.StaffAvaiabilitySlotsValue);
+            Assert.AreEqual("2024-09-25:14h00-18h00", avaiabilitySlots.Value);
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
             var avaiabilitySlots = (StaffAvaiabilitySlots)Activator.CreateInstance(typeof(StaffAvaiabilitySlots), true);
 
             Assert.NotNull(avaiabilitySlots);
-            Assert.IsNull(avaiabilitySlots.StaffAvaiabilitySlotsValue);
+            Assert.IsNull(avaiabilitySlots.Value);
         }
     }
 }

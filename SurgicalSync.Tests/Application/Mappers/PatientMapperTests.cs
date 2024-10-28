@@ -67,8 +67,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             Assert.AreEqual(dto.PhoneNumber, patient.PhoneNumber.ToString());
             Assert.AreEqual(dto.EmergencyContact, patient.EmergencyContact.ToString());
             Assert.AreEqual(dto.Email, patient.UserEmail.ToString());
-            Assert.AreEqual(dto.MedicalConditions.First(), patient.MedicalConditions.First().MedicalConditionsValue);
-            Assert.AreEqual(dto.AppointmentHistory.First(), patient.AppointmentHistory.First().AppointmentHistoryValue);
+            Assert.AreEqual(dto.MedicalConditions.First(), patient.MedicalConditions.First().Value);
+            Assert.AreEqual(dto.AppointmentHistory.First(), patient.AppointmentHistory.First().Value);
         }
 
         [Test]
@@ -95,8 +95,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             Assert.AreEqual(_mockPhoneNumber.Object.ToString(), dto.PhoneNumber);
             Assert.AreEqual(_mockEmergencyContact.Object.ToString(), dto.EmergencyContact);
             Assert.AreEqual(_mockUserEmail.Object.ToString(), dto.Email);
-            Assert.AreEqual(_mockMedicalConditions.Object.MedicalConditionsValue, dto.MedicalConditions.First());
-            Assert.AreEqual(_mockAppointmentHistory.Object.AppointmentHistoryValue, dto.AppointmentHistory.First());
+            Assert.AreEqual(_mockMedicalConditions.Object.Value, dto.MedicalConditions.First());
+            Assert.AreEqual(_mockAppointmentHistory.Object.Value, dto.AppointmentHistory.First());
         }
 
         [Test]

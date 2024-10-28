@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         public void TestConstructor()
         {
             var staffLicenseNumber = new StaffLicenseNumber("Raquel Gonçalves");
-            Assert.AreEqual("Raquel Gonçalves", staffLicenseNumber.StaffLicenseNumberValue);
+            Assert.AreEqual("Raquel Gonçalves", staffLicenseNumber.Value);
         }
         
         [Test]
@@ -62,7 +62,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
             var staffLicenseNumber = (StaffLicenseNumber)Activator.CreateInstance(typeof(StaffLicenseNumber), true);
 
             Assert.NotNull(staffLicenseNumber);
-            Assert.IsNull(staffLicenseNumber.StaffLicenseNumberValue);
+            Assert.IsNull(staffLicenseNumber.Value);
         }
     }
 }

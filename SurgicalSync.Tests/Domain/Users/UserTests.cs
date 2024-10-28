@@ -27,8 +27,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Users
         {
             var user = new User(_mockUserId.Object, _mockUsername.Object, _mockUserEmail.Object, _mockUserRole);
             
-            Assert.AreEqual("SEM5PI", user.Username.UsernameValue);
-            Assert.AreEqual("email@gmail.com", user.UserEmail.UserEmailValue);
+            Assert.AreEqual("SEM5PI", user.Username.Value);
+            Assert.AreEqual("email@gmail.com", user.UserEmail.Value);
             Assert.AreEqual(UserRole.Admin, user.UserRole);
         }
 
@@ -38,7 +38,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Users
             var user = new User(_mockUserId.Object, _mockUsername.Object, _mockUserEmail.Object, _mockUserRole);
 
             user.ChangeUserName(new Mock<Username>("newtest").Object);
-            Assert.AreEqual("newtest", user.Username.UsernameValue);
+            Assert.AreEqual("newtest", user.Username.Value);
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Users
 
             user.ChangeUserEmail(new Mock<UserEmail>("email@outlook.pt").Object);
 
-            Assert.AreEqual("email@outlook.pt", user.UserEmail.UserEmailValue);
+            Assert.AreEqual("email@outlook.pt", user.UserEmail.Value);
         }
     }
 }

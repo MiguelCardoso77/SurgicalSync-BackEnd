@@ -196,7 +196,7 @@ namespace DDDNetCore.Application.Services
             DateTime start = DateTime.Parse(startDate);
             DateTime end = DateTime.Parse(endDate);
             
-            var filteredList = list.Where(or => or.DeadlineDate.Date >= start && or.DeadlineDate.Date <= end).ToList();
+            var filteredList = list.Where(or => or.DeadlineDate.DateTime >= start && or.DeadlineDate.DateTime <= end).ToList();
             
             return _mapper.ToListDto(filteredList);
         }

@@ -51,11 +51,11 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
                 _mockUserEmail.Object
             );
 
-            Assert.AreEqual("Diana", patient.PatientName.PatientNameValue);
-            Assert.AreEqual("30 de Junho de 2004", patient.BirthDate.BirthDateValue);
-            Assert.AreEqual("Feminino", patient.Gender.GenderValue);
-            Assert.AreEqual("938413938", patient.PhoneNumber.PhoneNumberValue);
-            Assert.AreEqual("933264402", patient.EmergencyContact.EmergencyContactValue);
+            Assert.AreEqual("Diana", patient.PatientName.Value);
+            Assert.AreEqual("30 de Junho de 2004", patient.BirthDate.Value);
+            Assert.AreEqual("Feminino", patient.Gender.Value);
+            Assert.AreEqual("938413938", patient.PhoneNumber.Value);
+            Assert.AreEqual("933264402", patient.EmergencyContact.Value);
             Assert.AreEqual(0, patient.MedicalConditions.Count);
             Assert.AreEqual(0, patient.AppointmentHistory.Count);
         }

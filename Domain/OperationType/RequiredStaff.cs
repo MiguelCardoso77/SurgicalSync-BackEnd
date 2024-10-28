@@ -6,9 +6,9 @@ namespace DDDNetCore.Domain.OperationType
     /**
      * The RequiredStaff class represents the required staff for a phase of an operation.
      */
-    public class RequiredStaff : IValueObject
+    public class RequiredStaff : IValueObject<string>
     {
-        public string RequiredStaffValue { get; private set; }
+        public string Value { get; private set; }
 
         // Private constructor for EF Core
         private RequiredStaff() { }
@@ -25,7 +25,7 @@ namespace DDDNetCore.Domain.OperationType
                 throw new FormatException("Staff must be a non-empty string with less than 99 characters.");
             }
             
-            this.RequiredStaffValue = requiredStaff;
+            this.Value = requiredStaff;
         }
 
         /**
@@ -33,7 +33,7 @@ namespace DDDNetCore.Domain.OperationType
          */
         public override string ToString()
         {
-            return RequiredStaffValue;
+            return Value;
         }
 
         /**
@@ -45,7 +45,7 @@ namespace DDDNetCore.Domain.OperationType
         {
             if (obj is RequiredStaff other)
             {
-                return RequiredStaffValue == other.RequiredStaffValue;
+                return Value == other.Value;
             }
             return false;
         }
@@ -55,7 +55,7 @@ namespace DDDNetCore.Domain.OperationType
          */
         public override int GetHashCode()
         {
-            return RequiredStaffValue != null ? RequiredStaffValue.GetHashCode() : 0;
+            return Value != null ? Value.GetHashCode() : 0;
         }
         
     }

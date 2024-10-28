@@ -6,12 +6,12 @@ namespace DDDNetCore.Domain.Staffs
      * Represents the value object for a staff member's name.
      * This class ensures immutability and value comparison for the staff name.
      */
-    public class StaffName : IValueObject
+    public class StaffName : IValueObject<string>
     {
         /**
          * The value of the staff member's name.
          */
-        public string StaffNameValue { get; private set; }
+        public string Value { get; private set; }
 
         /**
          * Private constructor used for ORM or serialization purposes.
@@ -28,7 +28,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public StaffName(string staffName)
         {
-            this.StaffNameValue = staffName;
+            this.Value = staffName;
         }
 
         /**
@@ -38,7 +38,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public override string ToString()
         {
-            return StaffNameValue;
+            return Value;
         }
 
         /**
@@ -51,7 +51,7 @@ namespace DDDNetCore.Domain.Staffs
         {
             if (obj is StaffName other)
             {
-                return StaffNameValue == other.StaffNameValue;
+                return Value == other.Value;
             }
 
             return false;
@@ -64,7 +64,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public override int GetHashCode()
         {
-            return StaffNameValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

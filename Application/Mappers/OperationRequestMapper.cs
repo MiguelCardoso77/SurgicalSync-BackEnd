@@ -24,7 +24,7 @@ namespace DDDNetCore.Application.Mappers
             return new OperationRequestDto
             {
                 OperationRequestId = domain.Id.AsString(),
-                DeadlineDate = domain.DeadlineDate.Date.ToString("yyyy-MM-dd"),
+                DeadlineDate = domain.DeadlineDate.DateTime.ToString("yyyy-MM-dd"),
                 StaffId = domain.StaffId.AsString(),
                 Priority = domain.Priority.ToString(),
                 OperationTypeId = domain.OperationTypeId.AsString(),

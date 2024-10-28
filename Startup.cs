@@ -38,10 +38,6 @@ namespace DDDNetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DDDSample1DbContext>(opt =>
-                opt.UseInMemoryDatabase("DDDSample1DB")
-                    .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
-
             // Configuração do Firebase Admin SDK
             FirebaseApp.Create(new AppOptions()
             {
@@ -53,7 +49,7 @@ namespace DDDNetCore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DDDSample1DbContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SurgicalSyncContext context)
         {
             if (env.IsDevelopment())
             {
@@ -79,6 +75,8 @@ namespace DDDNetCore
 
         public void ConfigureMyServices(IServiceCollection services)
         {
+            services.AddDbContext<SurgicalSyncContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddTransient<IPatientRepository, PatientRepository>();

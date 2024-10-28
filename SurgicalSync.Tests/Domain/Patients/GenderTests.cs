@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
         public void TestConstructor()
         {
             var gender = new Gender("masculino");
-            Assert.AreEqual("masculino", gender.GenderValue);
+            Assert.AreEqual("masculino", gender.Value);
         }
         
         [Test]
@@ -65,7 +65,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
             var gender = (Gender)Activator.CreateInstance(typeof(Gender), true);
 
             Assert.NotNull(gender);
-            Assert.IsNull(gender.GenderValue);
+            Assert.IsNull(gender.Value);
         }
     }
 }

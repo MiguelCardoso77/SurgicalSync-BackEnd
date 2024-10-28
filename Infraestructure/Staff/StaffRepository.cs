@@ -5,7 +5,7 @@ namespace DDDNetCore.Infraestructure.Staff
 {
     public class StaffRepository : BaseRepository<Domain.Staffs.Staff, StaffId>, IStaffRepository
     {
-        public StaffRepository(DDDSample1DbContext context) : base(context.Staffs)
+        public StaffRepository(SurgicalSyncContext context) : base(context.Staffs)
         {
             
         }

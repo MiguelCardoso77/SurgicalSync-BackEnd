@@ -29,49 +29,49 @@ namespace DDDNetCore.Infraestructure.Patients
 
             builder.OwnsOne(b => b.PatientName, nameBuilder =>
             {
-                nameBuilder.Property(p => p.PatientNameValue)
+                nameBuilder.Property(p => p.Value)
                     .HasColumnName("PatientName");
             });
 
             builder.OwnsOne(b => b.BirthDate, birthDateBuilder =>
             {
-                birthDateBuilder.Property(p => p.BirthDateValue)
+                birthDateBuilder.Property(p => p.Value)
                     .HasColumnName("BirthDate");
             });
 
             builder.OwnsOne(b => b.Gender, genderBuilder =>
             {
-                genderBuilder.Property(p => p.GenderValue)
+                genderBuilder.Property(p => p.Value)
                     .HasColumnName("Gender");
             });
 
             builder.OwnsOne(b => b.PhoneNumber, phoneNumberBuilder =>
             {
-                phoneNumberBuilder.Property(p => p.PhoneNumberValue)
+                phoneNumberBuilder.Property(p => p.Value)
                     .HasColumnName("PhoneNumber");
             });
 
             builder.OwnsOne(b => b.EmergencyContact, emergencyContactBuilder =>
             {
-                emergencyContactBuilder.Property(p => p.EmergencyContactValue)
+                emergencyContactBuilder.Property(p => p.Value)
                     .HasColumnName("EmergencyContact");
             });
 
             builder.OwnsOne(b => b.UserEmail, emailBuilder =>
             {
-                emailBuilder.Property(p => p.UserEmailValue)
+                emailBuilder.Property(p => p.Value)
                     .HasColumnName("Email");
             });
 
             builder.OwnsMany(b => b.MedicalConditions, medicalConditionsBuilder =>
             {
-                medicalConditionsBuilder.Property(p => p.MedicalConditionsValue)
+                medicalConditionsBuilder.Property(p => p.Value)
                     .HasColumnName("MedicalConditions");
             });
 
             builder.OwnsMany(b => b.AppointmentHistory, appointmentHistoryBuilder =>
             {
-                appointmentHistoryBuilder.Property(p => p.AppointmentHistoryValue)
+                appointmentHistoryBuilder.Property(p => p.Value)
                     .HasColumnName("AppointmentHistory");
             });
         }

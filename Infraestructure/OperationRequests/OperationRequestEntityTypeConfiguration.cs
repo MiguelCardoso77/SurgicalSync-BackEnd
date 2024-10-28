@@ -33,7 +33,7 @@ namespace DDDNetCore.Infraestructure.OperationRequests
             // Configure owned DeadlineDate value object
             builder.OwnsOne(b => b.DeadlineDate, deadlineDateBuilder =>
             {
-                deadlineDateBuilder.Property(p => p.Date)
+                deadlineDateBuilder.Property(p => p.Value)
                     .HasColumnName("DeadlineDate")
                     .IsRequired();
             });

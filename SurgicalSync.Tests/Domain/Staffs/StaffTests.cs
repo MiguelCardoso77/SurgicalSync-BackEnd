@@ -55,14 +55,14 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
                 _mockLicenseNumber.Object
             );
 
-            Assert.AreEqual("Raquel Gonçalves", staff.StaffName.StaffNameValue);
-            Assert.AreEqual("raquelgoncalves@gmail.com", staff.UserEmail.UserEmailValue);
-            Assert.AreEqual("962839401", staff.StaffPhoneNumber.StaffPhoneNumberValue);
+            Assert.AreEqual("Raquel Gonçalves", staff.StaffName.Value);
+            Assert.AreEqual("raquelgoncalves@gmail.com", staff.UserEmail.Value);
+            Assert.AreEqual("962839401", staff.StaffPhoneNumber.Value);
             Assert.AreEqual(StaffSpecialization.Dermatology.ToString(), staff.StaffSpecialization.ToString());
             Assert.AreEqual(2, staff.StaffAvaiabilitySlots.Count);
             Assert.AreEqual(StaffType.Doctor.ToString(), staff.StaffType.ToString());
             Assert.AreEqual(true, staff.IsActive);
-            Assert.AreEqual("N202400001", staff.StaffLicenseNumber.StaffLicenseNumberValue);
+            Assert.AreEqual("N202400001", staff.StaffLicenseNumber.Value);
         }
 
 

@@ -6,9 +6,9 @@ namespace DDDNetCore.Domain.Users
     /**
      * The Username class represents the username of a user.
      */
-    public class Username : IValueObject
+    public class Username : IValueObject<string>
     {
-        public string UsernameValue { get; private set; }
+        public string Value { get; private set; }
         
         // Private constructor for EF Core
         private Username() { }
@@ -25,7 +25,7 @@ namespace DDDNetCore.Domain.Users
                 throw new FormatException("Username must be a non-empty string with less than 99 characters.");
             }
             
-            this.UsernameValue = username;
+            this.Value = username;
         }
         
         /**
@@ -33,7 +33,7 @@ namespace DDDNetCore.Domain.Users
          */
         public override string ToString()
         {
-            return UsernameValue;
+            return Value;
         }
         
         /**
@@ -45,7 +45,7 @@ namespace DDDNetCore.Domain.Users
         {
             if (obj is Username other)
             {
-                return UsernameValue == other.UsernameValue;
+                return Value == other.Value;
             }
             return false;
         }
@@ -55,7 +55,7 @@ namespace DDDNetCore.Domain.Users
          */
         public override int GetHashCode()
         {
-            return UsernameValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

@@ -6,9 +6,9 @@ namespace DDDNetCore.Domain.OperationType
     /**
      * The EstimatedDuration class represents the estimated duration for a phase of an operation.
      */
-    public class EstimatedDuration : IValueObject
+    public class EstimatedDuration : IValueObject<int>
     {
-        public int EstimatedDurationValue { get; private set; }
+        public int Value { get; private set; }
         
         // Private constructor for EF Core
         private EstimatedDuration() { }
@@ -25,7 +25,7 @@ namespace DDDNetCore.Domain.OperationType
                 throw new FormatException("Estimated duration must be a positive integer.");
             }
             
-            this.EstimatedDurationValue = parsedDuration;
+            this.Value = parsedDuration;
         }
         
         /**
@@ -33,7 +33,7 @@ namespace DDDNetCore.Domain.OperationType
          */
         public override string ToString()
         {
-            return EstimatedDurationValue.ToString();
+            return Value.ToString();
         }
         
         /**
@@ -45,7 +45,7 @@ namespace DDDNetCore.Domain.OperationType
         {
             if (obj is EstimatedDuration other)
             {
-                return EstimatedDurationValue == other.EstimatedDurationValue;
+                return Value == other.Value;
             }
             return false;
         }
@@ -55,7 +55,7 @@ namespace DDDNetCore.Domain.OperationType
          */
         public override int GetHashCode()
         {
-            return EstimatedDurationValue.GetHashCode();
+            return Value.GetHashCode();
         }
         
     }

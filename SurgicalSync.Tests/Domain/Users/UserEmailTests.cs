@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Users
         public void TestConstructor()
         {
             var email = new UserEmail("email@email.com");
-            Assert.AreEqual("email@email.com", email.UserEmailValue);
+            Assert.AreEqual("email@email.com", email.Value);
         }
         
         [Test]
@@ -56,7 +56,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Users
             var user = (UserEmail)Activator.CreateInstance(typeof(UserEmail), true);
 
             Assert.NotNull(user);
-            Assert.IsNull(user.UserEmailValue);
+            Assert.IsNull(user.Value);
         }
 
     }

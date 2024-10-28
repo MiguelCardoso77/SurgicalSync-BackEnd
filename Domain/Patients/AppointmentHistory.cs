@@ -6,10 +6,10 @@ namespace DDDNetCore.Domain.Patients
      * Represents a value object that holds the history of appointments for a patient.
      * This class encapsulates the appointment history as a string value.
      */
-    public class AppointmentHistory : IValueObject
+    public class AppointmentHistory : IValueObject<string>
     {
         
-        public string AppointmentHistoryValue { get; private set; }
+        public string Value { get; private set; }
 
         private AppointmentHistory()
         {
@@ -22,7 +22,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public AppointmentHistory(string appointmentHistory)
         {
-            this.AppointmentHistoryValue = appointmentHistory;
+            this.Value = appointmentHistory;
         }
 
         /**
@@ -32,7 +32,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override string ToString()
         {
-            return AppointmentHistoryValue;
+            return Value;
         }
 
         /**
@@ -45,7 +45,7 @@ namespace DDDNetCore.Domain.Patients
         {
             if (obj is AppointmentHistory other)
             {
-                return AppointmentHistoryValue == other.AppointmentHistoryValue;
+                return Value == other.Value;
             }
 
             return false;
@@ -58,7 +58,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override int GetHashCode()
         {
-            return AppointmentHistoryValue != null ? AppointmentHistoryValue.GetHashCode() : 0;
+            return Value != null ? Value.GetHashCode() : 0;
         }
     }
 }

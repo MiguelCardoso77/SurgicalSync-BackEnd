@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
         public void TestConstructor()
         {
             var birthDate = new BirthDate("30 de Junho de 2004");
-            Assert.AreEqual("30 de Junho de 2004", birthDate.BirthDateValue);
+            Assert.AreEqual("30 de Junho de 2004", birthDate.Value);
         }
         
         [Test]
@@ -65,7 +65,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
             var birthDate = (BirthDate)Activator.CreateInstance(typeof(BirthDate), true);
 
             Assert.NotNull(birthDate);
-            Assert.IsNull(birthDate.BirthDateValue);
+            Assert.IsNull(birthDate.Value);
         }
     }
 }

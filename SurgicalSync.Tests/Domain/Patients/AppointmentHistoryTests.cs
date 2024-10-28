@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
         public void TestConstructor()
         {
             var appointmentHistory = new AppointmentHistory("Surgeon");
-            Assert.AreEqual("Surgeon", appointmentHistory.AppointmentHistoryValue);
+            Assert.AreEqual("Surgeon", appointmentHistory.Value);
         }
         
         [Test]
@@ -65,7 +65,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
             var appointmentHistory = (AppointmentHistory)Activator.CreateInstance(typeof(AppointmentHistory), true);
 
             Assert.NotNull(appointmentHistory);
-            Assert.IsNull(appointmentHistory.AppointmentHistoryValue);
+            Assert.IsNull(appointmentHistory.Value);
         }
     }
 }

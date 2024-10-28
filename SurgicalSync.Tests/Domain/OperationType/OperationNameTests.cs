@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
         public void TestConstructor()
         {
             var operationName = new OperationName("Ankle Surgery");
-            Assert.AreEqual("Ankle Surgery", operationName.OperationNameValue);
+            Assert.AreEqual("Ankle Surgery", operationName.Value);
         }
         
         [Test]
@@ -79,7 +79,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
             var operationName = (OperationName)Activator.CreateInstance(typeof(OperationName), true);
 
             Assert.NotNull(operationName);
-            Assert.IsNull(operationName.OperationNameValue);
+            Assert.IsNull(operationName.Value);
         }
         
     }

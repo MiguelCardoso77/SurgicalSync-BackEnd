@@ -6,12 +6,12 @@ namespace DDDNetCore.Domain.Staffs
      * Represents the value object for a staff member's license number.
      * This class ensures immutability and value comparison for the license number.
      */
-    public class StaffLicenseNumber : IValueObject
+    public class StaffLicenseNumber : IValueObject<string>
     {
         /**
          * The value of the staff member's license number.
          */
-        public string StaffLicenseNumberValue { get; private set; }
+        public string Value { get; private set; }
 
         /**
          * Private constructor used for ORM or serialization purposes.
@@ -28,7 +28,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public StaffLicenseNumber(string staffLicenseNumber)
         {
-            this.StaffLicenseNumberValue = staffLicenseNumber;
+            this.Value = staffLicenseNumber;
         }
 
         /**
@@ -38,7 +38,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public override string ToString()
         {
-            return StaffLicenseNumberValue;
+            return Value;
         }
 
         /**
@@ -51,7 +51,7 @@ namespace DDDNetCore.Domain.Staffs
         {
             if (obj is StaffLicenseNumber other)
             {
-                return StaffLicenseNumberValue == other.StaffLicenseNumberValue;
+                return Value == other.Value;
             }
 
             return false;
@@ -64,7 +64,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public override int GetHashCode()
         {
-            return StaffLicenseNumberValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

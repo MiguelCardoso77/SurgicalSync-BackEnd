@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
         public void TestConstructor()
         {
             var requiredStaff = new RequiredStaff("Surgeon");
-            Assert.AreEqual("Surgeon", requiredStaff.RequiredStaffValue);
+            Assert.AreEqual("Surgeon", requiredStaff.Value);
         }
         
         [Test]
@@ -79,7 +79,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
             var requiredStaff = (RequiredStaff)Activator.CreateInstance(typeof(RequiredStaff), true);
 
             Assert.NotNull(requiredStaff);
-            Assert.IsNull(requiredStaff.RequiredStaffValue);
+            Assert.IsNull(requiredStaff.Value);
         }
         
     }

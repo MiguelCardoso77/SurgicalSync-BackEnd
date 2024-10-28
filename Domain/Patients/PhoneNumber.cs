@@ -9,9 +9,9 @@ namespace DDDNetCore.Domain.Patients
      * ensuring that the phone number is treated as a single unit of value. It provides
      * methods for equality comparison and hashing based on the phone number value.
      */
-    public class PhoneNumber : IValueObject
+    public class PhoneNumber : IValueObject<string>
     {
-        public string PhoneNumberValue { get; private set; }
+        public string Value { get; private set; }
 
         /**
          * Private constructor for the PhoneNumber class, used for ORM purposes.
@@ -28,7 +28,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public PhoneNumber(string phoneNumber)
         {
-            this.PhoneNumberValue = phoneNumber;
+            this.Value = phoneNumber;
         }
 
         /**
@@ -38,7 +38,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override string ToString()
         {
-            return PhoneNumberValue;
+            return Value;
         }
 
         /**
@@ -51,7 +51,7 @@ namespace DDDNetCore.Domain.Patients
         {
             if (obj is PhoneNumber other)
             {
-                return PhoneNumberValue == other.PhoneNumberValue;
+                return Value == other.Value;
             }
 
             return false;
@@ -64,7 +64,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override int GetHashCode()
         {
-            return PhoneNumberValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

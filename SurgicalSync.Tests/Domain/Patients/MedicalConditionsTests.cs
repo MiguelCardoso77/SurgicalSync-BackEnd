@@ -11,7 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
         public void TestConstructor()
         {
             var medicalConditions = new MedicalConditions("Asma");
-            Assert.AreEqual("Asma", medicalConditions.MedicalConditionsValue);
+            Assert.AreEqual("Asma", medicalConditions.Value);
         }
         
         [Test]
@@ -65,7 +65,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
             var medicalConditions = (MedicalConditions)Activator.CreateInstance(typeof(MedicalConditions), true);
 
             Assert.NotNull(medicalConditions);
-            Assert.IsNull(medicalConditions.MedicalConditionsValue);
+            Assert.IsNull(medicalConditions.Value);
         }
     }
 }

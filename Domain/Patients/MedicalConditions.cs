@@ -6,12 +6,12 @@ namespace DDDNetCore.Domain.Patients
      * Represents a value object for medical conditions associated with a patient.
      * This class encapsulates the medical conditions as a string value.
      */
-    public class MedicalConditions : IValueObject
+    public class MedicalConditions : IValueObject<string>
     {
         /**
          * Gets the string representation of the medical conditions.
          */
-        public string MedicalConditionsValue { get; private set; }
+        public string Value { get; private set; }
 
         private MedicalConditions()
         {
@@ -24,7 +24,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public MedicalConditions(string medicalConditions)
         {
-            this.MedicalConditionsValue = medicalConditions;
+            this.Value = medicalConditions;
         }
 
         /**
@@ -34,7 +34,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override string ToString()
         {
-            return MedicalConditionsValue;
+            return Value;
         }
 
         /**
@@ -47,7 +47,7 @@ namespace DDDNetCore.Domain.Patients
         {
             if (obj is MedicalConditions other)
             {
-                return MedicalConditionsValue == other.MedicalConditionsValue;
+                return Value == other.Value;
             }
 
             return false;
@@ -60,7 +60,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override int GetHashCode()
         {
-            return MedicalConditionsValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

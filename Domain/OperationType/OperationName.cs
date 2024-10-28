@@ -6,9 +6,9 @@ namespace DDDNetCore.Domain.OperationType
     /**
      * The OperationName class represents the name of an operation type.
      */
-    public class OperationName : IValueObject
+    public class OperationName : IValueObject<string>
     {
-        public string OperationNameValue { get; private set; }
+        public string Value { get; private set; }
         
         // Private constructor for EF Core
         private OperationName() { }
@@ -25,7 +25,7 @@ namespace DDDNetCore.Domain.OperationType
                 throw new FormatException("Operation name must be a non-empty string with less than 99 characters.");
             }
             
-            this.OperationNameValue = operationName;
+            this.Value = operationName;
         }
         
         /**
@@ -33,7 +33,7 @@ namespace DDDNetCore.Domain.OperationType
          */
         public override string ToString()
         {
-            return OperationNameValue;
+            return Value;
         }
         
         /**
@@ -45,7 +45,7 @@ namespace DDDNetCore.Domain.OperationType
         {
             if (obj is OperationName other)
             {
-                return OperationNameValue == other.OperationNameValue;
+                return Value == other.Value;
             }
             return false;
         }
@@ -55,7 +55,7 @@ namespace DDDNetCore.Domain.OperationType
          */
         public override int GetHashCode()
         {
-            return OperationNameValue.GetHashCode();
+            return Value.GetHashCode();
         }
         
     }

@@ -9,9 +9,9 @@ namespace DDDNetCore.Domain.Patients
      * ensuring that the name is treated as a single unit of value. It provides
      * methods for equality comparison and hashing based on the name value.
      */
-    public class PatientName : IValueObject
+    public class PatientName : IValueObject<string>
     {
-        public string PatientNameValue { get; private set; }
+        public string Value { get; private set; }
 
         /**
          * Private constructor for the PatientName class, used for ORM purposes.
@@ -28,7 +28,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public PatientName(string patientName)
         {
-            this.PatientNameValue = patientName;
+            this.Value = patientName;
         }
 
         /**
@@ -38,7 +38,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override string ToString()
         {
-            return PatientNameValue;
+            return Value;
         }
 
         /**
@@ -51,7 +51,7 @@ namespace DDDNetCore.Domain.Patients
         {
             if (obj is PatientName other)
             {
-                return PatientNameValue == other.PatientNameValue;
+                return Value == other.Value;
             }
 
             return false;
@@ -64,7 +64,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public override int GetHashCode()
         {
-            return PatientNameValue.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }
