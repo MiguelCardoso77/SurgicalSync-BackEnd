@@ -52,19 +52,19 @@ namespace DDDNetCore.Infraestructure.OperationRequests
             });
 
             // Configure the foreign key relationship for OperationType
-            builder.HasOne<OperationType>()
+            builder.HasOne<OperationTypeId>()
                 .WithMany()
                 .HasForeignKey(b => b.OperationTypeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Configure the foreign key relationship for Patient (via MedicalRecordNumber)
-            builder.HasOne<Patient>()
+            builder.HasOne<MedicalRecordNumber>()
                 .WithMany()
                 .HasForeignKey(b => b.MedicalRecordNumber)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Configure the foreign key relationship for Staff (via LicenseNumber)
-            builder.HasOne<Domain.Staffs.Staff>()  // Assuming Staff entity handles LicenseNumber
+            builder.HasOne<StaffId>()  // Assuming Staff entity handles LicenseNumber
                 .WithMany()
                 .HasForeignKey(b => b.StaffId)
                 .OnDelete(DeleteBehavior.Cascade);
