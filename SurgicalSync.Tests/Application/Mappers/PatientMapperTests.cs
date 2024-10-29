@@ -67,8 +67,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             Assert.AreEqual(dto.PhoneNumber, patient.PhoneNumber.ToString());
             Assert.AreEqual(dto.EmergencyContact, patient.EmergencyContact.ToString());
             Assert.AreEqual(dto.Email, patient.UserEmail.ToString());
-            Assert.AreEqual(dto.MedicalConditions.First(), patient.MedicalConditions.First().Value);
-            Assert.AreEqual(dto.AppointmentHistory.First(), patient.AppointmentHistory.First().Value);
+            Assert.AreEqual(dto.MedicalConditions.First(), patient.MedicalConditions.Value);
+            Assert.AreEqual(dto.AppointmentHistory.First(), patient.AppointmentHistory.Value);
         }
 
         [Test]

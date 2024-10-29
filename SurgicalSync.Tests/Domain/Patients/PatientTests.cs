@@ -56,8 +56,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
             Assert.AreEqual("Feminino", patient.Gender.Value);
             Assert.AreEqual("938413938", patient.PhoneNumber.Value);
             Assert.AreEqual("933264402", patient.EmergencyContact.Value);
-            Assert.AreEqual(0, patient.MedicalConditions.Count);
-            Assert.AreEqual(0, patient.AppointmentHistory.Count);
+            Assert.AreEqual(0, patient.MedicalConditions);
+            Assert.AreEqual(0, patient.AppointmentHistory);
         }
 
         [Test]

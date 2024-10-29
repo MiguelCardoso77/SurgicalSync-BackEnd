@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
 
@@ -19,9 +20,9 @@ namespace DDDNetCore.Domain.Patients
         public BirthDate BirthDate { get; private set; }
         public Gender Gender { get; private set; }
         public PhoneNumber PhoneNumber { get; private set; }
-        public List<MedicalConditions> MedicalConditions { get; private set; }
+        public MedicalConditions MedicalConditions { get; private set; }
         public EmergencyContact EmergencyContact { get; private set; }
-        public List<AppointmentHistory> AppointmentHistory { get; private set; }
+        public AppointmentHistory AppointmentHistory { get; private set; }
         public UserEmail UserEmail { get; private set; }
 
         /**
@@ -62,9 +63,9 @@ namespace DDDNetCore.Domain.Patients
             this.Gender = gender;
             this.Id = medicalRecordNumber;
             this.PhoneNumber = phoneNumber;
-            this.MedicalConditions = medicalConditions;
+            this.MedicalConditions = medicalConditions.First();
             this.EmergencyContact = emergencyContact;
-            this.AppointmentHistory = appointmentHistory;
+            this.AppointmentHistory = appointmentHistory.First();
             this.UserEmail = userEmail;
         }
 
@@ -125,7 +126,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public void ChangeAppointmentHistory(List<AppointmentHistory> appointmentHistory)
         {
-            this.AppointmentHistory = appointmentHistory;
+            this.AppointmentHistory = appointmentHistory.First();
         }
 
         /**
@@ -135,7 +136,7 @@ namespace DDDNetCore.Domain.Patients
          */
         public void ChangeMedicalConditions(List<MedicalConditions> medicalConditions)
         {
-            this.MedicalConditions = medicalConditions;
+            this.MedicalConditions = medicalConditions.First();
         }
     }
 }

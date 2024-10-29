@@ -48,8 +48,7 @@ namespace DDDNetCore.Application.Mappers
                 UserEmail = domain.UserEmail.ToString(),
                 StaffPhoneNumber = domain.StaffPhoneNumber.ToString(),
                 StaffSpecialization = domain.StaffSpecialization.ToString(),
-                StaffAvaiabilitySlots =
-                    domain.StaffAvaiabilitySlots.Select(rs => rs.Value).ToList(),
+                //StaffAvaiabilitySlots = domain.StaffAvaiabilitySlots.Select(rs => rs.Value).ToList(),
                 StaffType = domain.StaffType.ToString(),
                 isActive = domain.IsActive,
                 StaffLicenseNumber = domain.StaffLicenseNumber.ToString()

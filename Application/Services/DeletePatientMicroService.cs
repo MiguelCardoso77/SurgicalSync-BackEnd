@@ -79,7 +79,8 @@ namespace DDDNetCore.Application.Services
                 new PhoneNumber("000-000-0000"),
                 new List<MedicalConditions>(),
                 new EmergencyContact("000-000-0000"),
-                patient.AppointmentHistory,
+                //patient.AppointmentHistory,
+                null,
                 new UserEmail("anonymous@domain.com")
             );
 

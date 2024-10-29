@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
 using NUnit.Framework.Internal.Execution;
@@ -18,7 +19,7 @@ namespace DDDNetCore.Domain.Staffs
         public UserEmail UserEmail { get; private set; }
         public StaffPhoneNumber StaffPhoneNumber { get; private set; }
         public StaffSpecialization StaffSpecialization { get; private set; }
-        public List<StaffAvaiabilitySlots> StaffAvaiabilitySlots { get; private set; }
+        public StaffAvaiabilitySlots StaffAvaiabilitySlots { get; private set; }
         public bool IsActive { get; set; }
         public StaffType StaffType { get; private set; }
         public StaffLicenseNumber StaffLicenseNumber { get; private set; }
@@ -63,7 +64,7 @@ namespace DDDNetCore.Domain.Staffs
             this.UserEmail = userEmail;
             this.StaffPhoneNumber = staffPhoneNumber;
             this.StaffSpecialization = staffSpecialization;
-            this.StaffAvaiabilitySlots = staffAvaiabilitySlots;
+            this.StaffAvaiabilitySlots = staffAvaiabilitySlots.First();
             this.StaffType = staffType;
             this.IsActive = isActive;
             this.StaffLicenseNumber = staffLicenseNumber;
@@ -124,7 +125,7 @@ namespace DDDNetCore.Domain.Staffs
          */
         public void ChangeStaffAvaiabilitySlots(List<StaffAvaiabilitySlots> staffAvaiabilitySlots)
         {
-            this.StaffAvaiabilitySlots = staffAvaiabilitySlots;
+            this.StaffAvaiabilitySlots = staffAvaiabilitySlots.First();
         }
     }
 }

@@ -87,7 +87,7 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasColumnName("Email");
             });
 
-            builder.OwnsMany(b => b.MedicalConditions, medicalConditionsBuilder =>
+            builder.OwnsOne(b => b.MedicalConditions, medicalConditionsBuilder =>
             {
                 medicalConditionsBuilder.Property(p => p.Value)
                     .HasConversion(
@@ -96,7 +96,7 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasColumnName("MedicalConditions");
             });
 
-            builder.OwnsMany(b => b.AppointmentHistory, appointmentHistoryBuilder =>
+            builder.OwnsOne(b => b.AppointmentHistory, appointmentHistoryBuilder =>
             {
                 appointmentHistoryBuilder.Property(p => p.Value)
                     .HasConversion(

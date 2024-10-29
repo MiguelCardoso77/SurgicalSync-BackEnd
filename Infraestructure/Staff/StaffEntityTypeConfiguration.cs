@@ -1,3 +1,4 @@
+using System;
 using DDDNetCore.Domain.Staffs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -44,21 +45,28 @@ namespace DDDNetCore.Infraestructure.Staff
                     .IsRequired();
             });
 
-            builder.OwnsMany(b => b.StaffAvaiabilitySlots, avalabilityBuilder =>
+            builder.Property(p => p.StaffSpecialization)
+                .HasConversion(
+                    b => b.ToString(),
+                    b => (StaffSpecialization)Enum.Parse(typeof(StaffSpecialization), b))
+                .HasColumnName("StaffSpecialization")
+                .IsRequired();
+
+            builder.OwnsOne(b => b.StaffAvaiabilitySlots, availabilityBuilder =>
             {
-                avalabilityBuilder.Property(b => b.Value)
-                    .HasColumnName("StaffSpecialization")
+                availabilityBuilder.Property(b => b.Value)
+                    .HasColumnName("AvailabilitySlots")
                     .HasConversion<string>();
             });
             
             builder.Property(b => b.StaffType)
-                .HasColumnName("StaffType")
+                .HasColumnName("Type")
                 .HasConversion<string>();
 
             builder.OwnsOne(b => b.StaffLicenseNumber, licenseNumberBuilder =>
             {
                 licenseNumberBuilder.Property(p => p.Value)
-                    .HasColumnName("StaffLicenseNumber")
+                    .HasColumnName("LicenseNumber")
                     .HasConversion<string>();
             });
 

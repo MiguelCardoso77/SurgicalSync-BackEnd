@@ -59,7 +59,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
             Assert.AreEqual("raquelgoncalves@gmail.com", staff.UserEmail.Value);
             Assert.AreEqual("962839401", staff.StaffPhoneNumber.Value);
             Assert.AreEqual(StaffSpecialization.Dermatology.ToString(), staff.StaffSpecialization.ToString());
-            Assert.AreEqual(2, staff.StaffAvaiabilitySlots.Count);
+            Assert.AreEqual(2, staff.StaffAvaiabilitySlots);
             Assert.AreEqual(StaffType.Doctor.ToString(), staff.StaffType.ToString());
             Assert.AreEqual(true, staff.IsActive);
             Assert.AreEqual("N202400001", staff.StaffLicenseNumber.Value);
