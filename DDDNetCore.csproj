@@ -32,5 +32,9 @@
   <ItemGroup>
     <None Remove="Wiki\SprintA\diagrams\use-cases\28-search-operation-requisitions\level2\process-view.puml" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="LAPR5.wiki\Sprint2\diagrams\use-cases\" />
+  </ItemGroup>
 
 </Project>
