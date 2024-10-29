@@ -1,4 +1,7 @@
-﻿using DDDNetCore.Domain.Users;
+﻿
+
+using System;
+using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -28,6 +31,7 @@ namespace DDDNetCore.Infraestructure.Users
             {
                 emailBuilder.Property(p => p.Value).HasColumnName("Email");
                 emailBuilder.Property(p => p.Value).HasConversion<string>();
+                emailBuilder.Property(p => p.Value).IsRequired();
             });
             
             // Configure owned Username value object
@@ -35,10 +39,16 @@ namespace DDDNetCore.Infraestructure.Users
             {
                 nameBuilder.Property(p => p.Value).HasColumnName("Name");
                 nameBuilder.Property(p => p.Value).HasConversion<string>();
+                nameBuilder.Property(p => p.Value).IsRequired();
             });
             
             // Configure owned Role value object
-            builder.Property(b => b.UserRole).HasColumnName("Role").HasConversion<string>();
+            builder.Property(b => b.UserRole)
+                .HasConversion(
+                    b => b.ToString(),
+                    b => (UserRole)Enum.Parse(typeof(UserRole), b))
+                .HasColumnName("Role")
+                .IsRequired();
         }
     }
 }

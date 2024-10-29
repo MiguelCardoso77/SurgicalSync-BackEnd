@@ -2,6 +2,7 @@ using System;
 using DDDNetCore.Domain.Staffs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DDDNetCore.Infraestructure.Staff
 {
@@ -56,18 +57,21 @@ namespace DDDNetCore.Infraestructure.Staff
             {
                 availabilityBuilder.Property(b => b.Value)
                     .HasColumnName("AvailabilitySlots")
-                    .HasConversion<string>();
+                    .HasConversion<string>()
+                    .IsRequired();
             });
             
             builder.Property(b => b.StaffType)
                 .HasColumnName("Type")
-                .HasConversion<string>();
+                .HasConversion<string>()
+                .IsRequired();
 
             builder.OwnsOne(b => b.StaffLicenseNumber, licenseNumberBuilder =>
             {
                 licenseNumberBuilder.Property(p => p.Value)
                     .HasColumnName("LicenseNumber")
-                    .HasConversion<string>();
+                    .HasConversion<string>()
+                    .IsRequired();
             });
 
         }

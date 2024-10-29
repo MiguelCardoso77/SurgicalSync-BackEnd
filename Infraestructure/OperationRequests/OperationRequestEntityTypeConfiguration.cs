@@ -1,5 +1,6 @@
 ﻿using System;
 using DDDNetCore.Domain.OperationRequests;
+using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -52,38 +53,26 @@ namespace DDDNetCore.Infraestructure.OperationRequests
                     .IsRequired();
             });
 
-            builder.OwnsOne(b => b.MedicalRecordNumber, medicalRecordBuilder =>
-            {
-                medicalRecordBuilder.Property(p => p.Value)
-                    .HasColumnName("MedicalRecordNumber")
-                    .HasConversion(
-                        v => v,
-                        v => v)
-                    .IsRequired();
-            });
+            // Configure foreign key for MedicalRecordNumber (Patient)
+            builder.HasOne<Patient>()
+                .WithMany()
+                .HasForeignKey(b => b.MedicalRecordNumber)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
             
-            builder.OwnsOne(b => b.OperationTypeId, operationTypeBuilder =>
-            {
-                operationTypeBuilder.Property(p => p.Value)
-                    .HasColumnName("OperationTypeId")
-                    .HasConversion(
-                        v => v,
-                        v => v)
-                    .IsRequired();
-            });
+            // Configure foreign key for OperationTypeId
+            builder.HasOne<OperationType>()
+                .WithMany()
+                .HasForeignKey(b => b.OperationTypeId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
             
-            builder.OwnsOne(b => b.StaffId, staffBuilder =>
-            {
-                staffBuilder.Property(p => p.Value)
-                    .HasColumnName("StaffId")
-                    .HasConversion(
-                        v => v,
-                        v => v)
-                    .IsRequired();
-            });
-
-            // Configure the foreign key relationship for OperationType
-            
+            // Configure foreign key for StaffId
+            builder.HasOne<Domain.Staffs.Staff>()
+                .WithMany()
+                .HasForeignKey(b => b.StaffId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
 
             // Configure the IsActive property
             builder.Property(b => b.IsActive)

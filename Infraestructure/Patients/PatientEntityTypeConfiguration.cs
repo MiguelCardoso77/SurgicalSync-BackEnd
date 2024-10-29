@@ -39,7 +39,8 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasConversion(
                         v => v,
                         v => v)
-                    .HasColumnName("PatientName");
+                    .HasColumnName("PatientName")
+                    .IsRequired();
             });
 
             builder.OwnsOne(b => b.BirthDate, birthDateBuilder =>
@@ -48,7 +49,8 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasConversion(
                         v => v,
                         v => v)
-                    .HasColumnName("BirthDate");
+                    .HasColumnName("BirthDate")
+                    .IsRequired();
             });
 
             builder.OwnsOne(b => b.Gender, genderBuilder =>
@@ -57,7 +59,8 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasConversion(
                         v => v,
                         v => v)
-                    .HasColumnName("Gender");
+                    .HasColumnName("Gender")
+                    .IsRequired();
             });
 
             builder.OwnsOne(b => b.PhoneNumber, phoneNumberBuilder =>
@@ -66,7 +69,8 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasConversion(
                         v => v,
                         v => v)
-                    .HasColumnName("PhoneNumber");
+                    .HasColumnName("PhoneNumber")
+                    .IsRequired();
             });
 
             builder.OwnsOne(b => b.EmergencyContact, emergencyContactBuilder =>
@@ -75,7 +79,8 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasConversion(
                         v => v,
                         v => v)
-                    .HasColumnName("EmergencyContact");
+                    .HasColumnName("EmergencyContact")
+                    .IsRequired();
             });
 
             builder.OwnsOne(b => b.UserEmail, emailBuilder =>
@@ -84,7 +89,8 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasConversion(
                         v => v,
                         v => v)
-                    .HasColumnName("Email");
+                    .HasColumnName("Email")
+                    .IsRequired();
             });
 
             builder.OwnsOne(b => b.MedicalConditions, medicalConditionsBuilder =>
@@ -93,7 +99,8 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasConversion(
                         v => v,
                         v => v)
-                    .HasColumnName("MedicalConditions");
+                    .HasColumnName("MedicalConditions")
+                    .IsRequired();
             });
 
             builder.OwnsOne(b => b.AppointmentHistory, appointmentHistoryBuilder =>
@@ -102,7 +109,8 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasConversion(
                         v => v,
                         v => v)
-                    .HasColumnName("AppointmentHistory");
+                    .HasColumnName("AppointmentHistory")
+                    .IsRequired();
             });
         }
     }
