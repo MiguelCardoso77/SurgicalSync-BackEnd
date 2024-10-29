@@ -35,6 +35,7 @@
   
   <ItemGroup>
     <Folder Include="LAPR5.wiki\Sprint2\diagrams\use-cases\" />
+    <Folder Include="LAPR5.wiki\Sprint2\diagrams\views\level2\implementation-view\" />
   </ItemGroup>
 
 </Project>
