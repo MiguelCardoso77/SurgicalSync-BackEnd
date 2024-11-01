@@ -77,17 +77,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Female"),
                 new MedicalRecordNumber("202410000112"),
                 new PhoneNumber("933264402"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Asma"),
-                    new MedicalConditions("Alergia a papaia")
-                },
+                new MedicalConditions("Asma"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024")
-                },
+                new AppointmentHistory("2 de novembro de 2023"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -97,18 +89,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Male"),
                 new MedicalRecordNumber("202410000090"),
                 new PhoneNumber("938413938"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Alergia ao pó")
-                },
+                new MedicalConditions("Alergia ao pó"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024"),
-                    new AppointmentHistory("28 de Junho de 2024"),
-                    new AppointmentHistory("09 de Setembro de 2024")
-                },
+                new AppointmentHistory("Alergia ao pó"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -121,9 +104,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 Gender = pt.Gender.ToString(),
                 MedicalRecordNumber = pt.Id.AsString(),
                 PhoneNumber = pt.PhoneNumber.ToString(),
-                //MedicalConditions = pt.MedicalConditions.Select(md => md.Value).ToList(),
+                MedicalConditions = pt.MedicalConditions.ToString(),
                 EmergencyContact = pt.EmergencyContact.ToString(),
-                //AppointmentHistory = pt.AppointmentHistory.Select(ap => ap.Value).ToList(),
+                AppointmentHistory = pt.AppointmentHistory.ToString(),
                 Email = pt.UserEmail.ToString()
             }).ToList();
 
@@ -145,8 +128,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 Assert.AreEqual(expectedDtos[i].PhoneNumber, result[i].PhoneNumber);
                 Assert.AreEqual(expectedDtos[i].EmergencyContact, result[i].EmergencyContact);
                 Assert.AreEqual(expectedDtos[i].Email, result[i].Email);
-                CollectionAssert.AreEqual(expectedDtos[i].MedicalConditions, result[i].MedicalConditions);
-                CollectionAssert.AreEqual(expectedDtos[i].AppointmentHistory, result[i].AppointmentHistory);
+                Assert.AreEqual(expectedDtos[i].MedicalConditions, result[i].MedicalConditions);
+                Assert.AreEqual(expectedDtos[i].AppointmentHistory, result[i].AppointmentHistory);
             }
 
             _mockIPatientRepository.Verify(repo => repo.GetAllAsync(), Times.Once);
@@ -187,17 +170,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Female"),
                 new MedicalRecordNumber("202410000112"),
                 new PhoneNumber("933264402"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Asma"),
-                    new MedicalConditions("Alergia a papaia")
-                },
+                new MedicalConditions("Asma"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024")
-                },
+                new AppointmentHistory("2 de novembro de 2023"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -207,18 +182,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Male"),
                 new MedicalRecordNumber("202410000090"),
                 new PhoneNumber("938413938"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Alergia ao pó")
-                },
+                new MedicalConditions("Alergia ao pó"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024"),
-                    new AppointmentHistory("28 de Junho de 2024"),
-                    new AppointmentHistory("09 de Setembro de 2024")
-                },
+                new AppointmentHistory("Alergia ao pó"),
                 new UserEmail("1220917@isep.ipp.pt")
             );
 
@@ -236,9 +202,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 Gender = "Masculino",
                 MedicalRecordNumber = medicalRecordNumber,
                 PhoneNumber = "935678124",
-                MedicalConditions = new List<string>(),
+                MedicalConditions = "Alergia ao pó",
                 EmergencyContact = "933264402",
-                AppointmentHistory = new List<string>(),
+                AppointmentHistory = "Alergia ao pó",
                 Email = "1221144@isep.ipp.pt"
             };
 
@@ -265,9 +231,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 Gender = "Feminino",
                 MedicalRecordNumber = medicalRecordNumber,
                 PhoneNumber = "938413938",
-                MedicalConditions = new List<string>() { "Nurse" },
+                MedicalConditions = "Alergia ao pó",
                 EmergencyContact = "933264402",
-                AppointmentHistory = new List<string>() { "Nurse" },
+                AppointmentHistory = "Alergia ao pó",
                 Email = "1221194@isep.ipp.pt"
             };
 
@@ -277,9 +243,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Male"),
                 new MedicalRecordNumber(medicalRecordNumber),
                 new PhoneNumber("934260705"),
-                dto.MedicalConditions.Select(md => new MedicalConditions(md)).ToList(),
+                new MedicalConditions("Alergia ao pó"),
                 new EmergencyContact("938413938"),
-                dto.AppointmentHistory.Select(ap => new AppointmentHistory(ap)).ToList(),
+                new AppointmentHistory("Alergia ao pó"),
                 new UserEmail("1220917@isep.ipp.pt")
             );
 
@@ -296,6 +262,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             Assert.AreEqual(dto.Gender, result.Gender);
             Assert.AreEqual(dto.PhoneNumber, result.PhoneNumber);
             Assert.AreEqual(dto.EmergencyContact, result.EmergencyContact);
+            Assert.AreEqual(dto.MedicalConditions, result.MedicalConditions);
+            Assert.AreEqual(dto.AppointmentHistory, result.AppointmentHistory);
+            
             _mockUnitOfWork.Verify(uow => uow.CommitAsync(), Times.Once);
         }
 
@@ -334,17 +303,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Female"),
                 new MedicalRecordNumber("202410000112"),
                 new PhoneNumber("933264402"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Asma"),
-                    new MedicalConditions("Alergia a papaia")
-                },
+                new MedicalConditions("Asma"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024")
-                },
+                new AppointmentHistory("2 de novembro de 2023"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -354,18 +315,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Male"),
                 new MedicalRecordNumber("202410000090"),
                 new PhoneNumber("938413938"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Alergia ao pó")
-                },
+                new MedicalConditions("Alergia ao pó"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024"),
-                    new AppointmentHistory("28 de Junho de 2024"),
-                    new AppointmentHistory("09 de Setembro de 2024")
-                },
+                new AppointmentHistory("Alergia ao pó"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -394,17 +346,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Female"),
                 new MedicalRecordNumber("202410000112"),
                 new PhoneNumber("933264402"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Asma"),
-                    new MedicalConditions("Alergia a papaia")
-                },
+                new MedicalConditions("Asma"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024")
-                },
+                new AppointmentHistory("2 de novembro de 2023"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -414,18 +358,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Male"),
                 new MedicalRecordNumber("202410000090"),
                 new PhoneNumber("938413938"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Alergia ao pó")
-                },
+                new MedicalConditions("Alergia ao pó"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024"),
-                    new AppointmentHistory("28 de Junho de 2024"),
-                    new AppointmentHistory("09 de Setembro de 2024")
-                },
+                new AppointmentHistory("Alergia ao pó"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -454,17 +389,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Female"),
                 new MedicalRecordNumber("202410000112"),
                 new PhoneNumber("933264402"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Asma"),
-                    new MedicalConditions("Alergia a papaia")
-                },
+                new MedicalConditions("Asma"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024")
-                },
+                new AppointmentHistory("2 de novembro de 2023"),
                 userEmail
             );
 
@@ -474,18 +401,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Male"),
                 new MedicalRecordNumber("202410000090"),
                 new PhoneNumber("938413938"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Alergia ao pó")
-                },
+                new MedicalConditions("Alergia ao pó"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024"),
-                    new AppointmentHistory("28 de Junho de 2024"),
-                    new AppointmentHistory("09 de Setembro de 2024")
-                },
+                new AppointmentHistory("Alergia ao pó"),
                 new UserEmail("1220772@isep.ipp.pt")
             );
 
@@ -514,17 +432,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Female"),
                 new MedicalRecordNumber("202410000112"),
                 phoneNumber,
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Asma"),
-                    new MedicalConditions("Alergia a papaia")
-                },
+                new MedicalConditions("Asma"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024")
-                },
+                new AppointmentHistory("2 de novembro de 2023"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -534,18 +444,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Male"),
                 new MedicalRecordNumber("202410000090"),
                 new PhoneNumber("938413938"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Alergia ao pó")
-                },
+                new MedicalConditions("Alergia ao pó"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024"),
-                    new AppointmentHistory("28 de Junho de 2024"),
-                    new AppointmentHistory("09 de Setembro de 2024")
-                },
+                new AppointmentHistory("Alergia ao pó"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -574,17 +475,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 gender,
                 new MedicalRecordNumber("202410000112"),
                 new PhoneNumber("933264402"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Asma"),
-                    new MedicalConditions("Alergia a papaia")
-                },
+                new MedicalConditions("Asma"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024")
-                },
+                new AppointmentHistory("2 de novembro de 2023"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -594,18 +487,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Male"),
                 new MedicalRecordNumber("202410000090"),
                 new PhoneNumber("938413938"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Alergia ao pó")
-                },
+                new MedicalConditions("Alergia ao pó"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024"),
-                    new AppointmentHistory("28 de Junho de 2024"),
-                    new AppointmentHistory("09 de Setembro de 2024")
-                },
+                new AppointmentHistory("Alergia ao pó"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -662,17 +546,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Female"),
                 new MedicalRecordNumber("202410000112"),
                 new PhoneNumber("933264402"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Asma"),
-                    new MedicalConditions("Alergia a papaia")
-                },
+                new MedicalConditions("Asma"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024")
-                },
+                new AppointmentHistory("2 de novembro de 2023"),
                 new UserEmail("1221194@isep.ipp.pt")
             );
 
@@ -709,17 +585,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new Gender("Male"),
                 new MedicalRecordNumber("202410000112"),
                 new PhoneNumber("933264402"),
-                new List<MedicalConditions>
-                {
-                    new MedicalConditions("Asma"),
-                    new MedicalConditions("Alergia a papaia")
-                },
+                new MedicalConditions("Asma"),
                 new EmergencyContact("934260705"),
-                new List<AppointmentHistory>
-                {
-                    new AppointmentHistory("2 de novembro de 2023"),
-                    new AppointmentHistory("13 de março de 2024")
-                },
+                new AppointmentHistory("2 de novembro de 2023"),
                 new UserEmail("1220812.isep.ipp.pt")
             );
 

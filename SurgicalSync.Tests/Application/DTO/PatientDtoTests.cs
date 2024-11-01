@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using DDDNetCore.Application.DTO;
 using NUnit.Framework;
 
@@ -31,8 +30,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.DTO
                 Gender = "Feminino",
                 PhoneNumber = "938413938",
                 EmergencyContact = "933264402",
-                MedicalConditions = new List<string> { "Asma" },
-                AppointmentHistory = new List<string>(),
+                MedicalConditions = "Asma",
+                AppointmentHistory = null,
                 Email = "1221194@isep.ipp.pt"
             };
 
@@ -42,8 +41,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.DTO
             Assert.AreEqual(dto.Gender, "Feminino");
             Assert.AreEqual(dto.PhoneNumber, "938413938");
             Assert.AreEqual(dto.EmergencyContact, "933264402");
-            Assert.AreEqual(dto.MedicalConditions, new List<string> { "Asma" });
-            Assert.AreEqual(dto.AppointmentHistory, new List<string>());
+            Assert.AreEqual(dto.MedicalConditions, "Asma");
+            Assert.AreEqual(dto.AppointmentHistory, null);
             Assert.AreEqual(dto.Email, "1221194@isep.ipp.pt");
         }
 

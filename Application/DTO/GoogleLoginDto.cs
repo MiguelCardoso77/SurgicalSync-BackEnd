@@ -14,8 +14,8 @@ namespace DDDNetCore.Application.DTO
         public string BirthDate { get; set; }
         public string PhoneNumber { get; set; }
         public string MedicalRecordNumber { get; set; }
-        public List<string> MedicalConditions { get; set; }
+        public string MedicalConditions { get; set; }
         public string EmergencyContact { get; set; }
-        public List<string> AppointmentHistory { get; set; }
+        public string AppointmentHistory { get; set; }
     }
 }

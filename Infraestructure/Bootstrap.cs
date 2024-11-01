@@ -151,25 +151,25 @@ namespace DDDNetCore.Infraestructure
             {
                 new(new PatientName("Diana"), new BirthDate("30 de Junho de 2004"), new Gender("Feminino"),
                     new MedicalRecordNumber("202409000001"), new PhoneNumber("938413938"),
-                    new List<MedicalConditions>(),
+                    new MedicalConditions(null),
                     new EmergencyContact("933264402"),
-                    new List<AppointmentHistory>(),
+                    new AppointmentHistory(null),
                     new UserEmail("1221195@isep.ipp.pt")
                 ),
 
                 new(new PatientName("Miguel"), new BirthDate("4 de Julho de 2004"), new Gender("Masculino"),
                     new MedicalRecordNumber("202409000002"), new PhoneNumber("938745060"),
-                    new List<MedicalConditions>(),
+                    new MedicalConditions(null),
                     new EmergencyContact("930923458"),
-                    new List<AppointmentHistory>(),
+                    new AppointmentHistory(null),
                     new UserEmail("1220000@isep.ipp.pt")
                 ),
                 
                 new(new PatientName("Diogo"), new BirthDate("8 de Janeiro de 2004"), new Gender("Masculino"),
                     new MedicalRecordNumber("202409000003"), new PhoneNumber("938745065"),
-                    new List<MedicalConditions>(),
+                    new MedicalConditions(null),
                     new EmergencyContact("930923459"),
-                    new List<AppointmentHistory>(),
+                    new AppointmentHistory(null),
                     new UserEmail("1220812@isep.ipp.pt")
                 )
             };

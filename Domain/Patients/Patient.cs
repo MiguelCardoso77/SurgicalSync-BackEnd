@@ -55,17 +55,17 @@ namespace DDDNetCore.Domain.Patients
          * @param userEmail The email address of the patient.
          */
         public Patient(PatientName patientName, BirthDate birthDate, Gender gender,
-            MedicalRecordNumber medicalRecordNumber, PhoneNumber phoneNumber, List<MedicalConditions> medicalConditions,
-            EmergencyContact emergencyContact, List<AppointmentHistory> appointmentHistory, UserEmail userEmail)
+            MedicalRecordNumber medicalRecordNumber, PhoneNumber phoneNumber, MedicalConditions medicalConditions,
+            EmergencyContact emergencyContact, AppointmentHistory appointmentHistory, UserEmail userEmail)
         {
             this.PatientName = patientName;
             this.BirthDate = birthDate;
             this.Gender = gender;
             this.Id = medicalRecordNumber;
             this.PhoneNumber = phoneNumber;
-            this.MedicalConditions = medicalConditions.First();
+            this.MedicalConditions = medicalConditions;
             this.EmergencyContact = emergencyContact;
-            this.AppointmentHistory = appointmentHistory.First();
+            this.AppointmentHistory = appointmentHistory;
             this.UserEmail = userEmail;
         }
 
@@ -124,9 +124,9 @@ namespace DDDNetCore.Domain.Patients
          *
          * @param appointmentHistory The new appointment history to set for the patient.
          */
-        public void ChangeAppointmentHistory(List<AppointmentHistory> appointmentHistory)
+        public void ChangeAppointmentHistory(AppointmentHistory appointmentHistory)
         {
-            this.AppointmentHistory = appointmentHistory.First();
+            this.AppointmentHistory = appointmentHistory;
         }
 
         /**
@@ -134,9 +134,9 @@ namespace DDDNetCore.Domain.Patients
          *
          * @param medicalConditions The new medical conditions to set for the patient.
          */
-        public void ChangeMedicalConditions(List<MedicalConditions> medicalConditions)
+        public void ChangeMedicalConditions(MedicalConditions medicalConditions)
         {
-            this.MedicalConditions = medicalConditions.First();
+            this.MedicalConditions = medicalConditions;
         }
     }
 }

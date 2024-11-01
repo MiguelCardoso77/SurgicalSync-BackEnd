@@ -35,7 +35,7 @@ namespace DDDNetCore.Application.DTO
         /**
          * List of medical conditions associated with the patient.
          */
-        public List<string> MedicalConditions { get; set; }
+        public string MedicalConditions { get; set; }
 
         /**
          * Emergency contact information for the patient.
@@ -45,7 +45,7 @@ namespace DDDNetCore.Application.DTO
         /**
          * List of past appointment dates or details.
          */
-        public List<string> AppointmentHistory { get; set; }
+        public string AppointmentHistory { get; set; }
 
         /**
          * Email address of the patient.

@@ -10,22 +10,22 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
         [Test]
         public void TestConstructor()
         {
-            var medicalRecordNumber = new MedicalRecordNumber("1000");
-            Assert.AreEqual("1000", medicalRecordNumber.Value);
+            var medicalRecordNumber = new MedicalRecordNumber("1");
+            Assert.AreEqual("1", medicalRecordNumber.Value);
         }
         
         [Test]
         public void TestToString()
         {
-            var medicalRecordNumber = new MedicalRecordNumber("1000");
-            Assert.AreEqual("1000", medicalRecordNumber.ToString());
+            var medicalRecordNumber = new MedicalRecordNumber("1");
+            Assert.AreEqual("1", medicalRecordNumber.ToString());
         }
         
         [Test]
         public void TestEquals()
         {
-            var medicalRecordNumber1 = new MedicalRecordNumber("1000");
-            var medicalRecordNumber2 = new MedicalRecordNumber("1000");
+            var medicalRecordNumber1 = new MedicalRecordNumber("1");
+            var medicalRecordNumber2 = new MedicalRecordNumber("1");
             Assert.AreEqual(medicalRecordNumber1, medicalRecordNumber2);
         }
         
@@ -33,8 +33,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
         public void TestEqualHashCodes()
         {
             // Arrange
-            var medicalRecordNumber1 = new MedicalRecordNumber("30 de Junho de 2004");
-            var medicalRecordNumber2 = new MedicalRecordNumber("30 de Junho de 2004");
+            var medicalRecordNumber1 = new MedicalRecordNumber("1");
+            var medicalRecordNumber2 = new MedicalRecordNumber("1");
             
             // Act
             var hashCode1 = medicalRecordNumber1.GetHashCode();
@@ -48,8 +48,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
         public void TestDifferentHashCodes()
         {
             // Arrange
-            var medicalRecordNumber1 = new MedicalRecordNumber("30 de Junho de 2004");
-            var medicalRecordNumber2 = new MedicalRecordNumber("12 de Novembro de 2004");
+            var medicalRecordNumber1 = new MedicalRecordNumber("1");
+            var medicalRecordNumber2 = new MedicalRecordNumber("2");
 
             // Act
             var hashCode1 = medicalRecordNumber1.GetHashCode();
@@ -64,7 +64,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
         {
             var medicalRecordNumber = (MedicalRecordNumber)Activator.CreateInstance(typeof(MedicalRecordNumber), true);
 
-            Assert.AreEqual("202410000001",medicalRecordNumber.ToString());
+            Assert.AreEqual("1",medicalRecordNumber.ToString());
             Assert.AreEqual(medicalRecordNumber.Value, medicalRecordNumber.ToString());
         }
     }

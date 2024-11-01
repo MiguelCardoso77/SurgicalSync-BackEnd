@@ -48,15 +48,15 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 Gender = "Feminino",
                 MedicalRecordNumber = "202410000001",
                 PhoneNumber = "938413938",
-                MedicalConditions = new List<string>() { "Nurse" },
+                MedicalConditions = "Nurse",
                 EmergencyContact = "933264402",
-                AppointmentHistory = new List<string>() { "Nurse" },
+                AppointmentHistory = "Nurse",
                 Email = "1221194@isep.ipp.pt"
             };
 
             var medicalRecordNumber = new MedicalRecordNumber(dto.MedicalRecordNumber);
-            var medicalConditions = dto.MedicalConditions.Select(rs => new MedicalConditions(rs)).ToList();
-            var appointmentHistory = dto.AppointmentHistory.Select(rs => new AppointmentHistory(rs)).ToList();
+            var medicalConditions = new MedicalConditions(dto.MedicalConditions);
+            var appointmentHistory = new AppointmentHistory(dto.AppointmentHistory);
 
             var patient = _mapper.ToDomain(dto, medicalRecordNumber, medicalConditions, appointmentHistory);
 
@@ -67,8 +67,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             Assert.AreEqual(dto.PhoneNumber, patient.PhoneNumber.ToString());
             Assert.AreEqual(dto.EmergencyContact, patient.EmergencyContact.ToString());
             Assert.AreEqual(dto.Email, patient.UserEmail.ToString());
-            Assert.AreEqual(dto.MedicalConditions.First(), patient.MedicalConditions.Value);
-            Assert.AreEqual(dto.AppointmentHistory.First(), patient.AppointmentHistory.Value);
+            Assert.AreEqual(dto.MedicalConditions, patient.MedicalConditions.ToString());
+            Assert.AreEqual(dto.AppointmentHistory, patient.AppointmentHistory.ToString());
         }
 
         [Test]
@@ -80,9 +80,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                new List<MedicalConditions> { _mockMedicalConditions.Object },
+                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
-                new List<AppointmentHistory> { _mockAppointmentHistory.Object },
+                _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
             );
 
@@ -95,8 +95,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             Assert.AreEqual(_mockPhoneNumber.Object.ToString(), dto.PhoneNumber);
             Assert.AreEqual(_mockEmergencyContact.Object.ToString(), dto.EmergencyContact);
             Assert.AreEqual(_mockUserEmail.Object.ToString(), dto.Email);
-            Assert.AreEqual(_mockMedicalConditions.Object.Value, dto.MedicalConditions.First());
-            Assert.AreEqual(_mockAppointmentHistory.Object.Value, dto.AppointmentHistory.First());
+            Assert.AreEqual(_mockMedicalConditions.Object.ToString(), dto.MedicalConditions);
+            Assert.AreEqual(_mockAppointmentHistory.Object.ToString(), dto.AppointmentHistory);
         }
 
         [Test]
@@ -108,9 +108,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                new List<MedicalConditions> { _mockMedicalConditions.Object },
+                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
-                new List<AppointmentHistory> { _mockAppointmentHistory.Object },
+                _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
             );
 
@@ -131,9 +131,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                new List<MedicalConditions> { _mockMedicalConditions.Object },
+                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
-                new List<AppointmentHistory> { _mockAppointmentHistory.Object },
+                _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
             );
 
@@ -143,9 +143,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                new List<MedicalConditions> { _mockMedicalConditions.Object },
+                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
-                new List<AppointmentHistory> { _mockAppointmentHistory.Object },
+                _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
             );
 

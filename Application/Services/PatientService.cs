@@ -187,8 +187,8 @@ namespace DDDNetCore.Application.Services
                 ? new MedicalRecordNumber()
                 : new MedicalRecordNumber(dto.MedicalRecordNumber);
 
-            var medicalConditionsList = new List<MedicalConditions>();
-            var appointmentHistoryList = new List<AppointmentHistory>();
+            var medicalConditions = new MedicalConditions(null);
+            var appointmentHistory = new AppointmentHistory(null);
 
             var can = await _userEmailMicroService.VerifyEmail(dto.Email);
 
@@ -197,7 +197,7 @@ namespace DDDNetCore.Application.Services
                 throw new InvalidOperationException("This email already exists. Please try with another.");
             }
 
-            var patient = _mapper.ToDomain(dto, medicalRecordNumber, medicalConditionsList, appointmentHistoryList);
+            var patient = _mapper.ToDomain(dto, medicalRecordNumber, medicalConditions, appointmentHistory);
 
             await this._repo.AddAsync(patient);
             await this._unitOfWork.CommitAsync();
