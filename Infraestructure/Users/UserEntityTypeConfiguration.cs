@@ -26,7 +26,7 @@ namespace DDDNetCore.Infraestructure.Users
             builder.HasKey(b => b.Id);
             builder.Property(e=> e.Id).HasConversion(new EntityIdValueConverter<UserId>());
             
-            builder.OwnsOne(u => u.UserEmail, emailBuilder =>
+            builder.OwnsOne(b => b.UserEmail, emailBuilder =>
             {
                 emailBuilder.Property(p => p.Value)
                     .HasColumnName("UserEmail")
