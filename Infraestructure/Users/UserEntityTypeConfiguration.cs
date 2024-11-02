@@ -26,12 +26,13 @@ namespace DDDNetCore.Infraestructure.Users
             builder.HasKey(b => b.Id);
             builder.Property(e=> e.Id).HasConversion(new EntityIdValueConverter<UserId>());
             
-            // Configure owned Email value object
-            builder.OwnsOne(b => b.UserEmail, emailBuilder =>
+            builder.OwnsOne(u => u.UserEmail, emailBuilder =>
             {
-                emailBuilder.Property(p => p.Value).HasColumnName("Email");
-                emailBuilder.Property(p => p.Value).HasConversion<string>();
-                emailBuilder.Property(p => p.Value).IsRequired();
+                emailBuilder.Property(p => p.Value)
+                    .HasColumnName("UserEmail")
+                    .IsRequired();
+
+                emailBuilder.HasIndex(p => p.Value).IsUnique(); 
             });
             
             // Configure owned Username value object

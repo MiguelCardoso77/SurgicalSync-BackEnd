@@ -1,8 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using DDDNetCore.Domain.Staffs;
+using DDDNetCore.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace DDDNetCore.Infraestructure.Staff
 {
@@ -26,13 +31,12 @@ namespace DDDNetCore.Infraestructure.Staff
                     .IsRequired();
             });
             
+           
             builder.OwnsOne(b => b.UserEmail, emailBuilder =>
             {
                 emailBuilder.Property(p => p.Value)
-                    .HasConversion(
-                        v => v,
-                        v => v)
                     .HasColumnName("UserEmail")
+                    .HasConversion<string>()
                     .IsRequired();
             });
             
@@ -53,28 +57,50 @@ namespace DDDNetCore.Infraestructure.Staff
                 .HasColumnName("StaffSpecialization")
                 .IsRequired();
 
-            builder.OwnsOne(b => b.StaffAvaiabilitySlots, availabilityBuilder =>
-            {
-                availabilityBuilder.Property(b => b.Value)
-                    .HasColumnName("AvailabilitySlots")
-                    .HasConversion<string>()
-                    .IsRequired();
-            });
-            
+           /* builder.Property(b => b.StaffAvaiabilitySlots)
+                .HasConversion(
+                    v => JsonConvert.SerializeObject(v), // Serializa a lista para JSON
+                    v => JsonConvert.DeserializeObject<List<StaffAvaiabilitySlots>>(v)) // Desserializa o JSON de volta para a lista
+                .HasColumnName("StaffAvailabilitySlots")
+                .IsRequired();
+        */
+           builder.OwnsOne(b => b.StaffAvaiabilitySlots, StaffAvaiabilitySlotsBuilder =>
+           {
+               StaffAvaiabilitySlotsBuilder.Property(p => p.Value)
+                   .HasColumnName("StaffAvaiabilitySlots")
+                   .IsRequired();
+           });
+        
             builder.Property(b => b.StaffType)
-                .HasColumnName("Type")
-                .HasConversion<string>()
+                .HasColumnName("StaffType")
+               .HasConversion<string>()
                 .IsRequired();
 
             builder.OwnsOne(b => b.StaffLicenseNumber, licenseNumberBuilder =>
             {
                 licenseNumberBuilder.Property(p => p.Value)
-                    .HasColumnName("LicenseNumber")
+                    .HasColumnName("StaffLicenseNumber")
                     .HasConversion<string>()
                     .IsRequired();
             });
+            
+            builder.Property(b => b.IsActive)
+                .HasColumnName("IsActive")
+                .IsRequired();
 
         }
         
+        private static string SerializeAvailabilitySlots(List<StaffAvaiabilitySlots> slots)
+        {
+            var slotValues = slots.Select(slot => slot.Value).ToList(); // Extrai apenas os valores das instâncias
+            return JsonSerializer.Serialize(slotValues); // Serializa a lista de valores em JSON
+        }
+
+        private static List<StaffAvaiabilitySlots> DeserializeAvailabilitySlots(string json)
+        {
+            var slotValues = JsonSerializer.Deserialize<List<string>>(json); // Desserializa JSON em lista de strings
+            return slotValues.Select(value => new StaffAvaiabilitySlots(value)).ToList(); // Converte strings para AvailabilitySlot
+        }
+
     }
 }

@@ -31,7 +31,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.DTO
                 UserEmail = "tomasgoncalves@gmail.com",
                 StaffPhoneNumber = "931465819",
                 StaffSpecialization = StaffSpecialization.Anesthesiology.ToString(),
-                StaffAvaiabilitySlots = new List<string>() {"2024-09-25:14h00-18h00", "2024-09-25:19h00"},
+                StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
                 StaffType = StaffType.Doctor.ToString(),
                 isActive = true,
                 StaffLicenseNumber = "N202400001"
@@ -42,7 +42,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.DTO
             Assert.AreEqual(dto.UserEmail, "tomasgoncalves@gmail.com");
             Assert.AreEqual(dto.StaffPhoneNumber, "931465819");
             Assert.AreEqual(dto.StaffAvaiabilitySlots,
-                new List<string>() { "2024-09-25:14h00-18h00", "2024-09-25:19h00" }); 
+                "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00");
             Assert.AreEqual(dto.StaffSpecialization, StaffSpecialization.Anesthesiology.ToString());
             Assert.AreEqual(dto.StaffType, StaffType.Doctor.ToString());
             Assert.AreEqual(dto.isActive, true);

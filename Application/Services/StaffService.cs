@@ -194,25 +194,19 @@ namespace DDDNetCore.Application.Services
                 throw new ArgumentException("Invalid specialization value");
             }
 
+            
 
-            var avaiabilitySlots = dto.StaffAvaiabilitySlots.Select(st => new StaffAvaiabilitySlots(st)).ToList();
-            List<StaffAvaiabilitySlots> staffAvaiabilitySlots = new List<StaffAvaiabilitySlots>();
-            for (int i = 0; i < avaiabilitySlots.Count; i++)
-            {
-                staffAvaiabilitySlots.Add(new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots[i]));
-            }
-
-            staff.ChangeStaffAvaiabilitySlots(staffAvaiabilitySlots);
+            staff.ChangeStaffAvaiabilitySlots(new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots));
 
             var smtpEmailService = new EmailService();
 
-            var avaiabilitySlotsText = string.Join(", ", avaiabilitySlots);
+            //var avaiabilitySlotsText = string.Join(", ", avaiabilitySlots);
 
             var emailContent = $"Hello {staff.StaffName}! \nYour staff information was updated:\n\n" +
                                $"Email: {staff.UserEmail}\n\n" +
                                $"Phone Number: {staff.StaffPhoneNumber}\n\n" +
                                $"Specialization: {staff.StaffSpecialization.ToString()}\n\n" +
-                               $"Availability Slots: {avaiabilitySlotsText}";
+                               $"Availability Slots: {staff.StaffAvaiabilitySlots}";
 
             if (staff.StaffType.ToString() != dto.StaffType || staff.StaffName.ToString() != dto.StaffName ||
                 staff.UserEmail.ToString() != dto.UserEmail)
@@ -250,7 +244,7 @@ namespace DDDNetCore.Application.Services
 
             var staffId = GenerateLN(dto, staffType, list);
             var staff = _mapper.ToDomain(dto, staffId,
-                dto.StaffAvaiabilitySlots.Select(st => new StaffAvaiabilitySlots(st)).ToList());
+                new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots) );
 
             await this._repo.AddAsync(staff);
             await this._unitOfWork.CommitAsync();

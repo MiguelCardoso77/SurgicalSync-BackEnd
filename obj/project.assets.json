@@ -4157,19 +4157,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Utilizador\\.nuget\\packages\\": {}
+    "/Users/tomasgoncalves/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Utilizador\\OneDrive\\Ambiente de Trabalho\\Faculdade\\3º Ano\\LAPR5\\DDDNetCore.csproj",
+      "projectUniqueName": "/Users/tomasgoncalves/Desktop/3ºano-1ºsemestre/LAPR5/DDDNetCore.csproj",
       "projectName": "DDDNetCore",
-      "projectPath": "C:\\Users\\Utilizador\\OneDrive\\Ambiente de Trabalho\\Faculdade\\3º Ano\\LAPR5\\DDDNetCore.csproj",
-      "packagesPath": "C:\\Users\\Utilizador\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Utilizador\\OneDrive\\Ambiente de Trabalho\\Faculdade\\3º Ano\\LAPR5\\obj\\",
+      "projectPath": "/Users/tomasgoncalves/Desktop/3ºano-1ºsemestre/LAPR5/DDDNetCore.csproj",
+      "packagesPath": "/Users/tomasgoncalves/.nuget/packages/",
+      "outputPath": "/Users/tomasgoncalves/Desktop/3ºano-1ºsemestre/LAPR5/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Utilizador\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/tomasgoncalves/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -4187,11 +4187,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -4276,29 +4271,10 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.33, 6.0.33]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[6.0.33, 6.0.33]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.33, 6.0.33]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.33, 6.0.33]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -4307,7 +4283,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/Users/tomasgoncalves/.dotnet/sdk/6.0.100/RuntimeIdentifierGraph.json"
       }
     }
   }

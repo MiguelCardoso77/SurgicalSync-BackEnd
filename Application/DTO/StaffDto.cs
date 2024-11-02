@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DDDNetCore.Domain.Staffs;
 
 namespace DDDNetCore.Application.DTO
 {
@@ -36,7 +37,7 @@ namespace DDDNetCore.Application.DTO
         /**
          * Gets or sets the list of availability slots for the staff member.
          */
-        public List<string> StaffAvaiabilitySlots { get; set; }
+        public string StaffAvaiabilitySlots { get; set; }
 
         /**
          * Gets or sets the type of the staff member (e.g., Doctor, Nurse).

@@ -19,7 +19,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
         private Mock<StaffName> _mockStaffName;
         private Mock<UserEmail> _mockEmail;
         private Mock<StaffPhoneNumber> _mockPhoneNumber;
-        private List<StaffAvaiabilitySlots> _mockAvailabilitySlots;
+        private Mock<StaffAvaiabilitySlots> _mockAvailabilitySlots;
         private StaffSpecialization _mockSpecialization;
         private StaffType _mockType;
         private bool _mockIsActive;
@@ -34,11 +34,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             _mockEmail = new Mock<UserEmail>("raquelgoncalves@gmail.com");
             _mockPhoneNumber = new Mock<StaffPhoneNumber>("962839401");
             _mockSpecialization = StaffSpecialization.Dermatology;
-            _mockAvailabilitySlots = new List<StaffAvaiabilitySlots>
-            {
-                new("slot 1: 2024-09-25:14h00-18h00"),
-                new("slot 2: 2024-09-25:19h00/2024-09-26:02h00")
-            };
+            _mockAvailabilitySlots = new Mock<StaffAvaiabilitySlots>("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00");
             _mockType = StaffType.Doctor;
             _mockIsActive = true;
             _mockLicenseNumber = new Mock<StaffLicenseNumber>("N202400001");
@@ -54,28 +50,29 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 UserEmail = "raquelgoncalves@gmail.com",
                 StaffPhoneNumber = "962839401", 
                 StaffSpecialization = StaffSpecialization.Dermatology.ToString(),
-                StaffAvaiabilitySlots = new List<string>() { "slot 1: 2024-09-25:14h00-18h00", "slot 2: 2024-09-25:19h00/2024-09-26:02h00"},
+                StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
                 StaffType = StaffType.Doctor.ToString(),
                 isActive = true,
                 StaffLicenseNumber = "N202400001"
             };
             
             var licenseNumber = new StaffId(dto.Id);
-            var staffAvaiabilitySlots = dto.StaffAvaiabilitySlots.Select(rs => new StaffAvaiabilitySlots(rs)).ToList();
+            var staffAvaiabilitySlots = dto.StaffAvaiabilitySlots.Select(rs => new StaffAvaiabilitySlots(rs.ToString())).ToList();
            
-            var staff = _mapper.ToDomain(dto, licenseNumber, staffAvaiabilitySlots );
+            var staff = _mapper.ToDomain(dto, licenseNumber, new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots));
             
             Assert.AreEqual(staff.Id.AsString(), dto.Id);
             Assert.AreEqual(staff.StaffName.ToString(), dto.StaffName);
             Assert.AreEqual(staff.UserEmail.ToString(), dto.UserEmail);
             Assert.AreEqual(staff.StaffPhoneNumber.ToString(), dto.StaffPhoneNumber);
             Assert.AreEqual(staff.StaffSpecialization.ToString(), dto.StaffSpecialization);
-            Assert.AreEqual(staff.StaffAvaiabilitySlots.Value, dto.StaffAvaiabilitySlots.First());
+            Assert.AreEqual(dto.StaffAvaiabilitySlots, "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"); 
             Assert.AreEqual(staff.StaffType.ToString(), dto.StaffType);
-            Assert.AreEqual(staff.IsActive, dto.isActive);
+            Assert.AreEqual(staff.IsActive,dto.isActive);
             Assert.AreEqual(staff.StaffLicenseNumber.ToString(), dto.StaffLicenseNumber);
         }
 
+        
         [Test]
         public void TestToDto()
         {
@@ -85,24 +82,27 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockEmail.Object,
                 _mockPhoneNumber.Object,
                 _mockSpecialization,
-                _mockAvailabilitySlots,
+                _mockAvailabilitySlots.Object, 
                 _mockType,
                 _mockIsActive,
                 _mockLicenseNumber.Object
             );
-            
+    
+            Assert.IsNotNull(staff.StaffAvaiabilitySlots, "Staff availability slots should not be null.");
+    
             var dto = _mapper.ToDto(staff);
-            
+    
             Assert.AreEqual(_mockStaffId.Object.AsString(), dto.Id);
             Assert.AreEqual(_mockStaffName.Object.ToString(), dto.StaffName);
             Assert.AreEqual(_mockEmail.Object.ToString(), dto.UserEmail);
             Assert.AreEqual(_mockPhoneNumber.Object.ToString(), dto.StaffPhoneNumber);
             Assert.AreEqual(StaffSpecialization.Dermatology.ToString(), dto.StaffSpecialization);
-            Assert.AreEqual(_mockAvailabilitySlots.First().Value, dto.StaffAvaiabilitySlots.First());
+            Assert.AreEqual(_mockAvailabilitySlots.Object.ToString(), dto.StaffAvaiabilitySlots);
             Assert.AreEqual(_mockType.ToString(), dto.StaffType);
             Assert.AreEqual(_mockIsActive, dto.isActive);
             Assert.AreEqual(_mockLicenseNumber.Object.ToString(), dto.StaffLicenseNumber);
         }
+
         
         [Test]
         public void TestToDtoList()
@@ -113,7 +113,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockEmail.Object,
                 _mockPhoneNumber.Object,
                 _mockSpecialization,
-                _mockAvailabilitySlots,
+                _mockAvailabilitySlots.Object,
                 _mockType,
                 _mockIsActive,
                 _mockLicenseNumber.Object
@@ -136,7 +136,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockEmail.Object,
                 _mockPhoneNumber.Object,
                 _mockSpecialization,
-                _mockAvailabilitySlots,
+                _mockAvailabilitySlots.Object,
                 _mockType,
                 _mockIsActive,
                 _mockLicenseNumber.Object
@@ -148,7 +148,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockEmail.Object,
                 _mockPhoneNumber.Object,
                 _mockSpecialization,
-                _mockAvailabilitySlots,
+                _mockAvailabilitySlots.Object,
                 _mockType,
                 _mockIsActive,
                 _mockLicenseNumber.Object
