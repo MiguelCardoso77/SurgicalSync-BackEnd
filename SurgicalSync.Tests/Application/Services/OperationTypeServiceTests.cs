@@ -44,23 +44,20 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             var requiredStaff = new RequiredStaff("Doctor");
             var estimatedDuration = new EstimatedDuration("120");
             var operationName = new OperationName("Surgery");
-            
-            var estimatedDurationList = new List<EstimatedDuration> { estimatedDuration };
-            var requiredStaffList = new List<RequiredStaff> { requiredStaff };
 
             var operationType = new OperationType(
                 operationTypeId,
                 operationName,
-                requiredStaffList,
-                estimatedDurationList
+                requiredStaff,
+                estimatedDuration
             );
 
             var expectedDto = new OperationTypeDto
             {
                 Id = operationTypeId.AsString(),
                 OperationName = operationName.ToString(),
-                RequiredStaff = requiredStaffList.Select(rs => rs.Value).ToList(),
-                EstimatedDuration = estimatedDurationList.Select(ed => ed.Value.ToString()).ToList()
+                RequiredStaff = requiredStaff.ToString(),
+                EstimatedDuration = estimatedDuration.ToString()
 
             };
 
@@ -103,11 +100,11 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             var operationName1 = new OperationName("Surgery1");
             var operationName2 = new OperationName("Surgery2");
 
-            var requiredStaffList1 = new List<RequiredStaff> { new RequiredStaff("Doctor"), new RequiredStaff("Nurse") };
-            var requiredStaffList2 = new List<RequiredStaff> { new RequiredStaff("Anaesthetist") };
+            var requiredStaffList1 = new RequiredStaff("Doctor");
+            var requiredStaffList2 = new RequiredStaff("Nurse");
 
-            var estimatedDurationList1 = new List<EstimatedDuration> { new EstimatedDuration("120"), new EstimatedDuration("30") };
-            var estimatedDurationList2 = new List<EstimatedDuration> { new EstimatedDuration("90") };
+            var estimatedDurationList1 = new EstimatedDuration("20");
+            var estimatedDurationList2 = new EstimatedDuration("30");
 
             var operationType1 = new OperationType(operationTypeId1, operationName1, requiredStaffList1, estimatedDurationList1);
             var operationType2 = new OperationType(operationTypeId2, operationName2, requiredStaffList2, estimatedDurationList2);
@@ -118,8 +115,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             {
                 Id = op.Id.AsString(),
                 OperationName = op.Name.ToString(),
-                //RequiredStaff = op.RequiredStaff.Select(rs => rs.Value).ToList(),
-                //EstimatedDuration = op.EstimatedDuration.Select(ed => ed.Value.ToString()).ToList()
+                RequiredStaff = op.RequiredStaff.ToString(),
+                EstimatedDuration = op.EstimatedDuration.ToString()
             }).ToList();
 
             _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationTypes);
@@ -166,8 +163,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             {
                 Id = operationTypeId,
                 OperationName = "Test Surgery",
-                RequiredStaff = new List<string> { "Doctor", "Nurse" },
-                EstimatedDuration = new List<string> { "30", "60", "15" }
+                RequiredStaff = "Doctor",
+                EstimatedDuration = "30",
             };
 
             // Act
@@ -188,15 +185,15 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             {
                 Id = operationTypeId,
                 OperationName = "Test Surgery",
-                RequiredStaff = new List<string> { "Doctor", "Nurse" },
-                EstimatedDuration = new List<string> { "30", "60", "15" }
+                RequiredStaff = "Doctor",
+                EstimatedDuration = "30"
             };
 
             var operationType = new OperationType(
                 new OperationTypeId(operationTypeId),
                 new OperationName("Old Surgery"),
-                dto.RequiredStaff.Select(rs => new RequiredStaff(rs)).ToList(),
-                dto.EstimatedDuration.Select(ed => new EstimatedDuration(ed)).ToList()
+                new RequiredStaff("Nurse"),
+                new EstimatedDuration("60")
             );
 
             _repoMock.Setup(repo => repo.GetByIdAsync(new OperationTypeId(operationTypeId))).ReturnsAsync(operationType);
@@ -234,15 +231,15 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             var oT = new OperationType(
                 new OperationTypeId("1"),
                 operationName,
-                new List<RequiredStaff> { new RequiredStaff("Doctor") },
-                new List<EstimatedDuration> { new EstimatedDuration("120") }
+                new RequiredStaff("Doctor"),
+                new EstimatedDuration("120")
             );
             
             var oT2 = new OperationType(
                 new OperationTypeId("2"),
                 new OperationName("Not Surg"),
-                new List<RequiredStaff> { new RequiredStaff("Nurse") },
-                new List<EstimatedDuration> { new EstimatedDuration("60") }
+                new RequiredStaff("Nurse"),
+                new EstimatedDuration("60")
             );
             
             var operationTypes = new List<OperationType> { oT, oT2 };
@@ -278,15 +275,15 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             var oT = new OperationType(
                 new OperationTypeId("1"),
                 new OperationName("Lot of Surgery"),
-                new List<RequiredStaff> { new RequiredStaff("Doctor") },
-                new List<EstimatedDuration> { new EstimatedDuration("120") }
+                new RequiredStaff("Doctor"),
+                new EstimatedDuration("120")
             );
             
             var oT2 = new OperationType(
                 new OperationTypeId("2"),
                 new OperationName("Not Surg"),
-                new List<RequiredStaff> { new RequiredStaff("Nurse") },
-                new List<EstimatedDuration> { new EstimatedDuration("60") }
+                new RequiredStaff("Nurse"),
+                new EstimatedDuration("60")
             );
             
             var operationTypes = new List<OperationType> { oT, oT2 };
@@ -321,15 +318,15 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             var oT = new OperationType(
                 new OperationTypeId("1"),
                 new OperationName("Lot of Surgery"),
-                new List<RequiredStaff> { new RequiredStaff("Doctor") },
-                new List<EstimatedDuration> { new EstimatedDuration("120") }
+                new RequiredStaff("Doctor"),
+               new EstimatedDuration("120")
             );
             
             var oT2 = new OperationType(
                 new OperationTypeId("2"),
                 new OperationName("Not Surg"),
-                new List<RequiredStaff> { new RequiredStaff("Nurse") },
-                new List<EstimatedDuration> { new EstimatedDuration("60") }
+                new RequiredStaff("Nurse"),
+               new EstimatedDuration("60")
             );
             
             var operationTypes = new List<OperationType> { oT, oT2 };

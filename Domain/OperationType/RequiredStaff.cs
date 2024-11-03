@@ -21,7 +21,7 @@ namespace DDDNetCore.Domain.OperationType
          */
         public RequiredStaff(string requiredStaff)
         {
-            if (string.IsNullOrWhiteSpace(requiredStaff) || requiredStaff.Length >= 99)
+            if (string.IsNullOrWhiteSpace(requiredStaff))
             {
                 throw new FormatException("Staff must be a non-empty string with less than 99 characters.");
             }

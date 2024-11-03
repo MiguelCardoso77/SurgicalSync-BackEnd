@@ -18,8 +18,8 @@ namespace DDDNetCore.Application.Mappers
             return new OperationTypeDto { 
                 Id = domain.Id.AsString(), 
                 OperationName = domain.Name.ToString(), 
-                //RequiredStaff = domain.RequiredStaff.Select(rs => rs.Value).ToList(), 
-                //EstimatedDuration = domain.EstimatedDuration.Select(rs => rs.Value.ToString()).ToList()
+                RequiredStaff = domain.RequiredStaff.ToString(), 
+                EstimatedDuration = domain.EstimatedDuration.ToString()
             };
         }
 
@@ -36,9 +36,9 @@ namespace DDDNetCore.Application.Mappers
         /**
          * Converts the input data to a domain OperationType object.
          */
-        public OperationType ToDomain(OperationTypeDto dto, OperationTypeId operationTypeId, List<RequiredStaff> requiredStaffList, List<EstimatedDuration> durations)
+        public OperationType ToDomain(OperationTypeDto dto, OperationTypeId operationTypeId, RequiredStaff requiredStaff)
         {
-            return new OperationType(operationTypeId, new OperationName(dto.OperationName), requiredStaffList, durations);
+            return new OperationType(operationTypeId, new OperationName(dto.OperationName), requiredStaff, new EstimatedDuration(dto.EstimatedDuration));
         }
     }
 }

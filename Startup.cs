@@ -1,5 +1,4 @@
-﻿using System;
-using DDDNetCore.Application.Mappers;
+﻿using DDDNetCore.Application.Mappers;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationType;
@@ -11,7 +10,6 @@ using DDDNetCore.Infraestructure;
 using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
-using DDDNetCore.Infraestructure.Shared;
 using DDDNetCore.Infraestructure.Staff;
 using DDDNetCore.Infraestructure.Users;
 using FirebaseAdmin;
@@ -19,7 +17,6 @@ using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,7 +35,11 @@ namespace DDDNetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Configuração do Firebase Admin SDK
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+            });
+            
             FirebaseApp.Create(new AppOptions()
             {
                 Credential = GoogleCredential.FromFile("surgicalsync-d5bd5-firebase-adminsdk-7v461-12fb9fe637.json")
@@ -64,13 +65,12 @@ namespace DDDNetCore
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors("AllowOrigin");
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-
-            //Bootstrap.BootstrapData(context);
-            Console.WriteLine("Bootstrap data loaded.");
         }
 
         public void ConfigureMyServices(IServiceCollection services)

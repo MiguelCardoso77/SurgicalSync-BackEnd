@@ -14,6 +14,7 @@ namespace DDDNetCore.Infraestructure
         {
             var operationTypes = new List<OperationType>
             {
+                /**
                 new(new OperationTypeId("1"), new OperationName("ACL Reconstruction Surgery"),
                     new List<RequiredStaff>
                     {
@@ -26,7 +27,7 @@ namespace DDDNetCore.Infraestructure
                         new("1 Medical Action Assistant")
                     },
                     new List<EstimatedDuration> { new("45"), new("60"), new("30") }),
-
+                
                 new(new OperationTypeId("2"), new OperationName("Knee Replacement Surgery"),
                     new List<RequiredStaff>
                     {
@@ -39,7 +40,7 @@ namespace DDDNetCore.Infraestructure
                         new("1 Medical Action Assistant")
                     },
                     new List<EstimatedDuration> { new("45"), new("60"), new("45") }),
-
+                    
                 new(new OperationTypeId("3"), new OperationName("Shoulder Replacement Surgery"),
                     new List<RequiredStaff>
                     {
@@ -145,7 +146,10 @@ namespace DDDNetCore.Infraestructure
                         new("1 Medical Action Assistant")
                     },
                     new List<EstimatedDuration> { new("15"), new("10"), new("15") })
+                */
             };
+            
+            /**
 
             var patients = new List<Patient>
             {
@@ -235,11 +239,13 @@ namespace DDDNetCore.Infraestructure
 
             };
             
-            context.Patients.AddRange(patients);
+            */
+            
+            //context.Patients.AddRange(patients);
             context.OperationTypes.AddRange(operationTypes);
-            context.Staffs.AddRange(staffs);
-            context.Users.AddRange(users);
-            context.OperationRequests.AddRange(request);
+            //context.Staffs.AddRange(staffs);
+            //context.Users.AddRange(users);
+            //wcontext.OperationRequests.AddRange(request);
             context.SaveChanges();
         }
     }

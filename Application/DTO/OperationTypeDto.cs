@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Nodes;
-
-namespace DDDNetCore.Application.DTO
+﻿namespace DDDNetCore.Application.DTO
 {
     /**
      * Data Transfer Object (DTO) for an operation type.
@@ -11,7 +8,7 @@ namespace DDDNetCore.Application.DTO
     {
         public string Id { get; set; }
         public string OperationName { get; set; }
-        public List<string> RequiredStaff { get; set; }
-        public List<string> EstimatedDuration { get; set; }
+        public string RequiredStaff { get; set; }
+        public string EstimatedDuration { get; set; }
     }
 }

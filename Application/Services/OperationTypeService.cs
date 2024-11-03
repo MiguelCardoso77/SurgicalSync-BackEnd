@@ -7,6 +7,7 @@ using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Shared;
 using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop.Infrastructure;
 
 namespace DDDNetCore.Application.Services
 {
@@ -129,35 +130,15 @@ namespace DDDNetCore.Application.Services
             }
             
             var dtoId = string.IsNullOrEmpty(dto.Id) ? new OperationTypeId(Guid.NewGuid().ToString()) : new OperationTypeId(dto.Id);
-
-            // List of estimated durations (Preparation, Surgery, Cleaning)
-            var estimatedDurations = new List<EstimatedDuration>
-            {
-                new(dto.EstimatedDuration.ElementAtOrDefault(0) ?? "0"),
-                new(dto.EstimatedDuration.ElementAtOrDefault(1) ?? "0"),
-                new(dto.EstimatedDuration.ElementAtOrDefault(2) ?? "0") 
-            };
-
-            var requiredStaffList = new List<RequiredStaff>();
-
-            // Add predefined staff members to the list
-            var predefinedStaff = new List<RequiredStaff>
-            {
-                new("1 Orthopaedist"),
-                new("1 Anaesthetist"),
-                new("1 Instrumenting Nurse"),
-                new("1 Circulating Nurse"),
-                new("1 Nurse Anaesthetist"),
-                new("1 Medical Action Assistant")
-            };
-            requiredStaffList.AddRange(predefinedStaff);
+            
+            // Predefined staff members
+            var predefinedStaff = "1 Orthopaedist, 1 Anaesthetist, 1 Instrumenting Nurse, 1 Circulating Nurse, 1 Nurse Anaesthetist, 1 Medical Action Assistant, ";
 
             // Add the staff members from the DTO
-            var dtoStaff = dto.RequiredStaff.Select(rs => new RequiredStaff(rs)).ToList();
-            requiredStaffList.AddRange(dtoStaff);
+            var requiredStaff = new RequiredStaff(predefinedStaff + dto.RequiredStaff);
 
             // Use the mapper to convert the DTO to a domain object
-            var domainObj = _mapper.ToDomain(dto, dtoId, requiredStaffList, estimatedDurations);
+            var domainObj = _mapper.ToDomain(dto, dtoId, requiredStaff);
 
             await this._repo.AddAsync(domainObj);
             await this._unitOfWork.CommitAsync();
@@ -182,12 +163,10 @@ namespace DDDNetCore.Application.Services
                 return null;
 
             oT.ChangeOperationTypeName(new OperationName(dto.OperationName));
+            
+            oT.ChangeRequiredStaff(new RequiredStaff(dto.RequiredStaff));
 
-            var requiredStaffList = dto.RequiredStaff.Select(rs => new RequiredStaff(rs)).ToList();
-            oT.ChangeRequiredStaff(requiredStaffList);
-
-            var estimatedDurationList = dto.EstimatedDuration.Select(ed => new EstimatedDuration(ed)).ToList();
-            oT.ChangeEstimatedDuration(estimatedDurationList);
+            oT.ChangeEstimatedDuration(new EstimatedDuration(dto.EstimatedDuration));
 
             await this._unitOfWork.CommitAsync();
 

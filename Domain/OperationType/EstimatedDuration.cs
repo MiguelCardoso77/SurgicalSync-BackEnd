@@ -20,11 +20,6 @@ namespace DDDNetCore.Domain.OperationType
          */
         public EstimatedDuration(string estimatedDuration)
         {
-            if (!int.TryParse(estimatedDuration, out var parsedDuration) || parsedDuration <= 0)
-            {
-                throw new FormatException("Estimated duration must be a positive integer.");
-            }
-            
             this.Value = estimatedDuration;
         }
         

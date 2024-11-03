@@ -11,8 +11,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
     {
         private Mock<OperationTypeId> _mockOperationTypeId;
         private Mock<OperationName> _mockOperationName;
-        private List<RequiredStaff> _mockRequiredStaff;
-        private List<EstimatedDuration> _mockEstimatedDuration;
+        private Mock<RequiredStaff> _mockRequiredStaff;
+        private Mock<EstimatedDuration> _mockEstimatedDuration;
         
         [SetUp]
         public void SetUp()
@@ -20,8 +20,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
             _mockOperationTypeId = new Mock<OperationTypeId>("1");
             _mockOperationName = new Mock<OperationName>("Surgery");
             
-            _mockRequiredStaff = new List<RequiredStaff>();
-            _mockEstimatedDuration = new List<EstimatedDuration>();
+            _mockRequiredStaff = new Mock<RequiredStaff>("Nurse");
+            _mockEstimatedDuration = new Mock<EstimatedDuration>("20");
         }
         
         [Test]
@@ -30,13 +30,13 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
             var operationType = new DDDNetCore.Domain.OperationType.OperationType(
                 _mockOperationTypeId.Object,
                 _mockOperationName.Object,
-                _mockRequiredStaff,
-                _mockEstimatedDuration
+                _mockRequiredStaff.Object,
+                _mockEstimatedDuration.Object
             );
             
             Assert.AreEqual("Surgery", operationType.Name.Value);
-            //Assert.AreEqual(0, operationType.RequiredStaff.Count);
-            //Assert.AreEqual(0, operationType.EstimatedDuration.Count);
+            Assert.AreEqual("Nurse", operationType.RequiredStaff.Value);
+            Assert.AreEqual("20", operationType.EstimatedDuration.Value);
         }
 
         [Test]
@@ -45,8 +45,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
             var operationType = new DDDNetCore.Domain.OperationType.OperationType(
                 _mockOperationTypeId.Object,
                 _mockOperationName.Object,
-                _mockRequiredStaff,
-                _mockEstimatedDuration
+                _mockRequiredStaff.Object,
+                _mockEstimatedDuration.Object
             );
             
             var newOperationName = new Mock<OperationName>("New Surgery");
@@ -61,14 +61,14 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
             var operationType = new DDDNetCore.Domain.OperationType.OperationType(
                 _mockOperationTypeId.Object,
                 _mockOperationName.Object,
-                _mockRequiredStaff,
-                _mockEstimatedDuration
+                _mockRequiredStaff.Object,
+                _mockEstimatedDuration.Object
             );
             
-            var newRequiredStaff = new List<RequiredStaff>() { new RequiredStaff("Doctor") };
-            operationType.ChangeRequiredStaff(newRequiredStaff);
+            var newRequiredStaff = new Mock<RequiredStaff>("Doctor");
+            operationType.ChangeRequiredStaff(newRequiredStaff.Object);
             
-            //Assert.AreEqual("Doctor", operationType.RequiredStaff[0].Value);
+            Assert.AreEqual("Doctor", operationType.RequiredStaff.Value);
         }
         
         [Test]
@@ -77,14 +77,14 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
             var operationType = new DDDNetCore.Domain.OperationType.OperationType(
                 _mockOperationTypeId.Object,
                 _mockOperationName.Object,
-                _mockRequiredStaff,
-                _mockEstimatedDuration
+                _mockRequiredStaff.Object,
+                _mockEstimatedDuration.Object
             );
             
-            var newEstimatedDuration = new List<EstimatedDuration>() { new EstimatedDuration("60") };
-            operationType.ChangeEstimatedDuration(newEstimatedDuration);
+            var newEstimatedDuration = new Mock<EstimatedDuration>("60");
+            operationType.ChangeEstimatedDuration(newEstimatedDuration.Object);
             
-            //Assert.AreEqual("60", operationType.EstimatedDuration[0].Value.ToString());
+            Assert.AreEqual("60", operationType.EstimatedDuration.Value.ToString());
         }
         
         [Test]
@@ -93,8 +93,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
             var operationType = new DDDNetCore.Domain.OperationType.OperationType(
                 _mockOperationTypeId.Object,
                 _mockOperationName.Object,
-                _mockRequiredStaff,
-                _mockEstimatedDuration
+                _mockRequiredStaff.Object,
+                _mockEstimatedDuration.Object
             );
             
             operationType.ActivateOperationType();
@@ -108,8 +108,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
             var operationType = new DDDNetCore.Domain.OperationType.OperationType(
                 _mockOperationTypeId.Object,
                 _mockOperationName.Object,
-                _mockRequiredStaff,
-                _mockEstimatedDuration
+                _mockRequiredStaff.Object,
+                _mockEstimatedDuration.Object
             );
             
             operationType.DeactivateOperationType();

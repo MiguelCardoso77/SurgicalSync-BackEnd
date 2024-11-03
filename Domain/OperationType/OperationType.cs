@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text.Json.Nodes;
 using DDDNetCore.Domain.Shared;
 
 namespace DDDNetCore.Domain.OperationType
@@ -36,14 +32,12 @@ namespace DDDNetCore.Domain.OperationType
          * @param id The unique identifier for the operation type.
          * @throws ArgumentNullException if any of the parameters are null.
          */
-        public OperationType(OperationTypeId id, OperationName name, List<RequiredStaff> requiredStaff, List<EstimatedDuration> estimatedDuration)
+        public OperationType(OperationTypeId id, OperationName name, RequiredStaff requiredStaff, EstimatedDuration estimatedDuration)
         {
             this.Id = id ?? throw new ArgumentNullException(nameof(id), "OperationTypeId cannot be null.");
             this.Name = name ?? throw new ArgumentNullException(nameof(name), "OperationName cannot be null.");
-            //this.RequiredStaff = requiredStaff ?? throw new ArgumentNullException(nameof(requiredStaff), "RequiredStaff cannot be null.");
-            //this.EstimatedDuration = estimatedDuration ?? throw new ArgumentNullException(nameof(estimatedDuration), "EstimatedDuration cannot be null.");
-            this.RequiredStaff = requiredStaff.First();
-            this.EstimatedDuration = estimatedDuration.First();
+            this.RequiredStaff = requiredStaff ?? throw new ArgumentNullException(nameof(requiredStaff), "RequiredStaff cannot be null.");
+            this.EstimatedDuration = estimatedDuration ?? throw new ArgumentNullException(nameof(estimatedDuration), "EstimatedDuration cannot be null.");
             this.IsActive = true;
         }
 
@@ -58,17 +52,17 @@ namespace DDDNetCore.Domain.OperationType
         /**
          * Method that changes the required staff of the OperationType.
          */
-        public void ChangeRequiredStaff(List<RequiredStaff> requiredStaff)
+        public void ChangeRequiredStaff(RequiredStaff requiredStaff)
         {
-            this.RequiredStaff = requiredStaff.First();
+            this.RequiredStaff = requiredStaff;
         }
 
         /**
          * Method that changes the estimated duration of the OperationType.
          */
-        public void ChangeEstimatedDuration(List<EstimatedDuration> estimatedDuration)
+        public void ChangeEstimatedDuration(EstimatedDuration estimatedDuration)
         {
-            this.EstimatedDuration = estimatedDuration.First();
+            this.EstimatedDuration = estimatedDuration;
         }
 
         /**

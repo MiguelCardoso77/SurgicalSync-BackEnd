@@ -43,8 +43,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             // Arrange
             var operationDomainList = new List<OperationType>
             {
-                new (new OperationTypeId("1"), new OperationName("Operation1"), new List<RequiredStaff>{new RequiredStaff("Doctor")}, new List<EstimatedDuration>{new EstimatedDuration("10")}),
-                new (new OperationTypeId("2"), new OperationName("Operation2"), new List<RequiredStaff>{new RequiredStaff("Nurse")}, new List<EstimatedDuration>{new EstimatedDuration("20")})
+                new OperationType(new OperationTypeId("1"), new OperationName("Operation1"), new RequiredStaff("Doctor"), new EstimatedDuration("10")),
+                new OperationType(new OperationTypeId("2"), new OperationName("Operation2"), new RequiredStaff("Nurse"), new EstimatedDuration("20"))
             };
             
             _oTRepoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationDomainList);
@@ -62,13 +62,13 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             // Arrange
             var operationDomainList = new List<OperationType>
             {
-                new OperationType(new OperationTypeId("1"), new OperationName("Operation1"), new List<RequiredStaff>{new RequiredStaff("Doctor")}, new List<EstimatedDuration>{new EstimatedDuration("10")}),
-                new OperationType(new OperationTypeId("2"), new OperationName("Operation2"), new List<RequiredStaff>{new RequiredStaff("Nurse")}, new List<EstimatedDuration>{new EstimatedDuration("20")})
+                new OperationType(new OperationTypeId("1"), new OperationName("Operation1"), new RequiredStaff("Doctor"), new EstimatedDuration("10")),
+                new OperationType(new OperationTypeId("2"), new OperationName("Operation2"), new RequiredStaff("Nurse"), new EstimatedDuration("20"))
             };
             
             var operationTypeDto = new OperationTypeDto
             {
-                Id = "1", OperationName = "Operation1", RequiredStaff = new List<string>{"Doctor"}, EstimatedDuration = new List<string>{"10"}
+                Id = "1", OperationName = "Operation1", RequiredStaff = "Doctor", EstimatedDuration = "10"
             };
             
             _oTRepoMock.Setup(repo => repo.GetByIdAsync(It.IsAny<OperationTypeId>())).ReturnsAsync(operationDomainList[0]);
@@ -101,14 +101,14 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             // Arrange
             var operationTypeDto = new OperationTypeDto
             {
-                Id = "1", OperationName = "Operation1", RequiredStaff = new List<string>{"Doctor"}, EstimatedDuration = new List<string>{"10","20","40"}
+                Id = "1", OperationName = "Operation1", RequiredStaff = "Doctor", EstimatedDuration = "10, 20, 40"
             };
-            
+
             _oTRepoMock.Setup(repo => repo.AddAsync(It.IsAny<OperationType>())).ReturnsAsync(new OperationType(
-                new OperationTypeId("1"), 
-                new OperationName("Operation1"), 
-                new List<RequiredStaff> { new RequiredStaff("Doctor") }, 
-                new List<EstimatedDuration> { new ("10"), new ("20"), new ("40") }));
+                new OperationTypeId("1"),
+                new OperationName("Operation1"),
+                new RequiredStaff("Doctor"),
+                new EstimatedDuration("10, 20, 40")));
 
             // Act
             var result = await _controller.Create(operationTypeDto);
@@ -122,7 +122,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
         public async Task Delete_ValidId_ReturnsOk()
         {
             // Arrange
-            var operationTypeToRemove = new OperationType(new OperationTypeId("1"), new OperationName("Operation1"), new List<RequiredStaff> { new RequiredStaff("Doctor") }, new List<EstimatedDuration> { new EstimatedDuration("10") });
+            var operationTypeToRemove = new OperationType(new OperationTypeId("1"), new OperationName("Operation1"), new RequiredStaff("Doctor"), new EstimatedDuration("10"));
 
             _oTRepoMock.Setup(repo => repo.GetByIdAsync(It.IsAny<OperationTypeId>()))
                 .ReturnsAsync(operationTypeToRemove);

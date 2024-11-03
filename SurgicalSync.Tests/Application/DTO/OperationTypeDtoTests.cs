@@ -27,14 +27,14 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.DTO
             {
                 Id = "1",
                 OperationName = "Test",
-                RequiredStaff = new List<string>() {"Doctor", "Nurse"},
-                EstimatedDuration = new List<string>()
+                RequiredStaff = "Doctor, Nurse",
+                EstimatedDuration = "10, 20, 10"
             };
 
             Assert.AreEqual(dto.Id, "1");
             Assert.AreEqual(dto.OperationName, "Test");
-            Assert.AreEqual(dto.RequiredStaff, new List<string>() {"Doctor", "Nurse"});
-            Assert.AreEqual(dto.EstimatedDuration, new List<string>());
+            Assert.AreEqual(dto.RequiredStaff, "Doctor, Nurse");
+            Assert.AreEqual(dto.EstimatedDuration, "10, 20, 10");
         }
         
     }
