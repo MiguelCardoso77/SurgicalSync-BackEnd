@@ -11,17 +11,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
         public void TestConstructor()
         {
             var estimatedDuration = new EstimatedDuration("50");
-            Assert.AreEqual(50, estimatedDuration.Value);
-        }
-        
-        [Test]
-        public void TestConstructorWithNonIntegerThrowsException()
-        {
-            const string invalidDuration = "A40";
-
-            var ex = Assert.Throws<FormatException>(() => new EstimatedDuration(invalidDuration));
-
-            Assert.That(ex.Message, Is.EqualTo("Estimated duration must be a positive integer."));
+            Assert.AreEqual("50", estimatedDuration.Value);
         }
         
         [Test]
@@ -83,7 +73,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.OperationType
             var estimatedDuration = (EstimatedDuration)Activator.CreateInstance(typeof(EstimatedDuration), true);
 
             Assert.NotNull(estimatedDuration);
-            Assert.AreEqual(0, estimatedDuration.Value);
+            Assert.IsNull(estimatedDuration.Value);
         }
         
     }

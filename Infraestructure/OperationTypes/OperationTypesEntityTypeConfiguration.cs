@@ -24,7 +24,7 @@ namespace DDDNetCore.Infraestructure.OperationTypes
             // Use HasConversion for Id
             builder.Property(b => b.Id)
                 .HasConversion(
-                    b => b.ToString(),
+                    b => b.AsString(),
                     b => new OperationTypeId(b))
                 .IsRequired()
                 .ValueGeneratedOnAdd();
