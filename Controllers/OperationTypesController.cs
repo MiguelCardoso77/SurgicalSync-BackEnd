@@ -42,6 +42,7 @@ namespace DDDNetCore.Controllers
             }
             
             var allOperations = await _service.GetAllAsync();
+            Console.WriteLine("All operation types listed successfully.");
             return Ok(allOperations);
         }
         
@@ -56,6 +57,7 @@ namespace DDDNetCore.Controllers
                 return NotFound();
             }
             
+            Console.WriteLine($"Operation type with ID = {id} was retrieved successfully.");
             return oT;
         }
         
@@ -65,6 +67,7 @@ namespace DDDNetCore.Controllers
         {
             var task = await _service.AddAsync(dto);
             
+            Console.WriteLine($"Operation type with ID = {dto.Id} was created successfully.");
             return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
         }
         
@@ -76,6 +79,9 @@ namespace DDDNetCore.Controllers
             {
                 return BadRequest();
             }
+            Console.WriteLine(dto.OperationName);
+            Console.WriteLine(dto.RequiredStaff);
+            Console.WriteLine(dto.EstimatedDuration);
             
             var oT = await _service.UpdateAsync(dto);
             
@@ -84,6 +90,7 @@ namespace DDDNetCore.Controllers
                 return NotFound();
             }
             
+            Console.WriteLine($"Operation type with ID = {id} was updated successfully.");
             return oT;
         }
         
@@ -91,16 +98,14 @@ namespace DDDNetCore.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<OperationTypeDto>> Delete(string id)
         {
-            // Confirmation for deletion example, can't be obtained without UI.
-            Console.WriteLine("Do you really wish to erase this operation type from the system?");
-            
             var oT = await _service.InactivateAsync(new OperationTypeId(id));
-
+            
             if (oT == null)
             {
                 return NotFound();
             }
 
+            Console.WriteLine($"Operation type with ID = {id} was deleted successfully.");
             return Ok(oT);
         }
         
