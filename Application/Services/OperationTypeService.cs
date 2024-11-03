@@ -51,11 +51,11 @@ namespace DDDNetCore.Application.Services
          * <param name="isActive"> The status of the operation type </param>
          * Return: A task representing the asynchronous operation, containing a list of <OperationTypeDto/> objects.
          */
-        public async Task<List<OperationTypeDto>> GetAllByStatus(bool isActive)
+        public async Task<List<OperationTypeDto>> GetAllByStatus(string isActive)
         {
             var list = await this._repo.GetAllAsync();
             
-            var filteredList = list.Where(oT => oT.IsActive == isActive).ToList();
+            var filteredList = isActive == "true" ? list.Where(oT => oT.IsActive == true).ToList() : list.Where(oT => oT.IsActive == false).ToList();
 
             return _mapper.ToListDto(filteredList);
         }

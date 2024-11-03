@@ -291,7 +291,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationTypes);
 
             // Act
-            var result = await _operationTypeService.GetAllByStatus(true);
+            var result = await _operationTypeService.GetAllByStatus("true");
             
             // Assert
             Assert.IsNotNull(result);
@@ -305,7 +305,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(new List<OperationType>());
 
             // Act
-            var result = await _operationTypeService.GetAllByStatus(true);
+            var result = await _operationTypeService.GetAllByStatus("true");
 
             // Assert
             Assert.IsNotNull(result);
