@@ -34,7 +34,7 @@ namespace DDDNetCore.Domain.Staffs
             this.StaffName = null;
             this.UserEmail = null;
             this.StaffPhoneNumber = null;
-            this.StaffSpecialization = StaffSpecialization.None;
+            this.StaffSpecialization = null;
             this.StaffAvaiabilitySlots = null;
             this.StaffType = StaffType.Other;
             this.IsActive = true;

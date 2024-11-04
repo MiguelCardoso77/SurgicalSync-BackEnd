@@ -30,7 +30,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.DTO
                 StaffName = "Tomás Gonçalves",
                 UserEmail = "tomasgoncalves@gmail.com",
                 StaffPhoneNumber = "931465819",
-                StaffSpecialization = StaffSpecialization.Anesthesiology.ToString(),
+                StaffSpecialization = "Anesthesiology",
                 StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
                 StaffType = StaffType.Doctor.ToString(),
                 isActive = true,
@@ -43,7 +43,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.DTO
             Assert.AreEqual(dto.StaffPhoneNumber, "931465819");
             Assert.AreEqual(dto.StaffAvaiabilitySlots,
                 "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00");
-            Assert.AreEqual(dto.StaffSpecialization, StaffSpecialization.Anesthesiology.ToString());
+            Assert.AreEqual(dto.StaffSpecialization, "Anesthesiology");
             Assert.AreEqual(dto.StaffType, StaffType.Doctor.ToString());
             Assert.AreEqual(dto.isActive, true);
             Assert.AreEqual(dto.StaffLicenseNumber, "N202400001");
@@ -70,13 +70,13 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.DTO
                 Id = "N202400001",
                 StaffName = "Tomás Gonçalves",
                 UserEmail = "tomasgoncalves@gmail.com",
-                StaffSpecialization = StaffSpecialization.Anesthesiology.ToString()
+                StaffSpecialization = "Anesthesiology"
             };
 
             Assert.AreEqual(dto.Id, "N202400001");
             Assert.AreEqual(dto.StaffName, "Tomás Gonçalves");
             Assert.AreEqual(dto.UserEmail, "tomasgoncalves@gmail.com");
-            Assert.AreEqual(dto.StaffSpecialization, StaffSpecialization.Anesthesiology.ToString());
+            Assert.AreEqual(dto.StaffSpecialization, "Anesthesiology");
         }
     }
 }

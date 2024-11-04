@@ -16,7 +16,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         private Mock<UserEmail> _mockEmail;
         private Mock<StaffPhoneNumber> _mockPhoneNumber;
         private Mock<StaffAvaiabilitySlots> _mockAvailabilitySlots;
-        private StaffSpecialization _mockSpecialization;
+        private Mock<StaffSpecialization> _mockSpecialization;
         private StaffType _mockType;
         private bool _mockIsActive;
 
@@ -28,7 +28,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
             _mockStaffName = new Mock<StaffName>("Raquel Gonçalves");
             _mockEmail = new Mock<UserEmail>("raquelgoncalves@gmail.com");
             _mockPhoneNumber = new Mock<StaffPhoneNumber>("962839401");
-            _mockSpecialization = StaffSpecialization.Dermatology;
+            _mockSpecialization =  new Mock<StaffSpecialization>("Dermatology");
             _mockAvailabilitySlots =
                 new Mock<StaffAvaiabilitySlots>(
                     "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00");
@@ -47,7 +47,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
                 _mockStaffName.Object,
                 _mockEmail.Object,
                 _mockPhoneNumber.Object,
-                _mockSpecialization,
+                _mockSpecialization.Object,
                 _mockAvailabilitySlots.Object,
                 _mockType,
                 _mockIsActive,
@@ -57,7 +57,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
             Assert.AreEqual("Raquel Gonçalves", staff.StaffName.Value);
             Assert.AreEqual("raquelgoncalves@gmail.com", staff.UserEmail.Value);
             Assert.AreEqual("962839401", staff.StaffPhoneNumber.Value);
-            Assert.AreEqual(StaffSpecialization.Dermatology.ToString(), staff.StaffSpecialization.ToString());
+            Assert.AreEqual("Dermatology", staff.StaffSpecialization.Value);
             Assert.AreEqual("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
                 staff.StaffAvaiabilitySlots.Value);
             Assert.AreEqual(StaffType.Doctor.ToString(), staff.StaffType.ToString());
@@ -74,14 +74,15 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
                 _mockStaffName.Object,
                 _mockEmail.Object,
                 _mockPhoneNumber.Object,
-                _mockSpecialization,
+                _mockSpecialization.Object,
                 _mockAvailabilitySlots.Object,
                 _mockType,
                 _mockIsActive,
                 _mockLicenseNumber.Object
             );
-            staff.ChangeStaffSpecialization(StaffSpecialization.Cardiology);
-            Assert.AreEqual(StaffSpecialization.Cardiology.ToString(), staff.StaffSpecialization.ToString());
+            Mock<StaffSpecialization> mockSpecialization = new Mock<StaffSpecialization>("Dermatology");
+
+            staff.ChangeStaffSpecialization(mockSpecialization.Object);
         }
         
         [Test]
@@ -92,7 +93,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
                 _mockStaffName.Object,
                 _mockEmail.Object,
                 _mockPhoneNumber.Object,
-                _mockSpecialization,
+                _mockSpecialization.Object,
                 _mockAvailabilitySlots.Object,
                 _mockType,
                 _mockIsActive,
@@ -112,7 +113,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
                 _mockStaffName.Object,
                 _mockEmail.Object,
                 _mockPhoneNumber.Object,
-                _mockSpecialization,
+                _mockSpecialization.Object,
                 _mockAvailabilitySlots.Object,
                 _mockType,
                 _mockIsActive,
@@ -132,7 +133,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
                 _mockStaffName.Object,
                 _mockEmail.Object,
                 _mockPhoneNumber.Object,
-                _mockSpecialization,
+                _mockSpecialization.Object,
                 _mockAvailabilitySlots.Object,
                 _mockType,
                 _mockIsActive,
@@ -154,7 +155,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
                 _mockStaffName.Object,
                 _mockEmail.Object,
                 _mockPhoneNumber.Object,
-                _mockSpecialization,
+                _mockSpecialization.Object,
                 _mockAvailabilitySlots.Object,
                 _mockType,
                 _mockIsActive,
@@ -172,7 +173,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
                 _mockStaffName.Object,
                 _mockEmail.Object,
                 _mockPhoneNumber.Object,
-                _mockSpecialization,
+                _mockSpecialization.Object,
                 _mockAvailabilitySlots.Object,
                 _mockType,
                 _mockIsActive,

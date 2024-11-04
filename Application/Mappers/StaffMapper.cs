@@ -26,7 +26,7 @@ namespace DDDNetCore.Application.Mappers
                 new StaffName(dto.StaffName),
                 new UserEmail(dto.UserEmail),
                 new StaffPhoneNumber(dto.StaffPhoneNumber),
-                Enum.Parse<StaffSpecialization>(dto.StaffSpecialization),
+                new StaffSpecialization(dto.StaffSpecialization),                
                 staffAvaiabilitySlots,
                 Enum.Parse<StaffType>(dto.StaffType),
                 dto.isActive,

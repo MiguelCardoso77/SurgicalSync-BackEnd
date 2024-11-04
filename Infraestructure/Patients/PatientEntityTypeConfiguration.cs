@@ -84,14 +84,12 @@ namespace DDDNetCore.Infraestructure.Patients
             });
 
             builder.OwnsOne(b => b.UserEmail, emailBuilder =>
-            {
-                emailBuilder.Property(p => p.Value)
-                    .HasConversion(
-                        v => v,
-                        v => v)
-                    .HasColumnName("Email")
-                    .IsRequired();
-            });
+                        {
+                            emailBuilder.Property(p => p.Value)
+                                .HasColumnName("Email")
+                                .HasConversion<string>()
+                                .IsRequired();
+                        });
 
             builder.OwnsOne(b => b.MedicalConditions, medicalConditionsBuilder =>
             {

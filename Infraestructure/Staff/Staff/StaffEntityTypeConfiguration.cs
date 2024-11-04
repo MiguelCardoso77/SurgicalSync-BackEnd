@@ -50,20 +50,14 @@ namespace DDDNetCore.Infraestructure.Staff
                     .IsRequired();
             });
 
-            builder.Property(p => p.StaffSpecialization)
-                .HasConversion(
-                    b => b.ToString(),
-                    b => (StaffSpecialization)Enum.Parse(typeof(StaffSpecialization), b))
-                .HasColumnName("StaffSpecialization")
-                .IsRequired();
-
-           /* builder.Property(b => b.StaffAvaiabilitySlots)
-                .HasConversion(
-                    v => JsonConvert.SerializeObject(v), // Serializa a lista para JSON
-                    v => JsonConvert.DeserializeObject<List<StaffAvaiabilitySlots>>(v)) // Desserializa o JSON de volta para a lista
-                .HasColumnName("StaffAvailabilitySlots")
-                .IsRequired();
-        */
+            builder.OwnsOne(b => b.StaffSpecialization, nameBuilder =>
+            {
+                nameBuilder.Property(b => b.Value)
+                    .HasConversion<string>()
+                    .HasColumnName("StaffSpecialization")
+                    .IsRequired();
+            });
+          
            builder.OwnsOne(b => b.StaffAvaiabilitySlots, StaffAvaiabilitySlotsBuilder =>
            {
                StaffAvaiabilitySlotsBuilder.Property(p => p.Value)
@@ -71,10 +65,12 @@ namespace DDDNetCore.Infraestructure.Staff
                    .IsRequired();
            });
         
-            builder.Property(b => b.StaffType)
-                .HasColumnName("StaffType")
-               .HasConversion<string>()
-                .IsRequired();
+           builder.Property(p => p.StaffType)
+               .HasConversion(
+                   b => b.ToString(),
+                   b => (StaffType)Enum.Parse(typeof(StaffType), b))
+               .HasColumnName("StaffType")
+               .IsRequired();
 
             builder.OwnsOne(b => b.StaffLicenseNumber, licenseNumberBuilder =>
             {

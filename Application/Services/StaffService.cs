@@ -185,15 +185,8 @@ namespace DDDNetCore.Application.Services
 
             staff.ChangeUserEmail(new UserEmail(dto.UserEmail));
 
-            if (Enum.TryParse(dto.StaffSpecialization, out StaffSpecialization specialization))
-            {
-                staff.ChangeStaffSpecialization(specialization);
-            }
-            else
-            {
-                throw new ArgumentException("Invalid specialization value");
-            }
-
+            
+            staff.ChangeStaffSpecialization(new StaffSpecialization(dto.StaffSpecialization));
             
 
             staff.ChangeStaffAvaiabilitySlots(new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots));
@@ -205,7 +198,7 @@ namespace DDDNetCore.Application.Services
             var emailContent = $"Hello {staff.StaffName}! \nYour staff information was updated:\n\n" +
                                $"Email: {staff.UserEmail}\n\n" +
                                $"Phone Number: {staff.StaffPhoneNumber}\n\n" +
-                               $"Specialization: {staff.StaffSpecialization.ToString()}\n\n" +
+                               $"Specialization: {staff.StaffSpecialization}\n\n" +
                                $"Availability Slots: {staff.StaffAvaiabilitySlots}";
 
             if (staff.StaffType.ToString() != dto.StaffType || staff.StaffName.ToString() != dto.StaffName ||
@@ -243,8 +236,7 @@ namespace DDDNetCore.Application.Services
             var list = await this._repo.GetAllAsync();
 
             var staffId = GenerateLN(dto, staffType, list);
-            var staff = _mapper.ToDomain(dto, staffId,
-                new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots) );
+            var staff = _mapper.ToDomain(dto, staffId, new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots) );
 
             await this._repo.AddAsync(staff);
             await this._unitOfWork.CommitAsync();

@@ -8,22 +8,22 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         [Test]
         public void TestConstructor()
         {
-            var staffSpecialization1 = StaffSpecialization.Dermatology;
-            Assert.AreEqual(StaffSpecialization.Dermatology, staffSpecialization1);
+            var staffSpecialization1 = "Dermatology";
+            Assert.AreEqual("Dermatology", staffSpecialization1);
         }
         
         [Test]
         public void TestToString()
         {
-            var staffSpecialization1 = StaffSpecialization.Dermatology;
-            Assert.AreEqual(StaffSpecialization.Dermatology.ToString(), staffSpecialization1.ToString());
+            var staffSpecialization1 = "Dermatology";
+            Assert.AreEqual("Dermatology", staffSpecialization1);
         }
         
         [Test]
         public void TestEquals()
         {
-            var staffSpecialization =  StaffSpecialization.Dermatology;
-            var staffSpecialization1 = StaffSpecialization.Dermatology;
+            var staffSpecialization =  "Dermatology";
+            var staffSpecialization1 = "Dermatology";
             Assert.AreEqual(staffSpecialization, staffSpecialization1);
         }
         
@@ -31,8 +31,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         public void TestEqualHashCodes()
         {
             // Arrange
-            var specialization1 = StaffSpecialization.Dermatology;
-            var specialization2 = StaffSpecialization.Dermatology;
+            var specialization1 ="Dermatology";
+            var specialization2 = "Dermatology";
             
             // Act
             var hashCode1 = specialization1.GetHashCode();
@@ -45,8 +45,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         [Test]
         public void TestDifferentHashCodes()
         {
-            var specialization1 = StaffSpecialization.Dermatology;
-            var specialization2 = StaffSpecialization.Cardiology;
+            var specialization1 = "Dermatology";
+            var specialization2 = "Dermatology";
             
             // Act
             var hashCode1 = specialization1.GetHashCode();
@@ -59,7 +59,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         [Test]
         public void TestPrivateConstructor()
         {
-            var staffSpecialization = StaffSpecialization.None;
+            var staffSpecialization = "Dermatology";
 
             Assert.NotNull(staffSpecialization);
         }

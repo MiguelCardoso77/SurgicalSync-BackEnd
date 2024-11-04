@@ -53,7 +53,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new StaffName("Diana"),
                     new UserEmail("diana@gmail.com"),
                     new StaffPhoneNumber("938413938"),
-                    StaffSpecialization.Dermatology,
+                    new StaffSpecialization("Dermatology"),
                     new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                     StaffType.Doctor,
@@ -65,7 +65,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new StaffName("Miguel"),
                     new UserEmail("miguel@gmail.com"),
                     new StaffPhoneNumber("962839401"),
-                    StaffSpecialization.Anesthesiology,
+                    new StaffSpecialization("Cardiology"),
                     new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                     StaffType.Nurse,
@@ -77,7 +77,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new StaffName("Diogo"),
                     new UserEmail("diogo@gmail.com"),
                     new StaffPhoneNumber("962839401"),
-                    StaffSpecialization.Cardiology,
+                    new StaffSpecialization("Cardiology"),
                     new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                     StaffType.Other,
@@ -106,7 +106,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new StaffName("Diana"),
                     new UserEmail("diana@gmail.com"),
                     new StaffPhoneNumber("938413938"),
-                    StaffSpecialization.Dermatology,
+                    new StaffSpecialization("Dermatology"),
                     new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                     StaffType.Doctor,
@@ -118,7 +118,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new StaffName("Miguel"),
                     new UserEmail("miguel@gmail.com"),
                     new StaffPhoneNumber("962839401"),
-                    StaffSpecialization.Anesthesiology,
+                    new StaffSpecialization("Anesthesiology"),
                     new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                     StaffType.Nurse,
@@ -130,7 +130,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new StaffName("Diogo"),
                     new UserEmail("diogo@gmail.com"),
                     new StaffPhoneNumber("962839401"),
-                    StaffSpecialization.Cardiology,
+                    new StaffSpecialization("Dermatology"),
                     new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                     StaffType.Other,
@@ -145,7 +145,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 StaffName = "Miguel",
                 UserEmail = "miguel@gmail.com",
                 StaffPhoneNumber = "962839401",
-                StaffSpecialization = StaffSpecialization.Anesthesiology.ToString(),
+                StaffSpecialization = "Anesthesiology",
                 StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
 
                 StaffType = StaffType.Nurse.ToString(),
@@ -188,7 +188,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new StaffName("Diana"),
                     new UserEmail("diana@gmail.com"),
                     new StaffPhoneNumber("938413938"),
-                    StaffSpecialization.Dermatology,
+                    new StaffSpecialization("Anesthesiology"),
                     new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                     DDDNetCore.Domain.Staffs.StaffType.Doctor
@@ -200,7 +200,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new StaffName("Miguel"),
                     new UserEmail("miguel@gmail.com"),
                     new StaffPhoneNumber("962839401"),
-                    StaffSpecialization.Anesthesiology,
+                    new StaffSpecialization("Anesthesiology"),
                     new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                     DDDNetCore.Domain.Staffs.StaffType.Nurse,
@@ -212,7 +212,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new StaffName("Diogo"),
                     new UserEmail("diogo@gmail.com"),
                     new StaffPhoneNumber("962839401"),
-                    StaffSpecialization.Cardiology,
+                    new StaffSpecialization("Anesthesiology"),
                     new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                     DDDNetCore.Domain.Staffs.StaffType.Other,
@@ -230,7 +230,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     StaffName = "Tomas",
                     UserEmail = "tomas@gmail.com",
                     StaffPhoneNumber = "987123845",
-                    StaffSpecialization = StaffSpecialization.Dermatology.ToString(),
+                    StaffSpecialization = "Anesthesiology",
                     StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
                 StaffType = StaffType.Doctor.ToString(),
                 isActive = true,
@@ -243,7 +243,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new StaffName("Tomas"),
                     new UserEmail("tomas@gmail.com"),
                     new StaffPhoneNumber("987123845"),
-                    StaffSpecialization.Dermatology,
+                    new StaffSpecialization("Anesthesiology"),
                     new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                     StaffType.Doctor,
@@ -271,7 +271,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 StaffName = "Tomas",
                 UserEmail = "tomas@gmail.com",
                 StaffPhoneNumber = "987123845",
-                StaffSpecialization = StaffSpecialization.Dermatology.ToString(),
+                StaffSpecialization = "Anesthesiology",
                 StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
 
                 StaffType = StaffType.Doctor.ToString(),
@@ -284,7 +284,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 new StaffName("Tomas"),
                 new UserEmail("tomas@gmail.com"),
                 new StaffPhoneNumber("987123845"),
-                StaffSpecialization.Dermatology,
+                new StaffSpecialization("Anesthesiology"),
                 new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Doctor,
@@ -314,7 +314,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 StaffName = "Miguel",
                 UserEmail = "miguel@gmail.com",
                 StaffPhoneNumber = "987654321",
-                StaffSpecialization = StaffSpecialization.Dermatology.ToString(),
+                StaffSpecialization = "Anesthesiology",
                 StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
 
                 StaffType = StaffType.Doctor.ToString(),
@@ -341,7 +341,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 new StaffName("Tomas"),
                 new UserEmail("tomas@gmail.com"),
                 new StaffPhoneNumber("987123845"),
-                StaffSpecialization.Dermatology,
+                new StaffSpecialization("Anesthesiology"),
                 new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Doctor,
