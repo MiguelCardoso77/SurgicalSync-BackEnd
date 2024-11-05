@@ -5,7 +5,6 @@ using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
-using DDDNetCore.Infraestructure.Shared;
 using DDDNetCore.Infraestructure.Staff;
 using DDDNetCore.Infraestructure.Users;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +18,7 @@ namespace DDDNetCore.Infraestructure
         public DbSet<OperationType> OperationTypes { get; set; }
         public DbSet<Domain.Staffs.Staff> Staffs { get; set; }
         public DbSet<OperationRequest> OperationRequests { get; set; }
-
+        
         public SurgicalSyncContext(DbContextOptions options) : base(options)
         {
 
