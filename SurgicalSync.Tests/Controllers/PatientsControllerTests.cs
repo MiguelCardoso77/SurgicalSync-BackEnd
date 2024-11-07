@@ -345,6 +345,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             Assert.IsNotNull(result);
             result.Result.Should().BeOfType<OkObjectResult>();
         }
+        
 
         [Test]
         public async Task Delete_InvalidId_ReturnsNotFound()
@@ -358,43 +359,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             // Assert
             Assert.IsInstanceOf<NotFoundResult>(result.Result);
         }
-        
-        [Test]
-        public async Task DeletePatientDataAndAccount_ValidId_ReturnsOk()
-        {
-            // Arrange
-            var user = new User(
-                new UserId("1"),
-                new Username("Tomás"),
-                new UserEmail("1220917.isep.ipp.pt"),
-                UserRole.Patient
-            );
-            
-            var users = new List<User> { user };
-            _mockIUserRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(users);
 
-            var patientToRemove = new Patient(
-                new PatientName("Tomás"),
-                new BirthDate("12 de Novembro de 2004"),
-                new Gender("Male"),
-                new MedicalRecordNumber("202410000001"),
-                new PhoneNumber("934260705"),
-                new MedicalConditions("Asma"),
-                new EmergencyContact("938413938"),
-                new AppointmentHistory("02/04/2024"),
-                new UserEmail("1220917@isep.ipp.pt")
-            );
-            
-            _mockIPatientRepository.Setup(repo => repo.GetByIdAsync(It.IsAny<MedicalRecordNumber>()))
-                .ReturnsAsync(patientToRemove);
-
-            _mockIPatientRepository.Setup(repo => repo.Remove(It.IsAny<Patient>()));
-
-            // Act
-            //var result = await _controller.DeletePatientDataAndAccount("202410000001");
-
-            // Assert
-            //Assert.IsNotNull(result);
-        }
     }
 }

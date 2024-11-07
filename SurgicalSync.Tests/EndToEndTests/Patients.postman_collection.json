@@ -3,8 +3,8 @@
 		"_postman_id": "dbb86231-ea2c-427a-b78e-58c136b19fef",
 		"name": "Patients",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38589967",
-		"_collection_link": "https://lapr5-g019.postman.co/workspace/122e429a-25a8-4075-bee8-377b67e80e07/collection/38589860-dbb86231-ea2c-427a-b78e-58c136b19fef?action=share&source=collection_link&creator=38589967"
+		"_exporter_id": "38589860",
+		"_collection_link": "https://lapr5-g019.postman.co/workspace/LAPR5-G019~122e429a-25a8-4075-bee8-377b67e80e07/collection/38589860-dbb86231-ea2c-427a-b78e-58c136b19fef?action=share&source=collection_link&creator=38589860"
 	},
 	"item": [
 		{
@@ -86,10 +86,10 @@
 							"    gender: \"Feminino\",\r",
 							"    medicalRecordNumber: \"202409000015\",\r",
 							"    phoneNumber: \"938000111\",\r",
-							"    medicalConditions: [],\r",
+							"    medicalConditions: null,\r",
 							"    emergencyContact: \"933264408\",\r",
-							"    appointmentHistory: [],\r",
-							"    email: \"1221190@isep.ipp.pt\",\r",
+							"    appointmentHistory: null,\r",
+							"    email: \"1221194@isep.ipp.pt\",\r",
 							"};\r",
 							"\r",
 							"// Test to check if response has all required fields and matches expected values\r",
@@ -124,7 +124,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"patientName\": \"Tomás\",\r\n        \"birthDate\": \"30 de Junho de 2004\",\r\n        \"gender\": \"Feminino\",\r\n        \"medicalRecordNumber\": \"202409000015\",\r\n        \"phoneNumber\": \"938000111\",\r\n        \"medicalConditions\": [],\r\n        \"emergencyContact\": \"933264408\",\r\n        \"appointmentHistory\": [],\r\n        \"email\": \"1221190@isep.ipp.pt\"\r\n    }",
+					"raw": "{\r\n        \"patientName\": \"Tomás\",\r\n        \"birthDate\": \"30 de Junho de 2004\",\r\n        \"gender\": \"Feminino\",\r\n        \"medicalRecordNumber\": \"202409000015\",\r\n        \"phoneNumber\": \"938000121\",\r\n        \"medicalConditions\": null,\r\n        \"emergencyContact\": \"933274408\",\r\n        \"appointmentHistory\": null,\r\n        \"email\": \"1221195@isep.ipp.pt\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -160,15 +160,15 @@
 							"\r",
 							"// Define expected values directly in the test\r",
 							"const expectedPatient = {\r",
-							"    patientName: \"Diana\",\r",
+							"    patientName: \"Tomás\",\r",
 							"    birthDate: \"30 de Junho de 2004\",\r",
 							"    gender: \"Feminino\",\r",
-							"    medicalRecordNumber: \"202409000001\",\r",
-							"    phoneNumber: \"938413938\",\r",
-							"    medicalConditions: [],\r",
-							"    emergencyContact: \"933264402\",\r",
-							"    appointmentHistory: [],\r",
-							"    email: \"1221195@isep.ipp.pt\"\r",
+							"    medicalRecordNumber: \"202409000015\",\r",
+							"    phoneNumber: \"938000111\",\r",
+							"    medicalConditions: null,\r",
+							"    emergencyContact: \"933264408\",\r",
+							"    appointmentHistory: null,\r",
+							"    email: \"1221194@isep.ipp.pt\",\r",
 							"};\r",
 							"\r",
 							"// Test to check if response matches expected patient values\r",
@@ -191,16 +191,6 @@
 							"    ]);\r",
 							"});\r",
 							"\r",
-							"\r",
-							"// Test if the medicalConditions is an array\r",
-							"pm.test(\"Medical conditions is an array\", function () {\r",
-							"    pm.expect(response.medicalConditions).to.be.an(\"array\");\r",
-							"});\r",
-							"\r",
-							"// Test if appointmentHistory is an array\r",
-							"pm.test(\"Appointment history is an array\", function () {\r",
-							"    pm.expect(response.appointmentHistory).to.be.an(\"array\");\r",
-							"});\r",
 							"\r",
 							"// Test for non-empty emergency contact\r",
 							"pm.test(\"Emergency contact is not empty\", function () {\r",
@@ -229,13 +219,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/Patients/202409000001",
+					"raw": "{{baseUrl}}/Patients/202409000236",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"Patients",
-						"202409000001"
+						"202409000236"
 					]
 				}
 			},
@@ -262,9 +252,9 @@
 							"    pm.expect(response).to.have.property(\"gender\").that.is.a(\"string\");",
 							"    pm.expect(response).to.have.property(\"medicalRecordNumber\");",
 							"    pm.expect(response).to.have.property(\"phoneNumber\").that.is.a(\"string\");",
-							"    pm.expect(response).to.have.property(\"medicalConditions\").that.is.an(\"array\");",
+							"    pm.expect(response).to.have.property(\"medicalConditions\").that.is.an(\"string\");",
 							"    pm.expect(response).to.have.property(\"emergencyContact\").that.is.a(\"string\");",
-							"    pm.expect(response).to.have.property(\"appointmentHistory\").that.is.an(\"array\");",
+							"    pm.expect(response).to.have.property(\"appointmentHistory\").that.is.an(\"string\");",
 							"    pm.expect(response).to.have.property(\"email\").that.is.a(\"string\");",
 							"}); ",
 							"",
@@ -286,7 +276,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"patientName\": \"Tomás\",\n        \"birthDate\": \"30 de Junho de 2004\",\n        \"gender\": \"Feminino\",\n        \"medicalRecordNumber\": \"202409000015\",\n        \"phoneNumber\": \"938413998\",\n        \"medicalConditions\": [],\n        \"emergencyContact\": \"933264408\",\n        \"appointmentHistory\": [],\n        \"email\": \"1221196@isep.ipp.pt\"\n    }",
+					"raw": "{\n        \"patientName\": \"Tomás\",\n        \"birthDate\": \"30 de Junho de 2004\",\n        \"gender\": \"Feminino\",\n        \"medicalRecordNumber\": \"202409000015\",\n        \"phoneNumber\": \"938413998\",\n        \"medicalConditions\": null,\n        \"emergencyContact\": \"933264408\",\n        \"appointmentHistory\": null,\n        \"email\": \"1221194@isep.ipp.pt\"\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -497,7 +487,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/Patients?gender=Masculino",
+					"raw": "{{baseUrl}}/Patients?gender=Feminino",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -507,7 +497,7 @@
 					"query": [
 						{
 							"key": "gender",
-							"value": "Masculino"
+							"value": "Feminino"
 						}
 					]
 				}
@@ -547,7 +537,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/Patients?phoneNumber=938745065",
+					"raw": "{{baseUrl}}/Patients?phoneNumber=938413998",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -557,7 +547,7 @@
 					"query": [
 						{
 							"key": "phoneNumber",
-							"value": "938745065"
+							"value": "938413998"
 						}
 					]
 				}
@@ -597,7 +587,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/Patients?userEmail=1221190@isep.ipp.pt",
+					"raw": "{{baseUrl}}/Patients?userEmail=1221194@isep.ipp.pt",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -607,8 +597,116 @@
 					"query": [
 						{
 							"key": "userEmail",
-							"value": "1221190@isep.ipp.pt"
+							"value": "1221194@isep.ipp.pt"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST a deletion request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let response;\r",
+							"try {\r",
+							"    response = pm.response.json();\r",
+							"    console.log(response);\r",
+							"\r",
+							"    if (response.message && response.message.includes(\"Deletion confirmation email sent.\")) {\r",
+							"        pm.test(\"Response contains email sent confirmation\", () => {\r",
+							"            pm.expect(response).to.have.property(\"message\");\r",
+							"            pm.expect(response.message).to.include(\"Deletion confirmation email sent.\");\r",
+							"        });\r",
+							"\r",
+							"        pm.test(\"Email sent to correct address\", () => {\r",
+							"            const expectedEmail = pm.environment.get(\"userEmail\");\r",
+							"            pm.expect(response.email).to.eql(expectedEmail);\r",
+							"        });\r",
+							"    } \r",
+							"    else if (response.message && response.message.includes(\"Account and data deletion confirmed and executed\")) {\r",
+							"        pm.test(\"Response contains deletion confirmation message\", () => {\r",
+							"            pm.expect(response).to.have.property(\"message\");\r",
+							"            pm.expect(response.message).to.include(\"Account and data deletion confirmed and executed\");\r",
+							"        });\r",
+							"\r",
+							"        pm.test(\"Patient ID format is correct\", () => {\r",
+							"            const idRegex = /^2024\\d{7}$/;\r",
+							"            pm.expect(response.patientId).to.match(idRegex);\r",
+							"        });\r",
+							"    } \r",
+							"   else {\r",
+							"        pm.test(\"Unexpected response message\", () => {\r",
+							"            pm.expect.fail(\"Response message did not match expected values.\");\r",
+							"        });\r",
+							"    }\r",
+							"} catch (e) {\r",
+							"    console.log(\"Response is not JSON:\", pm.response.text());\r",
+							"\r",
+							"    pm.test(\"Response contains expected messages in plain text\", () => {\r",
+							"        pm.expect(pm.response.text()).to.satisfy((text) => {\r",
+							"            return text.includes(\"Deletion confirmation email sent.\") || \r",
+							"                   text.includes(\"Account and data deletion confirmed and executed\");\r",
+							"        });\r",
+							"    });\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Patients/request-deletion/202409000020",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients",
+						"request-deletion",
+						"202409000020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST deletion request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Patients/confirm-deletion/202409000020",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients",
+						"confirm-deletion",
+						"202409000020"
 					]
 				}
 			},

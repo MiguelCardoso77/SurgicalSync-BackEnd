@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
@@ -23,20 +22,9 @@ namespace DDDNetCore.Application.Services
         private readonly UserService _userService;
         private readonly PatientMapper _patientMapper;
         private readonly ILogger<DeletePatientMicroService> _logger;
-        /**
-         * Initializes a new instance of the DeletePatientMicroService, providing functionality
-         * to anonymize patient data in compliance with GDPR and delete the associated account.
-         *
-         * @param unitOfWork         Unit of work to handle transaction management.
-         * @param patientRepository  Repository for accessing and managing patient data.
-         * @param patientMapper      Mapper to convert patient entities to Data Transfer Objects (DTOs).
-         * @param userService        Service to manage associated user accounts.
-         * @param logger             A Logger instance for information and error logging.
-         * @param emailService       Service to handle email notifications.
-         */
+        
         public DeletePatientMicroService(IUnitOfWork unitOfWork, IPatientRepository patientRepository,
-            PatientMapper patientMapper, UserService userService,
-            ILogger<DeletePatientMicroService> logger)
+            PatientMapper patientMapper, UserService userService, ILogger<DeletePatientMicroService> logger)
         {
             _unitOfWork = unitOfWork;
             _patientRepository = patientRepository;
@@ -44,112 +32,105 @@ namespace DDDNetCore.Application.Services
             _userService = userService;
             _logger = logger;
         }
-
         /**
-         * Asynchronously anonymizes personal data for a patient and deletes the associated user account
-         * to comply with GDPR. Anonymized data includes name, birthdate, gender, phone number, medical conditions,
-         * and emergency contact. Medical record number and appointment history are retained.
+         * Sends a confirmation link to the user's email for confirming the account and data deletion request.
          *
-         * @param medicalRecordNumber The medical record number of the patient to be anonymized and deleted.
-         * @return                    A task representing the asynchronous operation, containing the anonymized Patient DTO
-         *                            or null if the patient does not exist.
-         * @throws Exception          If an error occurs during the data deletion or email notification process.
+         * @param userEmail The email address of the user requesting the deletion.
          */
-
-        public async Task<PatientDto> DeletePatientDataByGDPRAndAccount(MedicalRecordNumber medicalRecordNumber)
+        public async Task SendDeletionConfirmationLink(UserEmail userEmail, MedicalRecordNumber patientId)
         {
-            _logger.LogInformation("Attempting to delete patient data for medical record number: {MedicalRecordNumber}",
-                medicalRecordNumber);
+            var link = $"https://localhost:5001/api/patients/confirm-deletion/{patientId}";
+            var emailContent = $"Hello,\n\n" +
+                               "We've received your request for account and data deletion.\n\n" +
+                               $"Please confirm your decision by clicking on the following link:\n{link}\n\n" +
+                               "Thank you for your trust in SurgicalSync.\n\n" +
+                               "Best regards,\n" +
+                               "The SurgicalSync Team";
 
-            var patient = await _patientRepository.GetByIdAsync(medicalRecordNumber);
-
-            if (patient == null)
-            {
-                _logger.LogWarning("Patient not found for medical record number: {MedicalRecordNumber}",
-                    medicalRecordNumber);
-                return null;
-            }
-
-            // Create an anonymized version of the patient
+            var email = new Email(emailContent, userEmail.ToString(), "Account and data deletion");
+            var emailService = new EmailService();
+            await emailService.SendEmailAsync(email);
+            _logger.LogInformation("Successfully sent deletion notification to: {UserEmail}", userEmail);
+        }
+        /**
+         * Anonymizes a patient's personal data while retaining their medical record number and appointment history.
+         *
+         * @param patient The patient whose data is to be anonymized.
+         */
+        public async Task AnonymizePatientData(Patient patient)
+        {
             var anonymized = new Patient(
                 new PatientName("Anonymous"),
                 new BirthDate("1900-01-01"),
                 new Gender("Unspecified"),
                 patient.Id,
                 new PhoneNumber("000-000-0000"),
-                new MedicalConditions("Asma"),
+                new MedicalConditions("Null"),
                 new EmergencyContact("000-000-0000"),
-                null,
+                patient.AppointmentHistory,
                 new UserEmail("anonymous@domain.com")
             );
-
-            // Remove the original patient record from the repository
-            _patientRepository.Remove(patient);
             
+            _patientRepository.Remove(patient);
             await _patientRepository.AddAsync(anonymized);
-
-            // Commit the deletion
             await _unitOfWork.CommitAsync();
-            _logger.LogInformation(
-                "Successfully anonymized patient data for medical record number: {MedicalRecordNumber}",
-                medicalRecordNumber);
-
-            var userEmail = patient.UserEmail;
-            var user = await _userService.GetUserByEmail(userEmail);
-
-            if (user == null)
-            {
-                _logger.LogInformation("User not found for email: {UserEmail}", userEmail);
-                return _patientMapper.ToDto(anonymized); // Return anonymized patient even if user is not found
-            }
-
-            var userId = new UserId(user.Id);
+            _logger.LogInformation("Successfully anonymized patient data for medical record number: {MedicalRecordNumber}", patient.Id);
+        }
+        /**
+         * Deletes a user account and its associated data.
+         *
+         * @param userId The unique identifier of the user to be deleted.
+         * @param userEmail The email address of the user to be deleted.
+         */
+        public async Task DeleteUserAccount(UserEmail userEmail)
+        {
             try
             {
-                var deletedUserDto = await _userService.DeleteAsync(userId);
-                await _unitOfWork.CommitAsync(); // Commit after deletion
+                
+                var user = await _userService.GetUserByEmail(userEmail);
 
-                if (deletedUserDto != null)
+                var userId = new UserId(user.Id);
+                try
                 {
-                    _logger.LogInformation("Successfully deleted user account for email: {UserEmail}", userEmail);
+                    var deletedUserDto = await _userService.DeleteAsync(userId);
+                    await _unitOfWork.CommitAsync(); // Commit after deletion
+
+                    if (deletedUserDto != null)
+                    {
+                        _logger.LogInformation("Successfully deleted user account for email: {UserEmail}", userEmail);
+                    }
+                    else
+                    {
+                        _logger.LogError("Failed to delete user account for email: {UserEmail}", userEmail);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    _logger.LogError("Failed to delete user account for email: {UserEmail}", userEmail);
-                    return _patientMapper.ToDto(anonymized);
+                    _logger.LogError(ex, "Exception during deletion of user account for email: {UserEmail}", userEmail);
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception during deletion of user account for email: {UserEmail}", userEmail);
-                return _patientMapper.ToDto(anonymized); // Return anonymized DTO if delete fails
             }
+        }
+        /**
+         * Sends a confirmation email to the user after their account and data have been permanently deleted.
+         *
+         * @param userEmail The email address of the user whose data has been deleted.
+         */
+        public async Task SendDeletionConfirmationEmail(UserEmail userEmail)
+        {
+            var emailContent = $"Hello,\n\n" +
+                               "Your personal data and account have been permanently deleted as requested.\n\n" +
+                               "Thank you for your trust in SurgicalSync.\n\n" +
+                               "Best regards,\n" +
+                               "The SurgicalSync Team";
 
-            // Send email notification
-            try
-            {
-                EmailService emailService = new EmailService();
-                var emailContent = $"Hello,\n\n" +
-                                   "We are reaching out to inform you that your personal data and account have been permanently deleted from the SurgicalSync System, as per your request.\n\n" +
-                                   "Your account information, including any identifiable medical records, appointment history, and other personal data, has been securely erased in compliance with GDPR regulations. Some anonymized data may be retained for legal or research purposes; however, this data cannot be linked back to you.\n\n" +
-                                   "Thank you for your trust in SurgicalSync.\n\n" +
-                                   "Best regards,\n" +
-                                   "The SurgicalSync Team";
-
-                var email = new Email(emailContent, userEmail.ToString(),
-                    "Your Account and Data Have Been Successfully Deleted");
-                await emailService.SendEmailAsync(email);
-
-                _logger.LogInformation("Successfully deleted account and associated data.");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex,
-                    "An error occurred while attempting to delete account and associated data for email: {Email}",
-                    userEmail);
-            }
-
-            return _patientMapper.ToDto(anonymized);
+            var email = new Email(emailContent, userEmail.ToString(), "Your Account and Data Have Been Deleted");
+            var emailService = new EmailService();
+            await emailService.SendEmailAsync(email);
+            _logger.LogInformation("Successfully sent deletion notification to: {UserEmail}", userEmail);
         }
     }
 }
