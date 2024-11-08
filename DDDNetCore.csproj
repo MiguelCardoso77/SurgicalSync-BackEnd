@@ -28,14 +28,5 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <None Remove="Wiki\SprintA\diagrams\use-cases\28-search-operation-requisitions\level2\process-view.puml" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="LAPR5.wiki\Sprint2\diagrams\use-cases\" />
-    <Folder Include="LAPR5.wiki\Sprint2\diagrams\views\level2\implementation-view\" />
-  </ItemGroup>
 
 </Project>
