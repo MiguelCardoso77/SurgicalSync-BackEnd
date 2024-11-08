@@ -168,7 +168,7 @@ namespace DDDNetCore.Application.Services
         public async Task<PatientDto> AddAsync(PatientDto dto)
         {
             var existingPatient = await GetAllAsync();
-            
+
             foreach (PatientDto pt in existingPatient)
             {
                 if (pt.PhoneNumber.Equals(dto.PhoneNumber, StringComparison.OrdinalIgnoreCase))
@@ -264,11 +264,40 @@ namespace DDDNetCore.Application.Services
         * @param id The medical record number of the patient.
         * @return The anonymized PatientDto, or null if not found.
         */
-        public async Task<PatientDto> DeletePatientDataAndAccount(MedicalRecordNumber id)
+        public async Task DeletePatientDataAndAccount(MedicalRecordNumber patientId)
         {
-            var patient = await _deletePatientMicroservice.DeletePatientDataByGDPRAndAccount(id);
+            var patient = await _repo.GetByIdAsync(patientId);
 
-            return patient;
+            var email = patient.UserEmail;
+
+            await _deletePatientMicroservice.AnonymizePatientData(patient);
+
+            await _deletePatientMicroservice.DeleteUserAccount(email);
+
+            await _deletePatientMicroservice.SendDeletionConfirmationEmail(email);
+
+            await _unitOfWork.CommitAsync();
+        }
+        /**
+         * Initiates the data deletion process for a patient by sending a confirmation link to the patient's email.
+         * This method retrieves the patient by their unique MedicalRecordNumber, and if found, sends a confirmation
+         * email allowing the patient to confirm the deletion of their account and personal data.
+         *
+         * @param patientId The unique MedicalRecordNumber of the patient requesting data deletion.
+         * @throws Exception If an error occurs during patient retrieval or email sending.
+         *
+         * This method utilizes the deletion microservice to send a confirmation email to the patient. The confirmation link.
+         * once accessed, allows the deletion process to be completed.
+         */
+        
+        public async Task RequestDeletion(MedicalRecordNumber patientId)
+        {
+            var patient = await _repo.GetByIdAsync(patientId);
+
+            if (patient != null)
+            {
+                await _deletePatientMicroservice.SendDeletionConfirmationLink(patient.UserEmail, patientId);
+            }
         }
     }
 }

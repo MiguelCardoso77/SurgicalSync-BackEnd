@@ -96,8 +96,12 @@ namespace DDDNetCore.Application.Services
         public async Task<OperationRequestDto> AddAsync(OperationRequestDto operationRequestDto)
         {
             var dtoId = string.IsNullOrEmpty(operationRequestDto.OperationRequestId) ? new OperationRequestId(Guid.NewGuid().ToString()) : new OperationRequestId(operationRequestDto.OperationRequestId);
+            
+            var list = await this._repo.GetAllAsync();
 
-            var domainObj = _mapper.ToDomain(operationRequestDto, dtoId);
+            var operationRequestId = GenerateOperationRequestId(operationRequestDto, list);
+            
+            var domainObj = _mapper.ToDomain(operationRequestDto, operationRequestId);
             
             await this._repo.AddAsync(domainObj);
             await this._unitOfWork.CommitAsync();
@@ -210,6 +214,30 @@ namespace DDDNetCore.Application.Services
         public async Task<List<OperationRequestDto>> GetAllByPatientName(string patientName)
         {
             return await _patientNameMicroService.GetAllOperationRequestsByPatientName(patientName);
+        }
+
+        public OperationRequestId GenerateOperationRequestId(OperationRequestDto operationRequestDto, List<OperationRequest> list)
+        {
+            bool exists = list.Any(or => or.Id.AsString() == operationRequestDto.OperationRequestId);
+
+            if (exists)
+            {
+                return new OperationRequestId(operationRequestDto.OperationRequestId);
+            }
+
+            if (list.Count > 0)
+            {
+                var lastOperationRequest = list.Last();
+        
+                var lastId = lastOperationRequest.Id.AsString();
+
+                int newId = int.Parse(lastId) + 1;
+                return new OperationRequestId(newId.ToString());
+            }
+            else
+            {
+                return new OperationRequestId("1");
+            }
         }
     }
 }

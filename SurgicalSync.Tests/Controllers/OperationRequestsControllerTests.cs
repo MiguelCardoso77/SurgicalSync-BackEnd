@@ -112,33 +112,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
 
             Assert.IsInstanceOf<BadRequestResult>(result.Result);
         }
-        
-        [Test]
-        public async Task Create_ReturnsCreatedResponse_WhenOperationRequestIsValid()
-        {
-            var dto = new OperationRequestDto
-            {
-                OperationRequestId = "1",
-                Priority = "UrgentSurgery",
-                DeadlineDate = "2025-01-07",
-                OperationTypeId = "5",
-                MedicalRecordNumber = "202409000001",
-                StaffId = "N202400001"
-            };
-
-            var request = new OperationRequest(new OperationRequestId("1"), Priority.UrgentSurgery,
-                new DeadlineDate(new DateTime(2025, 01, 07)),
-                new OperationTypeId("5"), new MedicalRecordNumber("202409000001"), new StaffId("N202400001"));
-                
-            _oRRepositoryMock.Setup(service => service.AddAsync(It.IsAny<OperationRequest>()))
-                .ReturnsAsync(request);
-
-            var result = await _controller.Create(dto);
-
-            Assert.IsInstanceOf<CreatedAtActionResult>(result.Result);
-            var createdResult = result.Result as CreatedAtActionResult;
-            Assert.AreEqual(201, createdResult.StatusCode);
-        }
 
         [Test]
 

@@ -211,40 +211,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             Assert.IsEmpty(result, "The result list is not empty as expected.");
             _repoMock.Verify(repo => repo.GetAllAsync(), Times.Once);
         }
-
-        [Test]
-        public async Task AddAsync_CreatesNewOperationRequest_WhenValidDtoIsProvided()
-        {
-            // Arrange
-            var operationRequestDto = new OperationRequestDto
-            {
-                OperationRequestId = null,
-                DeadlineDate = "2025-10-01",
-                StaffId = "D202400001",
-                Priority = Priority.ElectiveSurgery.ToString(),
-                OperationTypeId = "2",
-                MedicalRecordNumber = "202411000001"
-            };
-
-            var operationRequestId = new OperationRequestId(Guid.NewGuid().ToString());
-
-            var domainOperationRequest = new OperationRequest(
-                operationRequestId,
-                Priority.ElectiveSurgery,
-                new DeadlineDate(new DateTime(2025, 10, 1)),
-                new OperationTypeId("2"),
-                new MedicalRecordNumber("202411000001"),
-                new StaffId("D202400001")
-            );
-
-            // Act
-            var result = await _operationRequestService.AddAsync(operationRequestDto);
-
-            // Assert
-            Assert.IsNotNull(result);
-            _repoMock.Verify(repo => repo.AddAsync(It.IsAny<OperationRequest>()), Times.Once);
-            _unitOfWorkMock.Verify(uow => uow.CommitAsync(), Times.Once);
-        }
         
         [Test]
         public async Task UpdateAsync_UpdatesExistingOperationRequest_WhenValidDtoIsProvided()

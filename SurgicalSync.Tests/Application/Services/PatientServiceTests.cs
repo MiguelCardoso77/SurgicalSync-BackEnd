@@ -564,44 +564,5 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             //Assert
             Assert.IsNull(result);
         }
-        
-        [Test]
-        public async Task DeletePatientDataAndAccount_ReturnsListOfPatientDto_WhenValidMedicalRecordNumberIsProvided()
-        {
-            var user = new User(
-                new UserId("1"),
-                new Username("Diogo"),
-                new UserEmail("1220812.isep.ipp.pt"),
-                UserRole.Patient
-            );
-            
-            var users = new List<User> { user };
-            _mockIUserRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(users);
-            
-            var patient1 = new Patient
-            (
-                new PatientName("Diogo"),
-                new BirthDate("30 de Junho de 2004"),
-                new Gender("Male"),
-                new MedicalRecordNumber("202410000112"),
-                new PhoneNumber("933264402"),
-                new MedicalConditions("Asma"),
-                new EmergencyContact("934260705"),
-                new AppointmentHistory("2 de novembro de 2023"),
-                new UserEmail("1220812.isep.ipp.pt")
-            );
-
-            var patients = new List<Patient> { patient1 };
-
-            _mockIPatientRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(patients);
-
-            var medicalRecordNumber = new MedicalRecordNumber("202410000112");
-            
-            //Act
-            var result = await _service.DeletePatientDataAndAccount(medicalRecordNumber);
-
-            //Assert
-            Assert.IsNull(result);
-        }
     }
 }

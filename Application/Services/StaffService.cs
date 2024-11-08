@@ -185,15 +185,13 @@ namespace DDDNetCore.Application.Services
 
             staff.ChangeUserEmail(new UserEmail(dto.UserEmail));
 
-            
+
             staff.ChangeStaffSpecialization(new StaffSpecialization(dto.StaffSpecialization));
-            
+
 
             staff.ChangeStaffAvaiabilitySlots(new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots));
 
             var smtpEmailService = new EmailService();
-
-            //var avaiabilitySlotsText = string.Join(", ", avaiabilitySlots);
 
             var emailContent = $"Hello {staff.StaffName}! \nYour staff information was updated:\n\n" +
                                $"Email: {staff.UserEmail}\n\n" +
@@ -236,7 +234,7 @@ namespace DDDNetCore.Application.Services
             var list = await this._repo.GetAllAsync();
 
             var staffId = GenerateLN(dto, staffType, list);
-            var staff = _mapper.ToDomain(dto, staffId, new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots) );
+            var staff = _mapper.ToDomain(dto, staffId, new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots));
 
             await this._repo.AddAsync(staff);
             await this._unitOfWork.CommitAsync();
@@ -254,6 +252,7 @@ namespace DDDNetCore.Application.Services
          */
         public StaffId GenerateLN(StaffDto staffDto, StaffType staffType, List<Staff> list)
         {
+            // Verificar se já existe um registro com o mesmo número de telefone, email ou número da licença.
             bool exists = list.Any(s =>
                 s.StaffPhoneNumber.ToString() == staffDto.StaffPhoneNumber ||
                 s.UserEmail.ToString() == staffDto.UserEmail ||
@@ -265,7 +264,6 @@ namespace DDDNetCore.Application.Services
                     "Já existe um registro com o mesmo phone number ou email ou licenseNumber.");
             }
 
-
             char prefix = staffType switch
             {
                 StaffType.Doctor => 'D',
@@ -275,7 +273,27 @@ namespace DDDNetCore.Application.Services
 
             string year = DateTime.Now.Year.ToString();
 
-            _lastGeneratedNumber = (_lastGeneratedNumber + 1) % 10000;
+            // Se a lista não estiver vazia, pegar o último StaffId e extrair os últimos 5 dígitos
+            if (list.Count > 0)
+            {
+                // Obter o último staff criado
+                var lastStaff = list.Last();
+                // Extrair o número do último StaffId (assumindo que StaffId é uma string no formato "D2023100001")
+                string lastStaffId = lastStaff.Id.AsString();
+                string lastNumberPart = lastStaffId.Substring(3); // Ignorar prefixo e ano, pegar os últimos 5 dígitos
+                if (int.TryParse(lastNumberPart, out int lastNumber))
+                {
+                    _lastGeneratedNumber = (lastNumber + 1) % 100000; // Incrementar o último número
+                }
+                else
+                {
+                    _lastGeneratedNumber = 00001; // Se não for um número válido, começar com 1
+                }
+            }
+            else
+            {
+                _lastGeneratedNumber = 00001; // Se não houver staffs, começar com 1
+            }
 
             string staffId = $"{prefix}{year}{_lastGeneratedNumber:D5}";
 

@@ -31,10 +31,10 @@ namespace DDDNetCore.Infraestructure.OperationRequests
             builder.HasKey(b => b.Id);
 
             builder.Property(b => b.Id).HasConversion(
-                b => b.ToString(),
-                b => new OperationRequestId(b)).
-                IsRequired().
-                ValueGeneratedOnAdd();
+                b => b.AsString(),
+                b => new OperationRequestId(b))
+                .IsRequired()
+                .ValueGeneratedOnAdd();
 
             // Configure owned Priority value object
             builder.Property(b => b.Priority)

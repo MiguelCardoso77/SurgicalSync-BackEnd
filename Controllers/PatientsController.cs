@@ -17,6 +17,7 @@ namespace DDDNetCore.Controllers
     public class PatientsController : ControllerBase
     {
         private readonly PatientService _service;
+        private readonly DeletePatientMicroService _deletePatientMicroService;
 
         /**
          * Initializes a new instance of the PatientsController class.
@@ -145,7 +146,7 @@ namespace DDDNetCore.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        
         /**
          * Deletes a patient record by their medical record number.
          *
@@ -165,19 +166,34 @@ namespace DDDNetCore.Controllers
 
             return Ok(pat);
         }
-
-        // DELETE: api/Patients/GDPR/P5
-        [HttpDelete("GDPR/{id}")]
-        public async Task<ActionResult<PatientDto>> DeletePatientDataAndAccount(string id)
+        
+        
+        // POST: api/patients/request-deletion/{patientId}
+        [HttpPost("request-deletion/{patientId}")]
+        public async Task<ActionResult> RequestDeletion(string patientId)
         {
-            var pat = await _service.DeletePatientDataAndAccount(new MedicalRecordNumber(id));
+            var medicalRecordNumber = new MedicalRecordNumber(patientId);
+            var patient = await _service.GetByIdAsync(medicalRecordNumber);
 
-            if (pat == null)
+            if (patient == null)
             {
-                return NotFound();
+                return NotFound("Patient not found.");
             }
 
-            return Ok(pat);
+            await _service.RequestDeletion(medicalRecordNumber);
+
+            return Ok("Deletion confirmation email sent.");
+        }
+        
+        // GET: api/patients/confirm-deletion/{patientId}
+        [HttpGet("confirm-deletion/{patientId}")]
+        public async Task<ActionResult> ConfirmDeletion(string patientId)
+        {
+            var medicalRecordNumber = new MedicalRecordNumber(patientId);
+
+            await _service.DeletePatientDataAndAccount(medicalRecordNumber);
+
+            return Ok("Account and data deletion confirmed and executed.");
         }
     }
 }
