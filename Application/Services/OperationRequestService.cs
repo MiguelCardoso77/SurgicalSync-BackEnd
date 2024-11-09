@@ -98,6 +98,14 @@ namespace DDDNetCore.Application.Services
             var dtoId = string.IsNullOrEmpty(operationRequestDto.OperationRequestId) ? new OperationRequestId(Guid.NewGuid().ToString()) : new OperationRequestId(operationRequestDto.OperationRequestId);
             
             var list = await this._repo.GetAllAsync();
+            
+            var existingOperationRequest = list.FirstOrDefault(or => or.OperationTypeId.AsString() == operationRequestDto.OperationTypeId);
+
+            if (existingOperationRequest != null)
+            {
+                _logger.LogWarning("A request of operation type {OperationTypeId} already exists.", operationRequestDto.OperationTypeId);
+                throw new InvalidOperationException("An operation request for this operation type already exists.");
+            }
 
             var operationRequestId = GenerateOperationRequestId(operationRequestDto, list);
             
