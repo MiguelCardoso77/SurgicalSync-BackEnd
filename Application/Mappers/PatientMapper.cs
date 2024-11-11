@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DDDNetCore.Application.DTO;
@@ -24,7 +25,7 @@ namespace DDDNetCore.Application.Mappers
                 PatientName = domain.PatientName.ToString(),
                 BirthDate = domain.BirthDate.ToString(),
                 Gender = domain.Gender.ToString(),
-                MedicalRecordNumber = domain.Id.AsString(),
+                MedicalRecordNumber = domain.Id.ToString(),
                 PhoneNumber = domain.PhoneNumber.ToString(),
                 MedicalConditions = domain.MedicalConditions?.Value, //this can be null
                 EmergencyContact = domain.EmergencyContact.ToString(),
@@ -45,7 +46,7 @@ namespace DDDNetCore.Application.Mappers
             {
                 PatientName = domain.PatientName.ToString(),
                 BirthDate = domain.BirthDate.ToString(),
-                MedicalRecordNumber = domain.Id.AsString(),
+                MedicalRecordNumber = domain.Id.ToString(),
                 Email = domain.UserEmail.ToString()
             };
         }

@@ -200,7 +200,7 @@ namespace DDDNetCore.Application.Services
                     
                     return loginResponse;
                 }
-
+                
                 var errorResponse = await response.Content.ReadAsStringAsync();
                 Console.WriteLine($"Login Error: {response.StatusCode} - {errorResponse}");
                 return null;

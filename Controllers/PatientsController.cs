@@ -76,6 +76,7 @@ namespace DDDNetCore.Controllers
             }
 
             var allPatients = await _service.GetAllAsync();
+            Console.WriteLine("All patient profiles listed successfully.");
             return Ok(allPatients);
         }
 
@@ -95,7 +96,7 @@ namespace DDDNetCore.Controllers
             {
                 return NotFound();
             }
-
+            Console.WriteLine($"Patient with Medical Record Number = {id} was retrieved successfully.");
             return pat;
         }
 
@@ -111,6 +112,7 @@ namespace DDDNetCore.Controllers
         {
             var pat = await _service.AddAsync(dto);
 
+            Console.WriteLine($"Patient with Medical Record Number = {dto.MedicalRecordNumber} was created successfully.");
             return CreatedAtAction(nameof(GetById), new { id = pat.MedicalRecordNumber }, pat);
         }
 
@@ -138,7 +140,7 @@ namespace DDDNetCore.Controllers
                 {
                     return NotFound();
                 }
-
+                Console.WriteLine($"Patient with Medical Record Number = {id} was updated successfully.");
                 return pat;
             }
             catch (Exception e)
@@ -163,7 +165,7 @@ namespace DDDNetCore.Controllers
             {
                 return NotFound();
             }
-
+            Console.WriteLine($"Patient with Medical Record Number = {id} was deleted successfully.");
             return Ok(pat);
         }
         
