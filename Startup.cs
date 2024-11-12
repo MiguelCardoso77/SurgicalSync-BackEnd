@@ -74,6 +74,7 @@ namespace DDDNetCore
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             
             //Bootstrap.BootstrapData(context);
+            PlanningBootstrap.BootstrapData(context);
             Console.WriteLine("Bootstrap data loaded.");
         }
 

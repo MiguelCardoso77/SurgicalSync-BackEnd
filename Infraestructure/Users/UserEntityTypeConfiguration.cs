@@ -16,7 +16,7 @@ namespace DDDNetCore.Infraestructure.Users
     internal class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {
         /**
-         * Configures the entity of type <User/> using the provided <EntityTypeBuilder/>.
+         * Configures the entity of type <User/> using the provided<EntityTypeBuilder/>.
          * This method sets up the primary key, properties, and relationships with other entities.
          * <param name="builder">The <EntityTypeBuilder/> used to configure the entity.</param>
          */

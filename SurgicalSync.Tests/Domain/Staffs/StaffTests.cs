@@ -15,7 +15,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         private Mock<StaffName> _mockStaffName;
         private Mock<UserEmail> _mockEmail;
         private Mock<StaffPhoneNumber> _mockPhoneNumber;
-        private Mock<StaffAvaiabilitySlots> _mockAvailabilitySlots;
+        private Mock<StaffAvailabilitySlots> _mockAvailabilitySlots;
         private Mock<StaffSpecialization> _mockSpecialization;
         private StaffType _mockType;
         private bool _mockIsActive;
@@ -30,7 +30,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
             _mockPhoneNumber = new Mock<StaffPhoneNumber>("962839401");
             _mockSpecialization =  new Mock<StaffSpecialization>("Dermatology");
             _mockAvailabilitySlots =
-                new Mock<StaffAvaiabilitySlots>(
+                new Mock<StaffAvailabilitySlots>(
                     "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00");
 
             _mockType = StaffType.Doctor;
@@ -59,7 +59,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
             Assert.AreEqual("962839401", staff.StaffPhoneNumber.Value);
             Assert.AreEqual("Dermatology", staff.StaffSpecialization.Value);
             Assert.AreEqual("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
-                staff.StaffAvaiabilitySlots.Value);
+                staff.StaffAvailabilitySlots.Value);
             Assert.AreEqual(StaffType.Doctor.ToString(), staff.StaffType.ToString());
             Assert.AreEqual(true, staff.IsActive);
             Assert.AreEqual("N202400001", staff.StaffLicenseNumber.Value);
@@ -126,7 +126,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         }
 
         [Test]
-        public void TestChangeStaffAvaiabilitySlots()
+        public void TestChangeStaffAvailabilitySlots()
         {
             var staff = new Staff(
                 _mockStaffId.Object,
@@ -140,11 +140,11 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
                 _mockLicenseNumber.Object
             );
 
-            Mock<StaffAvaiabilitySlots> mockStaffAvaiabilitySlots =
-                new Mock<StaffAvaiabilitySlots>("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00");
+            Mock<StaffAvailabilitySlots> mockStaffAvailabilitySlots =
+                new Mock<StaffAvailabilitySlots>("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00");
                 
             
-            staff.ChangeStaffAvaiabilitySlots(mockStaffAvaiabilitySlots.Object);
+            staff.ChangeStaffAvailabilitySlots(mockStaffAvailabilitySlots.Object);
         }
         
         [Test]

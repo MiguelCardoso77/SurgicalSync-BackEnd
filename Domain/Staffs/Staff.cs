@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
-using NUnit.Framework.Internal.Execution;
 
 namespace DDDNetCore.Domain.Staffs
 {
@@ -19,7 +16,7 @@ namespace DDDNetCore.Domain.Staffs
         public UserEmail UserEmail { get; private set; }
         public StaffPhoneNumber StaffPhoneNumber { get; private set; }
         public StaffSpecialization StaffSpecialization { get; private set; }
-        public StaffAvaiabilitySlots StaffAvaiabilitySlots { get; private set; }
+        public StaffAvailabilitySlots StaffAvailabilitySlots { get; private set; }
         public bool IsActive { get; set; }
         public StaffType StaffType { get; private set; }
         public StaffLicenseNumber StaffLicenseNumber { get; private set; }
@@ -35,7 +32,7 @@ namespace DDDNetCore.Domain.Staffs
             this.UserEmail = null;
             this.StaffPhoneNumber = null;
             this.StaffSpecialization = null;
-            this.StaffAvaiabilitySlots = null;
+            this.StaffAvailabilitySlots = null;
             this.StaffType = StaffType.Other;
             this.IsActive = true;
             this.StaffLicenseNumber = null;
@@ -49,13 +46,13 @@ namespace DDDNetCore.Domain.Staffs
          * @param userEmail The email address of the staff member.
          * @param staffPhoneNumber The phone number of the staff member.
          * @param staffSpecialization The specialization of the staff member.
-         * @param staffAvaiabilitySlots The list of availability slots for the staff member.
+         * @param staffAvailabilitySlots The list of availability slots for the staff member.
          * @param staffType The type of the staff member.
          * @param isActive The active status of the staff member.
          * @param staffLicenseNumber The license number of the staff member.
          */
         public Staff(StaffId id, StaffName staffName, UserEmail userEmail, StaffPhoneNumber staffPhoneNumber,
-            StaffSpecialization staffSpecialization, StaffAvaiabilitySlots staffAvaiabilitySlots,
+            StaffSpecialization staffSpecialization, StaffAvailabilitySlots staffAvailabilitySlots,
             StaffType staffType, Boolean isActive,
             StaffLicenseNumber staffLicenseNumber)
         {
@@ -64,7 +61,7 @@ namespace DDDNetCore.Domain.Staffs
             this.UserEmail = userEmail;
             this.StaffPhoneNumber = staffPhoneNumber;
             this.StaffSpecialization = staffSpecialization;
-            this.StaffAvaiabilitySlots = staffAvaiabilitySlots;
+            this.StaffAvailabilitySlots = staffAvailabilitySlots;
             this.StaffType = staffType;
             this.IsActive = isActive;
             this.StaffLicenseNumber = staffLicenseNumber;
@@ -121,11 +118,11 @@ namespace DDDNetCore.Domain.Staffs
         /**
          * Updates the availability slots of the staff member.
          *
-         * @param staffAvaiabilitySlots The new list of availability slots to be set.
+         * @param staffAvailabilitySlots The new list of availability slots to be set.
          */
-        public void ChangeStaffAvaiabilitySlots(StaffAvaiabilitySlots staffAvaiabilitySlots)
+        public void ChangeStaffAvailabilitySlots(StaffAvailabilitySlots staffAvailabilitySlots)
         {
-            this.StaffAvaiabilitySlots = staffAvaiabilitySlots;
+            this.StaffAvailabilitySlots = staffAvailabilitySlots;
         }
     }
 }

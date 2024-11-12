@@ -12,7 +12,7 @@ namespace DDDNetCore.Domain.Patients
     public class MedicalRecordNumber : EntityId
     {
         private static int _sequentialNumber;
-        
+
         /**
          * Initializes a new instance of the MedicalRecordNumber class with a specified value.
          *
@@ -27,9 +27,8 @@ namespace DDDNetCore.Domain.Patients
          * Initializes a new instance of the MedicalRecordNumber class with a generated
          * medical record number based on the current date and a sequential number.
          */
-        
-        // public MedicalRecordNumber() : base(GenerateMedicalRecordNumber())
-        public MedicalRecordNumber() : base("1")
+
+        public MedicalRecordNumber() : base(GenerateMedicalRecordNumber())
         {
         }
 
@@ -39,7 +38,7 @@ namespace DDDNetCore.Domain.Patients
          *
          * @return A string representing the generated medical record number.
          */
-        /**
+        
         private static string GenerateMedicalRecordNumber()
         {
             // Get the current year and month
@@ -50,7 +49,8 @@ namespace DDDNetCore.Domain.Patients
             string seqNumber = _sequentialNumber.ToString("D6");
 
             return $"{year}{month}{seqNumber}";
-        }*/
+            
+        }
 
         /**
          * Creates an instance of MedicalRecordNumber from the specified string representation.

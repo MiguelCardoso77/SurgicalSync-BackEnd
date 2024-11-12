@@ -58,9 +58,9 @@ namespace DDDNetCore.Infraestructure.Staff
                     .IsRequired();
             });
           
-           builder.OwnsOne(b => b.StaffAvaiabilitySlots, StaffAvaiabilitySlotsBuilder =>
+           builder.OwnsOne(b => b.StaffAvailabilitySlots, StaffAvailabilitySlotsBuilder =>
            {
-               StaffAvaiabilitySlotsBuilder.Property(p => p.Value)
+               StaffAvailabilitySlotsBuilder.Property(p => p.Value)
                    .HasColumnName("StaffAvaiabilitySlots")
                    .IsRequired();
            });
@@ -86,16 +86,16 @@ namespace DDDNetCore.Infraestructure.Staff
 
         }
         
-        private static string SerializeAvailabilitySlots(List<StaffAvaiabilitySlots> slots)
+        private static string SerializeAvailabilitySlots(List<StaffAvailabilitySlots> slots)
         {
             var slotValues = slots.Select(slot => slot.Value).ToList(); // Extrai apenas os valores das instâncias
             return JsonSerializer.Serialize(slotValues); // Serializa a lista de valores em JSON
         }
 
-        private static List<StaffAvaiabilitySlots> DeserializeAvailabilitySlots(string json)
+        private static List<StaffAvailabilitySlots> DeserializeAvailabilitySlots(string json)
         {
             var slotValues = JsonSerializer.Deserialize<List<string>>(json); // Desserializa JSON em lista de strings
-            return slotValues.Select(value => new StaffAvaiabilitySlots(value)).ToList(); // Converte strings para AvailabilitySlot
+            return slotValues.Select(value => new StaffAvailabilitySlots(value)).ToList(); // Converte strings para AvailabilitySlot
         }
 
     }

@@ -19,7 +19,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
         private Mock<StaffName> _mockStaffName;
         private Mock<UserEmail> _mockEmail;
         private Mock<StaffPhoneNumber> _mockPhoneNumber;
-        private Mock<StaffAvaiabilitySlots> _mockAvailabilitySlots;
+        private Mock<StaffAvailabilitySlots> _mockAvailabilitySlots;
         private Mock<StaffSpecialization> _mockSpecialization;
         private StaffType _mockType;
         private bool _mockIsActive;
@@ -34,7 +34,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             _mockEmail = new Mock<UserEmail>("raquelgoncalves@gmail.com");
             _mockPhoneNumber = new Mock<StaffPhoneNumber>("962839401");
             _mockSpecialization = new Mock<StaffSpecialization>("Dermatology");
-            _mockAvailabilitySlots = new Mock<StaffAvaiabilitySlots>("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00");
+            _mockAvailabilitySlots = new Mock<StaffAvailabilitySlots>("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00");
             _mockType = StaffType.Doctor;
             _mockIsActive = true;
             _mockLicenseNumber = new Mock<StaffLicenseNumber>("N202400001");
@@ -57,7 +57,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             };
             
             var id = new StaffId(dto.Id);
-            var staffAvaiabilitySlots =new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots);
+            var staffAvaiabilitySlots =new StaffAvailabilitySlots(dto.StaffAvaiabilitySlots);
            
             var staff = _mapper.ToDomain(dto, id, staffAvaiabilitySlots);
             
@@ -88,7 +88,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockLicenseNumber.Object
             );
     
-            Assert.IsNotNull(staff.StaffAvaiabilitySlots, "Staff availability slots should not be null.");
+            Assert.IsNotNull(staff.StaffAvailabilitySlots, "Staff availability slots should not be null.");
     
             var dto = _mapper.ToDto(staff);
     

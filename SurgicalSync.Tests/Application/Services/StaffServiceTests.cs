@@ -45,7 +45,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
                 StaffType.Doctor,
                 true,
                 new StaffLicenseNumber("N202400001")
@@ -57,7 +57,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
                 StaffType.Doctor,
                 true,
                 new StaffLicenseNumber("N202400001")
@@ -121,7 +121,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
                 StaffType.Doctor,
                 true,
                 new StaffLicenseNumber("N202400001")
@@ -133,7 +133,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Doctor,
                 true,
@@ -202,7 +202,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("1221194@isep.ipp.pt"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
                 StaffType.Doctor,
                 true,
                 new StaffLicenseNumber("N202400002")
@@ -268,7 +268,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Doctor,
                 true,
@@ -281,7 +281,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Doctor,
                 true,
@@ -311,7 +311,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Doctor,
                 true,
@@ -324,7 +324,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Doctor,
                 true,
@@ -355,7 +355,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 email,
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Doctor,
                 true,
@@ -368,7 +368,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Doctor,
                 true,
@@ -441,7 +441,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("tomasgoncalves@gmail.com"),
                 new StaffPhoneNumber("963456798"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Nurse,
                 true,
@@ -454,7 +454,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Other,
                 true,
@@ -483,7 +483,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 new UserEmail("raquelgoncalves@gmail.com"),
                 new StaffPhoneNumber("962839401"),
                 new StaffSpecialization("Dermatology"),
-                new StaffAvaiabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
+                new StaffAvailabilitySlots("slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00"),
 
                 StaffType.Doctor,
                 true,

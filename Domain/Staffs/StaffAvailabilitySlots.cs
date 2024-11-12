@@ -1,3 +1,4 @@
+using System.Linq;
 using DDDNetCore.Domain.Shared;
 
 namespace DDDNetCore.Domain.Staffs
@@ -6,7 +7,7 @@ namespace DDDNetCore.Domain.Staffs
      * Represents the value object for staff availability slots.
      * This class encapsulates the available time slots for a staff member and ensures immutability.
      */
-    public class StaffAvaiabilitySlots : IValueObject<string>
+    public class StaffAvailabilitySlots : IValueObject<string>
     {
         /**
          * The value representing the staff availability slots.
@@ -15,18 +16,18 @@ namespace DDDNetCore.Domain.Staffs
         public string Value { get; private set; }
 
 
-        private StaffAvaiabilitySlots()
+        private StaffAvailabilitySlots()
         {
         }
 
         /**
          * Constructor that initializes the availability slots value.
          *
-         * @param staffAvaiabilitySlots The value representing the staff's availability slots.
+         * @param staffAvailabilitySlots The value representing the staff's availability slots.
          */
-        public StaffAvaiabilitySlots(string staffAvaiabilitySlots)
+        public StaffAvailabilitySlots(string staffAvailabilitySlots)
         {
-            this.Value = staffAvaiabilitySlots;
+            this.Value = staffAvailabilitySlots;
         }
 
         /**
@@ -40,14 +41,34 @@ namespace DDDNetCore.Domain.Staffs
         }
 
         /**
+         * Converts the availability slots value into minutes.
+         *
+         * @param staffAvailabilitySlots The availability slots value to convert.
+         * @return A string representing the availability slots in minutes.
+         */
+        public string ConvertIntoMinutes()
+        {
+            var times = Value.Split(',');
+            var minutesList = times.Select(time =>
+            {
+                var parts = time.Split(':');
+                var hours = int.Parse(parts[0]);
+                var minutes = int.Parse(parts[1]);
+                return (hours * 60 + minutes).ToString();
+            });
+
+            return string.Join(",", minutesList);
+        }
+
+        /**
          * Checks equality between this instance and another object.
          *
          * @param obj The object to compare with this instance.
-         * @return true if the other object is a StaffAvaiabilitySlots and the values are the same; otherwise, false.
+         * @return true if the other object is a StaffAvailabilitySlots and the values are the same; otherwise, false.
          */
         public override bool Equals(object obj)
         {
-            if (obj is StaffAvaiabilitySlots other)
+            if (obj is StaffAvailabilitySlots other)
             {
                 return Value == other.Value;
             }
