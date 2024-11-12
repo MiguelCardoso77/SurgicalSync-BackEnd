@@ -5,6 +5,8 @@ using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Domain.Staffs;
+using DDDNetCore.Domain.SurgeryRooms;
+using Type = DDDNetCore.Domain.SurgeryRooms.Type;
 
 namespace DDDNetCore.Infraestructure
 {
@@ -147,12 +149,33 @@ namespace DDDNetCore.Infraestructure
             };
             
             */
+
+            var surgeryRooms = new List<SurgeryRoom>()
+            {
+                new(new RoomNumber("1"), new MaintenanceSlots(""), CurrentStatus.Available, new AssignedEquipment("Consultation Table, Blood Pressure Monitor, Ventilator, Surgical Light, X-Ray Machine, Heart Monitor"),
+                    new Capacity(1, 4), Type.OperatingRoom),
+                new(new RoomNumber("2"), new MaintenanceSlots(""), CurrentStatus.Occupied, new AssignedEquipment("Consultation Table, Blood Pressure Monitor, Ventilator, Surgical Light, X-Ray Machine, Heart Monitor"), 
+                    new Capacity(1, 4), Type.OperatingRoom),
+                new(new RoomNumber("3"), new MaintenanceSlots(""), CurrentStatus.Available, new AssignedEquipment("Consultation Table, Blood Pressure Monitor, Ventilator, Surgical Light, X-Ray Machine, Heart Monitor"),
+                    new Capacity(1, 4), Type.OperatingRoom),
+                new(new RoomNumber("4"), new MaintenanceSlots(""), CurrentStatus.Occupied, new AssignedEquipment("Consultation Table, Blood Pressure Monitor, Ventilator, Surgical Light, X-Ray Machine, Heart Monitor"),
+                    new Capacity(1,4), Type.OperatingRoom),
+                new(new RoomNumber("5"), new MaintenanceSlots(""), CurrentStatus.Available, new AssignedEquipment("Consultation Table, Blood Pressure Monitor, Ventilator, Surgical Light, X-Ray Machine, Heart Monitor"),
+                    new Capacity(1, 4), Type.OperatingRoom),
+                new(new RoomNumber("6"), new MaintenanceSlots(""), CurrentStatus.Available, new AssignedEquipment("Consultation Table, Blood Pressure Monitor, Ventilator, Surgical Light, X-Ray Machine, Heart Monitor"),
+                    new Capacity(1, 4), Type.OperatingRoom),
+                new(new RoomNumber("7"), new MaintenanceSlots(""), CurrentStatus.Occupied, new AssignedEquipment("Consultation Table"),
+                    new Capacity(1, 1), Type.ConsultationRoom),
+                new(new RoomNumber("8"), new MaintenanceSlots(""), CurrentStatus.UnderMaintenance, new AssignedEquipment("ICU Bed, Ventilator, Heart Monitor"),
+                    new Capacity(4,2), Type.ICU),
+            };
             
             //context.Patients.AddRange(patients);
             context.OperationTypes.AddRange(operationTypes);
             //context.Staffs.AddRange(staffs);
             //context.Users.AddRange(users);
             //wcontext.OperationRequests.AddRange(request);
+            context.SurgeryRooms.AddRange(surgeryRooms);
             context.SaveChanges();
         }
     }
