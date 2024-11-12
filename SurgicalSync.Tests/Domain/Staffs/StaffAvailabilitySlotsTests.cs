@@ -5,27 +5,27 @@ using NUnit.Framework;
 namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
 {
     [TestFixture]
-    public class StaffAvaiabilitySlotsTests
+    public class StaffAvailabilitySlotsTests
     {
         [Test]
         public void TestConstructor()
         {
-            var avaiabilitySlots = new StaffAvaiabilitySlots("2024-09-25:14h00-18h00");
+            var avaiabilitySlots = new StaffAvailabilitySlots("2024-09-25:14h00-18h00");
             Assert.AreEqual("2024-09-25:14h00-18h00", avaiabilitySlots.Value);
         }
 
         [Test]
         public void TestToString()
         {
-            var avaiabilitySlots = new StaffAvaiabilitySlots("2024-09-25:14h00-18h00");
+            var avaiabilitySlots = new StaffAvailabilitySlots("2024-09-25:14h00-18h00");
             Assert.AreEqual("2024-09-25:14h00-18h00", avaiabilitySlots.ToString());
         }
 
         [Test]
         public void TestEquals()
         {
-            var avaiabilitySlots1 = new StaffAvaiabilitySlots("2024-09-25:14h00-18h00");
-            var avaiabilitySlots2 = new StaffAvaiabilitySlots("2024-09-25:14h00-18h00");
+            var avaiabilitySlots1 = new StaffAvailabilitySlots("2024-09-25:14h00-18h00");
+            var avaiabilitySlots2 = new StaffAvailabilitySlots("2024-09-25:14h00-18h00");
             Assert.AreEqual(avaiabilitySlots1, avaiabilitySlots2);
         }
 
@@ -33,8 +33,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         public void TestEqualHashCodes()
         {
             // Arrange
-            var avaiabilitySlots1 = new StaffAvaiabilitySlots("2024-09-25:14h00-18h00");
-            var avaiabilitySlots2 = new StaffAvaiabilitySlots("2024-09-25:14h00-18h00");
+            var avaiabilitySlots1 = new StaffAvailabilitySlots("2024-09-25:14h00-18h00");
+            var avaiabilitySlots2 = new StaffAvailabilitySlots("2024-09-25:14h00-18h00");
 
             // Act
             var hashCode1 = avaiabilitySlots1.GetHashCode();
@@ -48,8 +48,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         public void TestDifferentHashCodes()
         {
             // Arrange
-            var avaiabilitySlots1 = new StaffAvaiabilitySlots("2024-09-25:14h00-18h00");
-            var avaiabilitySlots2 = new StaffAvaiabilitySlots("2024-09-26:15h00-18h00");
+            var avaiabilitySlots1 = new StaffAvailabilitySlots("2024-09-25:14h00-18h00");
+            var avaiabilitySlots2 = new StaffAvailabilitySlots("2024-09-26:15h00-18h00");
 
             // Act
             var hashCode1 = avaiabilitySlots1.GetHashCode();
@@ -63,7 +63,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         [Test]
         public void TestPrivateConstructor()
         {
-            var avaiabilitySlots = (StaffAvaiabilitySlots)Activator.CreateInstance(typeof(StaffAvaiabilitySlots), true);
+            var avaiabilitySlots = (StaffAvailabilitySlots)Activator.CreateInstance(typeof(StaffAvailabilitySlots), true);
 
             Assert.NotNull(avaiabilitySlots);
             Assert.IsNull(avaiabilitySlots.Value);

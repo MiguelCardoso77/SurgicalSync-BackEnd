@@ -189,7 +189,7 @@ namespace DDDNetCore.Application.Services
             staff.ChangeStaffSpecialization(new StaffSpecialization(dto.StaffSpecialization));
 
 
-            staff.ChangeStaffAvaiabilitySlots(new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots));
+            staff.ChangeStaffAvailabilitySlots(new StaffAvailabilitySlots(dto.StaffAvaiabilitySlots));
 
             var smtpEmailService = new EmailService();
 
@@ -197,7 +197,7 @@ namespace DDDNetCore.Application.Services
                                $"Email: {staff.UserEmail}\n\n" +
                                $"Phone Number: {staff.StaffPhoneNumber}\n\n" +
                                $"Specialization: {staff.StaffSpecialization}\n\n" +
-                               $"Availability Slots: {staff.StaffAvaiabilitySlots}";
+                               $"Availability Slots: {staff.StaffAvailabilitySlots}";
 
             if (staff.StaffType.ToString() != dto.StaffType || staff.StaffName.ToString() != dto.StaffName ||
                 staff.UserEmail.ToString() != dto.UserEmail)
@@ -234,7 +234,7 @@ namespace DDDNetCore.Application.Services
             var list = await this._repo.GetAllAsync();
 
             var staffId = GenerateLN(dto, staffType, list);
-            var staff = _mapper.ToDomain(dto, staffId, new StaffAvaiabilitySlots(dto.StaffAvaiabilitySlots));
+            var staff = _mapper.ToDomain(dto, staffId, new StaffAvailabilitySlots(dto.StaffAvaiabilitySlots));
 
             await this._repo.AddAsync(staff);
             await this._unitOfWork.CommitAsync();

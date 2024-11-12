@@ -20,14 +20,14 @@ namespace DDDNetCore.Application.Mappers
          * @param staffAvaiabilitySlotsList The list of availability slots for the staff member.
          * @return A Staff domain entity populated with the data from the provided StaffDto.
          */
-        public Staff ToDomain(StaffDto dto, StaffId id, StaffAvaiabilitySlots staffAvaiabilitySlots)
+        public Staff ToDomain(StaffDto dto, StaffId id, StaffAvailabilitySlots staffAvailabilitySlots)
         {
             return new Staff(id,
                 new StaffName(dto.StaffName),
                 new UserEmail(dto.UserEmail),
                 new StaffPhoneNumber(dto.StaffPhoneNumber),
                 new StaffSpecialization(dto.StaffSpecialization),                
-                staffAvaiabilitySlots,
+                staffAvailabilitySlots,
                 Enum.Parse<StaffType>(dto.StaffType),
                 dto.isActive,
                 new StaffLicenseNumber(dto.StaffLicenseNumber));
@@ -48,7 +48,7 @@ namespace DDDNetCore.Application.Mappers
                 UserEmail = domain.UserEmail.ToString(),
                 StaffPhoneNumber = domain.StaffPhoneNumber.ToString(),
                 StaffSpecialization = domain.StaffSpecialization.ToString(),
-                StaffAvaiabilitySlots = domain.StaffAvaiabilitySlots.ToString(),
+                StaffAvaiabilitySlots = domain.StaffAvailabilitySlots.ToString(),
                 StaffType = domain.StaffType.ToString(),
                 isActive = domain.IsActive,
                 StaffLicenseNumber = domain.StaffLicenseNumber.ToString()
