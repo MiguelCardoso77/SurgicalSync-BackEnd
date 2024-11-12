@@ -14,7 +14,7 @@ namespace DDDNetCore.Infraestructure.SurgeryRooms
 
             builder.Property(s => s.Id)
                 .HasConversion(
-                    s => s.ToString(),
+                    s => s.AsString(),
                     s => new RoomNumber(s))
                 .IsRequired()
                 .ValueGeneratedOnAdd();

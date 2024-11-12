@@ -7,13 +7,27 @@ public class PlanningBootstrap
 {
     public static void BootstrapData(SurgicalSyncContext context)
     {
-        var currentDate = "20241111";
-        
+        var currentDate = DateTime.Now.ToString("yyyyMMdd");
+
+        AgendaStaffMethod(context, currentDate);
         TimetableMethod(context, currentDate);
         StaffMethod(context);
         SurgeryMethod(context);
         SurgeryIdMethod(context);
         AssignmentSurgeryMethod(context);
+        AgendaOperationRoomMethod(context, currentDate);
+    }
+    
+    private static void AgendaStaffMethod(SurgicalSyncContext context, string currentDate)
+    {
+        var staff = context.Staffs.ToList();
+        foreach (var s in staff)
+        {
+            var id = s.Id.AsString().ToLower();
+            
+            var x = "agenda_staff(" + id + ", " + currentDate + ", " + "[]" + ").";
+            Console.WriteLine(x);
+        }
     }
 
     private static void TimetableMethod(SurgicalSyncContext context, string currentDate)
@@ -81,6 +95,18 @@ public class PlanningBootstrap
             var staff = oR.StaffId.AsString().ToLower();
 
             var x = "assignment_surgery(" + id + ", " + staff + ").";
+            Console.WriteLine(x);
+        }
+    }
+
+    private static void AgendaOperationRoomMethod(SurgicalSyncContext context, string currentDate)
+    {
+        var surgeryRooms = context.SurgeryRooms.ToList();
+        foreach (var sR in surgeryRooms)
+        {
+            var id = "sR" + sR.Id.AsString();
+            
+            var x = "agenda_operation_room(" + id + ", " + currentDate + ", " + "[]" + ").";
             Console.WriteLine(x);
         }
     }

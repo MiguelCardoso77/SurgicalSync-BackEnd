@@ -14,6 +14,7 @@ namespace DDDNetCore.Infraestructure
     {
         public static void BootstrapData(SurgicalSyncContext context)
         {
+            /*
             var operationTypes = new List<OperationType>
             {
                 new(new OperationTypeId("1"), new OperationName("ACL Reconstruction Surgery"),
@@ -57,6 +58,7 @@ namespace DDDNetCore.Infraestructure
                     new RequiredStaff("1 Orthopaedist, 1 Anaesthetist, 1 Instrumenting Nurse, 1 Circulating Nurse, 1 Nurse Anaesthetist, 1 Medical Action Assistant"),
                     new EstimatedDuration("15, 10, 15"))
             };
+            **/
             
             /**
 
@@ -171,7 +173,7 @@ namespace DDDNetCore.Infraestructure
             };
             
             //context.Patients.AddRange(patients);
-            context.OperationTypes.AddRange(operationTypes);
+            //context.OperationTypes.AddRange(operationTypes);
             //context.Staffs.AddRange(staffs);
             //context.Users.AddRange(users);
             //wcontext.OperationRequests.AddRange(request);
