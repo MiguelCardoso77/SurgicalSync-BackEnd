@@ -146,7 +146,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 UserEmail = "miguel@gmail.com",
                 StaffPhoneNumber = "962839401",
                 StaffSpecialization = "Anesthesiology",
-                StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
+                StaffAvailabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
 
                 StaffType = StaffType.Nurse.ToString(),
                 isActive = true,
@@ -231,7 +231,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     UserEmail = "tomas@gmail.com",
                     StaffPhoneNumber = "987123845",
                     StaffSpecialization = "Anesthesiology",
-                    StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
+                    StaffAvailabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
                 StaffType = StaffType.Doctor.ToString(),
                 isActive = true,
                 StaffLicenseNumber = "N202400021"
@@ -272,7 +272,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 UserEmail = "tomas@gmail.com",
                 StaffPhoneNumber = "987123845",
                 StaffSpecialization = "Anesthesiology",
-                StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
+                StaffAvailabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
 
                 StaffType = StaffType.Doctor.ToString(),
                 isActive = true,
@@ -315,7 +315,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 UserEmail = "miguel@gmail.com",
                 StaffPhoneNumber = "987654321",
                 StaffSpecialization = "Anesthesiology",
-                StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
+                StaffAvailabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
 
                 StaffType = StaffType.Doctor.ToString(),
                 isActive = true,

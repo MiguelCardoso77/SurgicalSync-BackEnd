@@ -41,6 +41,18 @@ namespace DDDNetCore.Application.Mappers
          */
         public StaffDto ToDto(Staff domain)
         {
+            Console.WriteLine("domain:", domain.Id);
+            Console.WriteLine("domain:", domain.StaffName);
+            Console.WriteLine("domain:", domain.UserEmail);
+            Console.WriteLine("domain:", domain.StaffPhoneNumber);
+            Console.WriteLine("domain:", domain.StaffSpecialization);
+            Console.WriteLine("domain:", domain.StaffAvailabilitySlots);
+            Console.WriteLine("domain:");
+
+
+
+
+            
             return new StaffDto
             {
                 Id = domain.Id.AsString(),
@@ -48,7 +60,7 @@ namespace DDDNetCore.Application.Mappers
                 UserEmail = domain.UserEmail.ToString(),
                 StaffPhoneNumber = domain.StaffPhoneNumber.ToString(),
                 StaffSpecialization = domain.StaffSpecialization.ToString(),
-                StaffAvaiabilitySlots = domain.StaffAvailabilitySlots.ToString(),
+                StaffAvailabilitySlots = domain.StaffAvailabilitySlots.ToString(),
                 StaffType = domain.StaffType.ToString(),
                 isActive = domain.IsActive,
                 StaffLicenseNumber = domain.StaffLicenseNumber.ToString()
@@ -65,7 +77,7 @@ namespace DDDNetCore.Application.Mappers
         {
             return new StaffDtoList
             {
-                Id = domain.Id.AsString(),
+                Id = domain.Id.ToString(),
                 StaffName = domain.StaffName.ToString(),
                 UserEmail = domain.UserEmail.ToString(),
                 StaffSpecialization = domain.StaffSpecialization.ToString(),

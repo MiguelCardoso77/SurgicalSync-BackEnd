@@ -61,7 +61,7 @@ namespace DDDNetCore.Infraestructure.Staff
            builder.OwnsOne(b => b.StaffAvailabilitySlots, StaffAvailabilitySlotsBuilder =>
            {
                StaffAvailabilitySlotsBuilder.Property(p => p.Value)
-                   .HasColumnName("StaffAvaiabilitySlots")
+                   .HasColumnName("StaffAvailabilitySlots")
                    .IsRequired();
            });
         

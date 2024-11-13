@@ -50,14 +50,14 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 UserEmail = "raquelgoncalves@gmail.com",
                 StaffPhoneNumber = "962839401", 
                 StaffSpecialization = "Dermatology",
-                StaffAvaiabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
+                StaffAvailabilitySlots = "slot 1: 2024-09-25:14h00-18h00 ; slot 2: 2024-09-25:19h00/2024-09-26:02h00",
                 StaffType = StaffType.Doctor.ToString(),
                 isActive = true,
                 StaffLicenseNumber = "N202400001"
             };
             
             var id = new StaffId(dto.Id);
-            var staffAvaiabilitySlots =new StaffAvailabilitySlots(dto.StaffAvaiabilitySlots);
+            var staffAvaiabilitySlots =new StaffAvailabilitySlots(dto.StaffAvailabilitySlots);
            
             var staff = _mapper.ToDomain(dto, id, staffAvaiabilitySlots);
             
@@ -66,7 +66,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             Assert.AreEqual(staff.UserEmail.ToString(), dto.UserEmail);
             Assert.AreEqual(staff.StaffPhoneNumber.ToString(), dto.StaffPhoneNumber);
             Assert.AreEqual(staff.StaffSpecialization.ToString(), dto.StaffSpecialization);
-            Assert.AreEqual(dto.StaffAvaiabilitySlots, dto.StaffAvaiabilitySlots);
+            Assert.AreEqual(dto.StaffAvailabilitySlots, dto.StaffAvailabilitySlots);
             Assert.AreEqual(staff.StaffType.ToString(), dto.StaffType);
             Assert.AreEqual(staff.IsActive,dto.isActive);
             Assert.AreEqual(staff.StaffLicenseNumber.ToString(), dto.StaffLicenseNumber);
@@ -97,7 +97,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             Assert.AreEqual(_mockEmail.Object.ToString(), dto.UserEmail);
             Assert.AreEqual(_mockPhoneNumber.Object.ToString(), dto.StaffPhoneNumber);
             Assert.AreEqual(_mockSpecialization.Object.ToString(), dto.StaffSpecialization);
-            Assert.AreEqual(_mockAvailabilitySlots.Object.ToString(), dto.StaffAvaiabilitySlots);
+            Assert.AreEqual(_mockAvailabilitySlots.Object.ToString(), dto.StaffAvailabilitySlots);
             Assert.AreEqual(_mockType.ToString(), dto.StaffType);
             Assert.AreEqual(_mockIsActive, dto.isActive);
             Assert.AreEqual(_mockLicenseNumber.Object.ToString(), dto.StaffLicenseNumber);

@@ -94,7 +94,7 @@ namespace DDDNetCore.Infraestructure
                 new(new StaffId("D202400001"), new StaffName("Tomás Gonçalves"),
                     new UserEmail("1220917@isep.ipp.pt"), new StaffPhoneNumber("962754971"),
                     StaffSpecialization.Family_medicine,
-                    new StaffAvaiabilitySlots(
+                    new StaffAvailabilitySlots(
                        "2024-09-25:14h00-18h00 ; 2024-09-25:19h00/2024-09-26:02h00")
                     , StaffType.Doctor,
                     isActive:true,
@@ -106,7 +106,7 @@ namespace DDDNetCore.Infraestructure
                 new(new StaffId("N202400002"), new StaffName("Diana Neves"),
                     new UserEmail("1221194@isep.ipp.pt"), new StaffPhoneNumber("962749672"),
                     StaffSpecialization.Family_medicine,
-                    new StaffAvaiabilitySlots(
+                    new StaffAvailabilitySlots(
                         "2024-09-25:14h00-18h00 ; 2024-09-25:19h00/2024-09-26:02h00")
                      ,StaffType.Nurse,
                     isActive:true,
@@ -117,7 +117,7 @@ namespace DDDNetCore.Infraestructure
                 new(new StaffId("N202400003"), new StaffName("Gonçalo Sousa"),
                 new UserEmail("1221331@isep.ipp.pt"), new StaffPhoneNumber("962749673"),
                 StaffSpecialization.Cardiology,
-                new StaffAvaiabilitySlots("2024-09-25:14h00-18h00 ; 2024-09-25:19h00/2024-09-26:02h00")
+                new StaffAvailabilitySlots("2024-09-25:14h00-18h00 ; 2024-09-25:19h00/2024-09-26:02h00")
                 ,StaffType.Nurse,
                 isActive:true,
                 new StaffLicenseNumber("00003")

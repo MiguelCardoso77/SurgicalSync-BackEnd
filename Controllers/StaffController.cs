@@ -80,6 +80,7 @@ namespace DDDNetCore.Controllers
                 string.IsNullOrEmpty(userEmail))
             {
                 var allStaff = await _service.GetAllAsync();
+                Console.WriteLine("All staffs listed successfully!");
                 return Ok(allStaff);
             }
 

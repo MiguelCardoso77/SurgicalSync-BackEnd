@@ -37,7 +37,7 @@ namespace DDDNetCore.Application.DTO
         /**
          * Gets or sets the list of availability slots for the staff member.
          */
-        public string StaffAvaiabilitySlots { get; set; }
+        public string StaffAvailabilitySlots { get; set; }
 
         /**
          * Gets or sets the type of the staff member (e.g., Doctor, Nurse).
