@@ -50,6 +50,24 @@ namespace DDDNetCore.Domain.SurgeryRooms
             MaxPatients = maxPatients;
             MaxStaff = maxStaff;
         }
+        /**
+         * Initializes a new instance of the Capacity class from a string representation.
+         * This constructor accepts a single string containing the maximum number of patients
+         * and staff separated by a comma, and assigns the parsed values to MaxPatients and MaxStaff.
+         *
+         * @param capacityString A comma-separated string with the maximum number of patients#
+         * and staff in the format "MaxPatients,MaxStaff".
+         * @throws ArgumentNullException If the capacityString is null.
+         * @throws FormatException If the capacityString does not contain two integer values
+         *separated by a comma.
+         * @throws ArgumentOutOfRangeException If any parsed value is negative.
+         */
+        public Capacity(string capacityString)
+        {
+            var parts = capacityString.Split(',');
+            MaxPatients = int.Parse(parts[0]);
+            MaxStaff = int.Parse(parts[1]);
+        }
 
         /**
          * Returns a string representation of the capacity.
