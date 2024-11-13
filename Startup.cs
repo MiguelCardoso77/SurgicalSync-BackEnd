@@ -6,12 +6,14 @@ using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Staffs;
+using DDDNetCore.Domain.SurgeryRooms;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure;
 using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
 using DDDNetCore.Infraestructure.Staff;
+using DDDNetCore.Infraestructure.SurgeryRooms;
 using DDDNetCore.Infraestructure.Users;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
@@ -38,7 +40,7 @@ namespace DDDNetCore
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:4200, http://localhost:63342").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             });
             
             FirebaseApp.Create(new AppOptions()
@@ -103,6 +105,10 @@ namespace DDDNetCore
             services.AddTransient<IOperationRequestRepository, OperationRequestRepository>();
             services.AddTransient<OperationRequestService>();
             services.AddTransient<OperationRequestMapper>();
+
+            services.AddTransient<ISurgeryRoomsRepository, SurgeryRoomRepository>();
+            services.AddTransient<SurgeryRoomService>();
+            services.AddTransient<SurgeryRoomMapper>();
             
             services.AddTransient<PatientNameMicroService>();
             services.AddTransient<PatientMicroService>();
