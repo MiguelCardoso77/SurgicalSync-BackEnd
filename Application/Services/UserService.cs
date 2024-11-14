@@ -43,6 +43,18 @@ namespace DDDNetCore.Application.Services
         }
         
         /**
+         * Asynchronously retrieves all users by their username.
+         * Return: A task representing the asynchronous operation, containing a list of <UserDto/> objects.
+         */
+        public async Task<List<UserDto>> GetAllByUsername(string userName)
+        {
+            var list = await this._repo.GetAllAsync();
+            var filteredList = list.Where(pt => pt.Username.ToString().Contains(userName, StringComparison.OrdinalIgnoreCase)).ToList();
+            
+            return _mapper.ToDtoList(filteredList);
+        }
+        
+        /**
          * Asynchronously retrieves a user by its id.
          * <param name="id"> The id of the user </param>
          * Return: A task representing the asynchronous operation, containing an <UserDto/> object.

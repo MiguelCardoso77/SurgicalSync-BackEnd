@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
@@ -25,8 +24,15 @@ namespace DDDNetCore.Controllers
         
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAll([FromQuery] string userName = null)
         {
+            if (!string.IsNullOrEmpty(userName))
+            {
+                var result = await _service.GetAllByUsername(userName);
+                return Ok(result);
+            }
+            
+            Console.WriteLine("All users listed successfully.");
             return await _service.GetAllAsync();
         }
         

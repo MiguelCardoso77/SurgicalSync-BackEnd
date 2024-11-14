@@ -40,7 +40,8 @@ namespace DDDNetCore
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:4200, http://localhost:63342").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:63342").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             });
             
             FirebaseApp.Create(new AppOptions()
