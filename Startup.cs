@@ -1,6 +1,7 @@
 ﻿using System;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Application.Services;
+using DDDNetCore.Domain.Appointments;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
@@ -9,6 +10,7 @@ using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain.SurgeryRooms;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure;
+using DDDNetCore.Infraestructure.Appointments;
 using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
@@ -110,6 +112,10 @@ namespace DDDNetCore
             services.AddTransient<ISurgeryRoomsRepository, SurgeryRoomRepository>();
             services.AddTransient<SurgeryRoomService>();
             services.AddTransient<SurgeryRoomMapper>();
+
+            services.AddTransient<IAppointmentsRepository, AppointmentRepository>();
+            services.AddTransient<AppointmentService>();
+            services.AddTransient<AppointmentMapper>();
             
             services.AddTransient<PatientNameMicroService>();
             services.AddTransient<PatientMicroService>();
