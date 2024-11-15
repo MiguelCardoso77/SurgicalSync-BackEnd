@@ -37,6 +37,19 @@ namespace DDDNetCore.Controllers
         {
             return await _service.LoginWithEmailPasswordAsync(dto);
         }
+        
+        /**
+         * Authenticates a patient using a Google token.
+         *
+         * @param dto The Google login data transfer object containing the authorization code.
+         * @return An ActionResult containing the authenticated PatientDto object.
+         */
+        // POST: api/Authentication/token
+        [HttpPost("token")]
+        public async Task<ActionResult<AuthCodeDto>> ExchangeToken(AuthCodeDto dto)
+        {
+            return await _service.ExchangeToken(dto);
+        }
 
         /**
          * Logs in a user using Google authentication.
@@ -51,19 +64,6 @@ namespace DDDNetCore.Controllers
             await _service.AuthenticatePatientToken(dto);
 
             return dto;
-        }
-
-        /**
-         * Authenticates a patient using a Google token.
-         *
-         * @param dto The Google login data transfer object containing the authorization code.
-         * @return An ActionResult containing the authenticated PatientDto object.
-         */
-        // PATCH: api/Authentication
-        [HttpPatch]
-        public async Task<ActionResult<PatientDto>> AuthenticatePatientToken(GoogleLoginDto dto)
-        {
-            return await _service.AuthenticatePatientToken(dto);
         }
     }
 }

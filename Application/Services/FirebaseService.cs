@@ -263,7 +263,7 @@ namespace DDDNetCore.Application.Services
             var tokenEndpoint = GoogleSignInUrl;
             var clientId = GoogleClientId;
             var clientSecret = GoogleSecretId;
-            var redirectUri = "http://localhost:5001/api/operationTypes";
+            var redirectUri = "http://localhost:4200/main/patient";
 
             var requestData = new Dictionary<string, string>
             {
@@ -276,18 +276,12 @@ namespace DDDNetCore.Application.Services
 
             using (var client = new HttpClient())
             {
-                Console.WriteLine("Passou");
                 var content = new FormUrlEncodedContent(requestData);
-                Console.WriteLine("Passou");
                 var response = await client.PostAsync(tokenEndpoint, content);
-                Console.WriteLine("Passou");
                 var responseString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Passou");
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Passou");
                     var tokenResponse = JsonConvert.DeserializeObject<dynamic>(responseString);
-                    Console.WriteLine("Passou");
                     string idToken = tokenResponse.id_token;
                     return idToken;
                 }

@@ -24,11 +24,17 @@ namespace DDDNetCore.Controllers
         
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetAll([FromQuery] string userName = null)
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAll([FromQuery] string userName = null, [FromQuery] string userEmail = null)
         {
             if (!string.IsNullOrEmpty(userName))
             {
                 var result = await _service.GetAllByUsername(userName);
+                return Ok(result);
+            }
+
+            if (!string.IsNullOrEmpty(userEmail))
+            {
+                var result = await _service.GetAllByEmail(userEmail);
                 return Ok(result);
             }
             
