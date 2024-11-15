@@ -49,22 +49,12 @@ namespace DDDNetCore.Application.Services
         
         public async Task<AuthCodeDto> ExchangeToken(AuthCodeDto dto)
         {
-            // Exchange the authorization code for an ID token
-            var idToken = await FirebaseService.ExchangeAuthorizationCodeForIdToken(dto.AuthCode);
-            if (idToken == null)
-            {
-                throw new Exception("Failed to exchange authorization code for ID token.");
-            }
-
             // Verify the ID token and extract user details
-            var decodedToken = await FirebaseService.VerifyIdTokenAsync(idToken);
-            if (decodedToken == null)
+            var email = await FirebaseService.VerifyIdTokenAsync(dto.AuthCode);
+            if (email == null)
             {
                 throw new Exception("Failed to verify ID token.");
             }
-
-            // Get user details from the decoded token
-            var email = decodedToken.Claims["email"].ToString();
 
             return new AuthCodeDto
             {

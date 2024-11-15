@@ -111,19 +111,25 @@ namespace DDDNetCore.Application.Services
          * @param idToken The ID token to verify.
          * @return A Task representing the asynchronous operation, with the decoded FirebaseToken.
          */
-        public static async Task<FirebaseToken> VerifyIdTokenAsync(string idToken)
+        public static async Task<string> VerifyIdTokenAsync(string idToken)
         {
             try
             {
                 var decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
                 Console.WriteLine($"Token belongs to: {decodedToken.Uid}");
-                return decodedToken;
+                
+                if (decodedToken.Claims.TryGetValue("email", out object email))
+                {
+                    return email.ToString();
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error verifying ID token: {e.Message}");
                 return null;
             }
+            
+            return null;
         }
 
         /**
@@ -260,33 +266,26 @@ namespace DDDNetCore.Application.Services
          */
         public static async Task<string> ExchangeAuthorizationCodeForIdToken(string authorizationCode)
         {
-            var tokenEndpoint = GoogleSignInUrl;
-            var clientId = GoogleClientId;
-            var clientSecret = GoogleSecretId;
-            var redirectUri = "http://localhost:4200/main/patient";
-
             var requestData = new Dictionary<string, string>
             {
                 { "code", authorizationCode },
-                { "client_id", clientId },
-                { "client_secret", clientSecret },
-                { "redirect_uri", redirectUri },
+                { "client_id", GoogleClientId },
+                { "client_secret", GoogleSecretId },
+                { "redirect_uri", "http://localhost:4200/main/patient" },
                 { "grant_type", "authorization_code" }
             };
 
             using (var client = new HttpClient())
             {
                 var content = new FormUrlEncodedContent(requestData);
-                var response = await client.PostAsync(tokenEndpoint, content);
+                var response = await client.PostAsync(GoogleSignInUrl, content);
                 var responseString = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
                     var tokenResponse = JsonConvert.DeserializeObject<dynamic>(responseString);
                     string idToken = tokenResponse.id_token;
                     return idToken;
-                }
-                else
-                {
+                } else {
                     Console.WriteLine($"Failed to get id_token: {responseString}");
                     return null;
                 }
