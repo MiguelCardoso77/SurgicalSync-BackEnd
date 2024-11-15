@@ -225,7 +225,12 @@ namespace DDDNetCore.Application.Services
             patient.ChangeGender(new Gender(dto.Gender));
             patient.ChangeBirthDate(new BirthDate(dto.BirthDate));
             patient.ChangeEmergencyContact(new EmergencyContact(dto.EmergencyContact));
-
+            
+            
+            //so podem ser alterados por um user com role doctor ou nurse, admin nao pode alterar
+            patient.ChangeMedicalConditions(new MedicalConditions(dto.MedicalConditions));
+            patient.ChangeAppointmentHistory(new AppointmentHistory(dto.AppointmentHistory));
+            
             // Send set-up email to user
             var smtpEmailService = new EmailService();
             var emailContent =
