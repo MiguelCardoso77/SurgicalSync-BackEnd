@@ -38,8 +38,9 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             };
             
             var operationTypeId = new OperationTypeId(dto.Id);
+            var requiredStaff = new RequiredStaff(dto.RequiredStaff);
 
-            var operationType = _mapper.ToDomain(dto, operationTypeId, _mockRequiredStaff.Object);
+            var operationType = _mapper.ToDomain(dto, operationTypeId, requiredStaff);
             
             Assert.AreEqual(dto.Id, operationType.Id.AsString());
             Assert.AreEqual(dto.OperationName, operationType.Name.ToString());
