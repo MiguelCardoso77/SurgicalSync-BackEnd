@@ -116,8 +116,9 @@ namespace DDDNetCore.Controllers
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
         {
+
+            Console.WriteLine(dto.UserEmail);
             if (ModelState.IsValid)
-                
             {
                 var user = await _service.GetUserByEmail(new UserEmail(dto.UserEmail));
 

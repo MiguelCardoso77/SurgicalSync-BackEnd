@@ -41,19 +41,10 @@ namespace DDDNetCore.Application.Mappers
          */
         public StaffDto ToDto(Staff domain)
         {
-            Console.WriteLine("domain:", domain.Id);
-            Console.WriteLine("domain:", domain.StaffName);
-            Console.WriteLine("domain:", domain.UserEmail);
-            Console.WriteLine("domain:", domain.StaffPhoneNumber);
-            Console.WriteLine("domain:", domain.StaffSpecialization);
-            Console.WriteLine("domain:", domain.StaffAvailabilitySlots);
-            Console.WriteLine("domain:");
-
-
-
-
             
-            return new StaffDto
+            Console.WriteLine("domain");
+
+    return new StaffDto
             {
                 Id = domain.Id.AsString(),
                 StaffName = domain.StaffName.ToString(),

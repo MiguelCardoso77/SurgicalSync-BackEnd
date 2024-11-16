@@ -340,7 +340,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual(2, result.Count);
             Assert.AreEqual(staff1.StaffSpecialization.ToString(), result[0].StaffSpecialization);
         }
 

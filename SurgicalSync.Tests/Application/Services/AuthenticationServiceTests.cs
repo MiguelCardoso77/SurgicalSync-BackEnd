@@ -91,8 +91,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
         {
             var dto = new LoginDto
             {
-                Email = "1220917@isep.ipp.pt",
-                Password = "57+&Kt9X(J",
+                Email = "1221194@isep.ipp.pt",
+                Password = "Diana@doctor@2425",
                 ReturnSecureToken = "true"
             };
 

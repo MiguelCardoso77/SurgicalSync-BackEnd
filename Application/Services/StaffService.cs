@@ -273,14 +273,20 @@ namespace DDDNetCore.Application.Services
 
             if (list.Count > 0)
             {
-                 lastGeneratedNumber = list
-                    .Select(s => int.TryParse(s.StaffLicenseNumber.ToString().Substring(5), out int num) ? num : 0)
+                lastGeneratedNumber = list
+                    .Select(s => 
+                    {
+                        // Pega os últimos 5 caracteres de StaffLicenseNumber e tenta converter para inteiro
+                        var lastFiveDigits = s.Id?.ToString().Substring(Math.Max(s.Id.ToString().Length - 5, 0));
+                        Console.WriteLine(lastFiveDigits);
+                        return int.TryParse(lastFiveDigits, out int num) ? num : 0;
+                    })
                     .DefaultIfEmpty(0)
                     .Max();
             }
             else
             {
-                 lastGeneratedNumber = 1;
+                 lastGeneratedNumber = 0;
             }
 
             int nextGeneratedNumber = lastGeneratedNumber + 1;

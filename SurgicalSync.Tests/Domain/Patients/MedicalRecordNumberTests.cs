@@ -64,7 +64,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
         {
             var medicalRecordNumber = (MedicalRecordNumber)Activator.CreateInstance(typeof(MedicalRecordNumber), true);
 
-            Assert.AreEqual("1",medicalRecordNumber.ToString());
+            Assert.AreEqual("202411000001",medicalRecordNumber.ToString());
             Assert.AreEqual(medicalRecordNumber.Value, medicalRecordNumber.ToString());
         }
     }
