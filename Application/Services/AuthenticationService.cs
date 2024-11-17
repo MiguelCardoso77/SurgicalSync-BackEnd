@@ -55,7 +55,7 @@ namespace DDDNetCore.Application.Services
             {
                 throw new Exception("Failed to verify ID token.");
             }
-
+            
             return new AuthCodeDto
             {
                 AuthCode = dto.AuthCode,

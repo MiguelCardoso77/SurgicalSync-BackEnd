@@ -24,8 +24,8 @@ public class PlanningBootstrap
         foreach (var s in staff)
         {
             var id = s.Id.AsString().ToLower();
-            
-            var x = "agenda_staff(" + id + ", " + currentDate + ", " + "[]" + ").";
+
+            var x = "http://localhost:8888/agendaStaff?staffID=" + id + "&day=" + currentDate;
             Console.WriteLine(x);
         }
     }
@@ -52,7 +52,7 @@ public class PlanningBootstrap
             var type = s.StaffType.ToString().ToLower();
             var specialization = s.StaffSpecialization.ToString().ToLower();
             
-            var x = "staff(" + id + ", " + type + ", " + specialization + "(oT1, oT3)" + ").";
+            var x = "staff(" + id + ", " + type + ", " + specialization + ", (oT1, oT3)" + ").";
             Console.WriteLine(x);
         }
     }

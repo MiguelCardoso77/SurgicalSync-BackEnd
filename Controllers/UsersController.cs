@@ -65,6 +65,15 @@ namespace DDDNetCore.Controllers
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
         
+        // POST: api/Users/Patient
+        [HttpPost("patient")]
+        public async Task<ActionResult<UserDto>> CreatePatient(UserDto dto)
+        {
+            var user = await _service.AddPatientAsync(dto);
+            
+            return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
+        }
+        
         // PUT: api/Users/U5
         [HttpPut("{id}")]
         public async Task<ActionResult<UserDto>> Update(String id, UserDto dto)
