@@ -46,7 +46,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Staffs
         public void TestDifferentHashCodes()
         {
             var specialization1 = "Dermatology";
-            var specialization2 = "Dermatology";
+            var specialization2 = "Pediatric";
             
             // Act
             var hashCode1 = specialization1.GetHashCode();

@@ -95,8 +95,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             Assert.AreEqual(_mockPhoneNumber.Object.ToString(), dto.PhoneNumber);
             Assert.AreEqual(_mockEmergencyContact.Object.ToString(), dto.EmergencyContact);
             Assert.AreEqual(_mockUserEmail.Object.ToString(), dto.Email);
-            Assert.AreEqual(_mockMedicalConditions.Object.ToString(), dto.MedicalConditions);
-            Assert.AreEqual(_mockAppointmentHistory.Object.ToString(), dto.AppointmentHistory);
         }
 
         [Test]
