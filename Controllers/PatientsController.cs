@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDDNetCore.Controllers
@@ -197,5 +198,42 @@ namespace DDDNetCore.Controllers
 
             return Ok("Account and data deletion confirmed and executed.");
         }
+
+        [HttpGet("medicalConditions")]
+        public async Task<ActionResult<MedicalConditions>> MedicalConditions([FromQuery] string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest("Email cannot be null or empty.");
+            }
+
+            var medicalConditions = await _service.MedicalConditions(new UserEmail(email));
+
+            if (medicalConditions == null)
+            {
+                return NotFound("Medical conditions not found for the given email.");
+            }
+
+            return Ok(medicalConditions);
+        }
+
+        [HttpGet("appointmentHistory")]
+        public async Task<ActionResult<AppointmentHistory>> AppointmentHistory([FromQuery] string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest("Email cannot be null or empty.");
+            }
+
+            var appointmentHistory = await _service.AppointmentHistory(new UserEmail(email));
+
+            if (appointmentHistory == null)
+            {
+                return NotFound("Appointment history not found for the given email.");
+            }
+
+            return Ok(appointmentHistory);
+        }
+
     }
 }

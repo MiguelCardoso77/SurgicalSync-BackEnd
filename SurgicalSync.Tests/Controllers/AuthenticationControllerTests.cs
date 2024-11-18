@@ -30,6 +30,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
         private Mock<IPatientRepository> _mockIPatientRepository;
         private Mock<IUserRepository> _mockIUserRepository;
         private Mock<ILogger<DeletePatientMicroService>> _loggerMock;
+        private Mock<ILogger<PatientService>> _loggerMockPatient;
 
         [SetUp]
         public void SetUp()
@@ -65,7 +66,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 _mockIPatientRepository.Object,
                 _patientMapper,
                 _userEmailMicroService,
-                _deletePatientMicroService
+                _deletePatientMicroService,
+                _loggerMockPatient.Object
             );
 
             _patientMicroService = new PatientMicroService(
