@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 
 namespace DDDNetCore.Infraestructure;
 
@@ -24,9 +25,11 @@ public class PlanningBootstrap
         foreach (var s in staff)
         {
             var id = s.Id.AsString().ToLower();
-
+            
+            new HttpClient() { BaseAddress = new Uri("http://localhost:8888") }.GetAsync($"agendaStaff?staffID={id}&day={currentDate}");
+            
             var x = "http://localhost:8888/agendaStaff?staffID=" + id + "&day=" + currentDate;
-            Console.WriteLine(x);
+            var y = "agenda_staff(" + id + ", " + currentDate + ", " + "[]" + ").";
         }
     }
 
@@ -38,8 +41,10 @@ public class PlanningBootstrap
             var id = s.Id.AsString().ToLower();
             var slots = s.StaffAvailabilitySlots.ConvertIntoMinutes();
             
-            var x = "timetable(" + id + ", " + currentDate + ", " + "(" + slots + ")" + ").";
-            Console.WriteLine(x);
+            new HttpClient() { BaseAddress = new Uri("http://localhost:8888") }.GetAsync($"timetable?staffID={id}&day={currentDate}&slots={slots}");
+            
+            var x = "http://localhost:8888/timetable?staffID=" + id + "&day=" + currentDate + "&slots=" + slots;
+            var y = "timetable(" + id + ", " + currentDate + ", " + "(" + slots + ")" + ").";
         }
     }
 
@@ -51,9 +56,12 @@ public class PlanningBootstrap
             var id = s.Id.AsString().ToLower();
             var type = s.StaffType.ToString().ToLower();
             var specialization = s.StaffSpecialization.ToString().ToLower();
+            var oTs = "oT1,oT3";
             
-            var x = "staff(" + id + ", " + type + ", " + specialization + ", (oT1, oT3)" + ").";
-            Console.WriteLine(x);
+            new HttpClient() { BaseAddress = new Uri("http://localhost:8888") }.GetAsync($"staff?staffID={id}&role={type}&specialization={specialization}&oTs={oTs}");
+            
+            var x = "http://localhost:8888/staff?staffID=" + id + "&role=" + type + "&specialization=" + specialization + "&oTs=" + oTs;
+            var y = "staff(" + id + ", " + type + ", " + specialization + ", " + oTs + ").";
         }
     }
     
@@ -68,8 +76,10 @@ public class PlanningBootstrap
             var surgeryTime = durations[1].Trim();
             var cleaningTime = durations[2].Trim();
             
-            var x = "surgery(" + id + ", " + preparationTime + ", " + surgeryTime + ", " + cleaningTime + ").";
-            Console.WriteLine(x);
+            new HttpClient() { BaseAddress = new Uri("http://localhost:8888") }.GetAsync($"surgery?surgeryID={id}&t1={preparationTime}&t2={surgeryTime}&t3={cleaningTime}");
+            
+            var x = "http://localhost:8888/surgery?surgeryID=" + id + "&t1=" + preparationTime + "&t2=" + surgeryTime + "&t3=" + cleaningTime;
+            var y = "surgery(" + id + ", " + preparationTime + ", " + surgeryTime + ", " + cleaningTime + ").";
         }
     }
 
@@ -81,8 +91,10 @@ public class PlanningBootstrap
             var id = "oR" + oR.Id.AsString();
             var oT = "oT" + oR.OperationTypeId.AsString();
             
-            var x = "surgery_id(" + id + ", " + oT + ").";
-            Console.WriteLine(x);
+            new HttpClient() { BaseAddress = new Uri("http://localhost:8888") }.GetAsync($"surgeryId?oRID={id}&surgeryID={oT}");
+            
+            var x = "http://localhost:8888/surgeryId?oRID=" + id + "&surgeryID=" + oT;
+            var y = "surgery_id(" + id + ", " + oT + ").";
         }
     }
 
@@ -93,9 +105,11 @@ public class PlanningBootstrap
         {
             var id = "oR" + oR.Id.AsString();
             var staff = oR.StaffId.AsString().ToLower();
+            
+            new HttpClient() { BaseAddress = new Uri("http://localhost:8888") }.GetAsync($"assignmentSurgery?oRID={id}&staffID={staff}");
 
-            var x = "assignment_surgery(" + id + ", " + staff + ").";
-            Console.WriteLine(x);
+            var x = "http://localhost:8888/assignmentSurgery?oRID=" + id + "&staffID=" + staff;
+            var y = "assignment_surgery(" + id + ", " + staff + ").";
         }
     }
 
@@ -106,8 +120,10 @@ public class PlanningBootstrap
         {
             var id = "sR" + sR.Id.AsString();
             
-            var x = "agenda_operation_room(" + id + ", " + currentDate + ", " + "[]" + ").";
-            Console.WriteLine(x);
+            new HttpClient() { BaseAddress = new Uri("http://localhost:8888") }.GetAsync($"agendaOperationRoom?room={id}&day={currentDate}");
+
+            var x = "http://localhost:8888/agendaOperationRoom?room=" + id + "&day=" + currentDate;
+            var y = "agenda_operation_room(" + id + ", " + currentDate + ", " + "[]" + ").";
         }
     }
 }
