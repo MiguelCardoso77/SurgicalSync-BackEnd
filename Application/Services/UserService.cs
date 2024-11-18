@@ -58,7 +58,7 @@ namespace DDDNetCore.Application.Services
          * Asynchronously retrieves all users by their email address.
          * Return: A task representing the asynchronous operation, containing a list of <UserDto/> objects.
          */
-        public async Task<object> GetAllByEmail(string userEmail)
+        public async Task<List<UserDto>> GetAllByEmail(string userEmail)
         {
             var list = await this._repo.GetAllAsync();
             var filteredList = list.Where(pt => pt.UserEmail.ToString().Contains(userEmail, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -138,6 +138,22 @@ namespace DDDNetCore.Application.Services
             var emailContent = $"Hello {user.Username}! \n Your current password is: {password} , here is the link to reset it: {resetLink} \n Your account will be active once you set-up your account!";            
             var email = new Email(emailContent, user.UserEmail.ToString(), "Activate Your SurgicalSync Account");
             await smtpEmailService.SendEmailAsync(email);
+            
+            return _mapper.ToDto(user);
+        }
+        
+        /**
+         * Asynchronously adds a new patient.
+         * <param name="dto"> The user data transfer object </param>
+         * Generates a random default password, creates the user in Firebase IAM and sends an email to the user with the password and a link to reset it.
+         * Return: A task representing the asynchronous operation, containing a <UserDto/> object.
+         */
+        public async Task<UserDto> AddPatientAsync(UserDto dto)
+        {
+            // Create user in system database
+            var user = _mapper.ToDomain(dto, new UserId("!"));
+            await this._repo.AddAsync(user);
+            await this._unitOfWork.CommitAsync();
             
             return _mapper.ToDto(user);
         }

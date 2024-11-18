@@ -116,10 +116,10 @@ namespace DDDNetCore.Application.Services
             try
             {
                 var decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
-                Console.WriteLine($"Token belongs to: {decodedToken.Uid}");
                 
                 if (decodedToken.Claims.TryGetValue("email", out object email))
                 {
+                    Console.WriteLine("Token belongs to: " + email);
                     return email.ToString();
                 }
             }
