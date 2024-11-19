@@ -216,15 +216,13 @@ public class PlanningBootstrap
                     break;
             }
             
-            var endpoint = $"assignmentSurgery?oRID={id}&staffID={string.Join(",", staff)}";
-            //HttpClient.GetAsync(endpoint);
-            
-            var x = "http://localhost:8888/assignmentSurgery?oRID=" + id + "&staffID=" + staff;
-            
             foreach (var s in staff)
             {
+                var endpoint = $"assignmentSurgery?oRID={id}&staffID={s}";
+                HttpClient.GetAsync(endpoint);
+                
+                var x = "http://localhost:8888/assignmentSurgery?oRID=" + id + "&staffID=" + s;
                 var y = "assignment_surgery(" + id + ", " + s + ").";
-                Console.WriteLine(y);
             }
         }
     }
