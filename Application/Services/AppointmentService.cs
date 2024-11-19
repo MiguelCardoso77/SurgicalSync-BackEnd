@@ -92,7 +92,7 @@ namespace DDDNetCore.Application.Services
         
         public async Task<PlanningDto> AddPlanningAsync(PlanningDto planningDto)
         {
-            await _planningBootstrap.BootstrapData(planningDto.Date, planningDto.OperationRequests);
+            await _planningBootstrap.BootstrapData(planningDto.Date, "1,6");
             
             var room = "sR" + planningDto.RoomNumber;
             var date = planningDto.Date;

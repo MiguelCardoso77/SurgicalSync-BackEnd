@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace DDDNetCore.Infraestructure;
 
@@ -17,7 +16,7 @@ public class PlanningBootstrap
         _context = context ?? throw new ArgumentNullException(nameof(context), "_context cannot be null.");
     }
 
-    public Task<string> BootstrapData(string date, string[] operationRequests)
+    public Task<string> BootstrapData(string date, string requestsInput)
     {
         if (_context == null)
         {
@@ -31,7 +30,7 @@ public class PlanningBootstrap
         StaffMethod();
         SurgeryMethod();
         SurgeryIdMethod();
-        AssignmentSurgeryMethod(operationRequests);
+        AssignmentSurgeryMethod(requestsInput);
         AgendaOperationRoomMethod(currentDate);
 
         return Task.FromResult("Planning Bootstrap Done!");
@@ -45,6 +44,8 @@ public class PlanningBootstrap
             var id = s.Id.AsString().ToLower();
             var endpoint = $"agendaStaff?staffID={id}&day={currentDate}";
             HttpClient.GetAsync(endpoint);
+            
+            var y = "agenda_staff(" + id + ", " + currentDate + ", " + "[]" + ").";
         }
     }
 
@@ -58,6 +59,8 @@ public class PlanningBootstrap
             
             var endpoint = $"timetable?staffID={id}&day={currentDate}&slots={slots}";
             HttpClient.GetAsync(endpoint);
+            
+            var y = "timetable(" + id + ", " + currentDate + ", " + "(" + slots + ")" + ").";
         }
     }
 
@@ -74,9 +77,7 @@ public class PlanningBootstrap
             var endpoint = $"staff?staffID={id}&role={type}&specialization={specialization}&oTs={oTs}";
             //HttpClient.GetAsync(endpoint);
             
-            var x = "http://localhost:8888/staff?staffID=" + id + "&role=" + type + "&specialization=" + specialization + "&oTs=" + oTs;
             var y = "staff(" + id + ", " + type + ", " + specialization + ", " + oTs + ").";
-            //Console.WriteLine(y);
         }
     }
     
@@ -91,10 +92,10 @@ public class PlanningBootstrap
             var surgeryTime = int.Parse(durations[1].Trim());
             var cleaningTime = int.Parse(durations[2].Trim());
             
-            surgeryTime = preparationTime + surgeryTime + cleaningTime;
-            
             var endpoint = $"surgery?surgeryID={id}&t1={preparationTime}&t2={surgeryTime}&t3={cleaningTime}";
             HttpClient.GetAsync(endpoint);
+            
+            var y = "surgery(" + id + ", " + preparationTime + ", " + surgeryTime + ", " + cleaningTime + ").";
         }
     }
 
@@ -108,17 +109,38 @@ public class PlanningBootstrap
             
             var endpoint = $"surgeryId?oRID={id}&surgeryID={oT}";
             HttpClient.GetAsync(endpoint);
+            
+            var y = "surgery_id(" + id + ", " + oT + ").";
         }
     }
 
-    private void AssignmentSurgeryMethod(string[] requests)
+    private void AssignmentSurgeryMethod(string requestsInput)
     {
-        // Query the context to find OperationRequests with matching IDs
+        var requests = requestsInput.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(r => r.Trim()).ToArray();
+
+        Console.WriteLine("Requests: " + string.Join(", ", requests));
+
+        // Debug normalized input
+        Console.WriteLine("Normalized Requests: ");
+        foreach (var req in requests)
+        {
+            Console.WriteLine($"Request: {req} (Type: {req.GetType()})");
+        }
+
+        // Log all OperationRequests in DB
+        var allRequests = _context.OperationRequests.ToList();
+        Console.WriteLine("OperationRequests in DB: " + string.Join(", ", allRequests.Select(or => or.Id.Value)));
+
+        // Match logic with normalization
         var operationRequests = _context.OperationRequests
             .AsEnumerable()
-            .Where(or => requests.Contains(or.Id.Value)) 
+            .Where(or => requests
+                .Select(req => req.Trim())
+                .Contains(or.Id.Value.ToString().Trim()))
             .ToList();
-        
+
+        Console.WriteLine("Matched OperationRequests: " + string.Join(", ", operationRequests.Select(or => or.Id.Value)));
+
         foreach (var oR in operationRequests)
         {
             var id = "oR" + oR.Id.AsString();
@@ -227,7 +249,6 @@ public class PlanningBootstrap
                 var endpoint = $"assignmentSurgery?oRID={id}&staffID={s}";
                 HttpClient.GetAsync(endpoint);
                 
-                var x = "http://localhost:8888/assignmentSurgery?oRID=" + id + "&staffID=" + s;
                 var y = "assignment_surgery(" + id + ", " + s + ").";
             }
         }
@@ -242,6 +263,8 @@ public class PlanningBootstrap
             
             var endpoint = $"agendaOperationRoom?room={id}&day={currentDate}";
             HttpClient.GetAsync(endpoint);
+            
+            var y = "agenda_operation_room(" + id + ", " + currentDate + ", " + "[]" + ").";
         }
     }
 }
