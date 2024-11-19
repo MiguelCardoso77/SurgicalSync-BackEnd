@@ -78,8 +78,7 @@ namespace DDDNetCore
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             
-            //Bootstrap.BootstrapData(context);
-            PlanningBootstrap.BootstrapData(context);
+            var planningBootstrap = new PlanningBootstrap(context);
             Console.WriteLine("Bootstrap data loaded.");
         }
 
@@ -88,6 +87,8 @@ namespace DDDNetCore
             services.AddDbContext<SurgicalSyncContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            
+            services.AddTransient<PlanningBootstrap>();
 
             services.AddTransient<IPatientRepository, PatientRepository>();
             services.AddTransient<PatientService>();

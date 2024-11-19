@@ -7,6 +7,7 @@ using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.Appointments;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.SurgeryRooms;
+using DDDNetCore.Infraestructure;
 using Microsoft.Extensions.Logging;
 
 namespace DDDNetCore.Application.Services
@@ -20,6 +21,8 @@ namespace DDDNetCore.Application.Services
         private readonly IAppointmentsRepository _repository;
         private readonly ILogger<AppointmentService> _logger;
         private readonly AppointmentMapper _mapper;
+        private readonly PlanningBootstrap _planningBootstrap;
+        
         /**
          * Initializes a new instance of the AppointmentService class.
          * @param unitOfWork The unit of work for database operations.
@@ -28,12 +31,13 @@ namespace DDDNetCore.Application.Services
          * @param mapper The mapper for converting between domain and DTO objects.
          */
         public AppointmentService(IUnitOfWork unitOfWork, IAppointmentsRepository repository,
-            ILogger<AppointmentService> logger, AppointmentMapper mapper)
+            ILogger<AppointmentService> logger, AppointmentMapper mapper, PlanningBootstrap planningBootstrap)
         {
             this._unitOfWork = unitOfWork;
             this._repository = repository;
             this._logger = logger;
             this._mapper = mapper;
+            _planningBootstrap = planningBootstrap;
         }
         /**
          * Retrieves an appointment by its ID.
@@ -65,18 +69,15 @@ namespace DDDNetCore.Application.Services
 
             return appointmentDto;
         }
+        
         /**
         * Adds a new appointment.
         * @param appointmentDto The data transfer object containing appointment details.
         * @return The newly created AppointmentDto.
         */
-        public async Task<AppointmentDto> addAsync(AppointmentDto appointmentDto)
-        {
-            var list = await this._repository.GetAllAsync();
-            
-            var existingAppointment = list.FirstOrDefault(a => a.RoomNumber.AsString() == appointmentDto.RoomNumber);
-            
-            var appointmentId = GenerateAppointmentId(appointmentDto, list);
+        public async Task<AppointmentDto> AddAsync(AppointmentDto appointmentDto)
+        { 
+            var appointmentId = await GenerateAppointmentId(appointmentDto);
             
             var domainObj = _mapper.ToDomain(appointmentDto, appointmentId);
             
@@ -85,15 +86,22 @@ namespace DDDNetCore.Application.Services
             
             _logger.LogInformation("Appointment with Id: {AppointmentId} was successfully added!", domainObj.Id.AsString());
             
-            var dto = _mapper.ToDto(domainObj);
-            return dto;
+            return _mapper.ToDto(domainObj);
         }
+        
+        public async Task<PlanningDto> AddPlanningAsync(PlanningDto planningDto)
+        {
+            await _planningBootstrap.BootstrapData(planningDto.Date, planningDto.OperationRequests);
+            
+            return planningDto;
+        }
+        
         /**
          * Updates an existing appointment.
          * @param appointmentDto The data transfer object containing updated appointment details.
          * @return The updated AppointmentDto if successful; otherwise, null.
          */
-        public async Task<AppointmentDto> updateAsync(AppointmentDto appointmentDto)
+        public async Task<AppointmentDto> UpdateAsync(AppointmentDto appointmentDto)
         {
             var appointment = await _repository.GetByIdAsync(new AppointmentId(appointmentDto.Id));
 
@@ -141,8 +149,9 @@ namespace DDDNetCore.Application.Services
          * @param appointments The list of existing appointments to check for ID uniqueness.
          * @return A unique AppointmentId.
          */
-        public AppointmentId GenerateAppointmentId(AppointmentDto appointmentDto, List<Appointment> appointments)
+        public async Task<AppointmentId> GenerateAppointmentId(AppointmentDto appointmentDto)
         {
+            var appointments = await this._repository.GetAllAsync();
             bool exists = appointments.Any(a => a.RoomNumber.AsString() == appointmentDto.RoomNumber);
 
             if (exists)

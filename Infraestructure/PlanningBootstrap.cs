@@ -2,45 +2,55 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DDDNetCore.Infraestructure;
 
 public class PlanningBootstrap
 {
     private static readonly HttpClient HttpClient = new HttpClient { BaseAddress = new Uri("http://localhost:8888") };
-
-    public static void BootstrapData(SurgicalSyncContext context)
+    private readonly SurgicalSyncContext _context;
+    
+    public PlanningBootstrap(SurgicalSyncContext context)
     {
+        _context = context ?? throw new ArgumentNullException(nameof(context), "_context cannot be null.");
+    }
+
+    public Task<string> BootstrapData(string date, string[] operationRequests)
+    {
+        if (_context == null)
+        {
+            throw new InvalidOperationException("_context is not initialized.");
+        }
+
         var currentDate = DateTime.Now.ToString("yyyyMMdd");
 
-        AgendaStaffMethod(context, currentDate);
-        TimetableMethod(context, currentDate);
-        StaffMethod(context);
-        SurgeryMethod(context);
-        SurgeryIdMethod(context);
-        AssignmentSurgeryMethod(context);
-        AgendaOperationRoomMethod(context, currentDate);
-        
-        Console.WriteLine("Planning Bootstrap Done!");
+        AgendaStaffMethod(date);
+        TimetableMethod(date);
+        StaffMethod();
+        SurgeryMethod();
+        SurgeryIdMethod();
+        AssignmentSurgeryMethod(operationRequests);
+        AgendaOperationRoomMethod(currentDate);
+
+        return Task.FromResult("Planning Bootstrap Done!");
     }
-    
-    private static void AgendaStaffMethod(SurgicalSyncContext context, string currentDate)
+
+    private void AgendaStaffMethod(string currentDate)
     {
-        var staff = context.Staffs.ToList();
+        var staff = _context.Staffs.ToList();
         foreach (var s in staff)
         {
             var id = s.Id.AsString().ToLower();
             var endpoint = $"agendaStaff?staffID={id}&day={currentDate}";
             HttpClient.GetAsync(endpoint);
-            
-            var x = "http://localhost:8888/agendaStaff?staffID=" + id + "&day=" + currentDate;
-            var y = "agenda_staff(" + id + ", " + currentDate + ", " + "[]" + ").";
         }
     }
 
-    private static void TimetableMethod(SurgicalSyncContext context, string currentDate)
+    private void TimetableMethod(string currentDate)
     {
-        var staff = context.Staffs.ToList();
+        var staff = _context.Staffs.ToList();
         foreach (var s in staff)
         {
             var id = s.Id.AsString().ToLower();
@@ -48,15 +58,12 @@ public class PlanningBootstrap
             
             var endpoint = $"timetable?staffID={id}&day={currentDate}&slots={slots}";
             HttpClient.GetAsync(endpoint);
-            
-            var x = "http://localhost:8888/timetable?staffID=" + id + "&day=" + currentDate + "&slots=" + slots;
-            var y = "timetable(" + id + ", " + currentDate + ", " + "(" + slots + ")" + ").";
         }
     }
 
-    private static void StaffMethod(SurgicalSyncContext context)
+    private void StaffMethod()
     {
-        var staff = context.Staffs.ToList();
+        var staff = _context.Staffs.ToList();
         foreach (var s in staff)
         {
             var id = s.Id.AsString().ToLower();
@@ -73,9 +80,9 @@ public class PlanningBootstrap
         }
     }
     
-    private static void SurgeryMethod(SurgicalSyncContext context)
+    private void SurgeryMethod()
     {
-        var operationTypes = context.OperationTypes.ToList();
+        var operationTypes = _context.OperationTypes.ToList();
         foreach (var oT in operationTypes)
         {
             var id = "oT" + oT.Id.AsString();
@@ -88,15 +95,12 @@ public class PlanningBootstrap
             
             var endpoint = $"surgery?surgeryID={id}&t1={preparationTime}&t2={surgeryTime}&t3={cleaningTime}";
             HttpClient.GetAsync(endpoint);
-            
-            var x = "http://localhost:8888/surgery?surgeryID=" + id + "&t1=" + preparationTime + "&t2=" + surgeryTime + "&t3=" + cleaningTime;
-            var y = "surgery(" + id + ", " + preparationTime + ", " + surgeryTime + ", " + cleaningTime + ").";
         }
     }
 
-    private static void SurgeryIdMethod(SurgicalSyncContext context)
+    private void SurgeryIdMethod()
     {
-        var operationRequests = context.OperationRequests.ToList();
+        var operationRequests = _context.OperationRequests.ToList();
         foreach (var oR in operationRequests)
         {
             var id = "oR" + oR.Id.AsString();
@@ -104,15 +108,17 @@ public class PlanningBootstrap
             
             var endpoint = $"surgeryId?oRID={id}&surgeryID={oT}";
             HttpClient.GetAsync(endpoint);
-            
-            var x = "http://localhost:8888/surgeryId?oRID=" + id + "&surgeryID=" + oT;
-            var y = "surgery_id(" + id + ", " + oT + ").";
         }
     }
 
-    private static void AssignmentSurgeryMethod(SurgicalSyncContext context)
+    private void AssignmentSurgeryMethod(string[] requests)
     {
-        var operationRequests = context.OperationRequests.ToList();
+        // Query the context to find OperationRequests with matching IDs
+        var operationRequests = _context.OperationRequests
+            .AsEnumerable()
+            .Where(or => requests.Contains(or.Id.Value)) 
+            .ToList();
+        
         foreach (var oR in operationRequests)
         {
             var id = "oR" + oR.Id.AsString();
@@ -227,18 +233,15 @@ public class PlanningBootstrap
         }
     }
 
-    private static void AgendaOperationRoomMethod(SurgicalSyncContext context, string currentDate)
+    private void AgendaOperationRoomMethod(string currentDate)
     {
-        var surgeryRooms = context.SurgeryRooms.ToList();
+        var surgeryRooms = _context.SurgeryRooms.ToList();
         foreach (var sR in surgeryRooms)
         {
             var id = "sR" + sR.Id.AsString();
             
             var endpoint = $"agendaOperationRoom?room={id}&day={currentDate}";
             HttpClient.GetAsync(endpoint);
-            
-            var x = "http://localhost:8888/agendaOperationRoom?room=" + id + "&day=" + currentDate;
-            var y = "agenda_operation_room(" + id + ", " + currentDate + ", " + "[]" + ").";
         }
     }
 }
