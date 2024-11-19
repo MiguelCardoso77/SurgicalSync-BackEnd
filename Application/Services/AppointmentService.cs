@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
@@ -92,6 +93,18 @@ namespace DDDNetCore.Application.Services
         public async Task<PlanningDto> AddPlanningAsync(PlanningDto planningDto)
         {
             await _planningBootstrap.BootstrapData(planningDto.Date, planningDto.OperationRequests);
+            
+            var room = "sR" + planningDto.RoomNumber;
+            var date = planningDto.Date;
+            
+            var requestUri = $"http://localhost:8888/best?room={room}&day={date}";
+            
+            using (var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:8888") })
+            {
+                var response = await httpClient.GetAsync(requestUri);
+        
+                Console.WriteLine("Best time slot response: " + response.Content.ReadAsStringAsync());
+            }
             
             return planningDto;
         }

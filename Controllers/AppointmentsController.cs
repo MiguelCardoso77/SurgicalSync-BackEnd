@@ -51,6 +51,7 @@ namespace DDDNetCore.Controllers
         {
             var planning = await _appointmentService.AddPlanningAsync(planningDto);
             
+            Console.WriteLine("Planning created for room: " + planning.RoomNumber);
             return CreatedAtAction(nameof(GetById), new {id = planning.RoomNumber}, planning);
         }
 

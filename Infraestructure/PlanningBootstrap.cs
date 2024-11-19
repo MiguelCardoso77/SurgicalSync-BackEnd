@@ -221,7 +221,7 @@ public class PlanningBootstrap
                     staff.Add("o202400023");
                     break;
             }
-            
+                
             foreach (var s in staff)
             {
                 var endpoint = $"assignmentSurgery?oRID={id}&staffID={s}";
