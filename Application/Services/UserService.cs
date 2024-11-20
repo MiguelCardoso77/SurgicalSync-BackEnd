@@ -151,7 +151,7 @@ namespace DDDNetCore.Application.Services
         public async Task<UserDto> AddPatientAsync(UserDto dto)
         {
             // Create user in system database
-            var user = _mapper.ToDomain(dto, new UserId("!"));
+            var user = _mapper.ToDomain(dto, new UserId(dto.Id));
             await this._repo.AddAsync(user);
             await this._unitOfWork.CommitAsync();
             
