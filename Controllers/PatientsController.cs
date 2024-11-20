@@ -172,7 +172,7 @@ namespace DDDNetCore.Controllers
         
         
         // POST: api/patients/request-deletion/{patientId}
-        [HttpPost("request-deletion/{patientId}")]
+        [HttpDelete("request-deletion/{patientId}")]
         public async Task<ActionResult> RequestDeletion(string patientId)
         {
             var medicalRecordNumber = new MedicalRecordNumber(patientId);
