@@ -30,7 +30,7 @@ namespace DDDNetCore.Application.Services
 
             using var client = new SmtpClient(smtpConfig["Host"], int.Parse(smtpConfig["Port"]));
             client.Credentials = new NetworkCredential(smtpConfig["Username"], smtpConfig["Password"]);
-            client.EnableSsl = bool.Parse(smtpConfig["EnableSsl"]);
+            client.EnableSsl = true;
 
             var mailMessage = new MailMessage
             {
@@ -50,7 +50,7 @@ namespace DDDNetCore.Application.Services
             catch (Exception ex)
             {
                 Console.ForegroundColor = ConsoleColor.Red; 
-                Console.WriteLine($"Failed to send the email to {emailObj.Destination}. Maybe try connecting to SMTP VPN.");
+                Console.WriteLine($"Failed to send the email to {emailObj.Destination}.");
                 Console.WriteLine(ex.Message);
                 Console.ResetColor();
             }
