@@ -41,6 +41,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
 
             _patientMapper = new PatientMapper();
             _userMapper = new UserMapper();
+            
+            _loggerMockPatient = new Mock<ILogger<PatientService>>();
 
             _userEmailMicroService = new UserEmailMicroService(
                 _mockIUserRepository.Object

@@ -39,7 +39,7 @@ namespace DDDNetCore.Application.Services
          */
         public async Task SendDeletionConfirmationLink(UserEmail userEmail, MedicalRecordNumber patientId)
         {
-            var link = $"https://localhost:5001/api/patients/confirm-deletion/{patientId}";
+            var link = $"http://localhost:4200/confirm-delete/{patientId}";
             var emailContent = $"Hello,\n\n" +
                                "We've received your request for account and data deletion.\n\n" +
                                $"Please confirm your decision by clicking on the following link:\n{link}\n\n" +
@@ -65,7 +65,7 @@ namespace DDDNetCore.Application.Services
                 new Gender("Unspecified"),
                 patient.Id,
                 new PhoneNumber("000-000-0000"),
-                new MedicalConditions("Null"),
+                patient.MedicalConditions,
                 new EmergencyContact("000-000-0000"),
                 patient.AppointmentHistory,
                 new UserEmail("anonymous@domain.com")

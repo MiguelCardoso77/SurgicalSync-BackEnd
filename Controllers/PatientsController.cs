@@ -235,5 +235,22 @@ namespace DDDNetCore.Controllers
             return Ok(appointmentHistory);
         }
 
+        [HttpGet("medicalRecordNumber")]
+        public async Task<ActionResult<MedicalRecordNumber>> GetMedicalRecordNumberByEmail([FromQuery] string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest("Email cannot be null or empty.");
+            }
+            var medicalRecordNumber = await _service.GetMedicalRecordNumberByUserEmail(email);
+
+            if (medicalRecordNumber == null)
+            {
+                return NotFound("Medical record number not found for the given email.");
+            }
+
+            return Ok(medicalRecordNumber);
+        }
+
     }
 }
