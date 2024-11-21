@@ -16,7 +16,7 @@ public class PlanningBootstrap
         _context = context ?? throw new ArgumentNullException(nameof(context), "_context cannot be null.");
     }
 
-    public Task<string> BootstrapData(string date, string requestsInput)
+    public async Task<string> BootstrapData(string date, string requestsInput)
     {
         if (_context == null)
         {
@@ -25,18 +25,22 @@ public class PlanningBootstrap
 
         var currentDate = DateTime.Now.ToString("yyyyMMdd");
 
-        AgendaStaffMethod(date);
-        TimetableMethod(date);
-        StaffMethod();
-        SurgeryMethod();
-        SurgeryIdMethod();
-        AssignmentSurgeryMethod(requestsInput);
-        AgendaOperationRoomMethod(currentDate);
+        var tasks = new List<Task>();
+        
+        tasks.Add(AgendaStaffMethod(date));
+        tasks.Add(TimetableMethod(date));
+        tasks.Add(StaffMethod());
+        tasks.Add(SurgeryMethod());
+        tasks.Add(SurgeryIdMethod());
+        tasks.Add(AssignmentSurgeryMethod(requestsInput));
+        tasks.Add(AgendaOperationRoomMethod(currentDate));
+        
+        await Task.WhenAll(tasks);
 
-        return Task.FromResult("Planning Bootstrap Done!");
+        return "Planning Bootstrap Done!";
     }
 
-    private void AgendaStaffMethod(string currentDate)
+    private Task AgendaStaffMethod(string currentDate)
     {
         var staff = _context.Staffs.ToList();
         foreach (var s in staff)
@@ -47,9 +51,11 @@ public class PlanningBootstrap
             
             var y = "agenda_staff(" + id + ", " + currentDate + ", " + "[]" + ").";
         }
+        
+        return Task.CompletedTask;
     }
 
-    private void TimetableMethod(string currentDate)
+    private Task TimetableMethod(string currentDate)
     {
         var staff = _context.Staffs.ToList();
         foreach (var s in staff)
@@ -62,9 +68,11 @@ public class PlanningBootstrap
             
             var y = "timetable(" + id + ", " + currentDate + ", " + "(" + slots + ")" + ").";
         }
+        
+        return Task.CompletedTask;
     }
 
-    private void StaffMethod()
+    private Task StaffMethod()
     {
         var staff = _context.Staffs.ToList();
         foreach (var s in staff)
@@ -79,9 +87,11 @@ public class PlanningBootstrap
             
             var y = "staff(" + id + ", " + type + ", " + specialization + ", " + oTs + ").";
         }
+        
+        return Task.CompletedTask;
     }
     
-    private void SurgeryMethod()
+    private Task SurgeryMethod()
     {
         var operationTypes = _context.OperationTypes.ToList();
         foreach (var oT in operationTypes)
@@ -97,9 +107,11 @@ public class PlanningBootstrap
             
             var y = "surgery(" + id + ", " + preparationTime + ", " + surgeryTime + ", " + cleaningTime + ").";
         }
+        
+        return Task.CompletedTask;
     }
 
-    private void SurgeryIdMethod()
+    private Task SurgeryIdMethod()
     {
         var operationRequests = _context.OperationRequests.ToList();
         foreach (var oR in operationRequests)
@@ -112,20 +124,13 @@ public class PlanningBootstrap
             
             var y = "surgery_id(" + id + ", " + oT + ").";
         }
+        
+        return Task.CompletedTask;
     }
 
-    private void AssignmentSurgeryMethod(string requestsInput)
+    private Task AssignmentSurgeryMethod(string requestsInput)
     {
         var requests = requestsInput.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(r => r.Trim()).ToArray();
-
-        Console.WriteLine("Requests: " + string.Join(", ", requests));
-
-        // Debug normalized input
-        Console.WriteLine("Normalized Requests: ");
-        foreach (var req in requests)
-        {
-            Console.WriteLine($"Request: {req} (Type: {req.GetType()})");
-        }
 
         // Log all OperationRequests in DB
         var allRequests = _context.OperationRequests.ToList();
@@ -252,9 +257,11 @@ public class PlanningBootstrap
                 var y = "assignment_surgery(" + id + ", " + s + ").";
             }
         }
+        
+        return Task.CompletedTask;
     }
 
-    private void AgendaOperationRoomMethod(string currentDate)
+    private Task AgendaOperationRoomMethod(string currentDate)
     {
         var surgeryRooms = _context.SurgeryRooms.ToList();
         foreach (var sR in surgeryRooms)
@@ -266,5 +273,7 @@ public class PlanningBootstrap
             
             var y = "agenda_operation_room(" + id + ", " + currentDate + ", " + "[]" + ").";
         }
+        
+        return Task.CompletedTask;
     }
 }
