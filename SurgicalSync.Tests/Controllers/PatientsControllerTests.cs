@@ -40,6 +40,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             _mockIPatientRepository = new Mock<IPatientRepository>();
             _loggerMock = new Mock<ILogger<DeletePatientMicroService>>();
             _mockIUserRepository = new Mock<IUserRepository>();
+            
+            _loggerMockPatient = new Mock<ILogger<PatientService>>();
 
             _patientMapper = new PatientMapper();
             _userMapper = new UserMapper();
