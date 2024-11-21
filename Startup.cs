@@ -123,6 +123,7 @@ namespace DDDNetCore
             services.AddTransient<UserEmailMicroService>();
             services.AddTransient<AuthenticationService>();
             services.AddTransient<DeletePatientMicroService>();
+            services.AddTransient<OperationTypeNameMicroService>();
             services.AddTransient<EmailService>();
         }
     }

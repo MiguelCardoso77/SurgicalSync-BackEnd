@@ -27,6 +27,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
         private PatientMapper _patientMapper;
         private OperationRequestService _operationRequestService;
         private PatientNameMicroService _patientNameMicroService;
+        private OperationTypeNameMicroService _operationTypeNameMicroService;
 
         [SetUp]
         public void SetUp()
@@ -48,7 +49,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 _repoMock.Object,
                 _loggerMock.Object,
                 _mapper,
-                _patientNameMicroService);
+                _patientNameMicroService,
+                _operationTypeNameMicroService);
         }
 
         [Test]

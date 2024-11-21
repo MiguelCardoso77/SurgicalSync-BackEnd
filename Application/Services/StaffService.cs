@@ -298,5 +298,22 @@ namespace DDDNetCore.Application.Services
 
             return new StaffId(staffId);
         }
+
+        public async Task<StaffId> GetStaffIdByUserEmail(string userEmail)
+        {
+            var list = await this._repo.GetAllAsync();
+
+            var staff = list.SingleOrDefault(s =>
+                s.UserEmail.ToString().Equals(userEmail, StringComparison.OrdinalIgnoreCase));
+
+            if (staff == null)
+            {
+                throw new Exception("Staff not found");
+            }
+            
+            var staffId = staff.Id;
+
+            return staffId;
+        }
     }
 }

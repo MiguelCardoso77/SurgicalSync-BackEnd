@@ -150,5 +150,23 @@ namespace DDDNetCore.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("staffId")]
+        public async Task<ActionResult<StaffId>> GetStaffIdByEmail([FromQuery] string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Email cannot be null or empty.");
+            }
+            
+            var staffId = await _service.GetStaffIdByUserEmail(email);
+
+            if (staffId == null)
+            {
+                return NotFound("Staff Id not found for the given email.");
+            }
+
+            return Ok(staffId);
+        }
     }
 }
