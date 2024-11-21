@@ -46,6 +46,15 @@ namespace DDDNetCore.Controllers
             return CreatedAtAction(nameof(GetById), new {id = appointment.Id}, appointment);
         }
         
+        [HttpPost(template:"load-planning")]
+        public async Task<ActionResult<PlanningDto>> LoadPlanning(PlanningDto planningDto)
+        {
+            var planning = await _appointmentService.LoadPlanningAsync(planningDto);
+            
+            Console.WriteLine("Planning data loaded.");
+            return CreatedAtAction(nameof(GetById), new {id = planning.RoomNumber}, planning);
+        }
+        
         [HttpPost(template:"planning")]
         public async Task<ActionResult<PlanningDto>> CreatePlanning(PlanningDto planningDto)
         {

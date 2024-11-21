@@ -90,20 +90,27 @@ namespace DDDNetCore.Application.Services
             return _mapper.ToDto(domainObj);
         }
         
+        public async Task<PlanningDto> LoadPlanningAsync(PlanningDto planningDto)
+        {
+            await _planningBootstrap.BootstrapData(planningDto.Date, "6,2,1");
+            
+            return planningDto;
+        }
+        
         public async Task<PlanningDto> AddPlanningAsync(PlanningDto planningDto)
         {
-            await _planningBootstrap.BootstrapData(planningDto.Date, "1,6");
-            
             var room = "sR" + planningDto.RoomNumber;
             var date = planningDto.Date;
             
             var requestUri = $"http://localhost:8888/best?room={room}&day={date}";
+            Console.WriteLine(requestUri);
             
             using (var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:8888") })
             {
                 var response = await httpClient.GetAsync(requestUri);
+                var responseContent = await response.Content.ReadAsStringAsync();
         
-                Console.WriteLine("Best time slot response: " + response.Content.ReadAsStringAsync());
+                Console.WriteLine("Best time slot response: " + responseContent);
             }
             
             return planningDto;
