@@ -37,33 +37,17 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USERNAME }}
+          username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
           target: /${{ secrets.SSH_USERNAME }}/production
-
-      - name: Setup SSH
-        run: |
-          eval "$(ssh-agent -s)"
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-add ~/.ssh/deploy_key
-          nslookup ${{ secrets.SSH_HOST }} || (echo "Hostname resolution failed!" && exit 1)
-          ssh-keyscan -p 10761 -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     
-      - name: Deploy backend code
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          WORK_DIR: ${{ secrets.WORK_DIR }}
-        run: |
-          # Copy backend files to the server
-          scp -P 10761 -i ~/.ssh/deploy_key -r ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/root/apps/backend/
-
-          # Connect to the server and execute the build script
-          ssh -p 10761 -i ~/.ssh/deploy_key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            cd /root/apps/backend/
-            chmod +x ./buildBackend.sh
-            ./buildBackend.sh
-          EOF
+      - name: Run the application on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd /${{ secrets.SSH_USERNAME }}
