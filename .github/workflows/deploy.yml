@@ -34,7 +34,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
-          target: /${{ secrets.SSH_USERNAME }}/apps/backend
+          target: /${{ secrets.SSH_USER }}/apps/backend
 
       - name: Run the application on server
         uses: appleboy/ssh-action@master
