@@ -23,15 +23,6 @@ jobs:
       - name: Publish .NET project
         run: |
           dotnet publish -c Release -o ./publish
-
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/deploy_key
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
           
       - name: Transfer files to server
         uses: appleboy/scp-action@master
@@ -42,16 +33,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
           target: /root/apps/backend/LAPR5
-
-      - name: Transfer build script to server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          source: ./buildBackend.sh
-          target: /root/apps/backend
     
       - name: Run the application on server
         uses: appleboy/ssh-action@master
