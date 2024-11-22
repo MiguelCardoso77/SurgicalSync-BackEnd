@@ -19,7 +19,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh/
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
-          chmod 777 ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/deploy_key
           nslookup ${{ secrets.SSH_HOST }} || (echo "Hostname resolution failed!" && exit 1)
