@@ -38,7 +38,7 @@ jobs:
           overwrite: true
           rm: true
           debug: true
-          timeout: 600
+          timeout: "600s"
 
       - name: Run the application on server
         uses: appleboy/ssh-action@master
