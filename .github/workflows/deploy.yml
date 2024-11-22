@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+  schedule:
+    - cron: "0 4, 13 * * *"
   workflow_dispatch:
 
 jobs:
@@ -32,7 +34,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
-          target: /root/apps/backend/LAPR5
+          target: /${{ secrets.SSH_USERNAME }}/production
     
       - name: Run the application on server
         uses: appleboy/ssh-action@master
