@@ -21,7 +21,7 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           nslookup ${{ secrets.SSH_HOST }} || (echo "Hostname resolution failed!" && exit 1)
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -p 10761 -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy backend code
         env:
@@ -29,21 +29,12 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           WORK_DIR: ${{ secrets.WORK_DIR }}
         run: |
-          scp -i ~/.ssh/deploy_key -r ./ /root/apps/backend/
-          ssh -i ~/.ssh/deploy_key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            cd ${{ secrets.WORK_DIR }}
-            chmod +x ./buildBackend.sh
-            ./buildBackend.sh
-          EOF
+          # Copy backend files to the server
+          scp -P 10761 -i ~/.ssh/deploy_key -r ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/root/apps/backend/
 
-      - name: Execute backend build script
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          WORK_DIR: ${{ secrets.WORK_DIR }}
-        run: |
-          ssh -i ~/.ssh/deploy_key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            cd ./apps/backend
+          # Connect to the server and execute the build script
+          ssh -p 10761 -i ~/.ssh/deploy_key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            cd /root/apps/backend/
             chmod +x ./buildBackend.sh
             ./buildBackend.sh
           EOF
