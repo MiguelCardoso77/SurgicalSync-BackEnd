@@ -21,6 +21,10 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 6.0
+
+      - name: Publish .NET project
+        run: |
+           dotnet publish -c Release -o ./publish
           
       - name: Transfer files to server
         uses: appleboy/scp-action@v0.1.5
@@ -29,7 +33,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: ./dddnetcore/*
+          source: ./publish/*
           target: /home/${{ secrets.SSH_USER }}/apps/backend
           overwrite: true
           rm: true
