@@ -20,17 +20,22 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 6.0
-          
+
+      - name: Build project
+        run: |
+          dotnet build
+      - name: Run tests
+        run: |
+          dotnet test
       - name: Publish .NET project
         run: |
           dotnet publish -c Release -o ./publish
-          
       - name: Transfer files to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USER }}
+          username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
           target: /${{ secrets.SSH_USERNAME }}/production
@@ -43,6 +48,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            chmod +x /root/apps/backend/buildBackend.sh
-            cd /root/apps/backend
+            cd /${{secrets.SSH_USERNAME}}/apps/backend
             ./buildBackend.sh
