@@ -35,6 +35,10 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
           target: /${{ secrets.SSH_USER }}/apps/backend
+          overwrite: true
+          rm: true
+          debug: true
+          timeout: 600
 
       - name: Run the application on server
         uses: appleboy/ssh-action@master
