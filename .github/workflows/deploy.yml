@@ -34,7 +34,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
-          target: /home/${{ secrets.SSH_USER }}/apps/backend
+          target: ${{ secrets.SSH_USER }}/apps/backend
           overwrite: true
           rm: true
           debug: true
