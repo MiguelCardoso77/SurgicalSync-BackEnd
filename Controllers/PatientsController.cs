@@ -18,7 +18,6 @@ namespace DDDNetCore.Controllers
     public class PatientsController : ControllerBase
     {
         private readonly PatientService _service;
-        private readonly DeletePatientMicroService _deletePatientMicroService;
 
         /**
          * Initializes a new instance of the PatientsController class.
@@ -113,7 +112,12 @@ namespace DDDNetCore.Controllers
         {
             var pat = await _service.AddAsync(dto);
 
-            Console.WriteLine($"Patient with Medical Record Number = {dto.MedicalRecordNumber} was created successfully.");
+            if (string.IsNullOrWhiteSpace(pat.MedicalRecordNumber))
+            {
+                return BadRequest("Failed to generate a valid Medical Record Number.");
+            }
+            
+            Console.WriteLine($"Patient with Medical Record Number Controller = {dto.MedicalRecordNumber} was created successfully.");
             return CreatedAtAction(nameof(GetById), new { id = pat.MedicalRecordNumber }, pat);
         }
 

@@ -171,6 +171,7 @@ namespace DDDNetCore.Application.Services
         public async Task<PatientDto> AddAsync(PatientDto dto)
         {
             var existingPatient = await GetAllAsync();
+            var lastId = existingPatient.Last().MedicalRecordNumber;
 
             foreach (PatientDto pt in existingPatient)
             {
@@ -178,7 +179,7 @@ namespace DDDNetCore.Application.Services
                     throw new InvalidOperationException(
                         "An patient with the same phone number already exists. Please try with another.");
             }
-
+            
             foreach (PatientDto pt in existingPatient)
             {
                 if (pt.Email.Equals(dto.Email, StringComparison.OrdinalIgnoreCase))
@@ -186,24 +187,92 @@ namespace DDDNetCore.Application.Services
                         "An patient with the same email already exists. Please try with another.");
             }
 
-            var medicalRecordNumber = string.IsNullOrEmpty(dto.MedicalRecordNumber)
-                ? new MedicalRecordNumber()
-                : new MedicalRecordNumber(dto.MedicalRecordNumber);
-
-            var can = await _userEmailMicroService.VerifyEmail(dto.Email);
-
-            if (can.Equals(false))
+            if (!string.IsNullOrEmpty(lastId))
             {
-                throw new InvalidOperationException("This email already exists. Please try with another.");
+                string year = DateTime.Now.ToString("yyyy");
+                string month = DateTime.Now.ToString("MM");
+                
+                string lastYear = lastId.Substring(0, 4);
+                string lastMonth = lastId.Substring(4, 2);
+                
+                var sequentialNumber = int.Parse(lastId.Substring(6, 6));
+                
+                if (lastYear == year && lastMonth == month)
+                {
+                    sequentialNumber++;
+                }
+                else
+                {
+                    sequentialNumber = 1;
+                }
+                
+                string seqNumber = sequentialNumber.ToString("D6");
+                var finalId = $"{year}{month}{seqNumber}";
+                
+                dto.MedicalRecordNumber = finalId;
             }
+            else
+            {
+                string year = DateTime.Now.ToString("yyyy");
+                string month = DateTime.Now.ToString("MM");
+                var sequentialNumber = 1;
 
+                string seqNumber = sequentialNumber.ToString("D6");
+                var finalId = $"{year}{month}{seqNumber}";
+                
+                dto.MedicalRecordNumber = finalId;
+            }
+            
+            var medicalRecordNumber = new MedicalRecordNumber(dto.MedicalRecordNumber);
+            
             var patient = _mapper.ToDomain(dto, medicalRecordNumber, null, null);
 
-            await this._repo.AddAsync(patient);
-            await this._unitOfWork.CommitAsync();
+            await _repo.AddAsync(patient);
+            await _unitOfWork.CommitAsync();
 
             return _mapper.ToDto(patient);
         }
+        
+        /**
+            * Generates a unique medical record number based on the current year, month,
+            * and a sequential number that increments with each new instance.
+            *
+            * @return A string representing the generated medical record number.
+
+                private static string GenerateMedicalRecordNumber()
+                {
+                    // Get the current year and month
+                    string year = DateTime.Now.ToString("yyyy");
+                    string month = DateTime.Now.ToString("MM");
+
+                    _sequentialNumber++;
+                    string seqNumber = _sequentialNumber.ToString("D6");
+
+                    return $"{year}{month}{seqNumber}";
+
+                }
+                ---- 
+                
+                if (lastYear == year && lastMonth == month)
+                {
+                    _sequentialNumber++;
+                }
+                else
+                {
+                    _sequentialNumber = 1;
+                }
+            }
+            else
+            {
+                _sequentialNumber = 1; 
+            }
+
+            string seqNumber = _sequentialNumber.ToString("D6");
+            _lastMedicalRecordNumber = $"{year}{month}{seqNumber}";
+
+            return $"{year}{month}{seqNumber}";
+        }
+            **/
 
         /**
          * Updates an existing patient's details in the repository and sends a notification email.
