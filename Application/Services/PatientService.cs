@@ -9,6 +9,7 @@ using DDDNetCore.Domain;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
 using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop.Infrastructure;
 
 namespace DDDNetCore.Application.Services
 {
@@ -225,6 +226,23 @@ namespace DDDNetCore.Application.Services
             
             var medicalRecordNumber = new MedicalRecordNumber(dto.MedicalRecordNumber);
             
+            EmailService emailService = new EmailService();
+            const string activationLink = "http://localhost:4200";
+            var emailContent = $@"
+            <html>
+            <body>
+              <p>Dear User,</p>
+              <p>An admin has successfully registered your account on Surgical Sync.</p>
+              <p>You can now activate your account by clicking the button below:</p>
+              <a href='{activationLink}' style='display: inline-block; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Activate Your Account</a>
+              <p>Your activation code is: <strong>{medicalRecordNumber.Value}</strong></p>
+              <p>If you did not expect this email, please contact our support team immediately.</p>
+              <p>Thank you,<br/>The Surgical Sync Team</p>
+            </body>
+            </html>";
+            var email = new Email(emailContent, dto.Email, "Welcome to Surgical Sync!");
+            await emailService.SendEmailAsync(email);
+            
             var patient = _mapper.ToDomain(dto, medicalRecordNumber, null, null);
 
             await _repo.AddAsync(patient);
@@ -232,47 +250,6 @@ namespace DDDNetCore.Application.Services
 
             return _mapper.ToDto(patient);
         }
-        
-        /**
-            * Generates a unique medical record number based on the current year, month,
-            * and a sequential number that increments with each new instance.
-            *
-            * @return A string representing the generated medical record number.
-
-                private static string GenerateMedicalRecordNumber()
-                {
-                    // Get the current year and month
-                    string year = DateTime.Now.ToString("yyyy");
-                    string month = DateTime.Now.ToString("MM");
-
-                    _sequentialNumber++;
-                    string seqNumber = _sequentialNumber.ToString("D6");
-
-                    return $"{year}{month}{seqNumber}";
-
-                }
-                ---- 
-                
-                if (lastYear == year && lastMonth == month)
-                {
-                    _sequentialNumber++;
-                }
-                else
-                {
-                    _sequentialNumber = 1;
-                }
-            }
-            else
-            {
-                _sequentialNumber = 1; 
-            }
-
-            string seqNumber = _sequentialNumber.ToString("D6");
-            _lastMedicalRecordNumber = $"{year}{month}{seqNumber}";
-
-            return $"{year}{month}{seqNumber}";
-        }
-            **/
 
         /**
          * Updates an existing patient's details in the repository and sends a notification email.
