@@ -1,0 +1,52 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - master  
+  schedule:
+    - cron: '0 4 * * *'
+    - cron: '0 13 * * *'
+
+jobs:
+  deploy:
+    name: Deploy to Server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0
+
+      - name: Publish .NET project
+        run: |
+           dotnet publish -c Release -o ./publish
+          
+      - name: Transfer files to server
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: ./publish/*
+          target: ${{ secrets.SSH_USER }}/apps/backend
+          overwrite: true
+          rm: true
+          debug: true
+          timeout: "600s"
+
+      - name: Run the application on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd ${{secrets.SSH_USERNAME}}/apps/backend
+            ./buildBackend.sh

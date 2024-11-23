@@ -20,6 +20,7 @@ namespace DDDNetCore.Application.Services
         private readonly ILogger<OperationRequestService> _logger;
         private readonly OperationRequestMapper _mapper;
         private readonly PatientNameMicroService _patientNameMicroService;
+        private readonly OperationTypeNameMicroService _service;
 
         /** Initializes a new instance of the <OperationRequestService/> class.
          * <param name="unitOfWork"> The unit of work to manage transactions </param>
@@ -28,13 +29,15 @@ namespace DDDNetCore.Application.Services
          * <param name="operationRequestMapper"> Mapper instance for mapping operations (e.g., domain to dto, dto to domain)</param>
          */
         
-        public OperationRequestService(IUnitOfWork unitOfWork, IOperationRequestRepository repo, ILogger<OperationRequestService> logger, OperationRequestMapper operationRequestMapper, PatientNameMicroService patientNameMicroService)
+        public OperationRequestService(IUnitOfWork unitOfWork, IOperationRequestRepository repo, ILogger<OperationRequestService> logger, OperationRequestMapper operationRequestMapper, 
+            PatientNameMicroService patientNameMicroService, OperationTypeNameMicroService service)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
             this._logger = logger;
             this._mapper = operationRequestMapper;
             this._patientNameMicroService = patientNameMicroService;
+            this._service = service;
         }
         
         /**
@@ -100,12 +103,6 @@ namespace DDDNetCore.Application.Services
             var list = await this._repo.GetAllAsync();
             
             var existingOperationRequest = list.FirstOrDefault(or => or.OperationTypeId.AsString() == operationRequestDto.OperationTypeId);
-
-            if (existingOperationRequest != null)
-            {
-                _logger.LogWarning("A request of operation type {OperationTypeId} already exists.", operationRequestDto.OperationTypeId);
-                throw new InvalidOperationException("An operation request for this operation type already exists.");
-            }
 
             var operationRequestId = GenerateOperationRequestId(operationRequestDto, list);
             
@@ -223,6 +220,12 @@ namespace DDDNetCore.Application.Services
         {
             return await _patientNameMicroService.GetAllOperationRequestsByPatientName(patientName);
         }
+
+        public async Task<List<OperationRequestDto>> GetAllByOperationName(string operationTypeName)
+        {
+            return await _service.GetAllOperationRequestsByOperationTypeName(operationTypeName);
+        }
+
 
         public OperationRequestId GenerateOperationRequestId(OperationRequestDto operationRequestDto, List<OperationRequest> list)
         {

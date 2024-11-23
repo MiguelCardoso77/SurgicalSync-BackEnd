@@ -25,6 +25,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
         private OperationRequestsController _controller;
         private OperationRequestService _operationRequestService;
         private PatientNameMicroService _patientNameMicroService;
+        private OperationTypeNameMicroService _operationTypeNameMicroService;
         private Mock<OperationRequestMapper> _mockOperationRequestMapper;
         private Mock<IUnitOfWork> _unitOfWorkMock;
         private Mock<IOperationRequestRepository> _oRRepositoryMock;
@@ -43,7 +44,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 _oRRepositoryMock.Object, 
                 _loggerMock.Object,
                 _mockOperationRequestMapper.Object,
-                _patientNameMicroService
+                _patientNameMicroService,
+                _operationTypeNameMicroService
                 );
 
             _controller = new OperationRequestsController(_operationRequestService);

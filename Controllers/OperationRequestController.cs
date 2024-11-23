@@ -23,16 +23,10 @@ namespace DDDNetCore.Controllers
         // GET: api/OperationRequests
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OperationRequestDto>>> GetAll(
-            [FromQuery] string operationTypeId = null, [FromQuery] string medicalRecordNumber = null,
+            [FromQuery] string medicalRecordNumber = null,
             [FromQuery] string startDate = null, [FromQuery] string endDate = null, [FromQuery] bool? isActive = null,
-            [FromQuery] string patientName = null)
+            [FromQuery] string patientName = null, [FromQuery] string operationTypeName = null)
         {
-            if (!string.IsNullOrEmpty(operationTypeId))
-            {
-                var result = await _service.GetAllByOperationType(operationTypeId);
-                return Ok(result);
-            }
-
             if (!string.IsNullOrEmpty(medicalRecordNumber))
             {
                 var result = await _service.GetAllByMedicalRecordNumber(medicalRecordNumber);
@@ -56,6 +50,13 @@ namespace DDDNetCore.Controllers
                 var result = await _service.GetAllByPatientName(patientName);
                 return Ok(result);
             }
+
+            if (!string.IsNullOrEmpty(operationTypeName))
+            {
+                var result = await _service.GetAllByOperationName(operationTypeName);
+                return Ok(result);
+            }
+            
             var allRequests = await _service.GetAllAsync();
             return Ok(allRequests);
         }
