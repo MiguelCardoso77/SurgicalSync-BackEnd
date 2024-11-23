@@ -92,7 +92,7 @@ namespace DDDNetCore.Application.Services
         
         public async Task<PlanningDto> LoadPlanningAsync(PlanningDto planningDto)
         {
-            await _planningBootstrap.BootstrapData(planningDto.Date, "6,2,1");
+            await _planningBootstrap.BootstrapData(planningDto.Date, "4, 6, 8");
             
             return planningDto;
         }
