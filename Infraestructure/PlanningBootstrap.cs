@@ -23,9 +23,9 @@ public class PlanningBootstrap
             throw new InvalidOperationException("_context is not initialized.");
         }
 
-        var currentDate = DateTime.Now.ToString("yyyyMMdd");
-
         var tasks = new List<Task>();
+        
+        date = DateTime.Parse(date).ToString("yyyyMMdd");
         
         tasks.Add(AgendaStaffMethod(date));
         tasks.Add(TimetableMethod(date));
@@ -33,7 +33,7 @@ public class PlanningBootstrap
         tasks.Add(SurgeryMethod());
         tasks.Add(SurgeryIdMethod(requestsInput));
         tasks.Add(AssignmentSurgeryMethod(requestsInput));
-        tasks.Add(AgendaOperationRoomMethod(currentDate));
+        tasks.Add(AgendaOperationRoomMethod(date));
         
         await Task.WhenAll(tasks);
 
