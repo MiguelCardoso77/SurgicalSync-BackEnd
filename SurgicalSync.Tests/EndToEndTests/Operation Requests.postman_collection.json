@@ -24,11 +24,9 @@
 							"\r",
 							"// Log the response and status for debugging\r",
 							"console.log(response);\r",
-							"console.log(response.status);\r",
 							"\r",
 							"// Test that the response has all required properties\r",
 							"pm.test(\"Response has all required properties\", () => {\r",
-							"    pm.expect(response).to.have.property(\"operationRequestId\");\r",
 							"    pm.expect(response).to.have.property(\"deadlineDate\");\r",
 							"    pm.expect(response).to.have.property(\"priority\");\r",
 							"    pm.expect(response).to.have.property(\"operationTypeId\");\r",
@@ -36,13 +34,12 @@
 							"    pm.expect(response).to.have.property(\"staffId\");\r",
 							"});\r",
 							"\r",
-							"// Test that properties have correct values using environment variables\r",
+							"// Test that properties have correct values\r",
 							"pm.test(\"Properties have correct values\", () => {\r",
-							"    pm.expect(response.operationRequestId).to.eql('1');\r",
-							"    pm.expect(response.deadlineDate).to.eql(\"2025-01-08\");\r",
+							"    pm.expect(response.deadlineDate).to.eql(\"2025-01-09\");\r",
 							"    pm.expect(response.priority).to.eql(\"UrgentSurgery\");\r",
-							"    pm.expect(response.operationTypeId).to.eql(\"11\");\r",
-							"    pm.expect(response.medicalRecordNumber).to.eql(\"202409000015\");\r",
+							"    pm.expect(response.operationTypeId).to.eql(\"1\");\r",
+							"    pm.expect(response.medicalRecordNumber).to.eql(\"202411000008\");\r",
 							"    pm.expect(response.staffId).to.eql(\"D202400004\");\r",
 							"});\r",
 							"\r",
@@ -58,9 +55,9 @@
 							"    pm.expect(allowedPriorities).to.include(response.priority);\r",
 							"});\r",
 							"\r",
-							"// Test that the operationRequestId is numeric\r",
-							"pm.test(\"Operation Request ID is numeric\", () => {\r",
-							"    pm.expect(response.operationRequestId).to.match(/^\\d+$/);\r",
+							"// Test that operationTypeId is numeric\r",
+							"pm.test(\"Operation Type ID is numeric\", () => {\r",
+							"    pm.expect(response.operationTypeId).to.match(/^\\d+$/);\r",
 							"});\r",
 							""
 						],
@@ -74,7 +71,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"deadlineDate\": \"2025-01-08\",\r\n        \"priority\": \"UrgentSurgery\",\r\n        \"operationTypeId\": \"11\",\r\n        \"medicalRecordNumber\": \"202409000015\",\r\n        \"staffId\": \"D202400004\"\r\n    }",
+					"raw": "{\r\n        \"deadlineDate\": \"2025-01-09\",\r\n        \"priority\": \"UrgentSurgery\",\r\n        \"operationTypeId\": \"1\",\r\n        \"medicalRecordNumber\": \"202411000008\",\r\n        \"staffId\": \"D202400004\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -108,14 +105,9 @@
 							"// Parse the response JSON\r",
 							"const response = pm.response.json();\r",
 							"\r",
-							"// Test that the operationRequestId matches the expected value from environment variables\r",
-							"pm.test(\"operationRequestId should match\", function () {\r",
-							"    pm.expect(response.operationRequestId).to.eql('1');\r",
-							"});\r",
-							"\r",
 							"// Test that the deadlineDate matches the expected value from environment variables\r",
 							"pm.test(\"deadlineDate should match\", function () {\r",
-							"    pm.expect(response.deadlineDate).to.eql(\"2025-01-08\");\r",
+							"    pm.expect(response.deadlineDate).to.eql(\"2025-01-09\");\r",
 							"});\r",
 							"\r",
 							"// Test that the priority matches the expected value from environment variables\r",
@@ -125,12 +117,12 @@
 							"\r",
 							"// Test that the operationTypeId matches the expected value from environment variables\r",
 							"pm.test(\"operationTypeId should match\", function () {\r",
-							"    pm.expect(response.operationTypeId).to.eql('11');\r",
+							"    pm.expect(response.operationTypeId).to.eql('1');\r",
 							"});\r",
 							"\r",
 							"// Test that the medicalRecordNumber matches the expected value from environment variables\r",
 							"pm.test(\"medicalRecordNumber should match\", function () {\r",
-							"    pm.expect(response.medicalRecordNumber).to.eql('202409000015');\r",
+							"    pm.expect(response.medicalRecordNumber).to.eql('202411000008');\r",
 							"});\r",
 							"\r",
 							"// Test that the staffId matches the expected value from environment variables\r",
@@ -160,13 +152,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/operationRequests/1",
+					"raw": "{{baseUrl}}/operationRequests/5",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"operationRequests",
-						"1"
+						"5"
 					]
 				}
 			},
@@ -199,15 +191,15 @@
 							"\r",
 							"// Optionally, you can re-test other properties to ensure they remain unchanged\r",
 							"pm.test(\"Operation Request ID remains unchanged\", function () {\r",
-							"    pm.expect(response.operationRequestId).to.eql('1');\r",
+							"    pm.expect(response.operationRequestId).to.eql('5');\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Operation Type ID remains unchanged\", function () {\r",
-							"    pm.expect(response.operationTypeId).to.eql('11');\r",
+							"    pm.expect(response.operationTypeId).to.eql('1');\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Medical Record Number remains unchanged\", function () {\r",
-							"    pm.expect(response.medicalRecordNumber).to.eql('202409000015');\r",
+							"    pm.expect(response.medicalRecordNumber).to.eql('202411000008');\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Staff ID remains unchanged\", function () {\r",
@@ -237,7 +229,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"operationRequestId\": \"1\",\r\n        \"deadlineDate\": \"2026-01-01\",\r\n        \"priority\": \"UrgentSurgery\",\r\n        \"operationTypeId\": \"11\",\r\n        \"medicalRecordNumber\": \"202409000015\",\r\n        \"staffId\": \"D202400004\"\r\n    }",
+					"raw": "{\r\n        \"operationRequestId\": \"5\",\r\n        \"deadlineDate\": \"2026-01-01\",\r\n        \"priority\": \"UrgentSurgery\",\r\n        \"operationTypeId\": \"1\",\r\n        \"medicalRecordNumber\": \"202411000008\",\r\n        \"staffId\": \"D202400004\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -245,13 +237,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/operationRequests/1",
+					"raw": "{{baseUrl}}/operationRequests/5",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"operationRequests",
-						"1"
+						"5"
 					]
 				}
 			},
@@ -279,17 +271,41 @@
 							"\r",
 							"// Test that the array has the expected number of items\r",
 							"pm.test(\"Response array has the expected number of items\", function () {\r",
-							"    pm.expect(response.length).to.eql(1); // Expecting 1 item in the response\r",
+							"    pm.expect(response.length).to.eql(4); // Expecting 1 item in the response\r",
 							"});\r",
 							"\r",
 							"// Define the expected values\r",
 							"const expectedValues = [\r",
 							"    {\r",
-							"        \"operationRequestId\": \"1\",\r",
+							"        \"operationRequestId\": \"2\",\r",
+							"        \"deadlineDate\": \"2024-12-09\",\r",
+							"        \"priority\": \"UrgentSurgery\",\r",
+							"        \"operationTypeId\": \"1\",\r",
+							"        \"medicalRecordNumber\": \"202411000003\",\r",
+							"        \"staffId\": \"D202400002\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"operationRequestId\": \"3\",\r",
+							"        \"deadlineDate\": \"2024-12-09\",\r",
+							"        \"priority\": \"EmergencySurgery\",\r",
+							"        \"operationTypeId\": \"6\",\r",
+							"        \"medicalRecordNumber\": \"202411000003\",\r",
+							"        \"staffId\": \"D202400001\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"operationRequestId\": \"4\",\r",
+							"        \"deadlineDate\": \"2025-01-01\",\r",
+							"        \"priority\": \"UrgentSurgery\",\r",
+							"        \"operationTypeId\": \"8\",\r",
+							"        \"medicalRecordNumber\": \"202411000004\",\r",
+							"        \"staffId\": \"D202400002\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"operationRequestId\": \"5\",\r",
 							"        \"deadlineDate\": \"2026-01-01\",\r",
 							"        \"priority\": \"UrgentSurgery\",\r",
-							"        \"operationTypeId\": \"11\",\r",
-							"        \"medicalRecordNumber\": \"202409000015\",\r",
+							"        \"operationTypeId\": \"1\",\r",
+							"        \"medicalRecordNumber\": \"202411000008\",\r",
 							"        \"staffId\": \"D202400004\"\r",
 							"    }\r",
 							"];\r",
@@ -354,9 +370,21 @@
 					}
 				}
 			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{baseUrl}}/operationRequests",
 					"host": [
@@ -397,11 +425,11 @@
 							"// Define the expected values\r",
 							"const expectedValues = [\r",
 							"    {\r",
-							"        \"operationRequestId\": \"1\",\r",
+							"        \"operationRequestId\": \"5\",\r",
 							"        \"deadlineDate\": \"2026-01-01\",\r",
 							"        \"priority\": \"UrgentSurgery\",\r",
-							"        \"operationTypeId\": \"11\",\r",
-							"        \"medicalRecordNumber\": \"202409000015\",\r",
+							"        \"operationTypeId\": \"1\",\r",
+							"        \"medicalRecordNumber\": \"202411000008\",\r",
 							"        \"staffId\": \"D202400004\"\r",
 							"    }\r",
 							"];\r",
@@ -421,7 +449,7 @@
 							"// Test that all items have the same medicalRecordNumber\r",
 							"pm.test(\"All items have the same medicalRecordNumber for the patient\", function () {\r",
 							"    response.forEach(item => {\r",
-							"        pm.expect(item.medicalRecordNumber).to.eql(\"202409000015\");\r",
+							"        pm.expect(item.medicalRecordNumber).to.eql(\"202411000008\");\r",
 							"    });\r",
 							"});\r",
 							"\r",
@@ -473,7 +501,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/operationRequests?patientName=Anonymous",
+					"raw": "{{baseUrl}}/operationRequests?patientName=Miguel",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -483,7 +511,7 @@
 					"query": [
 						{
 							"key": "patientName",
-							"value": "Anonymous"
+							"value": "Miguel"
 						}
 					]
 				}
@@ -512,39 +540,44 @@
 							"\r",
 							"// Test that the array has the expected number of items\r",
 							"pm.test(\"Response array has the expected number of items\", function () {\r",
-							"    pm.expect(response.length).to.eql(1); // Expecting 1 item in the response\r",
+							"    pm.expect(response.length).to.eql(4); // Expecting 1 item in the response\r",
 							"});\r",
 							"\r",
 							"// Define the expected values\r",
 							"const expectedValues = [\r",
 							"    {\r",
-							"        \"operationRequestId\": \"1\",\r",
+							"        \"operationRequestId\": \"2\",\r",
+							"        \"deadlineDate\": \"2024-12-09\",\r",
+							"        \"priority\": \"UrgentSurgery\",\r",
+							"        \"operationTypeId\": \"1\",\r",
+							"        \"medicalRecordNumber\": \"202411000003\",\r",
+							"        \"staffId\": \"D202400002\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"operationRequestId\": \"3\",\r",
+							"        \"deadlineDate\": \"2024-12-09\",\r",
+							"        \"priority\": \"EmergencySurgery\",\r",
+							"        \"operationTypeId\": \"6\",\r",
+							"        \"medicalRecordNumber\": \"202411000003\",\r",
+							"        \"staffId\": \"D202400001\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"operationRequestId\": \"4\",\r",
+							"        \"deadlineDate\": \"2025-01-01\",\r",
+							"        \"priority\": \"UrgentSurgery\",\r",
+							"        \"operationTypeId\": \"8\",\r",
+							"        \"medicalRecordNumber\": \"202411000004\",\r",
+							"        \"staffId\": \"D202400002\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"operationRequestId\": \"5\",\r",
 							"        \"deadlineDate\": \"2026-01-01\",\r",
 							"        \"priority\": \"UrgentSurgery\",\r",
-							"        \"operationTypeId\": \"11\",\r",
-							"        \"medicalRecordNumber\": \"202409000015\",\r",
+							"        \"operationTypeId\": \"1\",\r",
+							"        \"medicalRecordNumber\": \"202411000008\",\r",
 							"        \"staffId\": \"D202400004\"\r",
 							"    }\r",
 							"];\r",
-							"\r",
-							"// Test that each item in the response matches the expected values\r",
-							"expectedValues.forEach((expectedValue, index) => {\r",
-							"    pm.test(`Response item at index ${index} matches expected value`, function () {\r",
-							"        pm.expect(response[index].operationRequestId).to.eql(expectedValue.operationRequestId);\r",
-							"        pm.expect(response[index].deadlineDate).to.eql(expectedValue.deadlineDate);\r",
-							"        pm.expect(response[index].priority).to.eql(expectedValue.priority);\r",
-							"        pm.expect(response[index].operationTypeId).to.eql(expectedValue.operationTypeId);\r",
-							"        pm.expect(response[index].medicalRecordNumber).to.eql(expectedValue.medicalRecordNumber);\r",
-							"        pm.expect(response[index].staffId).to.eql(expectedValue.staffId);\r",
-							"    });\r",
-							"});\r",
-							"\r",
-							"// Test that all items have the same operationTypeId\r",
-							"pm.test(\"All items have operationTypeId equal to '2'\", function () {\r",
-							"    response.forEach(item => {\r",
-							"        pm.expect(item.operationTypeId).to.eql(\"11\");\r",
-							"    });\r",
-							"});\r",
 							"\r",
 							"// Test that all required properties are present in each item\r",
 							"response.forEach((item) => {\r",
@@ -588,7 +621,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/operationRequests?operationTypeId=11",
+					"raw": "{{baseUrl}}/operationRequests?operationTypeId=1",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -598,7 +631,7 @@
 					"query": [
 						{
 							"key": "operationTypeId",
-							"value": "11"
+							"value": "1"
 						}
 					]
 				}
@@ -632,12 +665,12 @@
 							"\r",
 							"// Define the expected values\r",
 							"const expectedValues = [\r",
-							"    {\r",
-							"        \"operationRequestId\": \"1\",\r",
+							"     {\r",
+							"        \"operationRequestId\": \"5\",\r",
 							"        \"deadlineDate\": \"2026-01-01\",\r",
 							"        \"priority\": \"UrgentSurgery\",\r",
-							"        \"operationTypeId\": \"11\",\r",
-							"        \"medicalRecordNumber\": \"202409000015\",\r",
+							"        \"operationTypeId\": \"1\",\r",
+							"        \"medicalRecordNumber\": \"202411000008\",\r",
 							"        \"staffId\": \"D202400004\"\r",
 							"    }\r",
 							"];\r",
@@ -657,7 +690,7 @@
 							"// Test that all items have the same medicalRecordNumber\r",
 							"pm.test(\"All items have the same medicalRecordNumber\", function () {\r",
 							"    response.forEach(item => {\r",
-							"        pm.expect(item.medicalRecordNumber).to.eql('202409000015');\r",
+							"        pm.expect(item.medicalRecordNumber).to.eql('202411000008');\r",
 							"    });\r",
 							"});\r",
 							"\r",
@@ -703,7 +736,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/operationRequests?medicalRecordNumber=202409000015",
+					"raw": "{{baseUrl}}/operationRequests?medicalRecordNumber=202411000008",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -713,7 +746,7 @@
 					"query": [
 						{
 							"key": "medicalRecordNumber",
-							"value": "202409000015"
+							"value": "202411000008"
 						}
 					]
 				}
@@ -748,11 +781,11 @@
 							"// Define the expected values\r",
 							"const expectedValues = [\r",
 							"    {\r",
-							"        \"operationRequestId\": \"1\",\r",
+							"        \"operationRequestId\": \"5\",\r",
 							"        \"deadlineDate\": \"2026-01-01\",\r",
 							"        \"priority\": \"UrgentSurgery\",\r",
-							"        \"operationTypeId\": \"11\",\r",
-							"        \"medicalRecordNumber\": \"202409000015\",\r",
+							"        \"operationTypeId\": \"1\",\r",
+							"        \"medicalRecordNumber\": \"202411000008\",\r",
 							"        \"staffId\": \"D202400004\"\r",
 							"    }\r",
 							"];\r",
@@ -770,8 +803,8 @@
 							"});\r",
 							"\r",
 							"// Test that all items have deadline dates within the specified range\r",
-							"const startDate = new Date(\"2025-01-01\");\r",
-							"const endDate = new Date(\"2026-12-31\");\r",
+							"const startDate = new Date(\"2025-11-10\");\r",
+							"const endDate = new Date(\"2026-02-27\");\r",
 							"\r",
 							"pm.test(\"All deadline dates are within the specified range\", function () {\r",
 							"    response.forEach(item => {\r",
@@ -867,11 +900,11 @@
 							"\r",
 							"// Expected values after delete\r",
 							"const expectedDeletedItem = {\r",
-							"    \"operationRequestId\": \"1\",\r",
-							"    \"deadlineDate\": \"2026-01-01\",\r",
+							"    \"operationRequestId\": \"5\",\r",
+							"    \"deadlineDate\": \"2025-01-09\",\r",
 							"    \"priority\": \"UrgentSurgery\",\r",
-							"    \"operationTypeId\": \"11\",\r",
-							"    \"medicalRecordNumber\": \"202409000015\",\r",
+							"    \"operationTypeId\": \"1\",\r",
+							"    \"medicalRecordNumber\": \"202411000008\",\r",
 							"    \"staffId\": \"D202400004\"\r",
 							"};\r",
 							"\r",
@@ -925,13 +958,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/operationRequests/1",
+					"raw": "{{baseUrl}}/operationRequests/5",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"operationRequests",
-						"1"
+						"5"
 					]
 				}
 			},

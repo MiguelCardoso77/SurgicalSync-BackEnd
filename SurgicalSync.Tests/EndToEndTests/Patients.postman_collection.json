@@ -665,17 +665,17 @@
 				}
 			],
 			"request": {
-				"method": "POST",
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/Patients/request-deletion/202409000020",
+					"raw": "{{baseUrl}}/patients/request-deletion/202411000003",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"Patients",
+						"patients",
 						"request-deletion",
-						"202409000020"
+						"202411000003"
 					]
 				}
 			},
@@ -699,14 +699,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/Patients/confirm-deletion/202409000020",
+					"raw": "{{baseUrl}}/Patients/confirm-deletion/202411000003",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"Patients",
 						"confirm-deletion",
-						"202409000020"
+						"202411000003"
 					]
 				}
 			},
