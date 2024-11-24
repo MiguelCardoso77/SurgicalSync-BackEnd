@@ -9,6 +9,7 @@ using DDDNetCore.Domain;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
 using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop.Infrastructure;
 
 namespace DDDNetCore.Application.Services
 {
@@ -171,6 +172,7 @@ namespace DDDNetCore.Application.Services
         public async Task<PatientDto> AddAsync(PatientDto dto)
         {
             var existingPatient = await GetAllAsync();
+            var lastId = existingPatient.Last().MedicalRecordNumber;
 
             foreach (PatientDto pt in existingPatient)
             {
@@ -178,7 +180,7 @@ namespace DDDNetCore.Application.Services
                     throw new InvalidOperationException(
                         "An patient with the same phone number already exists. Please try with another.");
             }
-
+            
             foreach (PatientDto pt in existingPatient)
             {
                 if (pt.Email.Equals(dto.Email, StringComparison.OrdinalIgnoreCase))
@@ -186,21 +188,65 @@ namespace DDDNetCore.Application.Services
                         "An patient with the same email already exists. Please try with another.");
             }
 
-            var medicalRecordNumber = string.IsNullOrEmpty(dto.MedicalRecordNumber)
-                ? new MedicalRecordNumber()
-                : new MedicalRecordNumber(dto.MedicalRecordNumber);
-
-            var can = await _userEmailMicroService.VerifyEmail(dto.Email);
-
-            if (can.Equals(false))
+            if (!string.IsNullOrEmpty(lastId))
             {
-                throw new InvalidOperationException("This email already exists. Please try with another.");
+                string year = DateTime.Now.ToString("yyyy");
+                string month = DateTime.Now.ToString("MM");
+                
+                string lastYear = lastId.Substring(0, 4);
+                string lastMonth = lastId.Substring(4, 2);
+                
+                var sequentialNumber = int.Parse(lastId.Substring(6, 6));
+                
+                if (lastYear == year && lastMonth == month)
+                {
+                    sequentialNumber++;
+                }
+                else
+                {
+                    sequentialNumber = 1;
+                }
+                
+                string seqNumber = sequentialNumber.ToString("D6");
+                var finalId = $"{year}{month}{seqNumber}";
+                
+                dto.MedicalRecordNumber = finalId;
             }
+            else
+            {
+                string year = DateTime.Now.ToString("yyyy");
+                string month = DateTime.Now.ToString("MM");
+                var sequentialNumber = 1;
 
+                string seqNumber = sequentialNumber.ToString("D6");
+                var finalId = $"{year}{month}{seqNumber}";
+                
+                dto.MedicalRecordNumber = finalId;
+            }
+            
+            var medicalRecordNumber = new MedicalRecordNumber(dto.MedicalRecordNumber);
+            
+            EmailService emailService = new EmailService();
+            const string activationLink = "http://localhost:4200";
+            var emailContent = $@"
+            <html>
+            <body>
+              <p>Dear User,</p>
+              <p>An admin has successfully registered your account on Surgical Sync.</p>
+              <p>You can now activate your account by clicking the button below:</p>
+              <a href='{activationLink}' style='display: inline-block; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Activate Your Account</a>
+              <p>Your activation code is: <strong>{medicalRecordNumber.Value}</strong></p>
+              <p>If you did not expect this email, please contact our support team immediately.</p>
+              <p>Thank you,<br/>The Surgical Sync Team</p>
+            </body>
+            </html>";
+            var email = new Email(emailContent, dto.Email, "Welcome to Surgical Sync!");
+            await emailService.SendEmailAsync(email);
+            
             var patient = _mapper.ToDomain(dto, medicalRecordNumber, null, null);
 
-            await this._repo.AddAsync(patient);
-            await this._unitOfWork.CommitAsync();
+            await _repo.AddAsync(patient);
+            await _unitOfWork.CommitAsync();
 
             return _mapper.ToDto(patient);
         }

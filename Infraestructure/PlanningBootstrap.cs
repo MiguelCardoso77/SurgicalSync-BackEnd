@@ -23,17 +23,17 @@ public class PlanningBootstrap
             throw new InvalidOperationException("_context is not initialized.");
         }
 
-        var currentDate = DateTime.Now.ToString("yyyyMMdd");
-
         var tasks = new List<Task>();
+        
+        date = DateTime.Parse(date).ToString("yyyyMMdd");
         
         tasks.Add(AgendaStaffMethod(date));
         tasks.Add(TimetableMethod(date));
         tasks.Add(StaffMethod());
         tasks.Add(SurgeryMethod());
-        tasks.Add(SurgeryIdMethod());
+        tasks.Add(SurgeryIdMethod(requestsInput));
         tasks.Add(AssignmentSurgeryMethod(requestsInput));
-        tasks.Add(AgendaOperationRoomMethod(currentDate));
+        tasks.Add(AgendaOperationRoomMethod(date));
         
         await Task.WhenAll(tasks);
 
@@ -111,9 +111,22 @@ public class PlanningBootstrap
         return Task.CompletedTask;
     }
 
-    private Task SurgeryIdMethod()
+    private Task SurgeryIdMethod(string requestsInput)
     {
-        var operationRequests = _context.OperationRequests.ToList();
+        var requests = requestsInput.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(r => r.Trim()).ToArray();
+        
+        var allRequests = _context.OperationRequests.ToList();
+        Console.WriteLine("OperationRequests in DB: " + string.Join(", ", allRequests.Select(or => or.Id.Value)));
+        
+        var operationRequests = _context.OperationRequests
+            .AsEnumerable()
+            .Where(or => requests
+                .Select(req => req.Trim())
+                .Contains(or.Id.Value.ToString().Trim()))
+            .ToList();
+
+        Console.WriteLine("Matched OperationRequests: " + string.Join(", ", operationRequests.Select(or => or.Id.Value)));
+        
         foreach (var oR in operationRequests)
         {
             var id = "oR" + oR.Id.AsString();

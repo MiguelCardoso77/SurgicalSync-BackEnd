@@ -128,8 +128,17 @@ namespace DDDNetCore.Application.Services
                 if (ot.OperationName.Equals(dto.OperationName, StringComparison.OrdinalIgnoreCase))
                     throw new InvalidOperationException("An operation type with the same name already exists.");
             }
-            
-            var dtoId = string.IsNullOrEmpty(dto.Id) ? new OperationTypeId(Guid.NewGuid().ToString()) : new OperationTypeId(dto.Id);
+
+            OperationTypeId dtoId;
+            if (string.IsNullOrEmpty(dto.Id))
+            {
+                var count = existingOperationType.Count();
+                dtoId = new OperationTypeId((count + 1).ToString());
+            }
+            else
+            {
+                dtoId = new OperationTypeId(dto.Id);
+            }
             
             // Predefined staff members
             var predefinedStaff = "1 Orthopaedist, 1 Anaesthetist, 1 Instrumenting Nurse, 1 Circulating Nurse, 1 Nurse Anaesthetist, 1 Medical Action Assistant, ";

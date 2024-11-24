@@ -52,7 +52,7 @@ namespace DDDNetCore.Controllers
             var planning = await _appointmentService.LoadPlanningAsync(planningDto);
             
             Console.WriteLine("Planning data loaded.");
-            return CreatedAtAction(nameof(GetById), new {id = planning.RoomNumber}, planning);
+            return Ok(planning);
         }
         
         [HttpPost(template:"planning")]
