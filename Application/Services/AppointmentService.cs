@@ -100,7 +100,7 @@ namespace DDDNetCore.Application.Services
         public async Task<PlanningDto> AddPlanningAsync(PlanningDto planningDto)
         {
             var room = "sR" + planningDto.RoomNumber;
-            var date = planningDto.Date;
+            var date = DateTime.Parse(planningDto.Date).ToString("yyyyMMdd");
             
             var requestUri = $"http://localhost:8888/best?room={room}&day={date}";
             Console.WriteLine(requestUri);
