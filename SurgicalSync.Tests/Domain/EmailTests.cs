@@ -1,7 +1,7 @@
 ﻿using DDDNetCore.Domain;
 using NUnit.Framework;
 
-namespace DDDNetCore.SurgicalSyncTests.Domain
+namespace DDDNetCore.SurgicalSync.Tests.Domain
 {
     [TestFixture]
     public class EmailTests

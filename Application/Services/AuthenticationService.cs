@@ -31,22 +31,13 @@ namespace DDDNetCore.Application.Services
         {
             return await FirebaseService.LoginWithEmailPassword(dto.Email, dto.Password);
         }
-
-        /**
-         * Authenticates a user using Google login and creates a new patient profile if successful.
-         *
-         * @param dto The GoogleLoginDto containing Google login details.
-         * @return A Task representing the asynchronous operation, returning the GoogleLoginDto.
-         */
-        public async Task<GoogleLoginDto> LoginWithGoogle(GoogleLoginDto dto)
-        {
-            await FirebaseService.GivePatientGoogleAuthAsync(dto.RequestUri, dto.Email);
-            await FirebaseService.CreateUserRecordAsync(dto.Email, "Default999###", "Patient");
-            await _micro.CreatePatientProfile(dto);
-
-            return dto;
-        }
         
+        /**
+         * Authenticates a user using an auth code and retrieves a login response.
+         *
+         * @param dto The AuthCodeDto containing the auth code.
+         * @return A Task representing the asynchronous operation, with a login response string.
+         */
         public async Task<AuthCodeDto> ExchangeToken(AuthCodeDto dto)
         {
             // Verify the ID token and extract user details
@@ -61,26 +52,6 @@ namespace DDDNetCore.Application.Services
                 AuthCode = dto.AuthCode,
                 Email = email
             };
-        }
-
-        /**
-         * Authenticates a patient using a Google authorization token, verifies the token,
-         * and creates a new patient profile if successful.
-         *
-         * @param dto The GoogleLoginDto containing Google authorization token information.
-         * @return A Task representing the asynchronous operation, returning the created PatientDto.
-         */
-        public async Task<PatientDto> AuthenticatePatientToken(GoogleLoginDto dto)
-        {
-            var accessToken = await FirebaseService.ExchangeAuthorizationCodeForAccessToken(dto.AuthCode);
-            var jwtToken = await FirebaseService.ExchangeAuthorizationCodeForIdToken(dto.AuthCode);
-
-            await FirebaseService.VerifyIdTokenAsync(jwtToken);
-            var patientEmail = await FirebaseService.GetUserEmailFromGoogle(accessToken);
-
-            await FirebaseService.CreateUserWithGoogleAsync(jwtToken, patientEmail);
-
-            return await _micro.CreatePatientProfile(dto);
         }
     }
 }

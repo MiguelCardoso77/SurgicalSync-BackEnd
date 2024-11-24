@@ -51,20 +51,5 @@ namespace DDDNetCore.Controllers
         {
             return await _service.ExchangeToken(dto);
         }
-
-        /**
-         * Logs in a user using Google authentication.
-         *
-         * @param dto The Google login data transfer object containing necessary information.
-         * @return An ActionResult containing the GoogleLoginDto object.
-         */
-        // PUT: api/Authentication
-        [HttpPut]
-        public async Task<ActionResult<GoogleLoginDto>> LoginWithGoogle(GoogleLoginDto dto)
-        {
-            await _service.AuthenticatePatientToken(dto);
-
-            return dto;
-        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using DDDNetCore.Application.DTO;
+﻿using DDDNetCore.Application.DTO;
 using NUnit.Framework;
 
 namespace DDDNetCore.SurgicalSync.Tests.Application.DTO

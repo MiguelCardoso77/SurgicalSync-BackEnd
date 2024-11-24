@@ -28,5 +28,21 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Migrations\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Remove="Migrations\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Remove="Migrations\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="Migrations\**" />
+  </ItemGroup>
 
 </Project>
