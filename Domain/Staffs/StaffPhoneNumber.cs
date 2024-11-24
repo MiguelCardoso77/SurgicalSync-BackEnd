@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using DDDNetCore.Domain.Shared;
 
 namespace DDDNetCore.Domain.Staffs
@@ -25,10 +27,29 @@ namespace DDDNetCore.Domain.Staffs
          * Constructor that initializes the staff phone number with the provided value.
          *
          * @param staffPhoneNumber The phone number to be assigned to the staff member.
+         * @throws ArgumentException if the phone number is not exactly 9 numeric digits.
          */
         public StaffPhoneNumber(string staffPhoneNumber)
         {
+            if (!IsValidPhoneNumber(staffPhoneNumber))
+            {
+                throw new ArgumentException("The phone number must contain exactly 9 numeric digits.");
+            }
+
             this.Value = staffPhoneNumber;
+        }
+
+        /**
+         * Validates that the provided phone number contains exactly 9 numeric digits.
+         *
+         * @param phoneNumber The phone number to validate.
+         * @return true if the phone number is valid, false otherwise.
+         */
+        private static bool IsValidPhoneNumber(string phoneNumber)
+        {
+            return !string.IsNullOrEmpty(phoneNumber) &&
+                   phoneNumber.Length == 9 &&
+                   phoneNumber.All(char.IsDigit); // Verifica se todos os caracteres são dígitos numéricos
         }
 
         /**
