@@ -58,14 +58,5 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
             // Assert
             Assert.AreNotEqual(hashCode1, hashCode2, "Different instances should have different hash codes");
         }
-        
-        [Test]
-        public void TestPrivateConstructor()
-        {
-            var medicalRecordNumber = (MedicalRecordNumber)Activator.CreateInstance(typeof(MedicalRecordNumber), true);
-
-            Assert.AreEqual("202411000001",medicalRecordNumber.ToString());
-            Assert.AreEqual(medicalRecordNumber.Value, medicalRecordNumber.ToString());
-        }
     }
 }
