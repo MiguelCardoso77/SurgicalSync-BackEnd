@@ -48,5 +48,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd ${{secrets.SSH_USERNAME}}/apps/backend
+            chmod +x /home/${{ secrets.SSH_USER }}/apps/backend/buildBackend.sh
+            cd /home/${{ secrets.SSH_USER }}/apps/backend
             ./buildBackend.sh
