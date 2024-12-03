@@ -34,10 +34,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
-          target: /apps/backend/publish
+          target: /backend/publish
           overwrite: true
-          rm: true
-
+          
       - name: Verify directory and files on server
         uses: appleboy/ssh-action@master
         with:
@@ -47,7 +46,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             echo "Verifying directory contents..."
-            ls -la /apps/backend
+            ls -la /backend
 
       - name: Run the application on server
         uses: appleboy/ssh-action@master
@@ -57,4 +56,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            ls -la /apps/backend/buildBackend.sh
+            ls -la /backend/buildBackend.sh
