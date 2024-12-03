@@ -24,20 +24,7 @@ jobs:
 
       - name: Publish .NET project
         run: |
-           dotnet publish -c Release -o ./publish
-
-      - name: Backup buildBackend.sh
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            if [ -f /root/apps/backend/buildBackend.sh ]; then
-              mv /apps/backend/buildBackend.sh /apps/buildBackend.sh
-            fi
-           
+           dotnet publish -c Release -o ./publish  
 
       - name: Transfer files to server
         uses: appleboy/scp-action@v0.1.5
@@ -50,18 +37,6 @@ jobs:
           target: /apps/backend/publish
           overwrite: true
           rm: true
-
-      - name: Restore buildBackend.sh
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            if [ -f /root/apps/buildBackend.sh ]; then
-              mv /apps/buildBackend.sh /apps/backend/buildBackend.sh
-            fi
 
       - name: Verify directory and files on server
         uses: appleboy/ssh-action@master
