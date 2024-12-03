@@ -58,5 +58,9 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /apps/backend
+            echo "Current directory:"
+            pwd
+            echo "Contents of the directory:"
+            ls -la
             chmod +x buildBackend.sh
             ./buildBackend.sh
