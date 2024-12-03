@@ -34,7 +34,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
-          target: /apps/backend
+          target: root/apps/backend
           overwrite: true
           rm: true
           debug: true
@@ -49,5 +49,5 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /root/apps/backend
-            chmod +x buildBackend.sh
+            chmod +x /root/apps/backend/buildBackend.sh
             ./buildBackend.sh
