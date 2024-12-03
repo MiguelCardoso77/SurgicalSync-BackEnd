@@ -35,7 +35,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             if [ -f /root/apps/backend/buildBackend.sh ]; then
-              mv /root/apps/backend/buildBackend.sh /root/apps/buildBackend.sh
+              mv /apps/backend/buildBackend.sh /apps/buildBackend.sh
             fi
            
 
@@ -47,7 +47,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
-          target: /root/apps/backend
+          target: /apps/backend/publish
           overwrite: true
           rm: true
 
@@ -60,7 +60,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             if [ -f /root/apps/buildBackend.sh ]; then
-              mv /root/apps/buildBackend.sh /root/apps/backend/buildBackend.sh
+              mv /apps/buildBackend.sh /apps/backend/buildBackend.sh
             fi
 
       - name: Verify directory and files on server
@@ -72,7 +72,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             echo "Verifying directory contents..."
-            ls -la /root/apps/backend
+            ls -la /apps/backend
 
       - name: Run the application on server
         uses: appleboy/ssh-action@master
@@ -82,6 +82,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /root/apps/backend
+            cd /apps/backend
             chmod +x buildBackend.sh
             ./buildBackend.sh
