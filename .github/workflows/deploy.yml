@@ -33,7 +33,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: ./publish/* ./buildBackend.sh
+          source: ./publish/*
           target: /root/apps/backend
           overwrite: true
           rm: true
