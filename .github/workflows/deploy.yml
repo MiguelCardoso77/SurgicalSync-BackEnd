@@ -35,10 +35,8 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
           target: /root/apps/backend
-          overwrite: true
+          overwrite: false
           rm: true
-          debug: true
-          timeout: "600s"
 
       - name: Verify directory and files on server
         uses: appleboy/ssh-action@master
