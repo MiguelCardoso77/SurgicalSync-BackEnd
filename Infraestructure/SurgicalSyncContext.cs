@@ -2,12 +2,14 @@ using DDDNetCore.Domain.Appointments;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.RoomTypes;
 using DDDNetCore.Domain.SurgeryRooms;
 using DDDNetCore.Domain.Users;
 using DDDNetCore.Infraestructure.Appointments;
 using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
+using DDDNetCore.Infraestructure.RoomTypes;
 using DDDNetCore.Infraestructure.Staff;
 using DDDNetCore.Infraestructure.SurgeryRooms;
 using DDDNetCore.Infraestructure.Users;
@@ -23,8 +25,8 @@ namespace DDDNetCore.Infraestructure
         public DbSet<Domain.Staffs.Staff> Staffs { get; set; }
         public DbSet<OperationRequest> OperationRequests { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
-        
         public DbSet<SurgeryRoom> SurgeryRooms { get; set; }
+        public DbSet<RoomType> RoomTypes { get; set; }
         
         public SurgicalSyncContext(DbContextOptions options) : base(options)
         {
@@ -40,6 +42,7 @@ namespace DDDNetCore.Infraestructure
             modelBuilder.ApplyConfiguration(new OperationRequestEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AppointmentEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SurgeryRoomEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RoomTypeEntityTypeConfiguration());
             
             base.OnModelCreating(modelBuilder);
         }

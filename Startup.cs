@@ -5,6 +5,7 @@ using DDDNetCore.Domain.Appointments;
 using DDDNetCore.Domain.OperationRequests;
 using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
+using DDDNetCore.Domain.RoomTypes;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain.SurgeryRooms;
@@ -14,6 +15,7 @@ using DDDNetCore.Infraestructure.Appointments;
 using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
+using DDDNetCore.Infraestructure.RoomTypes;
 using DDDNetCore.Infraestructure.Staff;
 using DDDNetCore.Infraestructure.SurgeryRooms;
 using DDDNetCore.Infraestructure.Users;
@@ -42,7 +44,7 @@ namespace DDDNetCore
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins(new[] { "http://localhost:53052", "http://localhost:4200" }).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins(new[] { "http://localhost:63359", "http://localhost:4200" }).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             });
             
             FirebaseApp.Create(new AppOptions()
@@ -116,6 +118,10 @@ namespace DDDNetCore
             services.AddTransient<IAppointmentsRepository, AppointmentRepository>();
             services.AddTransient<AppointmentService>();
             services.AddTransient<AppointmentMapper>();
+
+            services.AddTransient<IRoomTypeRepository, RoomTypeRepository>();
+            services.AddTransient<RoomTypeService>();
+            services.AddTransient<RoomTypeMapper>();
             
             services.AddTransient<PatientNameMicroService>();
             services.AddTransient<PatientMicroService>();
