@@ -42,7 +42,8 @@ public class RoomTypeEntityTypeConfiguration : IEntityTypeConfiguration<RoomType
                 .HasConversion(
                     v => v,
                     v => v)
-                .HasColumnName("RoomTypeDescription");
+                .HasColumnName("RoomTypeDescription")
+                .IsRequired();
         });
     }
 
