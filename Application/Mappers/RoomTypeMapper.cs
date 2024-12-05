@@ -22,7 +22,7 @@ public class RoomTypeMapper
         return new RoomType(
             new RoomTypeId(roomTypeDto.RoomTypeCode), 
             new RoomTypeDesignation(roomTypeDto.RoomTypeDesignation), 
-            new RoomTypeDescription(roomTypeDto.RoomTypeDescription)
+            string.IsNullOrEmpty(roomTypeDto.RoomTypeDescription) ? null : new RoomTypeDescription(roomTypeDto.RoomTypeDescription)
         );
     }
     

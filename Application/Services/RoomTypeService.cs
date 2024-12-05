@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
@@ -34,6 +35,11 @@ public class RoomTypeService
     
     public async Task<RoomTypeDto> AddAsync(RoomTypeDto roomTypeDto)
     {
+        if (roomTypeDto.RoomTypeCode.Length != 8 || !System.Text.RegularExpressions.Regex.IsMatch(roomTypeDto.RoomTypeCode, @"^[a-zA-Z0-9\-]+$"))
+        {
+            throw new ArgumentException("RoomTypeCode must be 8 characters long and contain only letters, numbers, and dashes.");
+        }
+        
         var roomType = _mapper.ToDomain(roomTypeDto);
         await _repo.AddAsync(roomType);
         await _unitOfWork.CommitAsync();
