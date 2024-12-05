@@ -3,10 +3,10 @@ name: Deploy to Production
 on:
   push:
     branches:
-      - master  
+      - master
   schedule:
-    - cron: '0 5 * * *'
-    - cron: '0 13 * * *'
+    - cron: '0 7 * * *'
+    - cron: '0 21 * * *'
 
 jobs:
   deploy:
@@ -24,8 +24,8 @@ jobs:
 
       - name: Publish .NET project
         run: |
-           dotnet publish -c Release -o ./publish
-          
+           dotnet publish -c Release -o ./publish  
+
       - name: Transfer files to server
         uses: appleboy/scp-action@v0.1.5
         with:
@@ -34,11 +34,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./publish/*
-          target: /apps/backend
+          target: ~/backend
           overwrite: true
-          rm: true
-          debug: true
-          timeout: "600s"
 
       - name: Run the application on server
         uses: appleboy/ssh-action@master
@@ -48,6 +45,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /root/apps/backend
-            chmod +x buildBackend.sh
-            ./buildBackend.sh
+            chmod +x ~/backend/buildBackend.sh
+            ~/backend/buildBackend.sh
