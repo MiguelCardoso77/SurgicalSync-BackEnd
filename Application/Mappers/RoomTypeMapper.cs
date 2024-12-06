@@ -11,7 +11,7 @@ public class RoomTypeMapper
     {
         return new RoomTypeDto
         {
-            RoomTypeCode = roomType.Id.Value,
+            RoomTypeCode = roomType.Id.AsString(),
             RoomTypeDesignation = roomType.Designation.Value,
             RoomTypeDescription = roomType.Description.Value,
         };
