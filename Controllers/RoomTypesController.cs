@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
@@ -22,6 +23,7 @@ namespace DDDNetCore.Controllers;
         public async Task<ActionResult<IEnumerable<RoomTypeDto>>> GetAll()
         {
             var allRoomTypes = await _service.GetAllAsync();
+            Console.WriteLine("All room types listed successfully.");
             return Ok(allRoomTypes);
         }
         
@@ -30,6 +32,7 @@ namespace DDDNetCore.Controllers;
         public async Task<ActionResult<RoomTypeDto>> GetByCode(string code)
         {
             var roomType = await _service.GetByCodeAsync(code);
+            Console.WriteLine($"Room type with Code = {code} was retrieved successfully.");
             return Ok(roomType);
         }
         
@@ -38,6 +41,7 @@ namespace DDDNetCore.Controllers;
         public async Task<ActionResult<RoomTypeDto>> Create(RoomTypeDto roomTypeDto)
         {
             var createdRoomType = await _service.AddAsync(roomTypeDto);
+            Console.WriteLine($"Operation type with Code = {roomTypeDto.RoomTypeCode} was created successfully.");
             return CreatedAtAction(nameof(GetByCode), new { code = createdRoomType.RoomTypeCode }, createdRoomType);
         }
     }

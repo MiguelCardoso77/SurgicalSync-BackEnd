@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "a51e473b-1a8b-4e85-8edd-30ee83e2270c",
+		"name": "Room Types",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38589816"
+	},
+	"item": [
+		{
+			"name": "GET all room types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(response)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response array is not empty\", function () {\r",
+							"    pm.expect(response.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"const roomTypeCodeRegex = /^[a-zA-Z0-9\\-]+$/;\r",
+							"\r",
+							"response.forEach((roomType, index) => {\r",
+							"    pm.test(`Room Type ${index + 1} has all required fields`, function () {\r",
+							"        pm.expect(roomType).to.have.property(\"roomTypeCode\");\r",
+							"        pm.expect(roomType).to.have.property(\"roomTypeDesignation\");\r",
+							"        pm.expect(roomType).to.have.property(\"roomTypeDescription\");\r",
+							"    });\r",
+							"\r",
+							"    pm.test(`Room Type ${index + 1} has a valid roomTypeCode`, function () {\r",
+							"        pm.expect(roomType.roomTypeCode.length).to.eql(8);\r",
+							"        pm.expect(roomTypeCodeRegex.test(roomType.roomTypeCode)).to.be.true;\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET a room type by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const roomTypeId = pm.environment.get(\"roomTypeId\") || \"24-00001\";\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Check if the response is an object (not an array)\r",
+							"pm.test(\"Response is an object\", function () {\r",
+							"    pm.expect(response).to.be.an(\"object\");\r",
+							"});\r",
+							"\r",
+							"// Verify the room type has the required fields\r",
+							"pm.test(\"Room type has all required fields\", function () {\r",
+							"    pm.expect(response).to.have.property(\"roomTypeCode\", roomTypeId);\r",
+							"    pm.expect(response).to.have.property(\"roomTypeDesignation\").that.is.a(\"string\");\r",
+							"    pm.expect(response).to.have.property(\"roomTypeDescription\").and.is.not.empty;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/24-00001",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"24-00001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST a room type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 201\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// Parse the response JSON\r",
+							"const response = pm.response.json();\r",
+							"console.log(response);\r",
+							"\r",
+							"// Check if the response has required fields\r",
+							"pm.test(\"Response contains the created room type data\", function () {\r",
+							"    pm.expect(response).to.have.property(\"roomTypeCode\");\r",
+							"    pm.expect(response).to.have.property(\"roomTypeDesignation\");\r",
+							"    pm.expect(response).to.have.property(\"roomTypeDescription\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roomTypeCode\": \"24-00005\",\r\n    \"roomTypeDesignation\": \"Test\",\r\n    \"roomTypeDescription\": \"Testing.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5001/api/roomTypes",
+			"type": "string"
+		}
+	]
+}
