@@ -1,4 +1,5 @@
-﻿using DDDNetCore.Domain.Shared;
+﻿using DDDNetCore.Domain.RoomTypes;
+using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.SurgeryRooms;
 
 namespace DDDNetCore.Domain.SurgeryRooms
@@ -36,9 +37,9 @@ namespace DDDNetCore.Domain.SurgeryRooms
         public Capacity Capacity { get; private set; }
         
         /**
-         * The type of this surgery room (e.g., general surgery, orthopedic).
+         * The type of this surgery room.
          */
-        public Type Type { get; private set; }
+        public RoomTypeId Type { get; private set; }
 
         /**
          * Private constructor for ORM or serialization frameworks.
@@ -59,7 +60,7 @@ namespace DDDNetCore.Domain.SurgeryRooms
          */
         public SurgeryRoom(RoomNumber roomNumber, MaintenanceSlots maintenanceSlots,
             CurrentStatus currentStatus, AssignedEquipment assignedEquipment, Capacity capacity,
-            Type type)
+            RoomTypeId type)
         {
             this.Id = roomNumber;
             this.MaintenanceSlots = maintenanceSlots;

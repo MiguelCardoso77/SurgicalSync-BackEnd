@@ -150,7 +150,7 @@ namespace DDDNetCore.Infraestructure
 
             };
             
-            */
+            
 
             var surgeryRooms = new List<SurgeryRoom>()
             {
@@ -171,13 +171,14 @@ namespace DDDNetCore.Infraestructure
                 new(new RoomNumber("8"), new MaintenanceSlots(""), CurrentStatus.UnderMaintenance, new AssignedEquipment("ICU Bed, Ventilator, Heart Monitor"),
                     new Capacity(4,2), Type.ICU),
             };
+            */
             
             //context.Patients.AddRange(patients);
             //context.OperationTypes.AddRange(operationTypes);
             //context.Staffs.AddRange(staffs);
             //context.Users.AddRange(users);
             //wcontext.OperationRequests.AddRange(request);
-            context.SurgeryRooms.AddRange(surgeryRooms);
+            //context.SurgeryRooms.AddRange(surgeryRooms);
             context.SaveChanges();
         }
     }

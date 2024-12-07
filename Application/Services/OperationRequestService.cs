@@ -98,23 +98,31 @@ namespace DDDNetCore.Application.Services
 
         public async Task<OperationRequestDto> AddAsync(OperationRequestDto operationRequestDto)
         {
-            var dtoId = string.IsNullOrEmpty(operationRequestDto.OperationRequestId) ? new OperationRequestId(Guid.NewGuid().ToString()) : new OperationRequestId(operationRequestDto.OperationRequestId);
-            
-            var list = await this._repo.GetAllAsync();
-            
-            var existingOperationRequest = list.FirstOrDefault(or => or.OperationTypeId.AsString() == operationRequestDto.OperationTypeId);
+            if (operationRequestDto == null)
+            {
+                throw new ArgumentNullException(operationRequestDto.OperationRequestId.ToString(), "OperationRequest cannot be null.");
+            }
 
-            var operationRequestId = GenerateOperationRequestId(operationRequestDto, list);
-            
-            var domainObj = _mapper.ToDomain(operationRequestDto, operationRequestId);
-            
+            var id = string.IsNullOrWhiteSpace(operationRequestDto.OperationRequestId) 
+                ? Guid.NewGuid().ToString() 
+                : operationRequestDto.OperationRequestId;
+
+            var orId = new OperationRequestId(id);
+
+            var existingEntity = await this._repo.GetByIdAsync(orId);
+            if (existingEntity != null)
+            {
+                throw new InvalidOperationException($"OperationRequest with Id {id} already exists.");
+            }
+
+            var domainObj = _mapper.ToDomain(operationRequestDto, orId);
+
             await this._repo.AddAsync(domainObj);
             await this._unitOfWork.CommitAsync();
-            
+
             _logger.LogInformation("Operation request with Id: {OperationRequestId} was successfully created.", domainObj.Id.AsString());
-            
-            var dto = _mapper.ToDto(domainObj);
-            return dto;
+
+            return _mapper.ToDto(domainObj);
         }
         
         /**
@@ -226,29 +234,5 @@ namespace DDDNetCore.Application.Services
             return await _service.GetAllOperationRequestsByOperationTypeName(operationTypeName);
         }
 
-
-        public OperationRequestId GenerateOperationRequestId(OperationRequestDto operationRequestDto, List<OperationRequest> list)
-        {
-            bool exists = list.Any(or => or.Id.AsString() == operationRequestDto.OperationRequestId);
-
-            if (exists)
-            {
-                return new OperationRequestId(operationRequestDto.OperationRequestId);
-            }
-
-            if (list.Count > 0)
-            {
-                var lastOperationRequest = list.Last();
-        
-                var lastId = lastOperationRequest.Id.AsString();
-
-                int newId = int.Parse(lastId) + 1;
-                return new OperationRequestId(newId.ToString());
-            }
-            else
-            {
-                return new OperationRequestId("1");
-            }
-        }
     }
 }

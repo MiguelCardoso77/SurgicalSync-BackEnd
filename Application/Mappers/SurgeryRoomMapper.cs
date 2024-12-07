@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DDDNetCore.Application.DTO;
+using DDDNetCore.Domain.RoomTypes;
 using DDDNetCore.Domain.SurgeryRooms;
 using Type = DDDNetCore.Domain.SurgeryRooms.Type;
 
@@ -28,7 +29,7 @@ namespace DDDNetCore.Application.Mappers
                 CurrentStatus = surgeryRoom.CurrentStatus.ToString(),
                 AssignedEquipment = surgeryRoom.AssignedEquipment.ToString(),
                 Capacity = surgeryRoom.Capacity.ToString(),
-                Type = surgeryRoom.Type.ToString(),
+                Type = surgeryRoom.Type.AsString(),
             };
         }
 
@@ -44,7 +45,7 @@ namespace DDDNetCore.Application.Mappers
             return new SurgeryRoom(roomNumber, new MaintenanceSlots(surgeryRoomDto.MaintenanceSlots),
                 Enum.Parse<CurrentStatus>(surgeryRoomDto.CurrentStatus),
                 new AssignedEquipment(surgeryRoomDto.AssignedEquipment), new Capacity(surgeryRoomDto.Capacity),
-                Enum.Parse<Type>(surgeryRoomDto.Type));
+                new RoomTypeId(surgeryRoomDto.Type));
         }
 
         /**

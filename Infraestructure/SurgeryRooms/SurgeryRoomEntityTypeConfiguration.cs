@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Type = DDDNetCore.Domain.SurgeryRooms.Type;
 using System;
+using DDDNetCore.Domain.RoomTypes;
 
 namespace DDDNetCore.Infraestructure.SurgeryRooms
 {
@@ -40,7 +41,6 @@ namespace DDDNetCore.Infraestructure.SurgeryRooms
                     .IsRequired();
             });
 
-            // Ajuste no mapeamento de Capacity
             builder.OwnsOne(s => s.Capacity, capacityBuilder =>
             {
                 capacityBuilder.Property(p => p.MaxPatients)
@@ -51,15 +51,13 @@ namespace DDDNetCore.Infraestructure.SurgeryRooms
                     .HasColumnName("MaxStaff")
                     .IsRequired();
 
-                // Ignorar a propriedade Value pois é calculada e não necessita de persistência
                 capacityBuilder.Ignore(p => p.Value);
             });
 
-            builder.Property(s => s.Type)
-                .HasConversion(
-                    s => s.ToString(),
-                    s => (Type)Enum.Parse(typeof(Type), s))
-                .HasColumnName("RoomType")
+            builder.HasOne<RoomType>()
+                .WithMany()
+                .HasForeignKey(s => s.Type)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();
         }
     }

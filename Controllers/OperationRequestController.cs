@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
@@ -56,11 +57,26 @@ namespace DDDNetCore.Controllers
                 var result = await _service.GetAllByOperationName(operationTypeName);
                 return Ok(result);
             }
-            
+
             var allRequests = await _service.GetAllAsync();
             return Ok(allRequests);
         }
         
+        [HttpGet("filter")]
+        public async Task<ActionResult<IEnumerable<OperationRequestDto>>> GetOperationRequests([FromQuery] string? staffId)
+        {
+            var operationRequests = await _service.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(staffId))
+            {
+                operationRequests = operationRequests
+                    .Where(or => or.StaffId == staffId)
+                    .ToList();
+            }
+
+            return Ok(operationRequests);
+        }
+
         // GET: api/OperationRequests/OR1
         [HttpGet("{id}")]
         public async Task<ActionResult<OperationRequestDto>> GetById(String id)
