@@ -429,5 +429,36 @@ namespace DDDNetCore.Application.Services
 
             return medicalRecordNumber;
         }
+        
+        /**
+         * Retrieves the medical history of a patient by their unique medical record number.
+         * The medical history includes the patient's name, birth date, gender,
+         * phone number, emergency contact, and appointment history.
+         * 
+         * @param medicalRecordNumber The medical record number of the patient whose medical history is requested.
+         * @return The MedicalHistoryDto representing the medical history of the specified patient, or null if the patient is not found.
+         */
+        public async Task<MedicalHistoryDto> GetMedicalHistoryAsync(string medicalRecordNumber)
+        {
+            var patient = await _repo.GetByIdAsync(new MedicalRecordNumber(medicalRecordNumber));
+
+            if (patient == null)
+            {
+                return null;
+            }
+
+            var medicalHistory = new MedicalHistoryDto
+            {
+                PatientName = patient.PatientName.ToString(),
+                BirthDate = patient.BirthDate.ToString(),
+                Gender = patient.Gender.ToString(),
+                PhoneNumber = patient.PhoneNumber.ToString(),
+                EmergencyContact = patient.EmergencyContact.ToString(),
+                AppointmentHistory = patient.AppointmentHistory.ToString()
+            };
+
+            return medicalHistory;
+        }
+
     }
 }

@@ -255,6 +255,25 @@ namespace DDDNetCore.Controllers
 
             return Ok(medicalRecordNumber);
         }
+        
+        /**
+         * Retrieves the medical history of a patient by their medical record number.
+         *
+         * @param id The medical record number of the patient to retrieve the medical history for.
+         * @return An ActionResult containing the MedicalHistoryDto object if found, otherwise NotFound.
+         */
+        [HttpGet("{id}/medical-history")]
+        public async Task<ActionResult<MedicalHistoryDto>> GetMedicalHistory(string id)
+        {
+            var medicalHistory = await _service.GetMedicalHistoryAsync(id);
+
+            if (medicalHistory == null)
+            {
+                return NotFound("Medical history not found for the given medical record number.");
+            }
+
+            return Ok(medicalHistory);
+        }
 
     }
 }
