@@ -566,5 +566,59 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             //Assert
             Assert.IsNull(result);
         }
+
+        [Test]
+        public async Task TestGetMedicalHistoryAsync()
+        {
+            var patient1 = new Patient
+            (
+                new PatientName("Diana"),
+                new BirthDate("30 de Junho de 2004"),
+                new Gender("Female"),
+                new MedicalRecordNumber("202410000112"),
+                new PhoneNumber("933264402"),
+                new MedicalConditions("Asma"),
+                new EmergencyContact("934260705"),
+                new AppointmentHistory("2 de novembro de 2023"),
+                new UserEmail("1221194@isep.ipp.pt")
+            );
+            
+            _mockIPatientRepository.Setup(repo => repo.GetByIdAsync(new MedicalRecordNumber("202410000112"))).ReturnsAsync(patient1);
+            
+            var result = await _service.GetMedicalHistoryAsync("202410000112");
+            
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(patient1.PatientName.ToString(), result.PatientName);
+            Assert.AreEqual(patient1.BirthDate.ToString(), result.BirthDate);
+            Assert.AreEqual(patient1.Gender.ToString(), result.Gender);
+            Assert.AreEqual(patient1.PhoneNumber.ToString(), result.PhoneNumber);
+            Assert.AreEqual(patient1.EmergencyContact.ToString(), result.EmergencyContact);
+            Assert.AreEqual(patient1.AppointmentHistory.ToString(), result.AppointmentHistory);
+        }
+        
+        [Test]
+        public async Task TestGetNonExistingMedicalHistoryAsync()
+        {
+            var patient1 = new Patient
+            (
+                new PatientName("Diana"),
+                new BirthDate("30 de Junho de 2004"),
+                new Gender("Female"),
+                new MedicalRecordNumber("202410000112"),
+                new PhoneNumber("933264402"),
+                new MedicalConditions("Asma"),
+                new EmergencyContact("934260705"),
+                new AppointmentHistory("2 de novembro de 2023"),
+                new UserEmail("1221194@isep.ipp.pt")
+            );
+            
+            _mockIPatientRepository.Setup(repo => repo.GetByIdAsync(new MedicalRecordNumber("202410000112"))).ReturnsAsync(patient1);
+            
+            var result = await _service.GetMedicalHistoryAsync("202410000114");
+            
+            // Assert
+            Assert.IsNull(result);
+        }
     }
 }

@@ -446,15 +446,17 @@ namespace DDDNetCore.Application.Services
             {
                 return null;
             }
+            
+            var patientDto = _mapper.ToDto(patient);
 
             var medicalHistory = new MedicalHistoryDto
             {
-                PatientName = patient.PatientName.ToString(),
-                BirthDate = patient.BirthDate.ToString(),
-                Gender = patient.Gender.ToString(),
-                PhoneNumber = patient.PhoneNumber.ToString(),
-                EmergencyContact = patient.EmergencyContact.ToString(),
-                AppointmentHistory = patient.AppointmentHistory.ToString()
+                PatientName = patientDto.PatientName,
+                BirthDate = patientDto.BirthDate,
+                Gender = patientDto.Gender,
+                PhoneNumber = patientDto.PhoneNumber,
+                EmergencyContact = patientDto.EmergencyContact,
+                AppointmentHistory = patientDto.AppointmentHistory
             };
 
             return medicalHistory;

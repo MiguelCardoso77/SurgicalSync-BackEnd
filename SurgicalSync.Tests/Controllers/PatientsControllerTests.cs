@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace DDDNetCore.SurgicalSync.Tests.Controllers
@@ -362,6 +364,41 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
 
             // Assert
             Assert.IsInstanceOf<NotFoundResult>(result.Result);
+        }
+
+        [Test]
+        public async Task TestGetMedicalHistory()
+        {
+            // Arrange
+            var patient = new Patient(
+                new PatientName("Diana"), 
+                new BirthDate("30 de Junho de 2004"), 
+                new Gender("Female"),
+                new MedicalRecordNumber("202409000001"), 
+                new PhoneNumber("938413938"),
+                new MedicalConditions("Asma"),
+                new EmergencyContact("933264402"),
+                new AppointmentHistory("02/04/2024"),
+                new UserEmail("1221194@isep.ipp.pt")
+            );
+            
+            var dto = new MedicalHistoryDto()
+            {
+                PatientName = "Diana",
+                BirthDate = "30 de Junho de 2004",
+                Gender = "Female",
+                PhoneNumber = "938413938",
+                EmergencyContact = "933264402",
+                AppointmentHistory = "02/04/2024"
+            };
+
+            _mockIPatientRepository.Setup(repo => repo.GetByIdAsync(It.IsAny<MedicalRecordNumber>())).ReturnsAsync(patient);
+
+            // Act
+            var result = await _controller.GetMedicalHistory("202409000001");
+
+            // Assert
+            Assert.IsNotNull(result);
         }
 
     }
