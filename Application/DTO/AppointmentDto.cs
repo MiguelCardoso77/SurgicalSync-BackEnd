@@ -31,5 +31,15 @@
          * The room number where the appointment is scheduled.
          */
         public string RoomNumber { get; set; }
+        
+        /**
+         * The unique identifier of the operation request associated with the appointment.
+         */
+        public string OperationRequestId { get; set; }
+        
+        /**
+         * The required staff for the appointment.
+         */
+        public string RequiredStaff { get; set; }
     }
 }

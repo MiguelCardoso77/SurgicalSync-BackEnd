@@ -24,6 +24,9 @@ namespace DDDNetCore.Application.Services
         private readonly AppointmentMapper _mapper;
         private readonly PlanningBootstrap _planningBootstrap;
         
+        private readonly StaffService _staffService;
+        private readonly SurgeryRoomService _surgeryRoomService;
+        
         /**
          * Initializes a new instance of the AppointmentService class.
          * @param unitOfWork The unit of work for database operations.
@@ -32,14 +35,31 @@ namespace DDDNetCore.Application.Services
          * @param mapper The mapper for converting between domain and DTO objects.
          */
         public AppointmentService(IUnitOfWork unitOfWork, IAppointmentsRepository repository,
-            ILogger<AppointmentService> logger, AppointmentMapper mapper, PlanningBootstrap planningBootstrap)
+        ILogger<AppointmentService> logger, AppointmentMapper mapper, PlanningBootstrap planningBootstrap,
+        StaffService staffService, SurgeryRoomService surgeryRoomService)
         {
             this._unitOfWork = unitOfWork;
             this._repository = repository;
             this._logger = logger;
             this._mapper = mapper;
             _planningBootstrap = planningBootstrap;
+            _staffService = staffService;
+            _surgeryRoomService = surgeryRoomService;
         }
+        
+        /**
+        * Retrieves all appointments.
+        * @return A list of all appointments as AppointmentDto.
+        */
+        public async Task<List<AppointmentDto>> GetAllAsync()
+        {
+            var list = await _repository.GetAllAsync();
+            
+            List<AppointmentDto> appointmentDto = list.ConvertAll<AppointmentDto>(a => _mapper.ToDto(a));
+
+            return appointmentDto;
+        }
+        
         /**
          * Retrieves an appointment by its ID.
          * @param appointmentId The ID of the appointment to retrieve.
@@ -58,17 +78,19 @@ namespace DDDNetCore.Application.Services
 
             return response;
         }
-        /**
-        * Retrieves all appointments.
-        * @return A list of all appointments as AppointmentDto.
-        */
-        public async Task<List<AppointmentDto>> GetAllAsync()
+        
+        public async Task<AvailableMaterialsDTO> GetAvailableMaterials(string time)
         {
-            var list = await _repository.GetAllAsync();
+            var staff = await _staffService.GetAvailableStaff(time);
+            var rooms = await _surgeryRoomService.GetAllAsync();
             
-            List<AppointmentDto> appointmentDto = list.ConvertAll<AppointmentDto>(a => _mapper.ToDto(a));
-
-            return appointmentDto;
+            var availableMaterials = new AvailableMaterialsDTO
+            {
+                Staff = string.Join(",", staff.Select(s => s.Id)),
+                Rooms = string.Join(",", rooms.Select(r => r.RoomNumber))
+            };
+            
+            return availableMaterials;
         }
         
         /**
@@ -88,32 +110,6 @@ namespace DDDNetCore.Application.Services
             _logger.LogInformation("Appointment with Id: {AppointmentId} was successfully added!", domainObj.Id.AsString());
             
             return _mapper.ToDto(domainObj);
-        }
-        
-        public async Task<PlanningDto> LoadPlanningAsync(PlanningDto planningDto)
-        {
-            await _planningBootstrap.BootstrapData(planningDto.Date, planningDto.OperationRequests);
-            
-            return planningDto;
-        }
-        
-        public async Task<PlanningDto> AddPlanningAsync(PlanningDto planningDto)
-        {
-            var room = "sR" + planningDto.RoomNumber;
-            var date = DateTime.Parse(planningDto.Date).ToString("yyyyMMdd");
-            
-            var requestUri = $"http://localhost:8888/best?room={room}&day={date}";
-            Console.WriteLine(requestUri);
-            
-            using (var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:8888") })
-            {
-                var response = await httpClient.GetAsync(requestUri);
-                var responseContent = await response.Content.ReadAsStringAsync();
-        
-                Console.WriteLine("Best time slot response: " + responseContent);
-            }
-            
-            return planningDto;
         }
         
         /**
@@ -192,6 +188,32 @@ namespace DDDNetCore.Application.Services
             {
                 return new AppointmentId("1");
             }
+        }
+        
+        public async Task<PlanningDto> LoadPlanningAsync(PlanningDto planningDto)
+        {
+            await _planningBootstrap.BootstrapData(planningDto.Date, planningDto.OperationRequests);
+            
+            return planningDto;
+        }
+        
+        public async Task<PlanningDto> AddPlanningAsync(PlanningDto planningDto)
+        {
+            var room = "sR" + planningDto.RoomNumber;
+            var date = DateTime.Parse(planningDto.Date).ToString("yyyyMMdd");
+            
+            var requestUri = $"http://localhost:8888/best?room={room}&day={date}";
+            Console.WriteLine(requestUri);
+            
+            using (var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:8888") })
+            {
+                var response = await httpClient.GetAsync(requestUri);
+                var responseContent = await response.Content.ReadAsStringAsync();
+        
+                Console.WriteLine("Best time slot response: " + responseContent);
+            }
+            
+            return planningDto;
         }
     }
 }
