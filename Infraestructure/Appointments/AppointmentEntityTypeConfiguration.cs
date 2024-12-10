@@ -1,5 +1,7 @@
 ﻿using System;
 using DDDNetCore.Domain.Appointments;
+using DDDNetCore.Domain.OperationRequests;
+using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.SurgeryRooms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -54,10 +56,24 @@ namespace DDDNetCore.Infraestructure.Appointments
                 .IsRequired(); 
             
             // Configure foreign key for SurgeryRoom
-            
             builder.HasOne<SurgeryRoom>()
                 .WithMany()
                 .HasForeignKey(a => a.RoomNumber)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
+            
+            // Configure owned RequiredStaff value object
+            builder.Property(a => a.RequiredStaff)
+                .HasConversion(
+                    rs => rs.Value,
+                    rs => new RequiredStaff(rs))
+                .HasColumnName("RequiredStaff")
+                .IsRequired();
+
+            // Configure foreign key for OperationRequest
+            builder.HasOne<OperationRequest>()
+                .WithMany()
+                .HasForeignKey(a => a.OperationRequestId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();
         }

@@ -44,7 +44,7 @@ namespace DDDNetCore.Application.Mappers
         {
             var parsedDate = DateTime.Parse(dto.Date);
             var timeInMinutes = int.Parse(dto.Time);
-            return new Appointment(id, Enum.Parse<Status>(dto.Status), new Date(parsedDate), new Time(timeInMinutes), new RoomNumber(dto.RoomNumber));
+            return new Appointment(id, Enum.Parse<Status>(dto.Status), new Date(parsedDate), new Time(timeInMinutes), new RoomNumber(dto.RoomNumber),  null, null);
         }
 
         /**
