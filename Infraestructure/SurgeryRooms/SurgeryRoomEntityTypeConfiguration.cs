@@ -1,7 +1,6 @@
 ﻿using DDDNetCore.Domain.SurgeryRooms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Type = DDDNetCore.Domain.SurgeryRooms.Type;
 using System;
 using DDDNetCore.Domain.RoomTypes;
 
@@ -58,6 +57,13 @@ namespace DDDNetCore.Infraestructure.SurgeryRooms
                 .WithMany()
                 .HasForeignKey(s => s.Type)
                 .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
+            
+            builder.Property(s => s.Type)
+                .HasConversion(
+                    t => t.Value,
+                    t => new RoomTypeId(t))
+                .HasColumnName("Type")
                 .IsRequired();
         }
     }
