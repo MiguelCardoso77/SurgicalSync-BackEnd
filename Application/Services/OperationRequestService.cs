@@ -102,20 +102,27 @@ namespace DDDNetCore.Application.Services
             {
                 throw new ArgumentNullException(operationRequestDto.OperationRequestId.ToString(), "OperationRequest cannot be null.");
             }
+            
+            var existingOperationRequests = await GetAllAsync();
 
-            var id = string.IsNullOrWhiteSpace(operationRequestDto.OperationRequestId) 
-                ? Guid.NewGuid().ToString() 
-                : operationRequestDto.OperationRequestId;
-
-            var orId = new OperationRequestId(id);
-
-            var existingEntity = await this._repo.GetByIdAsync(orId);
-            if (existingEntity != null)
+            OperationRequestId dtoId;
+            if (string.IsNullOrEmpty(operationRequestDto.OperationRequestId))
             {
-                throw new InvalidOperationException($"OperationRequest with Id {id} already exists.");
+                var count = existingOperationRequests.Count();
+                dtoId = new OperationRequestId((count + 1).ToString());
+            }
+            else
+            {
+                dtoId = new OperationRequestId(operationRequestDto.OperationRequestId);
             }
 
-            var domainObj = _mapper.ToDomain(operationRequestDto, orId);
+            var existingEntity = await this._repo.GetByIdAsync(dtoId);
+            if (existingEntity != null)
+            {
+                throw new InvalidOperationException($"OperationRequest with Id {dtoId.AsString()} already exists.");
+            }
+
+            var domainObj = _mapper.ToDomain(operationRequestDto, dtoId);
 
             await this._repo.AddAsync(domainObj);
             await this._unitOfWork.CommitAsync();
