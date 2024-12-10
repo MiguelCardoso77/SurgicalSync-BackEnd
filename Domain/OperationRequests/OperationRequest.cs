@@ -55,7 +55,7 @@ namespace DDDNetCore.Domain.OperationRequests {
         public bool IsActive { get; set; }
         
         /**
-         * Default constructor for ORM and serialization purposes.
+         * Default constructor for ORM and serialization purposes
          */
 
         private OperationRequest()
