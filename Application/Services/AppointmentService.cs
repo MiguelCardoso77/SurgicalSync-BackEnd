@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.Appointments;
+using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.SurgeryRooms;
 using DDDNetCore.Infraestructure;
@@ -135,16 +136,23 @@ namespace DDDNetCore.Application.Services
             
             appointment.ChangeStatus(Enum.Parse<Status>(appointmentDto.Status));
             
-            var timeInMinutes = int.Parse(appointmentDto.Time);
+            if (!int.TryParse(appointmentDto.Time, out var timeInMinutes))
+            {
+                timeInMinutes = 1;
+                Console.WriteLine("Error: Unable to parse appointment time. Defaulting to 1 minute.");
+            }
             
             appointment.ChangeTime(new Time(timeInMinutes));
             
             appointment.ChangeRoomNumber(new RoomNumber(appointmentDto.RoomNumber));
             
+            appointment.ChangeRequiredStaff(new RequiredStaff(appointmentDto.RequiredStaff));
+            
             await _unitOfWork.CommitAsync();
             
             return _mapper.ToDto(appointment);
         }
+        
         /**
          * Inactivates (deletes) an appointment by its ID.
          * @param appointmentId The ID of the appointment to inactivate.
@@ -164,6 +172,7 @@ namespace DDDNetCore.Application.Services
             
             return _mapper.ToDto(appointment);
         }
+        
         /**
          * Generates a unique ID for a new appointment.
          * @param appointmentDto The data transfer object containing appointment details.
