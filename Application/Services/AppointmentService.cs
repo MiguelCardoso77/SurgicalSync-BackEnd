@@ -79,6 +79,11 @@ namespace DDDNetCore.Application.Services
             return response;
         }
         
+        /**
+         * Retrieves available materials for a given time.
+         * @param time The time for which to retrieve available materials.
+         * @return The AvailableMaterialsDTO containing available staff and rooms.
+         */
         public async Task<AvailableMaterialsDTO> GetAvailableMaterials(string time)
         {
             var staff = await _staffService.GetAvailableStaff(time);

@@ -121,5 +121,15 @@ namespace DDDNetCore.Domain.Appointments
         {
             this.RoomNumber = roomNumber;
         }
+
+        /**
+         * Changes the required staff for the appointment.
+         *
+         * @param staff The new required staff for the appointment.
+         */
+        public void ChangeRequiredStaff(RequiredStaff staff)
+        {
+            this.RequiredStaff = staff;
+        }
     }
 }

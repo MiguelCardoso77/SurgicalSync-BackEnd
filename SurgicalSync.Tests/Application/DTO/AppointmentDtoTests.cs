@@ -29,6 +29,8 @@ public class AppointmentDtoTests
             Date = "2021-01-01",
             Time = "09:00",
             RoomNumber = "101",
+            OperationRequestId = "1",
+            RequiredStaff = "Surgeon, Nurse"
         };
 
         Assert.That(appointmentDto.Id, Is.EqualTo("1"));
@@ -36,6 +38,8 @@ public class AppointmentDtoTests
         Assert.That(appointmentDto.Date, Is.EqualTo("2021-01-01"));
         Assert.That(appointmentDto.Time, Is.EqualTo("09:00"));
         Assert.That(appointmentDto.RoomNumber, Is.EqualTo("101"));
+        Assert.That(appointmentDto.OperationRequestId, Is.EqualTo("1"));
+        Assert.That(appointmentDto.RequiredStaff, Is.EqualTo("Surgeon, Nurse"));
     }
     
 }
