@@ -47,10 +47,31 @@ public class SpecializationController: ControllerBase
         
     // POST: api/Specializations
     [HttpPost]
-    public async Task<ActionResult<SpecializationDto>> Create(SpecializationDto specializationDto)
+    public async Task<ActionResult<SpecializationDto>> AddAsync(SpecializationDto specializationDto)
     {
         var createdSpecialization = await _service.AddAsync(specializationDto);
         Console.WriteLine($"Specialization with Code = {specializationDto.SpecializationCode} was created successfully.");
         return CreatedAtAction(nameof(GetByCode), new { code = createdSpecialization.SpecializationCode }, createdSpecialization);
     }
+
+    public async Task<ActionResult<SpecializationDto>> UpdateAsync(String code, SpecializationDto dto)
+    {
+        if (code != dto.SpecializationCode)
+        {
+            return BadRequest();
+        }
+
+        var ot = await _service.UpdateAsync(dto);
+
+        if (ot == null)
+        {
+            return NotFound();
+        }
+
+        return ot;
+
+        
+    }
+
+
 }

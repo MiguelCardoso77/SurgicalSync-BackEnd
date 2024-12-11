@@ -7,6 +7,7 @@ using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.RoomTypes;
 using DDDNetCore.Domain.Shared;
+using DDDNetCore.Domain.Specializations;
 using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain.SurgeryRooms;
 using DDDNetCore.Domain.Users;
@@ -16,6 +17,7 @@ using DDDNetCore.Infraestructure.OperationRequests;
 using DDDNetCore.Infraestructure.OperationTypes;
 using DDDNetCore.Infraestructure.Patients;
 using DDDNetCore.Infraestructure.RoomTypes;
+using DDDNetCore.Infraestructure.Specializations;
 using DDDNetCore.Infraestructure.Staff;
 using DDDNetCore.Infraestructure.SurgeryRooms;
 using DDDNetCore.Infraestructure.Users;
@@ -122,6 +124,10 @@ namespace DDDNetCore
             services.AddTransient<IRoomTypeRepository, RoomTypeRepository>();
             services.AddTransient<RoomTypeService>();
             services.AddTransient<RoomTypeMapper>();
+            
+            services.AddTransient<ISpecializationRepository, SpecializationRepository>();
+            services.AddTransient<SpecializationService>();
+            services.AddTransient<SpecializationMapper>();
             
             services.AddTransient<PatientNameMicroService>();
             services.AddTransient<PatientMicroService>();

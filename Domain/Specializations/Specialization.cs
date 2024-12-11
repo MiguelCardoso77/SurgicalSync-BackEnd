@@ -5,13 +5,14 @@ namespace DDDNetCore.Domain.Specializations;
 
 public class Specialization : Entity<SpecializationId>, IAggregateRoot
 {
-    public new SpecializationId Id { get; private set; }
+    public SpecializationId Id { get; private set; }
     public SpecializationDesignation Designation { get; private set; }
     public SpecializationDescription Description { get; private set; }
     
     // Private constructor for EF
     private Specialization()
     {
+        this.Id = null;
         this.Designation = null;
         this.Description = null;
     }
