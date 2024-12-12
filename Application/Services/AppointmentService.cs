@@ -182,18 +182,12 @@ namespace DDDNetCore.Application.Services
         public async Task<AppointmentId> GenerateAppointmentId(AppointmentDto appointmentDto)
         {
             var appointments = await this._repository.GetAllAsync();
-            bool exists = appointments.Any(a => a.RoomNumber.AsString() == appointmentDto.RoomNumber);
-
-            if (exists)
-            {
-                return new AppointmentId(appointmentDto.RoomNumber);
-            }
 
             if (appointments.Count > 0)
             {
                 var lastAppointment = appointments.Last();
-                
-                var lastAppointmentId = lastAppointment.RoomNumber.AsString();
+
+                var lastAppointmentId = lastAppointment.Id.AsString();
                 
                 int newRoomNumber = int.Parse(lastAppointmentId) + 1;
                 return new AppointmentId(newRoomNumber.ToString());
