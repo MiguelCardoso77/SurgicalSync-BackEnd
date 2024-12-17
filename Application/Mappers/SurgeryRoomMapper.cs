@@ -29,7 +29,7 @@ namespace DDDNetCore.Application.Mappers
                 CurrentStatus = surgeryRoom.CurrentStatus.ToString(),
                 AssignedEquipment = surgeryRoom.AssignedEquipment.ToString(),
                 Capacity = surgeryRoom.Capacity.ToString(),
-                Type = surgeryRoom.Type.AsString(),
+                Type = surgeryRoom.Type.ToString()
             };
         }
 

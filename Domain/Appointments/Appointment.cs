@@ -1,4 +1,6 @@
-﻿using DDDNetCore.Domain.Shared;
+﻿using DDDNetCore.Domain.OperationRequests;
+using DDDNetCore.Domain.OperationType;
+using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.SurgeryRooms;
 
 namespace DDDNetCore.Domain.Appointments
@@ -31,9 +33,31 @@ namespace DDDNetCore.Domain.Appointments
         public Time Time { get; protected set; }
         
         /**
+         * The unique identifier for the operation request associated with this appointment.
+         */
+        public OperationRequestId OperationRequestId { get; protected set; }
+        
+        /**
          * The room number where the appointment will take place.
          */
         public RoomNumber RoomNumber { get; protected set; }
+        
+        /**
+         * The required staff for the appointment.
+         */
+        public RequiredStaff RequiredStaff { get; protected set; }
+        
+        // Private constructor for EF
+        private Appointment()
+        {
+         this.Id = null;
+         this.Status = Status.Canceled;
+         this.Date = null;
+         this.Time = null;
+         this.RoomNumber = null;
+         this.OperationRequestId = null;
+         this.RequiredStaff = null;
+        }
 
         /**
          * Initializes a new instance of the Appointment class with specified properties.
@@ -46,14 +70,16 @@ namespace DDDNetCore.Domain.Appointments
          * 
          * @throws ArgumentException if any of the parameters are invalid.
          */
-        public Appointment(AppointmentId id, Status status,
-            Date date, Time time, RoomNumber roomNumber)
+        public Appointment(AppointmentId id, Status status, Date date, Time time, RoomNumber roomNumber, 
+        OperationRequestId request, RequiredStaff staff)
         {
             this.Id = id;
             this.Status = status;
             this.Date = date;
             this.Time = time;
             this.RoomNumber = roomNumber;
+            this.OperationRequestId = request;
+            this.RequiredStaff = staff;
         }
 
         /**
@@ -94,6 +120,16 @@ namespace DDDNetCore.Domain.Appointments
         public void ChangeRoomNumber(RoomNumber roomNumber)
         {
             this.RoomNumber = roomNumber;
+        }
+
+        /**
+         * Changes the required staff for the appointment.
+         *
+         * @param staff The new required staff for the appointment.
+         */
+        public void ChangeRequiredStaff(RequiredStaff staff)
+        {
+            this.RequiredStaff = staff;
         }
     }
 }

@@ -24,11 +24,24 @@ namespace DDDNetCore.Controllers
         {
             return await _appointmentService.GetAllAsync();
         }
-
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<AppointmentDto>> GetById(String id)
         {
             var appointment = await _appointmentService.GetById(new AppointmentId(id));
+
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            return appointment;
+        }
+        
+        [HttpGet(template:"availableMaterial")]
+        public async Task<ActionResult<AvailableMaterialsDTO>> GetAvailableMaterials([FromQuery] string time = null)
+        {
+            var appointment = await _appointmentService.GetAvailableMaterials(time);
 
             if (appointment == null)
             {

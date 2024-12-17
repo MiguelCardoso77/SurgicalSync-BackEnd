@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.Appointments;
+using DDDNetCore.Domain.OperationRequests;
+using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.SurgeryRooms;
 
 namespace DDDNetCore.Application.Mappers
@@ -29,6 +31,8 @@ namespace DDDNetCore.Application.Mappers
                 Date = appointment.Date.DateTime.ToString("yyyyMMdd"),
                 Time = appointment.Time.ToString(),
                 RoomNumber = appointment.RoomNumber.AsString(),
+                OperationRequestId = appointment.OperationRequestId.AsString(),
+                RequiredStaff = appointment.RequiredStaff.ToString()
             };
         }
 
@@ -44,7 +48,9 @@ namespace DDDNetCore.Application.Mappers
         {
             var parsedDate = DateTime.Parse(dto.Date);
             var timeInMinutes = int.Parse(dto.Time);
-            return new Appointment(id, Enum.Parse<Status>(dto.Status), new Date(parsedDate), new Time(timeInMinutes), new RoomNumber(dto.RoomNumber));
+            var operationRequestId = new OperationRequestId(dto.OperationRequestId);
+            
+            return new Appointment(id, Enum.Parse<Status>(dto.Status), new Date(parsedDate), new Time(timeInMinutes), new RoomNumber(dto.RoomNumber),  operationRequestId, new RequiredStaff(dto.RequiredStaff));
         }
 
         /**

@@ -135,4 +135,28 @@ public class TimeTests
         // Assert
         Assert.AreEqual(0, result);
     }
+    
+    [Test]
+    public void OperatorOverloads_ShouldCompareTimesCorrectly()
+    {
+        var time1 = new Time(10, 0);
+        var time2 = new Time(12, 0);
+
+        Assert.IsTrue(time1 < time2);
+        Assert.IsTrue(time2 > time1);
+        Assert.IsTrue(time1 <= time2);
+        Assert.IsTrue(time2 >= time1);
+
+        var time3 = new Time(10, 0);
+        Assert.IsTrue(time1 <= time3);
+        Assert.IsTrue(time1 >= time3);
+    }
+    
+    [Test]
+    public void TestPrivateConstructor()
+    {
+        var time = (Time)Activator.CreateInstance(typeof(Time), true);
+
+        Assert.NotNull(time);
+    }
 }

@@ -131,6 +131,35 @@ namespace DDDNetCore.Application.Services
             return lists;
         }
 
+        public async Task<List<StaffDto>> GetAvailableStaff(string time)
+        {
+            var staff = await _repo.GetAllAsync();
+    
+            var targetTime = DateTime.ParseExact(time, "HH:mm", null).TimeOfDay;
+            var staffAvailability = new Dictionary<StaffId, List<(TimeSpan start, TimeSpan end)>>(); // Use staff ID as the key
+    
+            foreach (var s in staff)
+            {
+                var availabilitySlots = s.StaffAvailabilitySlots.Value;
+        
+                var times = availabilitySlots.Split(',');
+                var startTime = TimeSpan.Parse(times[0]);
+                var endTime = times[1] == "24:00" ? TimeSpan.FromHours(24) : TimeSpan.Parse(times[1]);
+
+                var timeSlots = new List<(TimeSpan start, TimeSpan end)>();
+                timeSlots.Add((startTime, endTime));
+
+                staffAvailability[s.Id] = timeSlots;
+            }
+
+            // Find available staff based on target time
+            var availableStaff = staff
+                .Where(s => staffAvailability[s.Id].Any(slot => targetTime >= slot.start && targetTime < slot.end))
+                .ToList();
+    
+            return availableStaff.Select(s => _mapper.ToDto(s)).ToList();
+        }
+
         /**
          * Deactivates a staff member identified by their ID.
          *
