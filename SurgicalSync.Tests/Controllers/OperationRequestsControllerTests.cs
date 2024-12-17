@@ -56,16 +56,16 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
         {
             var operationDomainList = new List<OperationRequest>()
             {
-                new OperationRequest(new OperationRequestId("1"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01, 01)),
+                new OperationRequest(new OperationRequestId("1"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2027, 01, 08)),
                     new OperationTypeId("5"), new MedicalRecordNumber("202409000001"), new StaffId("N202400001")),
 
-                new OperationRequest(new OperationRequestId("2"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2025, 11, 10)),
+                new OperationRequest(new OperationRequestId("2"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2027, 11, 10)),
                     new OperationTypeId("1"), new MedicalRecordNumber("202409000002"), new StaffId("N202400001")),
 
-                new OperationRequest(new OperationRequestId("3"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2024, 12, 15)),
+                new OperationRequest(new OperationRequestId("3"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2027, 12, 15)),
                     new OperationTypeId("2"), new MedicalRecordNumber("202409000003"), new StaffId("N202400002")),
 
-                new OperationRequest(new OperationRequestId("4"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01, 20)),
+                new OperationRequest(new OperationRequestId("4"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2026, 01, 20)),
                     new OperationTypeId("2"), new MedicalRecordNumber("202409000001"), new StaffId("N202400001"))
             };
 
@@ -73,7 +73,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             {
                 OperationRequestId = "1",
                 Priority = "UrgentSurgery",
-                DeadlineDate = "2025-01-01",
+                DeadlineDate = "2027-01-08",
                 OperationTypeId = "5",
                 MedicalRecordNumber = "202409000001",
                 StaffId = "N202400001"
@@ -121,16 +121,16 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
         {
             var operationDomainList = new List<OperationRequest>()
             {
-                new OperationRequest(new OperationRequestId("1"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01, 07)),
+                new OperationRequest(new OperationRequestId("1"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2027, 01, 09)),
                     new OperationTypeId("5"), new MedicalRecordNumber("202409000001"), new StaffId("N202400001")),
 
-                new OperationRequest(new OperationRequestId("2"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2025, 11, 10)),
+                new OperationRequest(new OperationRequestId("2"), Priority.ElectiveSurgery, new DeadlineDate(new DateTime(2027, 11, 10)),
                     new OperationTypeId("1"), new MedicalRecordNumber("202409000002"), new StaffId("N202400001")),
 
-                new OperationRequest(new OperationRequestId("3"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2024, 12, 15)),
+                new OperationRequest(new OperationRequestId("3"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2027, 12, 15)),
                     new OperationTypeId("2"), new MedicalRecordNumber("202409000003"), new StaffId("N202400002")),
 
-                new OperationRequest(new OperationRequestId("4"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2025, 01, 20)),
+                new OperationRequest(new OperationRequestId("4"), Priority.UrgentSurgery, new DeadlineDate(new DateTime(2026, 01, 20)),
                     new OperationTypeId("2"), new MedicalRecordNumber("202409000001"), new StaffId("N202400001"))
             };
             
