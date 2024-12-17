@@ -29,6 +29,14 @@ public class Specialization : Entity<SpecializationId>, IAggregateRoot
         this.Designation = designation ?? throw new ArgumentNullException(nameof(designation), "Specialization Designation cannot be null.");
         this.Description = description ?? new SpecializationDescription("No description available.");
     }
+    
+    /**
+   * Method that changes the code of the specialization.
+   */
+    public void ChangeCode(SpecializationId code)
+    {
+        this.Id = code;
+    }
 
     /**
      * Method that changes the designation of the specialization.

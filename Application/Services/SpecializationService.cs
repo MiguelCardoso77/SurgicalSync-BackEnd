@@ -76,7 +76,24 @@ namespace DDDNetCore.Application.Services
 
             if (specialization == null)
                 return null;
+            
+            var list = await this._repo.GetAllAsync();
 
+            
+            bool exists = list.Any(s =>
+                (s.Designation.ToString() == specializationDto.SpecializationDesignation || s.Id.ToString() == specializationDto.SpecializationCode) &&
+                s.Id.AsString() != specializationDto.SpecializationCode);
+
+
+            if (exists)
+            {
+                throw new InvalidOperationException("Already exists a specialization with the same code or designation.");
+            }
+            
+            specialization.ChangeCode(
+                new SpecializationId(specializationDto.SpecializationCode));
+
+            
             specialization.ChangeDesignation(
                 new SpecializationDesignation(specializationDto.SpecializationDesignation));
 
