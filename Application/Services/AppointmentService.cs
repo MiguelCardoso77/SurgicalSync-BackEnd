@@ -108,6 +108,20 @@ namespace DDDNetCore.Application.Services
         { 
             var appointmentId = await GenerateAppointmentId(appointmentDto);
             
+            var totalMinutes = 0;
+            var apTime = appointmentDto.Time;
+            
+            if (int.TryParse(appointmentDto.Time, out var timeInMinutes))
+            {
+                totalMinutes = timeInMinutes;
+            }
+            else if (TimeSpan.TryParse(apTime, out var parsedTime))
+            {
+                totalMinutes = (int)parsedTime.TotalMinutes;
+            }
+            
+            appointmentDto.Time = totalMinutes.ToString();
+            
             var domainObj = _mapper.ToDomain(appointmentDto, appointmentId);
             
             await this._repository.AddAsync(domainObj);
