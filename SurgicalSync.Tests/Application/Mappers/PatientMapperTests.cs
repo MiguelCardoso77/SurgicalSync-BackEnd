@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Domain.Patients;

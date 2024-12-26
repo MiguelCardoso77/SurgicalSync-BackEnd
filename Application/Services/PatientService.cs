@@ -9,7 +9,6 @@ using DDDNetCore.Domain;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
 using Microsoft.Extensions.Logging;
-using Microsoft.JSInterop.Infrastructure;
 
 namespace DDDNetCore.Application.Services
 {
@@ -24,6 +23,7 @@ namespace DDDNetCore.Application.Services
         private readonly PatientMapper _mapper;
         private readonly UserEmailMicroService _userEmailMicroService;
         private readonly DeletePatientMicroService _deletePatientMicroservice;
+        private readonly PatientAppointmentHistoryMicroService _patientAppointmentHistoryMicroService;
         private readonly ILogger<PatientService> _logger;
 
         /**
@@ -43,7 +43,8 @@ namespace DDDNetCore.Application.Services
          *               and errors during the execution of the service.
          */
         public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper mapper,
-            UserEmailMicroService userEmailMicroService, DeletePatientMicroService deletePatientMicroservice, ILogger<PatientService> logger)
+            UserEmailMicroService userEmailMicroService, DeletePatientMicroService deletePatientMicroservice, 
+            ILogger<PatientService> logger, PatientAppointmentHistoryMicroService patientAppointmentHistoryMicroService)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
@@ -51,6 +52,7 @@ namespace DDDNetCore.Application.Services
             this._userEmailMicroService = userEmailMicroService;
             this._deletePatientMicroservice = deletePatientMicroservice;
             this._logger = logger;
+            this._patientAppointmentHistoryMicroService = patientAppointmentHistoryMicroService;
         }
 
         /**
@@ -318,40 +320,21 @@ namespace DDDNetCore.Application.Services
         * @param id The medical record number of the patient.
         * @return The anonymized PatientDto, or null if not found.
         */
-        public async Task DeletePatientDataAndAccount(MedicalRecordNumber patientId)
+        public async Task RequestDataDeletion(MedicalRecordNumber patientId)
         {
             var patient = await _repo.GetByIdAsync(patientId);
 
             var email = patient.UserEmail;
 
-            await _deletePatientMicroservice.AnonymizePatientData(patient);
-
-            await _deletePatientMicroservice.DeleteUserAccount(email);
-
             await _deletePatientMicroservice.SendDeletionConfirmationEmail(email);
 
-            await _unitOfWork.CommitAsync();
-        }
-        /**
-         * Initiates the data deletion process for a patient by sending a confirmation link to the patient's email.
-         * This method retrieves the patient by their unique MedicalRecordNumber, and if found, sends a confirmation
-         * email allowing the patient to confirm the deletion of their account and personal data.
-         *
-         * @param patientId The unique MedicalRecordNumber of the patient requesting data deletion.
-         * @throws Exception If an error occurs during patient retrieval or email sending.
-         *
-         * This method utilizes the deletion microservice to send a confirmation email to the patient. The confirmation link.
-         * once accessed, allows the deletion process to be completed.
-         */
-        
-        public async Task RequestDeletion(MedicalRecordNumber patientId)
-        {
-            var patient = await _repo.GetByIdAsync(patientId);
+            var DpoEmail = new UserEmail("1220812@isep.ipp.pt");
+            
+            var patientDto = _mapper.ToDto(patient);
+            
+            await _deletePatientMicroservice.SendEmailToDPO(DpoEmail, patientDto);
 
-            if (patient != null)
-            {
-                await _deletePatientMicroservice.SendDeletionConfirmationLink(patient.UserEmail, patientId);
-            }
+            await _unitOfWork.CommitAsync();
         }
         
         /**
@@ -376,44 +359,24 @@ namespace DDDNetCore.Application.Services
                 _logger.LogError("No patient found with the ID: {patientId}", patientId);
             }
 
-            var appointmentHistory = patient.AppointmentHistory;
-            if (appointmentHistory == null)
+            var appointments = await _patientAppointmentHistoryMicroService.GetAllPatientAppointmentHistoryAsync(patientId);
+            
+            var appointmentHistoryString = string.Join(", ", appointments.Select(a =>
             {
-                _logger.LogError("No appointment history found for patient: {patientId}", patientId);
-            }
-
-            return appointmentHistory;
+                return $"{a.Date.ToString()} {a.Time.ToString()} {a.Status.ToString()}";
+            }));
+            
+            return new AppointmentHistory(appointmentHistoryString);
         }
         
         /**
-         * Retrieves the medical conditions of a patient by their unique medical record number.
+         * Retrieves the MedicalRecordNumber of a patient based on their email address.
          *
-         * @param patientId The medical record number of the patient whose medical conditions are requested.
-         * @return The MedicalConditions of the specified patient, or null if the patient or their medical conditions are not found.
-         * @throws Exception If an error occurs during patient retrieval or medical conditions access.
+         * @param userEmail The email address of the user to find the patient.
+         * @return The MedicalRecordNumber associated with the patient.
+         * @throws Exception If no patient is found with the specified email address.
          */
-
-        public async Task<MedicalConditions> MedicalConditions(UserEmail patientEmail)
-        {
-            var patientId =await GetMedicalRecordNumberByUserEmail(patientEmail.ToString());
-            
-            var patient = await _repo.GetByIdAsync(patientId);
-
-            if (patient == null)
-            {
-                return null;
-            }
-            
-            var medicalConditions = patient.MedicalConditions;
-
-            if (medicalConditions == null)
-            {
-                return null;
-            }
-
-            return medicalConditions;
-        }
-
+        
         public async Task<MedicalRecordNumber> GetMedicalRecordNumberByUserEmail(string userEmail)
         {
             var patients = await _repo.GetAllAsync();

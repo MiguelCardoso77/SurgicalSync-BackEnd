@@ -136,6 +136,7 @@ namespace DDDNetCore
             services.AddTransient<DeletePatientMicroService>();
             services.AddTransient<OperationTypeNameMicroService>();
             services.AddTransient<EmailService>();
+            services.AddTransient<PatientAppointmentHistoryMicroService>();
         }
     }
 }

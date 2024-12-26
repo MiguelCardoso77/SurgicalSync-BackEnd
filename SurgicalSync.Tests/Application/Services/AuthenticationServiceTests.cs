@@ -24,6 +24,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
         private UserService _userService;
         private UserMapper _userMapper;
         private PatientMicroService _patientMicroService;
+        private PatientAppointmentHistoryMicroService _patientAppointmentHistoryMicroService;
 
         private Mock<IUnitOfWork> _mockUnitOfWork;
         private Mock<IPatientRepository> _mockIPatientRepository;
@@ -68,7 +69,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 _patientMapper,
                 _userEmailMicroService,
                 _deletePatientMicroService,
-                _loggerMockPatient.Object
+                _loggerMockPatient.Object,
+                _patientAppointmentHistoryMicroService
             );
 
             _patientMicroService = new PatientMicroService(

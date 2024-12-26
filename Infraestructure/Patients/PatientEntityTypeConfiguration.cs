@@ -1,3 +1,4 @@
+using DDDNetCore.Domain.Appointments;
 using DDDNetCore.Domain.Patients;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -32,7 +33,7 @@ namespace DDDNetCore.Infraestructure.Patients
                     b => b.ToString(),
                     b => new MedicalRecordNumber(b))
                 .IsRequired();
-            
+
             builder.OwnsOne(b => b.PatientName, nameBuilder =>
             {
                 nameBuilder.Property(p => p.Value)
@@ -84,12 +85,12 @@ namespace DDDNetCore.Infraestructure.Patients
             });
 
             builder.OwnsOne(b => b.UserEmail, emailBuilder =>
-                        {
-                            emailBuilder.Property(p => p.Value)
-                                .HasColumnName("Email")
-                                .HasConversion<string>()
-                                .IsRequired();
-                        });
+            {
+                emailBuilder.Property(p => p.Value)
+                    .HasColumnName("Email")
+                    .HasConversion<string>()
+                    .IsRequired();
+            });
 
             builder.OwnsOne(b => b.MedicalConditions, medicalConditionsBuilder =>
             {
@@ -100,14 +101,14 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasColumnName("MedicalConditions")
                     .IsRequired();
             });
-
+            
             builder.OwnsOne(b => b.AppointmentHistory, appointmentHistoryBuilder =>
             {
                 appointmentHistoryBuilder.Property(p => p.Value)
                     .HasConversion(
                         v => v,
                         v => v)
-                    .HasColumnName("AppointmentHistory")
+                    .HasColumnName("appointmentHistory")
                     .IsRequired();
             });
         }

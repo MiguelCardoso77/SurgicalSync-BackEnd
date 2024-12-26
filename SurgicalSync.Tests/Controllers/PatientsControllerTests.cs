@@ -1,19 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Mappers;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Controllers;
+using DDDNetCore.Domain.Appointments;
+using DDDNetCore.Domain.OperationRequests;
+using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Shared;
+using DDDNetCore.Domain.Staffs;
+using DDDNetCore.Domain.SurgeryRooms;
 using DDDNetCore.Domain.Users;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace DDDNetCore.SurgicalSync.Tests.Controllers
@@ -27,13 +30,15 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
         private UserEmailMicroService _userEmailMicroService;
         private UserService _userService;
         private UserMapper _userMapper;
-
+        private PatientAppointmentHistoryMicroService _patientAppointmentHistoryMicroService;
 
         private Mock<IUnitOfWork> _mockUnitOfWork;
         private Mock<IPatientRepository> _mockIPatientRepository;
         private Mock<IUserRepository> _mockIUserRepository;
         private Mock<ILogger<DeletePatientMicroService>> _loggerMock;
         private Mock<ILogger<PatientService>> _loggerMockPatient;
+        private Mock<IOperationRequestRepository> _mockIOperationRequestRepository;
+        private Mock<IAppointmentsRepository> _mockIAppointmentsRepository;
 
         [SetUp]
         public void SetUp()
@@ -42,6 +47,8 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             _mockIPatientRepository = new Mock<IPatientRepository>();
             _loggerMock = new Mock<ILogger<DeletePatientMicroService>>();
             _mockIUserRepository = new Mock<IUserRepository>();
+            _mockIAppointmentsRepository = new Mock<IAppointmentsRepository>();
+            _mockIOperationRequestRepository = new Mock<IOperationRequestRepository>();
             
             _loggerMockPatient = new Mock<ILogger<PatientService>>();
 
@@ -66,13 +73,19 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 _loggerMock.Object
             );
 
+            _patientAppointmentHistoryMicroService = new PatientAppointmentHistoryMicroService(
+                _mockIOperationRequestRepository.Object,
+                _mockIAppointmentsRepository.Object
+            );
+
             _service = new PatientService(
                 _mockUnitOfWork.Object,
                 _mockIPatientRepository.Object,
                 _patientMapper,
                 _userEmailMicroService,
                 _deletePatientMicroService,
-                _loggerMockPatient.Object
+                _loggerMockPatient.Object,
+                _patientAppointmentHistoryMicroService
             );
 
             _controller = new PatientsController(
@@ -401,5 +414,101 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
+        [Test]
+        public async Task TestGetAppointmentHistory()
+        {
+            // Arrange
+                var patientEmail = new UserEmail("patient@example.com");
+                var medicalRecordNumber = new MedicalRecordNumber("202411000002");
+            
+                // Setup appointments similar to existing test
+                var appointmentId1 = new AppointmentId("1");
+                var appointmentId2 = new AppointmentId("2");
+                var status = Status.Scheduled;
+                var date = new Date(new DateTime(2025, 10, 1));
+                var date1 = new Date(new DateTime(2025, 10, 2));
+                var time = new Time(100);
+                var operationRequestId1 = new OperationRequestId("1");
+                var operationRequestId2 = new OperationRequestId("2");
+                var roomNumber = new RoomNumber("1");
+                var requiredStaff = new RequiredStaff("2 doctor");
+            
+                var operationRequest1 = new OperationRequest(
+                    operationRequestId1,
+                    Priority.ElectiveSurgery,
+                    new DeadlineDate(new DateTime(2025, 10, 1)),
+                    new OperationTypeId("1"),
+                    medicalRecordNumber,
+                    new StaffId("D202400001")
+                );
+            
+                var operationRequest2 = new OperationRequest(
+                    operationRequestId2,
+                    Priority.UrgentSurgery,
+                    new DeadlineDate(new DateTime(2025, 10, 2)),
+                    new OperationTypeId("2"),
+                    medicalRecordNumber,
+                    new StaffId("D202400002")
+                );
+            
+                var appointment1 = new Appointment(
+                    appointmentId1,
+                    status,
+                    date,
+                    time,
+                    roomNumber,
+                    operationRequestId1,
+                    requiredStaff
+                );
+            
+                var appointment2 = new Appointment(
+                    appointmentId2,
+                    status,
+                    date1,
+                    time,
+                    roomNumber,
+                    operationRequestId2,
+                    requiredStaff
+                );
+            
+                var appointments = new List<Appointment> { appointment1, appointment2 };
+            
+                var operationRequests = new List<OperationRequest> { operationRequest1, operationRequest2 };
+            
+                // Mock repository GetByIdAsync
+                var patient = new Patient(
+                    new PatientName("Test Patient"),
+                    new BirthDate("2000-01-01"),
+                    new Gender("Male"),
+                    medicalRecordNumber,
+                    new PhoneNumber("123456789"),
+                    new MedicalConditions("None"),
+                    new EmergencyContact("987654321"),
+                    new AppointmentHistory(""),
+                    patientEmail
+                );
+            
+                _mockIPatientRepository.Setup(repo => repo.GetByIdAsync(medicalRecordNumber))
+                    .ReturnsAsync(patient);
+                _mockIPatientRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(new List<Patient> { patient });
+                _mockIAppointmentsRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(appointments);
+                _mockIOperationRequestRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(operationRequests);
+
+                var result = await _controller.AppointmentHistory(patientEmail.ToString());
+
+                // Assert
+                Assert.IsNotNull(result, "Result should not be null");
+
+                var okResult = result.Result as OkObjectResult;
+                Assert.IsNotNull(okResult, "Expected OkObjectResult");
+
+                var appointmentHistory = okResult.Value as AppointmentHistory;
+                Assert.IsNotNull(appointmentHistory, "Expected AppointmentHistory");
+
+                var expectedResult = $"{date.ToString()} {time.ToString()} {status.ToString()}, " +
+                                     $"{date1.ToString()} {time.ToString()} {status.ToString()}";
+
+                Assert.AreEqual(expectedResult, appointmentHistory.ToString(), "Appointment history string does not match expected format");
+        }
     }
 }
