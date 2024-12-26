@@ -361,9 +361,15 @@ namespace DDDNetCore.Application.Services
 
             var appointments = await _patientAppointmentHistoryMicroService.GetAllPatientAppointmentHistoryAsync(patientId);
             
-            var appointmentHistoryString = string.Join(", ", appointments.Select(a =>
+            var appointmentHistoryString = string.Join("; ", appointments.Select(a =>
             {
-                return $"{a.Date.ToString()} {a.Time.ToString()} {a.Status.ToString()}";
+                var day = a.Date.DateTime.ToString("dd");
+                var month = a.Date.DateTime.ToString("MM");
+                var year = a.Date.DateTime.ToString("yyyy");
+
+                var formattedDate = $"{year}/{month}/{day}";
+
+                return $"{formattedDate}, {a.Time}, {a.Status}";
             }));
             
             return new AppointmentHistory(appointmentHistoryString);

@@ -191,7 +191,7 @@ namespace DDDNetCore.Controllers
             return Ok("Deletion confirmation email sent.");
         }
 
-        [HttpGet("appointmentHistory/{patientId}")]
+        [HttpGet("appointmentHistory/patientEmail")]
         public async Task<ActionResult<AppointmentHistory>> AppointmentHistory([FromQuery] string email)
         {
             if (string.IsNullOrWhiteSpace(email))
