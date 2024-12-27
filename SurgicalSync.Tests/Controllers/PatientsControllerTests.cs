@@ -505,10 +505,10 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 var appointmentHistory = okResult.Value as AppointmentHistory;
                 Assert.IsNotNull(appointmentHistory, "Expected AppointmentHistory");
 
-                var expectedResult = $"{date.ToString()} {time.ToString()} {status.ToString()}, " +
-                                     $"{date1.ToString()} {time.ToString()} {status.ToString()}";
+                var expectedHistoryString = $"{date.DateTime.ToString("yyyy/MM/dd")}, {time.ToString()}, {status.ToString()}; " +
+                                            $"{date1.DateTime.ToString("yyyy/MM/dd")}, {time.ToString()}, {status.ToString()}";
 
-                Assert.AreEqual(expectedResult, appointmentHistory.ToString(), "Appointment history string does not match expected format");
+                Assert.AreEqual(expectedHistoryString, appointmentHistory.ToString(), "Appointment history string does not match expected format");
         }
     }
 }

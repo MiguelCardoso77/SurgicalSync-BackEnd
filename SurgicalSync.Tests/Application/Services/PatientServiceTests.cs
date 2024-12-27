@@ -722,10 +722,11 @@ public async Task AppointmentHistory_ReturnsCorrectHistory()
     var result = await _service.AppointmentHistory(patientEmail);
     
     Assert.IsNotNull(result, "Result should not be null");
+    
 
     // Expected appointment history string
-    var expectedHistoryString = $"{date.ToString()} {time.ToString()} {status.ToString()}, " +
-                                $"{date1.ToString()} {time.ToString()} {status.ToString()}";
+    var expectedHistoryString = $"{date.DateTime.ToString("yyyy/MM/dd")}, {time.ToString()}, {status.ToString()}; " +
+                                $"{date1.DateTime.ToString("yyyy/MM/dd")}, {time.ToString()}, {status.ToString()}";
     Assert.AreEqual(expectedHistoryString, result.ToString(), "Appointment history string does not match expected format");
 }
     }
