@@ -175,7 +175,6 @@ namespace DDDNetCore.Controllers
         }
         
         
-        // POST: api/patients/request-deletion/{patientId}
         [HttpDelete("request-deletion/{patientId}")]
         public async Task<ActionResult> RequestDeletion(string patientId)
         {
@@ -187,41 +186,12 @@ namespace DDDNetCore.Controllers
                 return NotFound("Patient not found.");
             }
 
-            await _service.RequestDeletion(medicalRecordNumber);
+            await _service.RequestDataDeletion(medicalRecordNumber);
 
             return Ok("Deletion confirmation email sent.");
         }
-        
-        // GET: api/patients/confirm-deletion/{patientId}
-        [HttpGet("confirm-deletion/{patientId}")]
-        public async Task<ActionResult> ConfirmDeletion(string patientId)
-        {
-            var medicalRecordNumber = new MedicalRecordNumber(patientId);
 
-            await _service.DeletePatientDataAndAccount(medicalRecordNumber);
-
-            return Ok("Account and data deletion confirmed and executed.");
-        }
-
-        [HttpGet("medicalConditions")]
-        public async Task<ActionResult<MedicalConditions>> MedicalConditions([FromQuery] string email)
-        {
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                return BadRequest("Email cannot be null or empty.");
-            }
-
-            var medicalConditions = await _service.MedicalConditions(new UserEmail(email));
-
-            if (medicalConditions == null)
-            {
-                return NotFound("Medical conditions not found for the given email.");
-            }
-
-            return Ok(medicalConditions);
-        }
-
-        [HttpGet("appointmentHistory")]
+        [HttpGet("appointmentHistory/patientEmail")]
         public async Task<ActionResult<AppointmentHistory>> AppointmentHistory([FromQuery] string email)
         {
             if (string.IsNullOrWhiteSpace(email))
