@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -146,17 +147,21 @@ namespace DDDNetCore.Application.Services
                 return null;
             }
             
-            appointment.ChangeDate(new Date(DateTime.Parse(appointmentDto.Date)));
-            
             appointment.ChangeStatus(Enum.Parse<Status>(appointmentDto.Status));
             
-            if (!int.TryParse(appointmentDto.Time, out var timeInMinutes))
+            var totalMinutes = 0;
+            var apTime = appointmentDto.Time;
+            
+            if (int.TryParse(appointmentDto.Time, out var timeInMinutes))
             {
-                timeInMinutes = 1;
-                Console.WriteLine("Error: Unable to parse appointment time. Defaulting to 1 minute.");
+                totalMinutes = timeInMinutes;
+            }
+            else if (TimeSpan.TryParse(apTime, out var parsedTime))
+            {
+                totalMinutes = (int)parsedTime.TotalMinutes;
             }
             
-            appointment.ChangeTime(new Time(timeInMinutes));
+            appointment.ChangeTime(new Time(totalMinutes));
             
             appointment.ChangeRoomNumber(new RoomNumber(appointmentDto.RoomNumber));
             
