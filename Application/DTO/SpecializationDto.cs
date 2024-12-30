@@ -2,7 +2,7 @@ namespace DDDNetCore.Application.DTO;
 
 public class SpecializationDto
 {
-    public string SpecializationCode { get; set; }
-    public string SpecializationDesignation { get; set; }
-    public string SpecializationDescription { get; set; }
+    public string code { get; set; }
+    public string designation { get; set; }
+    public string description { get; set; }
 }

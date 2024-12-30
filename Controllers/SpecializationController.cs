@@ -20,17 +20,20 @@ public class SpecializationController: ControllerBase
         _service = service;
     }
     
-    // GET: api/Specializations
     [HttpGet]
     public async Task<ActionResult<IEnumerable<SpecializationDto>>> GetAll([FromQuery] string designation = null)
     {
+<<<<<<< Updated upstream
         if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
         
+=======
+>>>>>>> Stashed changes
         if (!string.IsNullOrEmpty(designation))
         {
             var result = await _service.GetByDesignationAsync(designation);
             return Ok(result);
         }
+<<<<<<< Updated upstream
 
         var allSpecializations = await _service.GetAllAsync();
         Console.WriteLine("All specialization listed successfully.");
@@ -48,6 +51,32 @@ public class SpecializationController: ControllerBase
         return Ok(specialization);
     }
     
+=======
+        
+        if(string.IsNullOrEmpty(designation))
+        {
+            var allSpecialization = await _service.GetAllAsync();
+            Console.WriteLine("All specializations listed successfully!");
+            return Ok(allSpecialization);
+        }
+
+        return null;
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<SpecializationDto>> GetById(string id)
+    {
+        var sT = await _service.GetByIdAsync(new SpecializationCode(id));
+
+        if (sT == null)
+        {
+            return NotFound();
+        }
+
+        return sT;
+    }
+
+>>>>>>> Stashed changes
         
     // POST: api/Specializations
     [HttpPost]
@@ -56,10 +85,11 @@ public class SpecializationController: ControllerBase
         if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
         
         var createdSpecialization = await _service.AddAsync(specializationDto);
-        Console.WriteLine($"Specialization with Code = {specializationDto.SpecializationCode} was created successfully.");
-        return CreatedAtAction(nameof(GetByCode), new { code = createdSpecialization.SpecializationCode }, createdSpecialization);
+        Console.WriteLine($"Specialization with Code = {specializationDto.code} was created successfully.");
+        return CreatedAtAction(nameof(GetById), new { code = createdSpecialization.code }, createdSpecialization);
     }
 
+<<<<<<< Updated upstream
     [HttpPut("{code}")]
     public async Task<ActionResult<SpecializationDto>> UpdateAsync(String code, SpecializationDto dto)
     {
@@ -67,6 +97,13 @@ public class SpecializationController: ControllerBase
         if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
         
         if (code != dto.SpecializationCode)
+=======
+    // POST: api/Specializations
+    [HttpPut("{id}")]
+    public async Task<ActionResult<SpecializationDto>> UpdateAsync(String code, SpecializationDto dto)
+    {
+        if (code != dto.code)
+>>>>>>> Stashed changes
         {
             return BadRequest();
         }
@@ -92,6 +129,7 @@ public class SpecializationController: ControllerBase
         
         var pat = await _service.DeleteAsync(new SpecializationId(id));
 
+<<<<<<< Updated upstream
         if (pat == null)
         {
             return NotFound();
@@ -111,6 +149,21 @@ public class SpecializationController: ControllerBase
         }
             
         return true;
+=======
+    // DELETE: api/Specializations/{id}
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<SpecializationDto>> DeleteAsync(string id)
+    {
+        var deletedSpecialization = await _service.DeleteAsync(new SpecializationCode(id));
+
+        if (deletedSpecialization == null)
+        {
+            return NotFound();
+        }
+
+        Console.WriteLine($"Specialization with Code = {id} was deleted successfully.");
+        return Ok(deletedSpecialization);  
+>>>>>>> Stashed changes
     }
 
 }

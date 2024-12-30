@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Domain.Specializations;
+using NSubstitute;
 
 namespace DDDNetCore.Application.Mappers;
 
@@ -11,18 +12,18 @@ public class SpecializationMapper
     {
         return new SpecializationDto
         {
-            SpecializationCode = specialization.Id.AsString(),
-            SpecializationDesignation = specialization.Designation.Value,
-            SpecializationDescription = specialization.Description.Value,
+            code = specialization.Id.AsString(),
+            designation = specialization.Designation.Value,
+            description = specialization.Description.Value,
         };
     }
     
     public Specialization ToDomain(SpecializationDto specializationDto)
     {
         return new Specialization(
-            new SpecializationId(specializationDto.SpecializationCode), 
-            new SpecializationDesignation(specializationDto.SpecializationDesignation), 
-            string.IsNullOrEmpty(specializationDto.SpecializationDescription) ? null : new SpecializationDescription(specializationDto.SpecializationDescription)
+            new SpecializationCode(specializationDto.code), 
+            new SpecializationDesignation(specializationDto.designation), 
+            string.IsNullOrEmpty(specializationDto.description) ? null : new SpecializationDescription(specializationDto.description)
         );
     }
     

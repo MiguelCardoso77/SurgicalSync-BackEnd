@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.SurgeryRooms;
+using DDDNetCore.Infraestructure.SurgeryRooms;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ namespace DDDNetCore.Controllers
     public class SurgeryRoomsController : ControllerBase
     {
         private readonly SurgeryRoomService _surgeryRoomService;
+        private readonly SurgeryRoomRepository _surgeryRoomRepository;
 
         public SurgeryRoomsController(SurgeryRoomService surgeryRoomService)
         {
@@ -103,6 +105,7 @@ namespace DDDNetCore.Controllers
             }
         }
         
+<<<<<<< Updated upstream
         private bool AuthorizeRequest()
         {
             var authorizationHeader = Request.Headers.Authorization.FirstOrDefault();
@@ -114,6 +117,21 @@ namespace DDDNetCore.Controllers
             }
             
             return true;
+=======
+        // Endpoint para obter informações de uma sala de cirurgia
+        [HttpGet("{id}")]
+        public ActionResult<SurgeryRoomDto> GetRoomInfo(RoomNumber id)
+        {
+            // Obtenha a sala de cirurgia do repositório
+            var surgeryRoom = _surgeryRoomService.GetByIdAsync(id);
+
+            if (surgeryRoom == null)
+            {
+                return NotFound(new { message = "Sala de cirurgia não encontrada." });
+            }
+            
+            return Ok(surgeryRoom);
+>>>>>>> Stashed changes
         }
     }
 }

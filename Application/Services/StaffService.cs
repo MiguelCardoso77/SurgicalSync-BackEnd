@@ -65,9 +65,7 @@ namespace DDDNetCore.Application.Services
             {
                 return null;
             }
-
-            //var staffId = _mapper.ToDto(staff);
-
+            
             return _mapper.ToDto(staff);
         }
 

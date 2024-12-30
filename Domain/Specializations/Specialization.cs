@@ -3,9 +3,9 @@ using DDDNetCore.Domain.Shared;
 
 namespace DDDNetCore.Domain.Specializations;
 
-public class Specialization : Entity<SpecializationId>, IAggregateRoot
+public class Specialization : Entity<SpecializationCode>, IAggregateRoot
 {
-    public SpecializationId Id { get; private set; }
+    public SpecializationCode Id { get; private set; }
     public SpecializationDesignation Designation { get; private set; }
     public SpecializationDescription Description { get; private set; }
     
@@ -23,21 +23,13 @@ public class Specialization : Entity<SpecializationId>, IAggregateRoot
      * @param id The unique identifier for the specialization.
      * @throws ArgumentNullException if any of the parameters are null.
      */
-    public Specialization(SpecializationId code, SpecializationDesignation designation, SpecializationDescription description)
+    public Specialization( SpecializationCode code, SpecializationDesignation designation, SpecializationDescription description)
     {
         this.Id = code ?? throw new ArgumentNullException(nameof(code), "Specialization Code cannot be null.");
         this.Designation = designation ?? throw new ArgumentNullException(nameof(designation), "Specialization Designation cannot be null.");
         this.Description = description ?? new SpecializationDescription("No description available.");
     }
     
-    /**
-   * Method that changes the code of the specialization.
-   */
-    public void ChangeCode(SpecializationId code)
-    {
-        this.Id = code;
-    }
-
     /**
      * Method that changes the designation of the specialization.
      */
