@@ -50,6 +50,7 @@ public class PlanningBootstrap
             HttpClient.GetAsync(endpoint);
             
             var y = "agenda_staff(" + id + ", " + currentDate + ", " + "[]" + ").";
+            Console.WriteLine(y);
         }
         
         return Task.CompletedTask;
@@ -67,6 +68,7 @@ public class PlanningBootstrap
             HttpClient.GetAsync(endpoint);
             
             var y = "timetable(" + id + ", " + currentDate + ", " + "(" + slots + ")" + ").";
+            Console.WriteLine(y);
         }
         
         return Task.CompletedTask;
@@ -86,6 +88,7 @@ public class PlanningBootstrap
             //HttpClient.GetAsync(endpoint);
             
             var y = "staff(" + id + ", " + type + ", " + specialization + ", " + oTs + ").";
+            Console.WriteLine(y);
         }
         
         return Task.CompletedTask;
@@ -106,6 +109,7 @@ public class PlanningBootstrap
             HttpClient.GetAsync(endpoint);
             
             var y = "surgery(" + id + ", " + preparationTime + ", " + surgeryTime + ", " + cleaningTime + ").";
+            Console.WriteLine(y);
         }
         
         return Task.CompletedTask;
@@ -136,6 +140,7 @@ public class PlanningBootstrap
             HttpClient.GetAsync(endpoint);
             
             var y = "surgery_id(" + id + ", " + oT + ").";
+            Console.WriteLine(y);
         }
         
         return Task.CompletedTask;
@@ -268,6 +273,7 @@ public class PlanningBootstrap
                 HttpClient.GetAsync(endpoint);
                 
                 var y = "assignment_surgery(" + id + ", " + s + ").";
+                Console.WriteLine(y);
             }
         }
         
@@ -285,6 +291,7 @@ public class PlanningBootstrap
             HttpClient.GetAsync(endpoint);
             
             var y = "agenda_operation_room(" + id + ", " + currentDate + ", " + "[]" + ").";
+            Console.WriteLine(y);
         }
         
         return Task.CompletedTask;
