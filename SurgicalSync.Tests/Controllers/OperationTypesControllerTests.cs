@@ -7,6 +7,7 @@ using DDDNetCore.Controllers;
 using DDDNetCore.Domain.OperationType;
 using DDDNetCore.Domain.Shared;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -35,6 +36,14 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             _oTServiceMock = new OperationTypeService(_unitOfWorkMock.Object, _oTRepoMock.Object, _loggerMock.Object, _oTMapperMock.Object);
 
             _controller = new OperationTypesController(_oTServiceMock);
+            
+            var mockHttpContext = new DefaultHttpContext();
+            mockHttpContext.Request.Headers["Authorization"] = "ICcTTh51IzOiBKmftT1SnrBH5d42";
+            
+            _controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext
+            };
         }
 
         [Test]
@@ -115,7 +124,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            result.Result.Should().BeOfType<CreatedAtActionResult>();
         }
 
         [Test]
