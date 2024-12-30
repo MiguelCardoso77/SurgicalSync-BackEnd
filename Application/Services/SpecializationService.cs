@@ -45,10 +45,13 @@ namespace DDDNetCore.Application.Services
         public async Task<List<SpecializationDto>> GetByDesignationAsync(string designation)
         {
             var list = await _repo.GetAllAsync();
-
+            
+            
             var filteredList = list.Where(specialization =>
                     specialization.Designation.ToString().Contains(designation, StringComparison.OrdinalIgnoreCase))
                 .ToList();
+            
+            Console.WriteLine("filteredList" + filteredList);
 
             return _mapper.ToListDto(filteredList);
         }
@@ -56,7 +59,7 @@ namespace DDDNetCore.Application.Services
 
         public async Task<SpecializationDto> AddAsync(SpecializationDto specializationDto)
         {
-            if (specializationDto.SpecializationCode.Length <= 10 ||
+            if (specializationDto.SpecializationCode.Length > 10 ||
                 !System.Text.RegularExpressions.Regex.IsMatch(specializationDto.SpecializationCode,
                     @"^[a-zA-Z0-9\-]+$"))
             {
@@ -90,22 +93,27 @@ namespace DDDNetCore.Application.Services
                 throw new InvalidOperationException("Already exists a specialization with the same code or designation.");
             }
             
-            specialization.ChangeCode(
-                new SpecializationId(specializationDto.SpecializationCode));
+            specialization.ChangeDesignation(new SpecializationDesignation(specializationDto.SpecializationDesignation));
 
-            
-            specialization.ChangeDesignation(
-                new SpecializationDesignation(specializationDto.SpecializationDesignation));
-
-            specialization.ChangeDescription(
-                new SpecializationDescription(specializationDto.SpecializationDescription));
+            specialization.ChangeDescription(new SpecializationDescription(specializationDto.SpecializationDescription));
 
             await this._unitOfWork.CommitAsync();
 
             return _mapper.ToDto(specialization);
         }
+        
+        public async Task<SpecializationDto> DeleteAsync( SpecializationId id)
+        {
+            var specialization = await this._repo.GetByIdAsync(id);
+            
 
+            if (specialization == null)
+                return null;
 
+            this._repo.Remove(specialization);
+            await this._unitOfWork.CommitAsync();
 
+            return _mapper.ToDto(specialization);
+        }
     }
 }
