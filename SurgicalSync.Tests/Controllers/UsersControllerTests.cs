@@ -7,6 +7,7 @@ using DDDNetCore.Application.Services;
 using DDDNetCore.Controllers;
 using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -34,6 +35,14 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
         
             // Inject the mock service into the controller
             _controller = new UsersController(_userServiceMock);
+            
+            var mockHttpContext = new DefaultHttpContext();
+            mockHttpContext.Request.Headers["Authorization"] = "ICcTTh51IzOiBKmftT1SnrBH5d42";
+            
+            _controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext
+            };
         }
         
         [Test]

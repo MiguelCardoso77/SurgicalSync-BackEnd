@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
@@ -11,8 +12,6 @@ namespace DDDNetCore.Controllers
 { 
     [Route("api/[controller]")]
     [ApiController]
-    
-   
     public class UsersController : ControllerBase
     {
         private readonly UserService _service;
@@ -26,6 +25,8 @@ namespace DDDNetCore.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAll([FromQuery] string userName = null, [FromQuery] string userEmail = null)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             if (!string.IsNullOrEmpty(userName))
             {
                 var result = await _service.GetAllByUsername(userName);
@@ -46,6 +47,8 @@ namespace DDDNetCore.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetById(String id)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var user = await _service.GetByIdAsync(new UserId(id));
             
             if (user == null)
@@ -60,6 +63,8 @@ namespace DDDNetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Create(UserDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var user = await _service.AddAsync(dto);
             
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
@@ -69,6 +74,8 @@ namespace DDDNetCore.Controllers
         [HttpPost("patient")]
         public async Task<ActionResult<UserDto>> CreatePatient(UserDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var user = await _service.AddPatientAsync(dto);
             
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
@@ -78,6 +85,8 @@ namespace DDDNetCore.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<UserDto>> Update(String id, UserDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             if (id != dto.Id)
             {
                 return BadRequest();
@@ -104,6 +113,8 @@ namespace DDDNetCore.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(String id)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             try
             {
                 var fam = await _service.DeleteAsync(new UserId(id));
@@ -125,6 +136,7 @@ namespace DDDNetCore.Controllers
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
 
             Console.WriteLine(dto.UserEmail);
             if (ModelState.IsValid)
@@ -157,6 +169,8 @@ namespace DDDNetCore.Controllers
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto user)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             if (string.IsNullOrEmpty(user.UserEmail) || string.IsNullOrEmpty(user.NewPassword) || string.IsNullOrEmpty(user.Token))
             {
                 return BadRequest(new { message = "Email, new password, and token are required." });
@@ -172,7 +186,19 @@ namespace DDDNetCore.Controllers
                 return BadRequest(new { message = $"Error resetting password: {ex.Message}" });
             }
         }
-
+        
+        private bool AuthorizeRequest()
+        {
+            var authorizationHeader = Request.Headers.Authorization.FirstOrDefault();
+            const string validAuthorizationToken = "ICcTTh51IzOiBKmftT1SnrBH5d42";
+        
+            if (string.IsNullOrEmpty(authorizationHeader) || authorizationHeader != validAuthorizationToken)
+            {
+                return false;
+            }
+            
+            return true;
+        }
         
     }
 }

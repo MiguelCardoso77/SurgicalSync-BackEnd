@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
@@ -23,6 +24,8 @@ namespace DDDNetCore.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OperationTypeDto>>> GetAll([FromQuery] string specialization = null, [FromQuery] string operationName = null, [FromQuery] string status = null)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             if (!string.IsNullOrEmpty(specialization))
             {
                 var result = await _service.GetAllBySpecialization(specialization);
@@ -50,6 +53,8 @@ namespace DDDNetCore.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<OperationTypeDto>> GetById(string id)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var oT = await _service.GetByIdAsync(new OperationTypeId(id));
             
             if (oT == null)
@@ -65,6 +70,8 @@ namespace DDDNetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<OperationTypeDto>> Create(OperationTypeDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var task = await _service.AddAsync(dto);
             
             Console.WriteLine($"Operation type with ID = {dto.Id} was created successfully.");
@@ -75,6 +82,8 @@ namespace DDDNetCore.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<OperationTypeDto>> Update(string id, OperationTypeDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             if (id != dto.Id)
             {
                 return BadRequest();
@@ -98,6 +107,8 @@ namespace DDDNetCore.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<OperationTypeDto>> Delete(string id)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var oT = await _service.InactivateAsync(new OperationTypeId(id));
             
             if (oT == null)
@@ -107,6 +118,19 @@ namespace DDDNetCore.Controllers
 
             Console.WriteLine($"Operation type with ID = {id} was deleted successfully.");
             return Ok(oT);
+        }
+        
+        private bool AuthorizeRequest()
+        {
+            var authorizationHeader = Request.Headers.Authorization.FirstOrDefault();
+            const string validAuthorizationToken = "ICcTTh51IzOiBKmftT1SnrBH5d42";
+        
+            if (string.IsNullOrEmpty(authorizationHeader) || authorizationHeader != validAuthorizationToken)
+            {
+                return false;
+            }
+            
+            return true;
         }
         
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
@@ -23,12 +24,16 @@ namespace DDDNetCore.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SurgeryRoomDto>>> GetAll()
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             return await _surgeryRoomService.GetAllAsync();
         }
         
         [HttpGet("{id}")]
         public async Task<ActionResult<SurgeryRoomDto>> GetById(string id)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var surgeryRoom = await _surgeryRoomService.GetByIdAsync(new RoomNumber(id));
 
             if (surgeryRoom == null)
@@ -42,6 +47,8 @@ namespace DDDNetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<SurgeryRoomDto>> Create(SurgeryRoomDto surgeryRoomDto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var surgeryRoom = await _surgeryRoomService.AddAsync(surgeryRoomDto);
 
             return CreatedAtAction(nameof(GetById), new { id = surgeryRoom.RoomNumber }, surgeryRoom);
@@ -50,6 +57,8 @@ namespace DDDNetCore.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<SurgeryRoomDto>> Update(string id, SurgeryRoomDto surgeryRoomDto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             if (id != surgeryRoomDto.RoomNumber)
             {
                 return BadRequest();
@@ -75,6 +84,8 @@ namespace DDDNetCore.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<SurgeryRoomDto>> Delete(string id)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             try
             {
                 var surgeryRoom = await _surgeryRoomService.InactivateAsync(new RoomNumber(id));
@@ -90,6 +101,19 @@ namespace DDDNetCore.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        
+        private bool AuthorizeRequest()
+        {
+            var authorizationHeader = Request.Headers.Authorization.FirstOrDefault();
+            const string validAuthorizationToken = "ICcTTh51IzOiBKmftT1SnrBH5d42";
+        
+            if (string.IsNullOrEmpty(authorizationHeader) || authorizationHeader != validAuthorizationToken)
+            {
+                return false;
+            }
+            
+            return true;
         }
     }
 }
