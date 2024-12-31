@@ -16,7 +16,7 @@ public class SpecializationEntityTypeConfiguration: IEntityTypeConfiguration<Spe
         builder.Property(s => s.Id)
             .HasConversion(
                 s => s.AsString(),
-                s => new SpecializationId(s))
+                s => new SpecializationCode(s))
             .IsRequired()
             .ValueGeneratedOnAdd();
         

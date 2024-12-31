@@ -38,7 +38,7 @@ namespace DDDNetCore.Application.Services
 
         public async Task<SpecializationDto> GetByCodeAsync(string code)
         {
-            var specialization = await _repo.GetByIdAsync(new SpecializationId(code));
+            var specialization = await _repo.GetByIdAsync(new SpecializationCode(code));
             return _mapper.ToDto(specialization);
         }
 
@@ -56,8 +56,8 @@ namespace DDDNetCore.Application.Services
 
         public async Task<SpecializationDto> AddAsync(SpecializationDto specializationDto)
         {
-            if (specializationDto.SpecializationCode.Length <= 10 ||
-                !System.Text.RegularExpressions.Regex.IsMatch(specializationDto.SpecializationCode,
+            if (specializationDto.code.Length > 10 ||
+                !System.Text.RegularExpressions.Regex.IsMatch(specializationDto.code,
                     @"^[a-zA-Z0-9\-]+$"))
             {
                 throw new ArgumentException(
@@ -72,7 +72,7 @@ namespace DDDNetCore.Application.Services
 
         public async Task<SpecializationDto> UpdateAsync(SpecializationDto specializationDto)
         {
-            var specialization = await _repo.GetByIdAsync(new SpecializationId(specializationDto.SpecializationCode));
+            var specialization = await _repo.GetByIdAsync(new SpecializationCode(specializationDto.code));
 
             if (specialization == null)
                 return null;
@@ -81,8 +81,7 @@ namespace DDDNetCore.Application.Services
 
             
             bool exists = list.Any(s =>
-                (s.Designation.ToString() == specializationDto.SpecializationDesignation || s.Id.ToString() == specializationDto.SpecializationCode) &&
-                s.Id.AsString() != specializationDto.SpecializationCode);
+                (s.Designation.ToString() == specializationDto.designation && (s.Id.ToString() != specializationDto.code)));
 
 
             if (exists)
@@ -90,16 +89,25 @@ namespace DDDNetCore.Application.Services
                 throw new InvalidOperationException("Already exists a specialization with the same code or designation.");
             }
             
-            specialization.ChangeCode(
-                new SpecializationId(specializationDto.SpecializationCode));
-
-            
             specialization.ChangeDesignation(
-                new SpecializationDesignation(specializationDto.SpecializationDesignation));
+                new SpecializationDesignation(specializationDto.designation));
 
             specialization.ChangeDescription(
-                new SpecializationDescription(specializationDto.SpecializationDescription));
+                new SpecializationDescription(specializationDto.description));
 
+            await this._unitOfWork.CommitAsync();
+
+            return _mapper.ToDto(specialization);
+        }
+
+        public async Task<SpecializationDto> DeleteAsync(SpecializationCode id)
+        {
+            var specialization = await this._repo.GetByIdAsync(id);
+
+            if (specialization == null)
+                return null;
+
+            this._repo.Remove(specialization);
             await this._unitOfWork.CommitAsync();
 
             return _mapper.ToDto(specialization);

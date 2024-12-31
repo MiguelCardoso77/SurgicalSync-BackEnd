@@ -2,13 +2,13 @@ using DDDNetCore.Domain.Shared;
 
 namespace DDDNetCore.Domain.Specializations;
 
-public class SpecializationId : EntityId
+public class SpecializationCode : EntityId
 {
     
     /**
-     * Constructor that initializes the SpecializationId with a string value.
+     * Constructor that initializes the SpecializationCode with a string value.
      */
-    public SpecializationId(string value) : base(value)
+    public SpecializationCode(string value) : base(value)
     {
     }
 
@@ -22,7 +22,7 @@ public class SpecializationId : EntityId
     }
     
     /**
-     * Method that returns the value of SpecializationId as a string.
+     * Method that returns the value of SpecializationCode as a string.
      */
     public override string AsString()
     {
