@@ -46,7 +46,7 @@ namespace DDDNetCore
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins(new[] { "http://localhost:63359", "http://localhost:4200", "https://surgical-sync-front-end.vercel.app" }).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins(new[] { "https://miguelcardoso77.github.io", "http://localhost:4200", "https://surgical-sync-front-end.vercel.app" }).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             });
             
             FirebaseApp.Create(new AppOptions()
