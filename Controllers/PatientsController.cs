@@ -6,6 +6,7 @@ using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
 using Microsoft.AspNetCore.Mvc;
+using NSubstitute.Exceptions;
 
 namespace DDDNetCore.Controllers
 {

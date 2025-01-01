@@ -91,16 +91,6 @@ namespace DDDNetCore.Infraestructure.Patients
                     .HasConversion<string>()
                     .IsRequired();
             });
-
-            builder.OwnsOne(b => b.MedicalConditions, medicalConditionsBuilder =>
-            {
-                medicalConditionsBuilder.Property(p => p.Value)
-                    .HasConversion(
-                        v => v,
-                        v => v)
-                    .HasColumnName("MedicalConditions")
-                    .IsRequired();
-            });
             
             builder.OwnsOne(b => b.AppointmentHistory, appointmentHistoryBuilder =>
             {

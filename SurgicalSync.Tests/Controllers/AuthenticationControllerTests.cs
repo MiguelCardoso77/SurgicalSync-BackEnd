@@ -68,7 +68,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 _mockUnitOfWork.Object,
                 _mockIPatientRepository.Object,
                 _patientMapper,
-                _userEmailMicroService,
                 _deletePatientMicroService,
                 _loggerMockPatient.Object,
                 _patientAppointmentHistoryMicroService

@@ -17,7 +17,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
         private Mock<BirthDate> _mockBirthDate;
         private Mock<Gender> _mockGender;
         private Mock<PhoneNumber> _mockPhoneNumber;
-        private Mock<MedicalConditions> _mockMedicalConditions;
         private Mock<EmergencyContact> _mockEmergencyContact;
         private Mock<AppointmentHistory> _mockAppointmentHistory;
         private Mock<UserEmail> _mockUserEmail;
@@ -31,7 +30,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             _mockBirthDate = new Mock<BirthDate>("30 de Junho de 2004");
             _mockGender = new Mock<Gender>("Feminino");
             _mockPhoneNumber = new Mock<PhoneNumber>("938413938");
-            _mockMedicalConditions = new Mock<MedicalConditions>("Nurse");
             _mockEmergencyContact = new Mock<EmergencyContact>("933264402");
             _mockAppointmentHistory = new Mock<AppointmentHistory>("Nurse");
             _mockUserEmail = new Mock<UserEmail>("1221194@isep.ipp.pt");
@@ -47,17 +45,15 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 Gender = "Feminino",
                 MedicalRecordNumber = "202410000001",
                 PhoneNumber = "938413938",
-                MedicalConditions = "Nurse",
                 EmergencyContact = "933264402",
                 AppointmentHistory = "Nurse",
                 Email = "1221194@isep.ipp.pt"
             };
 
             var medicalRecordNumber = new MedicalRecordNumber(dto.MedicalRecordNumber);
-            var medicalConditions = new MedicalConditions(dto.MedicalConditions);
             var appointmentHistory = new AppointmentHistory(dto.AppointmentHistory);
 
-            var patient = _mapper.ToDomain(dto, medicalRecordNumber, medicalConditions, appointmentHistory);
+            var patient = _mapper.ToDomain(dto, medicalRecordNumber, appointmentHistory);
 
             Assert.AreEqual(dto.MedicalRecordNumber, patient.Id.AsString());
             Assert.AreEqual(dto.PatientName, patient.PatientName.ToString());
@@ -66,7 +62,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
             Assert.AreEqual(dto.PhoneNumber, patient.PhoneNumber.ToString());
             Assert.AreEqual(dto.EmergencyContact, patient.EmergencyContact.ToString());
             Assert.AreEqual(dto.Email, patient.UserEmail.ToString());
-            Assert.AreEqual(dto.MedicalConditions, patient.MedicalConditions.ToString());
             Assert.AreEqual(dto.AppointmentHistory, patient.AppointmentHistory.ToString());
         }
 
@@ -79,7 +74,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
                 _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
@@ -105,7 +99,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
                 _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
@@ -128,7 +121,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
                 _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
@@ -140,7 +132,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Mappers
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
                 _mockAppointmentHistory.Object,
                 _mockUserEmail.Object

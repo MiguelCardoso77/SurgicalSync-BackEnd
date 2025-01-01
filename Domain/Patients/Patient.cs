@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DDDNetCore.Domain.Shared;
+﻿using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Users;
 
 namespace DDDNetCore.Domain.Patients
@@ -20,7 +18,6 @@ namespace DDDNetCore.Domain.Patients
         public BirthDate BirthDate { get; private set; }
         public Gender Gender { get; private set; }
         public PhoneNumber PhoneNumber { get; private set; }
-        public MedicalConditions MedicalConditions { get; private set; }
         public EmergencyContact EmergencyContact { get; private set; }
         public AppointmentHistory AppointmentHistory { get; private set; }
         public UserEmail UserEmail { get; private set; }
@@ -33,7 +30,6 @@ namespace DDDNetCore.Domain.Patients
         {
             this.PatientName = null;
             this.PhoneNumber = null;
-            this.MedicalConditions = null;
             this.EmergencyContact = null;
             this.BirthDate = null;
             this.Gender = null;
@@ -49,21 +45,19 @@ namespace DDDNetCore.Domain.Patients
          * @param gender The gender of the patient.
          * @param medicalRecordNumber The unique medical record number of the patient.
          * @param phoneNumber The phone number of the patient.
-         * @param medicalConditions A list of the patient's medical conditions.
          * @param emergencyContact The emergency contact information for the patient.
          * @param appointmentHistory A list of the patient's appointment history.
          * @param userEmail The email address of the patient.
          */
         public Patient(PatientName patientName, BirthDate birthDate, Gender gender,
-            MedicalRecordNumber medicalRecordNumber, PhoneNumber phoneNumber, MedicalConditions medicalConditions,
-            EmergencyContact emergencyContact, AppointmentHistory appointmentHistory, UserEmail userEmail)
+            MedicalRecordNumber medicalRecordNumber, PhoneNumber phoneNumber, EmergencyContact emergencyContact, 
+            AppointmentHistory appointmentHistory, UserEmail userEmail)
         {
             this.PatientName = patientName;
             this.BirthDate = birthDate;
             this.Gender = gender;
             this.Id = medicalRecordNumber;
             this.PhoneNumber = phoneNumber;
-            this.MedicalConditions = medicalConditions;
             this.EmergencyContact = emergencyContact;
             this.AppointmentHistory = appointmentHistory;
             this.UserEmail = userEmail;
@@ -128,15 +122,6 @@ namespace DDDNetCore.Domain.Patients
         {
             this.AppointmentHistory = appointmentHistory;
         }
-
-        /**
-         * Changes the medical conditions of the patient.
-         *
-         * @param medicalConditions The new medical conditions to set for the patient.
-         */
-        public void ChangeMedicalConditions(MedicalConditions medicalConditions)
-        {
-            this.MedicalConditions = medicalConditions;
-        }
+        
     }
 }

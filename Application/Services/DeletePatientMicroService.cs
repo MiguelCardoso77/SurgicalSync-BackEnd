@@ -64,7 +64,6 @@ namespace DDDNetCore.Application.Services
                                $"Gender: {patient.Gender}\n" +
                                $"MedicalRecordNumber: {patient.MedicalRecordNumber}\n" +
                                $"PhoneNumber: {patient.PhoneNumber}\n" +
-                               $"MedicalRecord: {patient.MedicalConditions}\n" +
                                $"EmergencyContact: {patient.EmergencyContact}\n" +
                                $"AppointmentHistory: {patient.AppointmentHistory}\n" +
                                $"Email: {patient.Email}\n" +

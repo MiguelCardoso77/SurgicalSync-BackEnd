@@ -27,7 +27,6 @@ namespace DDDNetCore.Application.Mappers
                 Gender = domain.Gender.ToString(),
                 MedicalRecordNumber = domain.Id.ToString(),
                 PhoneNumber = domain.PhoneNumber.ToString(),
-                MedicalConditions = domain.MedicalConditions?.Value, //this can be null
                 EmergencyContact = domain.EmergencyContact.ToString(),
                 AppointmentHistory = domain.AppointmentHistory?.Value,
                 Email = domain.UserEmail.ToString()
@@ -61,7 +60,6 @@ namespace DDDNetCore.Application.Mappers
          * @return A Patient domain object created from the DTO data.
          */
         public Patient ToDomain(PatientDto dto, MedicalRecordNumber medicalRecordNumber,
-            MedicalConditions medicalConditions,
             AppointmentHistory appointmentHistory)
         {
             return new Patient(
@@ -70,7 +68,6 @@ namespace DDDNetCore.Application.Mappers
                 new Gender(dto.Gender),
                 medicalRecordNumber,
                 new PhoneNumber(dto.PhoneNumber),
-                medicalConditions,
                 new EmergencyContact(dto.EmergencyContact), 
                 appointmentHistory,
                 new UserEmail(dto.Email)

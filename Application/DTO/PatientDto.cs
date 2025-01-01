@@ -31,12 +31,7 @@ namespace DDDNetCore.Application.DTO
          * Contact phone number of the patient.
          */
         public string PhoneNumber { get; set; }
-
-        /**
-         * List of medical conditions associated with the patient.
-         */
-        public string MedicalConditions { get; set; }
-
+        
         /**
          * Emergency contact information for the patient.
          */

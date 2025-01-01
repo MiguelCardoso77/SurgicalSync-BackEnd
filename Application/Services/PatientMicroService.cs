@@ -21,7 +21,6 @@ namespace DDDNetCore.Application.Services
                 BirthDate = dto.BirthDate,
                 PhoneNumber = dto.PhoneNumber,
                 MedicalRecordNumber = dto.MedicalRecordNumber,
-                MedicalConditions = dto.MedicalConditions,
                 EmergencyContact = dto.EmergencyContact,
                 AppointmentHistory = dto.AppointmentHistory
             };
