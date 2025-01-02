@@ -66,16 +66,14 @@ public class SpecializationController: ControllerBase
 
      
     // PUT: api/Specializations
-    [HttpPut("{code}")]
-    public async Task<ActionResult<SpecializationDto>> UpdateAsync(String code, SpecializationDto dto)
+    [HttpPut("{id}")]
+    public async Task<ActionResult<SpecializationDto>> UpdateAsync(String id, SpecializationDto dto)
     {
         
         if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
 
-        Console.WriteLine("code "  + code);
-        Console.WriteLine("codeDTo "  + dto.code);
-        
-        if (code != dto.code)
+       
+        if (!id.Equals(dto.code))
         {
             return BadRequest();
         }
@@ -86,7 +84,7 @@ public class SpecializationController: ControllerBase
         {
             return NotFound();
         }
-        Console.WriteLine($"Specialization with code = {code} was updated successfully.");
+        Console.WriteLine($"Specialization with code = {id} was updated successfully.");
 
 
         return ot;

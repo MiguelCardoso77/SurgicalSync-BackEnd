@@ -27,7 +27,7 @@ public class Specialization : Entity<SpecializationCode>, IAggregateRoot
     {
         this.Id = code ?? throw new ArgumentNullException(nameof(code), "Specialization Code cannot be null.");
         this.Designation = designation ?? throw new ArgumentNullException(nameof(designation), "Specialization Designation cannot be null.");
-        this.Description = description ?? new SpecializationDescription("No description available.");
+        this.Description = description;
     }
     
     /**
