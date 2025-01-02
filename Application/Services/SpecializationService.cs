@@ -77,11 +77,13 @@ namespace DDDNetCore.Application.Services
             if (specialization == null)
                 return null;
             
+            Console.WriteLine("specialization: " + specialization);
+            
             var list = await this._repo.GetAllAsync();
 
             
             bool exists = list.Any(s =>
-                (s.Designation.ToString() == specializationDto.designation && (s.Id.ToString() != specializationDto.code)));
+                ((s.Designation.ToString() == specializationDto.designation) && (s.Id.AsString() != specializationDto.code)));
 
 
             if (exists)
@@ -89,11 +91,16 @@ namespace DDDNetCore.Application.Services
                 throw new InvalidOperationException("Already exists a specialization with the same code or designation.");
             }
             
+            Console.WriteLine("verification 1");
+
+            
             specialization.ChangeDesignation(
                 new SpecializationDesignation(specializationDto.designation));
 
             specialization.ChangeDescription(
                 new SpecializationDescription(specializationDto.description));
+
+            Console.WriteLine("verification 2");
 
             await this._unitOfWork.CommitAsync();
 
