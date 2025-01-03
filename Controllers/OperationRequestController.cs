@@ -28,6 +28,8 @@ namespace DDDNetCore.Controllers
             [FromQuery] string startDate = null, [FromQuery] string endDate = null, [FromQuery] bool? isActive = null,
             [FromQuery] string patientName = null, [FromQuery] string operationTypeName = null)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             if (!string.IsNullOrEmpty(medicalRecordNumber))
             {
                 var result = await _service.GetAllByMedicalRecordNumber(medicalRecordNumber);
@@ -65,6 +67,8 @@ namespace DDDNetCore.Controllers
         [HttpGet("filter")]
         public async Task<ActionResult<IEnumerable<OperationRequestDto>>> GetOperationRequests([FromQuery] string? staffId)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var operationRequests = await _service.GetAllAsync();
 
             if (!string.IsNullOrEmpty(staffId))
@@ -81,6 +85,8 @@ namespace DDDNetCore.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<OperationRequestDto>> GetById(String id)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var or = await _service.GetByIdAsync(new OperationRequestId(id));
             
             if (or == null)
@@ -95,6 +101,8 @@ namespace DDDNetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<OperationRequestDto>> Create(OperationRequestDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var or = await _service.AddAsync(dto);
             
             return CreatedAtAction(nameof(GetById), new { id = or.OperationRequestId}, or);
@@ -104,6 +112,8 @@ namespace DDDNetCore.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<OperationRequestDto>> Update(String id, OperationRequestDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             if (id != dto.OperationRequestId)
             {
                 return BadRequest();
@@ -123,6 +133,8 @@ namespace DDDNetCore.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<OperationRequestDto>> Delete(String id)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             Console.WriteLine("Do you really wish to erase this operation request from the system?");
             
             var oR = await _service.InactivateAsync(new OperationRequestId(id));
@@ -133,6 +145,19 @@ namespace DDDNetCore.Controllers
             }
 
             return Ok(oR);
+        }
+        
+        private bool AuthorizeRequest()
+        {
+            var authorizationHeader = Request.Headers.Authorization.FirstOrDefault();
+            const string validAuthorizationToken = "ICcTTh51IzOiBKmftT1SnrBH5d42";
+        
+            if (string.IsNullOrEmpty(authorizationHeader) || authorizationHeader != validAuthorizationToken)
+            {
+                return false;
+            }
+            
+            return true;
         }
     }
 }

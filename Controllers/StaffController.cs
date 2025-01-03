@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
@@ -35,6 +36,8 @@ namespace DDDNetCore.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<StaffDto>> GetById(string id)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
             var sT = await _service.GetByIdAsync(new StaffId(id));
 
             if (sT == null)
@@ -58,6 +61,8 @@ namespace DDDNetCore.Controllers
         public async Task<ActionResult<IEnumerable<StaffDto>>> GetAll([FromQuery] string staffName = null,
             [FromQuery] string userEmail = null, [FromQuery] string StaffSpecialization = null)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
             if (!string.IsNullOrEmpty(StaffSpecialization))
             {
                 var result = await _service.GetAllBySpecialization(StaffSpecialization);
@@ -98,6 +103,8 @@ namespace DDDNetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<StaffDto>> AddAsync(StaffDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
             var staff = await _service.AddAsync(dto);
 
             return CreatedAtAction(nameof(GetById), new { id = staff.Id }, staff);
@@ -114,6 +121,8 @@ namespace DDDNetCore.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<StaffDto>> Update(String id, StaffDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
             if (id != dto.Id)
             {
                 return BadRequest();
@@ -140,7 +149,8 @@ namespace DDDNetCore.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<StaffDto>> Deactivate(string id)
         {
-            // Chamando o serviço para desativar o usuário, assumindo que a lógica de desativação seja implementada no serviço.
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
             var result = await _service.DeactivateAsync(new StaffId(id));
 
             if (result == null)
@@ -154,6 +164,8 @@ namespace DDDNetCore.Controllers
         [HttpGet("staffId")]
         public async Task<ActionResult<StaffId>> GetStaffIdByEmail([FromQuery] string email)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
             if (string.IsNullOrEmpty(email))
             {
                 return BadRequest("Email cannot be null or empty.");
@@ -167,6 +179,18 @@ namespace DDDNetCore.Controllers
             }
 
             return Ok(staffId);
+        }
+        private bool AuthorizeRequest()
+        {
+            var authorizationHeader = Request.Headers.Authorization.FirstOrDefault();
+            const string validAuthorizationToken = "ICcTTh51IzOiBKmftT1SnrBH5d42";
+        
+            if (string.IsNullOrEmpty(authorizationHeader) || authorizationHeader != validAuthorizationToken)
+            {
+                return false;
+            }
+            
+            return true;
         }
     }
 }
