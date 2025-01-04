@@ -232,10 +232,10 @@ namespace DDDNetCore.Controllers
          * @param id The medical record number of the patient to retrieve the medical history for.
          * @return An ActionResult containing the MedicalHistoryDto object if found, otherwise NotFound.
          */
-        [HttpGet("{id}/medical-history")]
-        public async Task<ActionResult<MedicalHistoryDto>> GetMedicalHistory(string id)
+        [HttpGet("{email}/medical-history")]
+        public async Task<ActionResult<MedicalHistoryDto>> GetMedicalHistory(string email)
         {
-            var medicalHistory = await _service.GetMedicalHistoryAsync(id);
+            var medicalHistory = await _service.GetMedicalHistoryAsync(email);
 
             if (medicalHistory == null)
             {

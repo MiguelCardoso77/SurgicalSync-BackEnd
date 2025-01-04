@@ -401,8 +401,7 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 BirthDate = "30 de Junho de 2004",
                 Gender = "Female",
                 PhoneNumber = "938413938",
-                EmergencyContact = "933264402",
-                AppointmentHistory = "02/04/2024"
+                EmergencyContact = "933264402"
             };
 
             _mockIPatientRepository.Setup(repo => repo.GetByIdAsync(It.IsAny<MedicalRecordNumber>())).ReturnsAsync(patient);

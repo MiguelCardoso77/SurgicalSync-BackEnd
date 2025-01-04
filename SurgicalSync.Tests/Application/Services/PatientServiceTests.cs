@@ -611,7 +611,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
             Assert.AreEqual(patient1.Gender.ToString(), result.Gender);
             Assert.AreEqual(patient1.PhoneNumber.ToString(), result.PhoneNumber);
             Assert.AreEqual(patient1.EmergencyContact.ToString(), result.EmergencyContact);
-            Assert.AreEqual(patient1.AppointmentHistory.ToString(), result.AppointmentHistory);
         }
 
         [Test]

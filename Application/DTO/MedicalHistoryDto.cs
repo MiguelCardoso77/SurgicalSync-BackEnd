@@ -11,5 +11,4 @@ public class MedicalHistoryDto
     public string Gender { get; set; }
     public string PhoneNumber { get; set; }
     public string EmergencyContact { get; set; }
-    public string AppointmentHistory { get; set; }
 }

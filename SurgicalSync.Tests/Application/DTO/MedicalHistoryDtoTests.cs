@@ -31,8 +31,7 @@ public class MedicalHistoryDtoTests
             BirthDate = "01/01/2000",
             Gender = "Male",
             EmergencyContact = "Jane Doe",
-            PhoneNumber = "123-456-7890",
-            AppointmentHistory = "Surgery",
+            PhoneNumber = "123-456-7890"
         };
 
         // Assert
@@ -41,6 +40,5 @@ public class MedicalHistoryDtoTests
         Assert.AreEqual(dto.Gender, "Male");
         Assert.AreEqual(dto.EmergencyContact, "Jane Doe");
         Assert.AreEqual(dto.PhoneNumber, "123-456-7890");
-        Assert.AreEqual(dto.AppointmentHistory, "Surgery");
     }
 }
