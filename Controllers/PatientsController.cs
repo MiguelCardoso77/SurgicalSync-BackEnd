@@ -253,10 +253,9 @@ namespace DDDNetCore.Controllers
         [HttpGet("{email}/medical-history")]
         public async Task<ActionResult<MedicalHistoryDto>> GetMedicalHistory(string email)
         {
-            var medicalHistory = await _service.GetMedicalHistoryAsync(email);
             if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
 
-            var medicalHistory = await _service.GetMedicalHistoryAsync(id);
+            var medicalHistory = await _service.GetMedicalHistoryAsync(email);
 
             if (medicalHistory == null)
             {
