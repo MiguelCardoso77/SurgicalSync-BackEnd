@@ -38,8 +38,7 @@ public class SpecializationEntityTypeConfiguration: IEntityTypeConfiguration<Spe
                 .HasConversion(
                     v => v,
                     v => v)
-                .HasColumnName("SpecializationDescription")
-                .IsRequired();
+                .HasColumnName("SpecializationDescription");
         });
     }
     

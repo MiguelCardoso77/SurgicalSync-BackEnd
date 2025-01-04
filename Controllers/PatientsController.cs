@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.Patients;
 using DDDNetCore.Domain.Users;
 using Microsoft.AspNetCore.Mvc;
+using NSubstitute.Exceptions;
 
 namespace DDDNetCore.Controllers
 {
@@ -45,6 +47,8 @@ namespace DDDNetCore.Controllers
             [FromQuery] string birthDate = null, [FromQuery] string userEmail = null,
             [FromQuery] string phoneNumber = null, [FromQuery] string gender = null)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
             if (!string.IsNullOrEmpty(patientName))
             {
                 var result = await _service.GetAllByPatientNameAsync(patientName);
@@ -90,6 +94,8 @@ namespace DDDNetCore.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PatientDto>> GetById(string id)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
             var pat = await _service.GetByIdAsync(new MedicalRecordNumber(id));
 
             if (pat == null)
@@ -110,6 +116,8 @@ namespace DDDNetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<PatientDto>> Create(PatientDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
             var pat = await _service.AddAsync(dto);
 
             if (string.IsNullOrWhiteSpace(pat.MedicalRecordNumber))
@@ -132,6 +140,8 @@ namespace DDDNetCore.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<PatientDto>> Update(string id, PatientDto dto)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             if (id != dto.MedicalRecordNumber)
             {
                 return BadRequest();
@@ -164,6 +174,8 @@ namespace DDDNetCore.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<PatientDto>> Delete(string id)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var pat = await _service.DeleteAsync(new MedicalRecordNumber(id));
 
             if (pat == null)
@@ -178,6 +190,8 @@ namespace DDDNetCore.Controllers
         [HttpDelete("request-deletion/{patientId}")]
         public async Task<ActionResult> RequestDeletion(string patientId)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+            
             var medicalRecordNumber = new MedicalRecordNumber(patientId);
             var patient = await _service.GetByIdAsync(medicalRecordNumber);
 
@@ -194,6 +208,8 @@ namespace DDDNetCore.Controllers
         [HttpGet("appointmentHistory/patientEmail")]
         public async Task<ActionResult<AppointmentHistory>> AppointmentHistory([FromQuery] string email)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
             if (string.IsNullOrWhiteSpace(email))
             {
                 return BadRequest("Email cannot be null or empty.");
@@ -212,6 +228,8 @@ namespace DDDNetCore.Controllers
         [HttpGet("medicalRecordNumber")]
         public async Task<ActionResult<MedicalRecordNumber>> GetMedicalRecordNumberByEmail([FromQuery] string email)
         {
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
             if (string.IsNullOrWhiteSpace(email))
             {
                 return BadRequest("Email cannot be null or empty.");
@@ -236,6 +254,9 @@ namespace DDDNetCore.Controllers
         public async Task<ActionResult<MedicalHistoryDto>> GetMedicalHistory(string email)
         {
             var medicalHistory = await _service.GetMedicalHistoryAsync(email);
+            if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
+            var medicalHistory = await _service.GetMedicalHistoryAsync(id);
 
             if (medicalHistory == null)
             {
@@ -244,6 +265,18 @@ namespace DDDNetCore.Controllers
 
             return Ok(medicalHistory);
         }
-
+        
+        private bool AuthorizeRequest()
+        {
+            var authorizationHeader = Request.Headers.Authorization.FirstOrDefault();
+            const string validAuthorizationToken = "ICcTTh51IzOiBKmftT1SnrBH5d42";
+        
+            if (string.IsNullOrEmpty(authorizationHeader) || authorizationHeader != validAuthorizationToken)
+            {
+                return false;
+            }
+            
+            return true;
+        }
     }
 }

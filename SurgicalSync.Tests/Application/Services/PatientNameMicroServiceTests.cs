@@ -52,7 +52,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 gender,
                 medicalRecordNumber,
                 phoneNumber,
-                new MedicalConditions(null),
                 new EmergencyContact("123456789"),
                 new AppointmentHistory(null),
                 userEmail
@@ -151,7 +150,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Application.Services
                 gender,
                 medicalRecordNumber,
                 phoneNumber,
-                new MedicalConditions(null),
                 new EmergencyContact("123456789"),
                 new AppointmentHistory(null),
                 userEmail

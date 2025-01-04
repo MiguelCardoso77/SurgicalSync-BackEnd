@@ -6,6 +6,7 @@ using DDDNetCore.Application.DTO;
 using DDDNetCore.Application.Services;
 using DDDNetCore.Domain.Specializations;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop.Infrastructure;
 using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace DDDNetCore.Controllers;
@@ -64,22 +65,26 @@ public class SpecializationController: ControllerBase
     }
 
      
-    // POST: api/Specializations
+    // PUT: api/Specializations
     [HttpPut("{id}")]
-    public async Task<ActionResult<SpecializationDto>> UpdateAsync(String code, SpecializationDto dto)
+    public async Task<ActionResult<SpecializationDto>> UpdateAsync(String id, SpecializationDto dto)
     {
-        if (code != dto.code)
+        
+        if (!AuthorizeRequest()) { return Unauthorized("Access Denied."); }
+
+       
+        if (!id.Equals(dto.code))
         {
             return BadRequest();
         }
-
+        
         var ot = await _service.UpdateAsync(dto);
 
         if (ot == null)
         {
             return NotFound();
         }
-        Console.WriteLine($"Specialization with code = {code} was updated successfully.");
+        Console.WriteLine($"Specialization with code = {id} was updated successfully.");
 
 
         return ot;

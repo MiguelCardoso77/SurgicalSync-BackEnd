@@ -14,6 +14,7 @@ using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain.SurgeryRooms;
 using DDDNetCore.Domain.Users;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -82,7 +83,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 _mockUnitOfWork.Object,
                 _mockIPatientRepository.Object,
                 _patientMapper,
-                _userEmailMicroService,
                 _deletePatientMicroService,
                 _loggerMockPatient.Object,
                 _patientAppointmentHistoryMicroService
@@ -91,6 +91,14 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             _controller = new PatientsController(
                 _service
             );
+            
+            var mockHttpContext = new DefaultHttpContext();
+            mockHttpContext.Request.Headers["Authorization"] = "ICcTTh51IzOiBKmftT1SnrBH5d42";
+            
+            _controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext
+            };
         }
 
         [Test]
@@ -101,7 +109,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             {
                 new(new PatientName("Diana"), new BirthDate("30 de Junho de 2004"), new Gender("Feminino"),
                     new MedicalRecordNumber("202409000001"), new PhoneNumber("938413938"),
-                    new MedicalConditions("Asma"),
                     new EmergencyContact("933264402"),
                     new AppointmentHistory("02/04/2024"),
                     new UserEmail("1221195@isep.ipp.pt")
@@ -109,7 +116,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
 
                 new(new PatientName("Miguel"), new BirthDate("4 de Julho de 2004"), new Gender("Masculino"),
                     new MedicalRecordNumber("202409000002"), new PhoneNumber("938745060"),
-                    new MedicalConditions("Asma"),
                     new EmergencyContact("930923458"),
                     new AppointmentHistory("02/04/2024"),
                     new UserEmail("1220772@isep.ipp.pt")
@@ -117,7 +123,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
 
                 new(new PatientName("Diogo"), new BirthDate("8 de Janeiro de 2004"), new Gender("Masculino"),
                     new MedicalRecordNumber("202409000003"), new PhoneNumber("938745065"),
-                    new MedicalConditions("Asma"),
                     new EmergencyContact("930923459"),
                     new AppointmentHistory("02/04/2024"),
                     new UserEmail("1220812@isep.ipp.pt")
@@ -141,7 +146,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             {
                 new(new PatientName("Diana"), new BirthDate("30 de Junho de 2004"), new Gender("Feminino"),
                     new MedicalRecordNumber("202409000001"), new PhoneNumber("938413938"),
-                    new MedicalConditions("Asma"),
                     new EmergencyContact("933264402"),
                     new AppointmentHistory("02/04/2024"),
                     new UserEmail("1221194@isep.ipp.pt")
@@ -149,7 +153,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
 
                 new(new PatientName("Miguel"), new BirthDate("4 de Julho de 2004"), new Gender("Masculino"),
                     new MedicalRecordNumber("202409000002"), new PhoneNumber("938745060"),
-                    new MedicalConditions("Asma"),
                     new EmergencyContact("930923458"),
                     new AppointmentHistory("02/04/2024"),
                     new UserEmail("1220772@isep.ipp.pt")
@@ -157,7 +160,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
 
                 new(new PatientName("Diogo"), new BirthDate("8 de Janeiro de 2004"), new Gender("Masculino"),
                     new MedicalRecordNumber("202409000003"), new PhoneNumber("938745065"),
-                    new MedicalConditions("Asma"),
                     new EmergencyContact("930923459"),
                     new AppointmentHistory("02/04/2024"),
                     new UserEmail("1220812@isep.ipp.pt")
@@ -171,7 +173,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 Gender = "Feminino",
                 MedicalRecordNumber = "202409000001",
                 PhoneNumber = "938413938",
-                MedicalConditions = "Asma",
                 EmergencyContact = "933264402",
                 AppointmentHistory = "02/04/2024",
                 Email = "1221194@isep.ipp.pt"
@@ -219,7 +220,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             {
                 new(new PatientName("Miguel"), new BirthDate("4 de Julho de 2004"), new Gender("Masculino"),
                     new MedicalRecordNumber("202409000002"), new PhoneNumber("938745060"),
-                    new MedicalConditions("Asma"),
                     new EmergencyContact("930923458"),
                     new AppointmentHistory("02/04/2024"),
                     new UserEmail("1220772@isep.ipp.pt")
@@ -227,7 +227,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
 
                 new(new PatientName("Diogo"), new BirthDate("8 de Janeiro de 2004"), new Gender("Masculino"),
                     new MedicalRecordNumber("202409000003"), new PhoneNumber("938745065"),
-                    new MedicalConditions("Asma"),
                     new EmergencyContact("930923459"),
                     new AppointmentHistory("02/04/2024"),
                     new UserEmail("1220812@isep.ipp.pt")
@@ -243,7 +242,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 Gender = "Feminino",
                 MedicalRecordNumber = "202409000001",
                 PhoneNumber = "938413938",
-                MedicalConditions = "Asma",
                 EmergencyContact = "933264402",
                 AppointmentHistory = "02/04/2024",
                 Email = "1221194@isep.ipp.pt"
@@ -256,7 +254,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new Gender("Feminino"),
                     new MedicalRecordNumber("202409000001"),
                     new PhoneNumber("938413938"),
-                    new MedicalConditions("Asma"),
                     new EmergencyContact("933264402"),
                     new AppointmentHistory("02/04/2024"),
                     new UserEmail("1221194@isep.ipp.pt")
@@ -283,7 +280,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 Gender = "Feminino",
                 MedicalRecordNumber = medicalRecordNumber,
                 PhoneNumber = "938413938",
-                MedicalConditions = "Asma",
                 EmergencyContact = "933264402",
                 AppointmentHistory = "02/04/2024",
                 Email = "1221194@isep.ipp.pt"
@@ -295,7 +291,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 new Gender("Male"),
                 new MedicalRecordNumber(medicalRecordNumber),
                 new PhoneNumber("934260705"),
-                new MedicalConditions("Asma"),
                 new EmergencyContact("938413938"),
                 new AppointmentHistory("02/04/2024"),
                 new UserEmail("1220917@isep.ipp.pt")
@@ -321,7 +316,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 Gender = "Feminino",
                 MedicalRecordNumber = "202410000001",
                 PhoneNumber = "938413938",
-                MedicalConditions = "Asma",
                 EmergencyContact = "933264402",
                 AppointmentHistory = "02/04/2024",
                 Email = "1221194@isep.ipp.pt"
@@ -346,7 +340,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 new Gender("Male"),
                 new MedicalRecordNumber("202410000001"),
                 new PhoneNumber("934260705"),
-                new MedicalConditions("Asma"),
                 new EmergencyContact("938413938"),
                 new AppointmentHistory("02/04/2024"),
                 new UserEmail("1220917@isep.ipp.pt")
@@ -389,7 +382,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                 new Gender("Female"),
                 new MedicalRecordNumber("202409000001"), 
                 new PhoneNumber("938413938"),
-                new MedicalConditions("Asma"),
                 new EmergencyContact("933264402"),
                 new AppointmentHistory("02/04/2024"),
                 new UserEmail("1221194@isep.ipp.pt")
@@ -481,7 +473,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
                     new Gender("Male"),
                     medicalRecordNumber,
                     new PhoneNumber("123456789"),
-                    new MedicalConditions("None"),
                     new EmergencyContact("987654321"),
                     new AppointmentHistory(""),
                     patientEmail

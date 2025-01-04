@@ -8,6 +8,7 @@ using DDDNetCore.Domain.Shared;
 using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain.Users;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -40,6 +41,14 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             _controller = new StaffController(
                 _service
             );
+            
+            var mockHttpContext = new DefaultHttpContext();
+            mockHttpContext.Request.Headers["Authorization"] = "ICcTTh51IzOiBKmftT1SnrBH5d42";
+            
+            _controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext
+            };
         }
 
         [Test]

@@ -21,7 +21,6 @@ namespace DDDNetCore.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPatientRepository _repo;
         private readonly PatientMapper _mapper;
-        private readonly UserEmailMicroService _userEmailMicroService;
         private readonly DeletePatientMicroService _deletePatientMicroservice;
         private readonly PatientAppointmentHistoryMicroService _patientAppointmentHistoryMicroService;
         private readonly ILogger<PatientService> _logger;
@@ -42,14 +41,13 @@ namespace DDDNetCore.Application.Services
          * @param logger The logger instance for logging information, warnings,
          *               and errors during the execution of the service.
          */
-        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper mapper,
-            UserEmailMicroService userEmailMicroService, DeletePatientMicroService deletePatientMicroservice, 
-            ILogger<PatientService> logger, PatientAppointmentHistoryMicroService patientAppointmentHistoryMicroService)
+        public PatientService(IUnitOfWork unitOfWork, IPatientRepository repo, PatientMapper mapper, 
+            DeletePatientMicroService deletePatientMicroservice, ILogger<PatientService> logger, 
+            PatientAppointmentHistoryMicroService patientAppointmentHistoryMicroService)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
             this._mapper = mapper;
-            this._userEmailMicroService = userEmailMicroService;
             this._deletePatientMicroservice = deletePatientMicroservice;
             this._logger = logger;
             this._patientAppointmentHistoryMicroService = patientAppointmentHistoryMicroService;
@@ -174,8 +172,12 @@ namespace DDDNetCore.Application.Services
         public async Task<PatientDto> AddAsync(PatientDto dto)
         {
             var existingPatient = await GetAllAsync();
-            var lastId = existingPatient.Last().MedicalRecordNumber;
-
+            string lastId = null;
+            if (existingPatient.Any())
+            {
+                lastId = existingPatient.Last().MedicalRecordNumber;
+            }
+            
             foreach (PatientDto pt in existingPatient)
             {
                 if (pt.PhoneNumber.Equals(dto.PhoneNumber, StringComparison.OrdinalIgnoreCase))
@@ -245,7 +247,7 @@ namespace DDDNetCore.Application.Services
             var email = new Email(emailContent, dto.Email, "Welcome to Surgical Sync!");
             await emailService.SendEmailAsync(email);
             
-            var patient = _mapper.ToDomain(dto, medicalRecordNumber, null, null);
+            var patient = _mapper.ToDomain(dto, medicalRecordNumber, null);
 
             await _repo.AddAsync(patient);
             await _unitOfWork.CommitAsync();
@@ -279,7 +281,6 @@ namespace DDDNetCore.Application.Services
             
             
             //so podem ser alterados por um user com role doctor ou nurse, admin nao pode alterar
-            patient.ChangeMedicalConditions(new MedicalConditions(dto.MedicalConditions));
             patient.ChangeAppointmentHistory(new AppointmentHistory(dto.AppointmentHistory));
             
             // Send set-up email to user

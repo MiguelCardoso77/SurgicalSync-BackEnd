@@ -14,7 +14,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
         private Mock<BirthDate> _mockBirthDate;
         private Mock<Gender> _mockGender;
         private Mock<PhoneNumber> _mockPhoneNumber;
-        private Mock<MedicalConditions> _mockMedicalConditions;
         private Mock<EmergencyContact> _mockEmergencyContact;
         private Mock<AppointmentHistory> _mockAppointmentHistory;
         private Mock<UserEmail> _mockUserEmail;
@@ -27,7 +26,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
             _mockBirthDate = new Mock<BirthDate>("30 de Junho de 2004");
             _mockGender = new Mock<Gender>("Feminino");
             _mockPhoneNumber = new Mock<PhoneNumber>("938413938");
-            _mockMedicalConditions = new Mock<MedicalConditions>("asma");
             _mockEmergencyContact = new Mock<EmergencyContact>("933264402");
             _mockAppointmentHistory = new Mock<AppointmentHistory>("02/04/2024");
             _mockUserEmail = new Mock<UserEmail>("1221194@isep.ipp.pt");
@@ -42,7 +40,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
                 _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
@@ -53,7 +50,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
             Assert.AreEqual("Feminino", patient.Gender.Value);
             Assert.AreEqual("938413938", patient.PhoneNumber.Value);
             Assert.AreEqual("933264402", patient.EmergencyContact.Value);
-            Assert.AreEqual("asma", patient.MedicalConditions.Value);
             Assert.AreEqual("02/04/2024", patient.AppointmentHistory.Value);
         }
 
@@ -66,7 +62,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
                 _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
@@ -85,7 +80,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
                 _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
@@ -104,7 +98,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
                 _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
@@ -123,7 +116,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
                 _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
@@ -142,7 +134,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
                 _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
@@ -161,7 +152,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
                 _mockGender.Object,
                 _mockMedicalRecordNumber.Object,
                 _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
                 _mockEmergencyContact.Object,
                 _mockAppointmentHistory.Object,
                 _mockUserEmail.Object
@@ -170,26 +160,6 @@ namespace DDDNetCore.SurgicalSync.Tests.Domain.Patients
             Mock<AppointmentHistory> mockAppointment = new Mock<AppointmentHistory>("03/04/2024");
 
             patient.ChangeAppointmentHistory(mockAppointment.Object);
-        }
-
-        [Test]
-        public void TestChangeMedicalConditions()
-        {
-            var patient = new Patient(
-                _mockPatientName.Object,
-                _mockBirthDate.Object,
-                _mockGender.Object,
-                _mockMedicalRecordNumber.Object,
-                _mockPhoneNumber.Object,
-                _mockMedicalConditions.Object,
-                _mockEmergencyContact.Object,
-                _mockAppointmentHistory.Object,
-                _mockUserEmail.Object
-            );
-
-            Mock<MedicalConditions> mockMedicalConditions = new Mock<MedicalConditions>("Escoliose");
-
-            patient.ChangeMedicalConditions(mockMedicalConditions.Object);
         }
 
         [Test]

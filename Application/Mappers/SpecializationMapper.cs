@@ -21,12 +21,12 @@ public class SpecializationMapper
     public Specialization ToDomain(SpecializationDto specializationDto)
     {
         return new Specialization(
-            new SpecializationCode(specializationDto.code), 
-            new SpecializationDesignation(specializationDto.designation), 
-            string.IsNullOrEmpty(specializationDto.description) ? null : new SpecializationDescription(specializationDto.description)
+            new SpecializationCode(specializationDto.code),
+            new SpecializationDesignation(specializationDto.designation),
+            string.IsNullOrWhiteSpace(specializationDto.description) ? null : new SpecializationDescription(specializationDto.description)
         );
     }
-    
+
     public List<SpecializationDto> ToListDto(List<Specialization> specialization)
     {
         return specialization.Select(ToDto).ToList();

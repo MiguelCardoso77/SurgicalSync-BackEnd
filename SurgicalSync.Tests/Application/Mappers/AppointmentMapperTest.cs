@@ -26,7 +26,7 @@ public class AppointmentMapperTest
     {
         _mapper = new AppointmentMapper();
         _mockAppointmentId = new Mock<AppointmentId>("1");
-        _mockDate = new Mock<Date>(new DateTime(2024, 12, 31));
+        _mockDate = new Mock<Date>(new DateTime(2025, 6, 30));
         _mockTime = new Mock<Time>(300);
         _mockOperationRequestId = new Mock<OperationRequestId>("1");
         _mockRoomNumber = new Mock<RoomNumber>("1");
@@ -54,7 +54,7 @@ public class AppointmentMapperTest
         {
             Id = "1",
             Status = "Scheduled",
-            Date = "2024/12/31",
+            Date = "2025/6/30",
             Time = "340",
             OperationRequestId = "1",
             RoomNumber = "1",
@@ -63,7 +63,7 @@ public class AppointmentMapperTest
         var appointment = _mapper.ToDomain(appointmentDto, _mockAppointmentId.Object);
         
         Assert.AreEqual(appointmentDto.Status, appointment.Status.ToString());
-        Assert.AreEqual("20241231", appointment.Date.Value);
+        Assert.AreEqual("20250630", appointment.Date.Value);
         Assert.AreEqual(appointmentDto.Time, appointment.Time.Value.ToString());
         Assert.AreEqual(appointmentDto.OperationRequestId, appointment.OperationRequestId.AsString());
         Assert.AreEqual(appointmentDto.RoomNumber, appointment.RoomNumber.AsString());
