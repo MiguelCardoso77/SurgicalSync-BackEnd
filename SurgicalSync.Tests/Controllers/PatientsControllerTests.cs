@@ -14,6 +14,7 @@ using DDDNetCore.Domain.Staffs;
 using DDDNetCore.Domain.SurgeryRooms;
 using DDDNetCore.Domain.Users;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -90,6 +91,14 @@ namespace DDDNetCore.SurgicalSync.Tests.Controllers
             _controller = new PatientsController(
                 _service
             );
+            
+            var mockHttpContext = new DefaultHttpContext();
+            mockHttpContext.Request.Headers["Authorization"] = "ICcTTh51IzOiBKmftT1SnrBH5d42";
+            
+            _controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext
+            };
         }
 
         [Test]
