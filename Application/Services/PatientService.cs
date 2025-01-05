@@ -408,9 +408,10 @@ namespace DDDNetCore.Application.Services
          * @param medicalRecordNumber The medical record number of the patient whose medical history is requested.
          * @return The MedicalHistoryDto representing the medical history of the specified patient, or null if the patient is not found.
          */
-        public async Task<MedicalHistoryDto> GetMedicalHistoryAsync(string medicalRecordNumber)
+        public async Task<MedicalHistoryDto> GetMedicalHistoryAsync(string email)
         {
-            var patient = await _repo.GetByIdAsync(new MedicalRecordNumber(medicalRecordNumber));
+            var medicalRecordNumber = await GetMedicalRecordNumberByUserEmail(email);
+            var patient = await _repo.GetByIdAsync(medicalRecordNumber);
 
             if (patient == null)
             {
@@ -425,8 +426,7 @@ namespace DDDNetCore.Application.Services
                 BirthDate = patientDto.BirthDate,
                 Gender = patientDto.Gender,
                 PhoneNumber = patientDto.PhoneNumber,
-                EmergencyContact = patientDto.EmergencyContact,
-                AppointmentHistory = patientDto.AppointmentHistory
+                EmergencyContact = patientDto.EmergencyContact
             };
 
             return medicalHistory;
