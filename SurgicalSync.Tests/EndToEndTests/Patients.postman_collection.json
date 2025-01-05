@@ -35,7 +35,6 @@
 							"        pm.expect(patient).to.have.property(\"gender\");",
 							"        pm.expect(patient).to.have.property(\"medicalRecordNumber\");",
 							"        pm.expect(patient).to.have.property(\"phoneNumber\");",
-							"        pm.expect(patient).to.have.property(\"medicalConditions\");",
 							"        pm.expect(patient).to.have.property(\"emergencyContact\");",
 							"        pm.expect(patient).to.have.property(\"appointmentHistory\");",
 							"        pm.expect(patient).to.have.property(\"email\");",
@@ -51,7 +50,13 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{baseUrl}}/Patients",
 					"host": [
@@ -81,17 +86,15 @@
 							"\r",
 							"// Define expected values diretamente no teste\r",
 							"const expectedPatient = {\r",
-							"    patientName: \"Tomás\",\r",
-							"    birthDate: \"30 de Junho de 2004\",\r",
-							"    gender: \"Feminino\",\r",
-							"    medicalRecordNumber: \"202409000015\",\r",
-							"    phoneNumber: \"938000111\",\r",
-							"    medicalConditions: null,\r",
-							"    emergencyContact: \"933264408\",\r",
-							"    appointmentHistory: null,\r",
-							"    email: \"1221194@isep.ipp.pt\",\r",
-							"};\r",
-							"\r",
+							"        \"patientName\": \"Paula Cristina Neves\",\r",
+							"        \"birthDate\": \"2024-12-07\",\r",
+							"        \"gender\": \"Female\",\r",
+							"        \"medicalRecordNumber\": \"202501000009\",\r",
+							"        \"phoneNumber\": \"934260705\",\r",
+							"        \"emergencyContact\": \"933264402\",\r",
+							"        \"appointmentHistory\": null,\r",
+							"        \"email\": \"pcrneves@gmail.com\"\r",
+							"    };\r",
 							"// Test to check if response has all required fields and matches expected values\r",
 							"pm.test(\"Response matches expected patient values\", function () {\r",
 							"    pm.expect(response).to.deep.equal(expectedPatient);\r",
@@ -105,7 +108,6 @@
 							"        \"gender\",\r",
 							"        \"medicalRecordNumber\",\r",
 							"        \"phoneNumber\",\r",
-							"        \"medicalConditions\",\r",
 							"        \"emergencyContact\",\r",
 							"        \"appointmentHistory\",\r",
 							"        \"email\"\r",
@@ -121,10 +123,16 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"patientName\": \"Tomás\",\r\n        \"birthDate\": \"30 de Junho de 2004\",\r\n        \"gender\": \"Feminino\",\r\n        \"medicalRecordNumber\": \"202409000015\",\r\n        \"phoneNumber\": \"938000121\",\r\n        \"medicalConditions\": null,\r\n        \"emergencyContact\": \"933274408\",\r\n        \"appointmentHistory\": null,\r\n        \"email\": \"1221195@isep.ipp.pt\"\r\n    }",
+					"raw": "{\r\n        \"patientName\": \"Paula Cristina Neves\",\r\n        \"birthDate\": \"2024-12-07\",\r\n        \"gender\": \"Female\",\r\n        \"phoneNumber\": \"934260705\",\r\n        \"emergencyContact\": \"933264402\",\r\n        \"appointmentHistory\": null,\r\n        \"email\": \"pcrneves@gmail.com\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -138,6 +146,76 @@
 					],
 					"path": [
 						"Patients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT a patient",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Patients has all required fields\", function () {",
+							"    pm.expect(response).to.have.property(\"patientName\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"birthDate\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"gender\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"medicalRecordNumber\");",
+							"    pm.expect(response).to.have.property(\"phoneNumber\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"emergencyContact\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"appointmentHistory\").that.is.null;",
+							"    pm.expect(response).to.have.property(\"email\").that.is.a(\"string\");",
+							"}); ",
+							"",
+							"",
+							"// Validate updated fields",
+							"pm.test(\"ID remains the same\", function () {",
+							"    pm.expect(response.medicalRecordNumber).to.eql(\"202501000009\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"patientName\": \"Paula Cristina Neves\",\n    \"birthDate\": \"2024-12-07\",\n    \"gender\": \"Female\",\n    \"medicalRecordNumber\": \"202501000009\",\n    \"phoneNumber\": \"934260705\",\n    \"emergencyContact\": \"933264402\",\n    \"appointmentHistory\": null,\n    \"email\": \"pcrneves@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Patients/202501000009",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Patients",
+						"202501000009"
 					]
 				}
 			},
@@ -160,16 +238,15 @@
 							"\r",
 							"// Define expected values directly in the test\r",
 							"const expectedPatient = {\r",
-							"    patientName: \"Tomás\",\r",
-							"    birthDate: \"30 de Junho de 2004\",\r",
-							"    gender: \"Feminino\",\r",
-							"    medicalRecordNumber: \"202409000015\",\r",
-							"    phoneNumber: \"938000111\",\r",
-							"    medicalConditions: null,\r",
-							"    emergencyContact: \"933264408\",\r",
-							"    appointmentHistory: null,\r",
-							"    email: \"1221194@isep.ipp.pt\",\r",
-							"};\r",
+							"        \"patientName\": \"Paula Cristina Neves\",\r",
+							"        \"birthDate\": \"2024-12-07\",\r",
+							"        \"gender\": \"Female\",\r",
+							"        \"medicalRecordNumber\": \"202501000009\",\r",
+							"        \"phoneNumber\": \"934260705\",\r",
+							"        \"emergencyContact\": \"933264402\",\r",
+							"        \"appointmentHistory\": null,\r",
+							"        \"email\": \"pcrneves@gmail.com\"\r",
+							"    };\r",
 							"\r",
 							"// Test to check if response matches expected patient values\r",
 							"pm.test(\"Response matches expected patient values\", function () {\r",
@@ -184,7 +261,6 @@
 							"        \"gender\",\r",
 							"        \"medicalRecordNumber\",\r",
 							"        \"phoneNumber\",\r",
-							"        \"medicalConditions\",\r",
 							"        \"emergencyContact\",\r",
 							"        \"appointmentHistory\",\r",
 							"        \"email\"\r",
@@ -217,80 +293,21 @@
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{baseUrl}}/Patients/202409000236",
+					"raw": "{{baseUrl}}/Patients/202501000009",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"Patients",
-						"202409000236"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PUT a patient",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"// Test for status code 200",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"// Parse the response JSON",
-							"const response = pm.response.json();",
-							"",
-							"pm.test(\"Staff has all required fields\", function () {",
-							"    pm.expect(response).to.have.property(\"patientName\").that.is.a(\"string\");",
-							"    pm.expect(response).to.have.property(\"birthDate\").that.is.a(\"string\");",
-							"    pm.expect(response).to.have.property(\"gender\").that.is.a(\"string\");",
-							"    pm.expect(response).to.have.property(\"medicalRecordNumber\");",
-							"    pm.expect(response).to.have.property(\"phoneNumber\").that.is.a(\"string\");",
-							"    pm.expect(response).to.have.property(\"medicalConditions\").that.is.an(\"string\");",
-							"    pm.expect(response).to.have.property(\"emergencyContact\").that.is.a(\"string\");",
-							"    pm.expect(response).to.have.property(\"appointmentHistory\").that.is.an(\"string\");",
-							"    pm.expect(response).to.have.property(\"email\").that.is.a(\"string\");",
-							"}); ",
-							"",
-							"",
-							"// Validate updated fields",
-							"pm.test(\"ID remains the same\", function () {",
-							"    pm.expect(response.medicalRecordNumber).to.eql(\"202409000015\");",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n        \"patientName\": \"Tomás\",\n        \"birthDate\": \"30 de Junho de 2004\",\n        \"gender\": \"Feminino\",\n        \"medicalRecordNumber\": \"202409000015\",\n        \"phoneNumber\": \"938413998\",\n        \"medicalConditions\": null,\n        \"emergencyContact\": \"933264408\",\n        \"appointmentHistory\": null,\n        \"email\": \"1221194@isep.ipp.pt\"\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/Patients/202409000015",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"Patients",
-						"202409000015"
+						"202501000009"
 					]
 				}
 			},
@@ -320,7 +337,6 @@
 							"        pm.expect(response).to.have.property(\"gender\");",
 							"        pm.expect(response).to.have.property(\"medicalRecordNumber\");",
 							"        pm.expect(response).to.have.property(\"phoneNumber\");",
-							"        pm.expect(response).to.have.property(\"medicalConditions\");",
 							"        pm.expect(response).to.have.property(\"emergencyContact\");",
 							"        pm.expect(response).to.have.property(\"appointmentHistory\");",
 							"        pm.expect(response).to.have.property(\"email\");",
@@ -334,15 +350,21 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{baseUrl}}/Patients/202409000015",
+					"raw": "{{baseUrl}}/Patients/202501000001",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"Patients",
-						"202409000015"
+						"202501000001"
 					]
 				}
 			},
@@ -365,12 +387,12 @@
 							"",
 							"// Check that the response contains exactly one item",
 							"pm.test(\"Response has exactly one patient \", function () {",
-							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(1);",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(2);",
 							"});",
 							"",
 							"pm.test(\"birthDate  is '30 de Junho de 2004'\", function () {",
 							"    const response = pm.response.json(); // Obtenha a resposta JSON",
-							"    pm.expect(response[0]).to.have.property(\"birthDate\", \"30 de Junho de 2004\"); ",
+							"    pm.expect(response[0]).to.have.property(\"birthDate\", \"2004-06-30\"); ",
 							"});",
 							"",
 							""
@@ -382,9 +404,15 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{baseUrl}}/Patients?birthDate=30 de Junho de 2004",
+					"raw": "{{baseUrl}}/Patients?birthDate=2004-06-30",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -394,7 +422,7 @@
 					"query": [
 						{
 							"key": "birthDate",
-							"value": "30 de Junho de 2004"
+							"value": "2004-06-30"
 						}
 					]
 				}
@@ -435,7 +463,13 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{baseUrl}}/Patients?patientName=Tomás",
 					"host": [
@@ -471,7 +505,7 @@
 							"",
 							"// Check that the response contains exactly one item",
 							"pm.test(\"Response has exactly two patients \", function () {",
-							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(2);",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(4);",
 							"});",
 							"",
 							"",
@@ -485,9 +519,15 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{baseUrl}}/Patients?gender=Feminino",
+					"raw": "{{baseUrl}}/Patients?gender=Female",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -497,7 +537,7 @@
 					"query": [
 						{
 							"key": "gender",
-							"value": "Feminino"
+							"value": "Female"
 						}
 					]
 				}
@@ -535,9 +575,15 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{baseUrl}}/Patients?phoneNumber=938413998",
+					"raw": "{{baseUrl}}/Patients?phoneNumber=938413938",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -547,7 +593,7 @@
 					"query": [
 						{
 							"key": "phoneNumber",
-							"value": "938413998"
+							"value": "938413938"
 						}
 					]
 				}
@@ -585,9 +631,15 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{baseUrl}}/Patients?userEmail=1221194@isep.ipp.pt",
+					"raw": "{{baseUrl}}/Patients?userEmail=diogo.mp.ribeiro2004@gmail.com",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -597,7 +649,7 @@
 					"query": [
 						{
 							"key": "userEmail",
-							"value": "1221194@isep.ipp.pt"
+							"value": "diogo.mp.ribeiro2004@gmail.com"
 						}
 					]
 				}
@@ -666,28 +718,80 @@
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{baseUrl}}/patients/request-deletion/202411000003",
+					"raw": "{{baseUrl}}/patients/request-deletion/202501000009",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"patients",
 						"request-deletion",
-						"202411000003"
+						"202501000009"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "POST deletion request",
+			"name": "GET patient's Appointment History",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let response;\r",
+							"try {\r",
+							"    response = pm.response.json();\r",
+							"    console.log(response);\r",
+							"\r",
+							"    if (response.value) {\r",
+							"        pm.test(\"Response contains valid appointment history\", () => {\r",
+							"            pm.expect(response).to.have.property(\"value\");\r",
+							"            pm.expect(response.value).to.be.a(\"string\");\r",
+							"            pm.expect(response.value).to.include(\",\"); \r",
+							"        });\r",
+							"\r",
+							"        pm.test(\"Appointment date format is correct\", () => {\r",
+							"            const dateFormatRegex = /^\\d{4}\\/(0[1-9]|1[0-2])\\/(0[1-9]|[12][0-9]|3[01]), (\\d{2}):(\\d{2}), (Scheduled|Completed|Cancelled)$/;\r",
+							"            pm.expect(response.value).to.match(dateFormatRegex);\r",
+							"        });\r",
+							"\r",
+							"        pm.test(\"Date in correct format\", () => {\r",
+							"            const dateStr = response.value.split(\",\")[0];\r",
+							"            const dateParts = dateStr.split(\"/\");\r",
+							"\r",
+							"            pm.expect(dateParts).to.have.lengthOf(3); \r",
+							"            pm.expect(dateParts[0]).to.match(/^\\d{4}$/); \r",
+							"            pm.expect(dateParts[1]).to.match(/^(0[1-9]|1[0-2])$/);\r",
+							"            pm.expect(dateParts[2]).to.match(/^(0[1-9]|[12][0-9]|3[01])$/); \r",
+							"        });\r",
+							"\r",
+							"    } else {\r",
+							"        pm.test(\"Unexpected response value\", () => {\r",
+							"            pm.expect.fail(\"Response value did not contain expected appointment history.\");\r",
+							"        });\r",
+							"    }\r",
+							"} catch (e) {\r",
+							"    console.log(\"Response is not JSON:\", pm.response.text());\r",
+							"\r",
+							"    pm.test(\"Response contains expected messages in plain text\", () => {\r",
+							"        pm.expect(pm.response.text()).to.satisfy((text) => {\r",
+							"            return text.includes(\"Appointment history data not found.\") || \r",
+							"                   text.includes(\"Error retrieving appointment history.\");\r",
+							"        });\r",
+							"    });\r",
+							"}\r",
 							""
 						],
 						"type": "text/javascript",
@@ -697,16 +801,28 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{baseUrl}}/Patients/confirm-deletion/202411000003",
+					"raw": "{{baseUrl}}/patients/appointmentHistory/patientEmail?email=diogo.mp.ribeiro2004@gmail.com",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"Patients",
-						"confirm-deletion",
-						"202411000003"
+						"patients",
+						"appointmentHistory",
+						"patientEmail"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "diogo.mp.ribeiro2004@gmail.com"
+						}
 					]
 				}
 			},
