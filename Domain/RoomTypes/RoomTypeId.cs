@@ -34,4 +34,9 @@ public class RoomTypeId : EntityId
     {
         return Value;
     }
+    
+    public override string ToString()
+    {
+        return "Type with code: " + Value;
+    }
 }
