@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "610d6bee-6da5-4df3-9479-148ec135fa12",
+		"name": "Specializations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38589967",
+		"_collection_link": "https://lapr5-g019.postman.co/workspace/LAPR5-G019~122e429a-25a8-4075-bee8-377b67e80e07/collection/38589967-610d6bee-6da5-4df3-9479-148ec135fa12?action=share&source=collection_link&creator=38589967"
+	},
+	"item": [
+		{
+			"name": "POST a specialization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 201",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"// Log the response and status for debugging",
+							"console.log(response);",
+							"console.log(response.status);",
+							"",
+							"// Check if the response has required fields",
+							"pm.test(\"Response contains the created staff data\", function () {",
+							"    pm.expect(response).to.have.property(\"code\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"designation\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"description\").that.is.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"code\": \"TEST\",\n        \"designation\": \"test1\",\n        \"description\": \"Specialization in diagnosing and treating heart and blood vessel disorders.\"\n    }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/specialization",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"specialization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all specializations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Response is an array\", function () {",
+							"    pm.expect(Array.isArray(response)).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Response array is not empty\", function () {",
+							"    pm.expect(response.length).to.be.equals(3);",
+							"});",
+							"",
+							"response.forEach((specialization, index) => {",
+							"    pm.test(`Specialization ${index + 1} has all required fields`, function () {",
+							"        pm.expect(specialization).to.have.property(\"code\");",
+							"        pm.expect(specialization).to.have.property(\"description\");",
+							"        pm.expect(specialization).to.have.property(\"description\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/specialization",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"specialization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET specialization by designation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"// Check that the response contains exactly one item",
+							"pm.test(\"Response has exactly two staff \", function () {",
+							"    pm.expect(response).to.be.an(\"array\").with.lengthOf(1);",
+							"});",
+							"",
+							"pm.test(\"Specialization Designation is 'Cardiology'\", function () {",
+							"    const response = pm.response.json(); // Obtenha a resposta JSON",
+							"    pm.expect(response[0]).to.have.property(\"designation\", \"Cardiology\"); ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/specialization?designation=Cardiology",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"specialization"
+					],
+					"query": [
+						{
+							"key": "designation",
+							"value": "Cardiology"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT specialization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse the response JSON",
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Specialization has all required fields\", function () {",
+							"    pm.expect(response).to.have.property(\"code\");",
+							"    pm.expect(response).to.have.property(\"designation\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"description\").that.is.a(\"string\");",
+							"}); ",
+							"",
+							"// Validate updated fields",
+							"pm.test(\"ID remains the same\", function () {",
+							"    pm.expect(response.code).to.eql(\"TEST\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"code\": \"TEST\",\n        \"designation\": \"test2\",\n        \"description\": \"Specialization in diagnosing and treating heart and blood vessel disorders.\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/specialization/TEST",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"specialization",
+						"TEST"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET specialization by CODE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"",
+							"// Check if the response is an object (not an array)",
+							"pm.test(\"Response is an object\", function () {",
+							"    pm.expect(response).to.be.an(\"object\");",
+							"});",
+							"",
+							"pm.test(\"Specialization has all required fields\", function () {",
+							"    pm.expect(response).to.have.property(\"code\");",
+							"    pm.expect(response).to.have.property(\"designation\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"description\").that.is.a(\"string\");",
+							"   ",
+							"}); "
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/specialization/ORTHO",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"specialization",
+						"ORTHO"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE specialization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Specialization has all required fields\", function () {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response).to.have.property(\"code\");",
+							"    pm.expect(response).to.have.property(\"designation\").that.is.a(\"string\");",
+							"    pm.expect(response).to.have.property(\"description\").that.is.a(\"string\");",
+							"});",
+							"",
+							"// Tenta buscar a especialização deletada para confirmar que não existe mais",
+							"pm.sendRequest({",
+							"    url: pm.variables.get(\"baseUrl\") + \"/specializations/\" + pm.variables.get(\"code\"),",
+							"    method: \"GET\"",
+							"}, function (err, response) {",
+							"    pm.test(\"Deleted specialization should not be found\", function () {",
+							"        pm.expect(response.code).to.equal(404);",
+							"    });",
+							"});",
+							"",
+							"// Verifica se o corpo da resposta está no formato correto",
+							"pm.test(\"Response should be in JSON format\", function () {",
+							"    pm.response.to.be.json;",
+							"    pm.response.to.have.jsonSchema({",
+							"        type: \"object\",",
+							"        required: [\"code\", \"designation\", \"description\"]",
+							"    });",
+							"});",
+							"",
+							"// Verifica o tempo de resposta",
+							"pm.test(\"Response time is acceptable\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ICcTTh51IzOiBKmftT1SnrBH5d42",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/specialization/TEST",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"specialization",
+						"TEST"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5001/api",
+			"type": "default"
+		}
+	]
+}

@@ -61,7 +61,7 @@ public class SpecializationController: ControllerBase
         
         var createdSpecialization = await _service.AddAsync(specializationDto);
         Console.WriteLine($"Specialization with Code = {specializationDto.code} was created successfully.");
-        return CreatedAtAction(nameof(GetById), new { code = createdSpecialization.code }, createdSpecialization);
+        return CreatedAtAction(nameof(GetById), new { id = createdSpecialization.code }, createdSpecialization);
     }
 
      
